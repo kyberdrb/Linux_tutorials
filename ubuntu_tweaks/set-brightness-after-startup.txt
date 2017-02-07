@@ -1,0 +1,5 @@
+So I just put the
+
+xbacklight -set 35
+
+command into StartUp Applications and it helps reduce the screen brightness after login.

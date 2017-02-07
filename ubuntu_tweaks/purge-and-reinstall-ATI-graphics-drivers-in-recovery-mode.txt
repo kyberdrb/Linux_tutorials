@@ -1,0 +1,23 @@
+enter recovery mode holding shift right after boot screen and selecting UBUNTU (recovery mode)
+
+select Enable networking
+when it hangs up press Ctrl + C and it will continue
+type your login and password
+
+Try to completely remove your ATI drivers from your system:
+sudo apt-get purge fglrx*
+
+Remove your xorg.conf
+sudo rm /etc/X11/xorg.conf
+
+Reinstall xorg completely
+sudo apt-get install --reinstall xserver-xorg-core libgl1-mesa-glx:i386 libgl1-mesa-dri:i386 libgl1-mesa-glx:amd64 libgl1-mesa-dri:amd64
+
+Re-configure Xorg
+sudo dpkg-reconfigure xserver-xorg
+
+Reboot
+sudo reboot
+You should be greeted with lightdm, this will default everything x the same way a fresh install would.
+
+source: http://askubuntu.com/questions/68306/how-do-i-remove-the-propretary-ati-drivers

@@ -1,0 +1,10 @@
+how to create wifi access point on ubuntu
+
+now go to Settings -> Network -> Wireless
+click on "Use as Hotspot..." button
+Click on "Options"
+On "Wireless" tab change Mode from Ad-Hoc to Infrastructure
+On "IPv4" tab change Method from Sharing to other computers to Automatic(DHCP)
+Click Save
+
+then you can connect for example an Android device to this wireless hotspot. use "Security Key" as your password.

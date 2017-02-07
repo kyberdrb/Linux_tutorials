@@ -1,0 +1,13 @@
+go to software center and search for:
+ lm-sensors
+or install it from terminal
+ sudo apt-get install lm-sensors
+install it and run from terminal
+ sudo sensors-detect
+say yes to everything
+now you can run
+ sensors
+to see the temperatures of the devices (i.e. CPU, GPU, HDD)
+
+for GUI monitor install XSENSORS from software center
+

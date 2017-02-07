@@ -1,0 +1,69 @@
+Ako prepojit Windows a Linux cez Crossover Ethernet kabel
+
+Na Windowse:
+Ist do nastaveni sieti (centrum sieti) -> zmenit nastavenia adaptera -> vybrat ethernet adapter -> prave tlacitko nan -> vlastnosti -> vlastnosti -> ak nie je zakliknuta polozka Internet Protocol Version 4 TCP/IPv4 -> dvojklik nan -> Pouzit tuto adresu IP
+
+Adresa IP: 192.168.253.1
+Maska podsiete: 255.255.255.0
+Predvolena brana: nechat nevyplnene
+
+Poznamka: IP adresa a maska mozu byt vybrane lubovolne, ak vies co robit a IPcky su z privatneho rozsahu
+
+DNS casti sa nechytat resp. nechat nevyplnene
+
+Ak chces, mozes editovat subor 'hosts' v  priecinku %systemroot%\system32\drivers\drivers\etc\hosts
+a pridat don nasledovny zaznam (najlepsie cez Notepad++):
+
+192.168.253.2	linux-wired
+
+A NEZABUDNUT VYPNUT VSETKY BRANY FIREWALL!!!
+
+to aby som potom nemusel pingat podla ipcky ale podla domenoveho mena
+
+
+
+
+
+Na Linuxe:
+Ist do nastaveni siete -> Wired -> Wired Settings -> Ozubene koliestko -> IPv4 -> z rozbalovacieho menu kliknut na Manual
+
+Adress: 192.168.253.2
+Netmask: 255.255.255.0
+Gateway: zmazat vsetko co tam je
+
+Klikni na Apply
+
+do suboru /etc/hosts ako superuser doplnit riadok:
+
+192.168.253.1	windows-wired
+
+
+
+
+Akonahle su obidve sietovky nastavene, treba vypnut iba sietovky na oboch pocitacoch, odpojit kabel z jednej strany, pockat 30 sekund a znova zapojit kabel a zapnut sietovky - malo by to ist.
+Ak to nepojde, potom treba restartovat windows aj linux.
+
+
+Potom by sa mal dat pingnut z windowsu linux a z linuxu windows tj.:
+Na windowse z prikazoveho riadku:
+	ping 192.168.253.2
+alebo
+	ping linux-wired
+Na linuxe z prikazoveho riadku:
+	ping 192.168.253.1
+alebo
+	ping windows-wired
+
+
+Mali by sa dat pingnut z obidvoch masin.
+
+
+
+
+
+
+
+
+Ako zdielat subory medzi windowsom a linuxom
+Windows je ako klient a linux ako server (zdroj suborov)
+https://www.youtube.com/watch?v=p2r0kIB_ItE

@@ -1,0 +1,10 @@
+bug@bug-HP-ProBook-4530s:~$ apt-get moo
+         (__) 
+         (oo) 
+   /------\/ 
+  / |    ||   
+ *  /\---/\ 
+    ~~   ~~   
+...."Have you mooed today?"...
+
+google for: "ubuntu easter eggs"

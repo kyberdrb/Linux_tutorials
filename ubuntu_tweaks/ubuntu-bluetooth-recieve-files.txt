@@ -1,0 +1,10 @@
+how to recieve files with ubuntu via bluetooth
+
+pair devices - choose automatic pin - uncheck "use device as PAN/NAP"
+press Windows (super key) and search for "Personal File Sharing"
+open it and tick the option "Recieve files in Downloads folder over bluetooth"
+
+close
+
+Then you can send a file from your phone to ubuntu to test it.
+Now it doesnt matter if you are connected or not (whether you changed the "Connection" switch to On or Off) - ubuntu will always accept files from paired devices.

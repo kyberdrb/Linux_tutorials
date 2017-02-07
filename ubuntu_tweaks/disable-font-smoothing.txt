@@ -1,0 +1,7 @@
+go to application list and search for "Advanced settings"
+when no such an option availible, download gnome-tweak-tool
+
+sudo apt-get install gnome-tweak-tool
+
+after install search for advanced settings again
+open it, click on fonts and set antialiasing to NONE

@@ -1,0 +1,19 @@
+sudo pacman -S python-xdg python-gobject librsvg
+
+Go to LXDE menu -> Preferences -> Desktop session preferences and make sure
+that Redshift is enabled after startup
+
+Then go to LXDE menu -> Run and run:
+    "redshift-gtk"
+    
+This should show the icon in the system tray. If it doesn't show the icon,
+launch "redshift-gtk" via terminal and check the output and install required
+packages (use google if necessary).
+
+After the icon appears, right click on it and check the box "Autostart".
+Reboot.
+
+Redshift should now start after logging in.
+
+Sources:
+https://wiki.archlinux.org/index.php/redshift#Redshift-GTK

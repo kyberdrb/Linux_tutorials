@@ -1,0 +1,51 @@
+How to install and configure git on Arch Linux
+
+Install required packages (the second one is for large files >50MB)
+sudo pacman -S git
+yaourt -S git-lfs
+
+I assume that you already have a GitHub account and a repository to work with.
+After installation we need to configure a couple of things.
+First we need to configure git. Go to your home directory and add this to the file ".gitconfig":
+
+  [core] 
+  packedGitLimit = 512m 
+  packedGitWindowSize = 512m 
+  [pack] 
+  deltaCacheSize = 2047m 
+  packSizeLimit = 2047m 
+  windowMemory = 2047m
+
+This should solve the "EOF" error.
+When cloning a repository after the installation, git will ask for your name and email. You can provide it with given commands.
+Then you need to configure git-lfs (Large File Storage). Git LFS is a subsystem of git, that allows us to have files >50MB as
+a part of the repository. Configure Git LFS via these commands:
+  git lfs install         # updates configuration of .gitconfig in home directory
+  git lfs track "*.pdf"   # adds extension to track for LFS
+  git add .gitattributes
+  git commit -m "Updated gitattributes to pdfs"
+  git push
+  
+Put the extension of large files between the quotation marks.
+After that just push changes to your repository as you are used to.
+ git add -A
+ git commit -m "what has been changed / added / removed"
+ git push
+
+Also make sure you allow
+
+  "collector.githubapp.com"
+  "lfs.github.com"
+  "api.github.com"
+  
+in your DNS (Pi-hole), otherwise you may end up with following error message
+  Post https://lfs.github.com/kyberdrb/some_ridiculously_large_address: dial tcp 192.168.0.10:443: getsockopt: connection refused
+
+
+Sources:
+http://stackoverflow.com/questions/21277806/fatal-early-eof-fatal-index-pack-failed#29355320
+https://github.com/git-lfs/git-lfs
+https://aur.archlinux.org/packages/git-lfs/
+https://git-lfs.github.com/
+https://www.youtube.com/watch?v=JPKOESR1k04
+https://www.youtube.com/watch?v=0fKg7e37bQE

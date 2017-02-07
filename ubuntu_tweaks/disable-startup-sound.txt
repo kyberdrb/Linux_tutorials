@@ -1,0 +1,19 @@
+Here is what worked for me after I installed 12.04 last week.
+
+The steps are these:
+
+$ sudo gedit /usr/share/glib-2.0/schemas/50_unity-greeter.gschema.override
+Add these lines:
+
+[com.canonical.unity-greeter]
+play-ready-sound = false
+Save, then run:
+
+$ sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+Reboot and enjoy. I apologize that I've misplaced the link to the page that provided this information; if I have time later I will try to find it and edit this answer.
+
+Edit: Here is the link:
+
+http://www.liberiangeek.net/2012/05/disable-the-ready-drum-sound-in-ubuntu-12-04-precise-pangolin/
+
+Edit2: Tested under Ubuntu 13.04. Still works fine !

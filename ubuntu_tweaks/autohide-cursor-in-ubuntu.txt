@@ -1,0 +1,23 @@
+this is a way how to hide cursor after 5 seconds of inactivity in Ubuntu. Cursor may be unnecessary for example in youtube player in fullscreen mode.
+
+First of all install Unclutter
+
+sudo apt-get install unclutter
+
+then run unclutter. type in terminal
+
+unclutter
+
+thats it! you get rid of the cursor in 1 second.
+if this is too short time delay you can extend it
+run
+sudo gedit /etc/default/unclutter
+
+change the line
+EXTRA_OPTS="-idle 1 -root"
+
+to
+EXTRA_OPTS="-idle 5 -root"
+
+save file
+reboot

@@ -1,0 +1,21 @@
+open terminal and navigate to the parrent directory of the folder you want to hide
+
+	cd Desktop
+
+then just use command
+
+	mv filename .filename
+	mv subor.txt .subor.txt
+
+pre zobrazenie vsetkych suborov v priecinku pouzi prikaz
+
+la
+
+alebo
+
+ls -a
+
+ked chceme aby subor/priecinok uz nebol viac skryty zase sa navigujeme do nadradeneho priecinka a zadame opacny prikaz
+
+mv .filename filename
+mv .subor.txt subor.txt

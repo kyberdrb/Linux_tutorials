@@ -1,0 +1,3 @@
+How can I bring up the GRUB menu?
+
+HOLD "Shift" after the "power-on self test", i.e. the first few screens when your PC boots up, then you will get into Grub menu.

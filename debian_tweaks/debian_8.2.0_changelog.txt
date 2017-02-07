@@ -1,0 +1,48 @@
+Co som doteraz urobil s Debianom 8.2.0
+
+-nainstaloval som chybajuci firmver pre realtek ethernet sietovku a atheros bluetooth firmver (chyby sa vyhadzovali pri spustani resp vypinani) => pridal som 'contrib' do sources.list
+-skopiroval som vsetky osobne subory z windowsu na linux
+-nainstaloval som wine na spustanie windows programov na linuxe
+-nainstaloval som playonlinux a hodil som don office 2007
+-obnovil som prehliadace opera (opera sync), firefox aka iceweasel aka ajsfízel (skopirovat profil do .mozilla/firefox) a chrome (google account - sice neobnovil otvorene taby, ale aspon ta historia zostala)
+-nainstaloval som android studio a netbeans
+-nainstaloval som oracle jdk/jre cez repozitare
+-nainstaloval som gparted, virtualbox, mc, psensor (na teploty), tortoiseHg (ale este ho treba nastavit), skype
+
+-upravil som gnome cez tweak tool: pridal som tlacidla na minimalizovanie a maximalizovanie (Windows), zapol som ikonky na ploche, zmenil som pismo
+Window tiles: liberation mono bold (11)
+interface: liberation mono regular (11)
+documents: liberation serif regular (11)
+monospace liberation mono regular (11)
+
+Antialiasing: None!!!! (KONECNE ziadne hnusne rozmazane hrany pisma)
+(Taketo pismo je pixel-friendly)
+
+-zmenil som v tweak toole workspace creation na static, aby sa mi to nemenilo zakazdym. nastavene na 5 ploch
+-zapol som Tap to click na touchpade (mouse) v ovladacom paneli
+-zmenil som power button action v tweak toole na shutdown
+-zapol som v tweak toole extension, ktora ukazuje cislo workspaceu na liste
+-pridal som nemecke a slovenske rozlozenie klavesnice
+-skopiroval som poznamky z windowsu do gnomovskej utilitky 'Notes'
+-rozbehal som externu zvukovku => konfiguruje sa cez 'alsamixer'
+-rozbehal som podporu pre exFAT cez exfat-utils a exfat-fuse
+-pridane rozsirenie do gnome 'insensitive message tray', aby sa notifikacny riadok na spodu obrazovky neotvaral pri pohybe mysi do spodnych rohov obrazovky
+-dozvedel som sa, ze file explorer v debiane sa vola 'nautilus'
+-nasiel som fungujuci sposob, ako zmensit ikonky na ploche v gnome
+http://askubuntu.com/questions/658028/how-to-make-desktop-icons-less-fat-on-gnome-3-16
+nevyhoda je ta, ze treba zmensit kazdu ikonku osobitne
+-po dvojkliku na skript (*.sh) sa otvori dialogove okno s moznostami vykonania, odkial sa da aj spustit (uz netreba skripty otvarat cez terminal); vykonane cez dconf-editor
+-aktivovane gnome extensions v tweak toole (ak nie vidiet pod polozkou Extensions, treba ich stiahnut):  Alternatetab, Auto move windows, Dash to dock, Insensitive message tray, Taskbar, Topicons
+-rhythmbox prestal prehravat hudbu, preto bol nahradeny prehravacom audacious
+-v prehravaci audacious som nastavil sposob prehravania zvuku inym sposobom, pretoze zvuk zacal sekat (urobila sa parmilisekundova medzera v prehravanom zvuku). Preto som zmenil nastavenia takto: File->Settings->Audio: Buffer Size = 100 (najnizsia hodnota, aka sa da nastavit), Output Plugin: ALSA Output->Settings: PCM device=pulse, Mixer device= hw0 HDA Intel PCH. Zvuk uz neseka, ani sa v nom nerobia medzery.
+-hodil som do chromu rozsirenie na zalohovanie otvorenych tabov, teraz sa uz nebojim :)
+-pridal som do gnomeu rozsirenie s nazvom 'Frippery Move Clock', ktore posunu hodiny na taskbare zo stredu na pravu stranu. Teraz uz zavadzaju menej, lebo som potreboval viac miesta pre ikonky otvorenych programov.
+-zalohovaci prikaz:
+1.) naviguj sa v terminali ako superuser do priecinka na externom disku, kam chces zalohu ulozit
+2.) spusti prikaz uvedeny nizsie
+tar -cvpzf backup.tar.gz --exclude=/media  --one-file-system /
+
+-nakalibroval som obrazovku. pouzil som profil 'HP 4530s Original.zip' zo stranky 
+http://www.tonymacx86.com/hp-probook-4530s/54774-color-profile-hp-probook-4530s-hardware-calibration.html
+ked som rozbalil archiv, v nastaveniach 'Colors' som si klikol na prvu polozku a dal 'Add profile'. Potom som si dal importovat profil cez 'Import File', ktory som si prave stiahol (HP 4530s Original.icc alebo tak podobne sa volal). Po kratkej chvili sa zoznam aktualizoval, vybral som si novo naimportovany profil a klikol som na 'Add'. Dialogove okno na pridanie profilu by sa malo zatvorit a mal by sa aktivovat aktualne pridany profil. ak sa profil neaktivoval, treba nan kliknut a dat 'Enable'. A farby su onmoho krajsie a sytejsie :)
+-zrychlovanie systemu: nainstaloval som balicek 'preload' na cacheovanie casto otvaranych programov, aby sa rychlejsie otvarali, nastavil som swappiness na 20 a cache pressure na 50. A pridal som systemovej particii flag 'relatime', aby sa znizilo mnoztvo zapisov na disk.

@@ -1,0 +1,5 @@
+go to this page
+  https://launchpad.net/grub-customizer
+and download Grub customizer sources
+
+extract the archive and read the README file for further instructions

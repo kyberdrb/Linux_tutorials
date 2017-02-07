@@ -1,0 +1,5 @@
+open any folder you want
+click on Edit -> Preferences
+In the View tab find "Icon view defaults"
+set default zoom level to 66%
+:D

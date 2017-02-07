@@ -1,0 +1,53 @@
+How to Mount/Unmount ISO Images on Linux and Unix Systems
+Posted on April 5, 2013 by Geekster — No Comments ↓
+Hello Linux Geeksters.
+
+Today I will show you how to mount ISO images in Linux, via command line interface. This tutorial is not distribution dependent, so it works on all the Linux and Unix systems, like Ubuntu, Debian, Fedora, CentOS, OpenSUSE, Knoppix, FreeBSD, OpenBSD, etc.
+
+Actually, mounting ISO images from the command line is easy. All you have to do is this:
+
+Mount ISO files on Linux / Unix Systems:
+
+Create the directory where you want to mount your ISO. It is recommended to mount isos in /mnt/*:
+
+$ sudo mkdir -p /mnt/some_dir
+
+Mount the ISO image:
+
+$ sudo mount -t iso9660 -o loop /home/Downloads/awesomegame.iso /mnt/some_dir/
+
+Replace /home/Downloads/awesomegame.iso with your iso image’s path and /mnt/some_dir with your mounting point.
+
+To test, just do a sudo ls -l /mnt/some_dir and you will notice that the ISO image has been mounted successfully.
+
+Explenation:
+
+-t iso9660 is used to indicate the filesystem you want to mount, in this case the  standard for CD/DVD images
+-o loop makes the files accessible as a block device
+Unmount ISO files on Linux / Unix Systems:
+
+To unmount a mounted file, do this:
+
+Pay attention, the command is umount, NOT unmount!!!
+
+$ sudo umount /mnt/some_dir
+
+Replace /mnt/some_dir with your mounting point.
+
+If you want to use a tool with GUI for mounting ISO images, I recommend FuriusIsoMount.
+
+To install Furiusisomount on Debian based systems, just type in your terminal:
+
+$ sudo apt-get install furiusisomount
+
+For Fedora / OpenSUSE and other rpm based systems, you have to install Furiusisomount from sources:
+
+$ wget -c launchpad.net/furiusisomount/python/0.11.3.1/+download/furiusisomount_0.11.3.1.tar.gz
+
+$ tar -zxvf furius*.tar.gz
+
+$ cd furius*
+
+$ ./furiusisomount
+
+This is everything. ENJOY.

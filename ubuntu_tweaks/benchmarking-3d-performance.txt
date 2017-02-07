@@ -1,0 +1,8 @@
+how to test 3d graphics performance
+
+type in terminal
+  vblank_mode=0 glxgears
+  glmark2
+  glmark2-es
+
+Download UNIGINE - good benchmark of 3d opengl 

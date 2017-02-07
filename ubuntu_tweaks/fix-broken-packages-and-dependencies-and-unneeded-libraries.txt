@@ -1,0 +1,6 @@
+Broken Upgrade or Installation
+What to do if an installation process fails and you find it is no longer possible to install or remove packages:
+Open a Terminal and type the following commands, pressing the Return or Enter key after each (you may have to type in your password):
+
+sudo dpkg --configure -a
+sudo apt-get install -f

@@ -1,0 +1,6 @@
+a few steps how to have hassle free internet browsing and good html5 experience
+
+-use Midori browser
+-install codecs for stream content
+  sudo apt-get install ubuntu-restricted-extras
+  sudo apt-get install chromium-codecs-ffmpeg-extra

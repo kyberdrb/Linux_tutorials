@@ -1,0 +1,3 @@
+List all files in directory and subdirectories in bash
+
+ls -hl -R -S <folder_name> > <output_file_name>

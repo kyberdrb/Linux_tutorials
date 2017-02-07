@@ -1,0 +1,16 @@
+To install redshift into debian run:
+
+sudo apt-get install redshif gtk-redshift
+
+Then at the end of file "~/.config/lxsession/LXDE/autostart" append this line:
+
+@redshift-gtk
+
+Reboot.
+
+After logging in, you should be able to see an icon of redshift in the system
+tray.
+
+Sources:
+https://packages.debian.org/jessie/x11/gtk-redshift
+Personal experience

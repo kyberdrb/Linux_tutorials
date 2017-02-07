@@ -1,0 +1,25 @@
+install Boot-Repair in Ubuntu
+- boot your computer on a Ubuntu live-CD or live-USB.
+
+- choose "Try Ubuntu"
+
+- connect internet
+
+- open a new Terminal, then type:
+
+
+sudo add-apt-repository ppa:yannubuntu/boot-repair && sudo apt-get update
+- Press Enter.
+
+- Then type:
+
+sudo apt-get install -y boot-repair && (boot-repair &)
+- Press Enter
+
+Using Boot-Repair
+Recommended repair
+launch Boot-Repair from either :
+the Dash (the Ubuntu logo at the top-left of the screen)
+or System->Administration->Boot-Repair menu (Ubuntu 10.04 only)
+
+or by typing 'boot-repair' in a terminal

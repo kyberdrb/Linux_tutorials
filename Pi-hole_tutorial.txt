@@ -1,0 +1,28 @@
+pihole instalacia a nastavenie
+
+-pihole je adblock server navrhnuty pre raspberry pi, ale fungujena akomkolvek debianovskom systeme
+
+Nainstalujeme do virtualboxu debian
+Donho nainstalujeme pihole:
+	curl -sSL https://install.pi-hole.net | bash
+
+Nakonfigurujeme pihole (staticka ip, openDNS, zablokovat aj "adult" domeny - odkomentovat spravny riadok v "/etc/pihole/adlists.list" co je skopirovany adlists.default)
+	https://github.com/pi-hole/pi-hole/#one-step-automated-install
+
+Na DHCP serveroch (v mojom pripade mam dhcp nastavene na routroch) nastavime ako DNS server IP adresu pihole virtualky.
+Na niektorych linuxoch treba dns server nastavit aj v subore "/etc/resolv.conf". Tento nameserver musi byt uvedeny ako prvy (idealny jediny nameserver).
+Na niektorych linuxoch treba vypnut aj prepisovanie "/etc/resolv.conf" DHCP deamonom. Treba upravit subor "/etc/dhcpcd.conf" a na jeho koniec pridat riadok "nohook resolv.conf". Ulozit a rebootnut.
+
+Teraz treba pred kazdym vypnutim / restartom korektne vypnut pihole virtualku a po kazdom zapnuti / restarte zapnut pihole virtualku, aby sme sa dostali na internet.
+
+Nastavenia otestujeme prikazmi (sledujeme cast ANSWER - mala by tam byt lokalna IP pihole virtualky):
+drill www5.yahoo.com (drill je sucastou balika "ldns" na arch)
+dig www5.yahoo.com
+nslookup www5.yahoo.com
+
+Web rozhranie je prístupne na adrese <ip_pihole_virtualky>/admin
+Pihole server je mozne menezovat aj cez ssh
+
+Po kazdom pridani / odobrani zaznamu akymkolvek sposobom (web/ssh/konzola) treba vykonat prikaz (ako root) "pihole -g", ktory restartuje potrebne sluzby a nacita novy obsah suborov.
+
+Pihole (alebo virtualbox) nema rad, ked pocitac uspime a znovu zobudime. Potom sa na pihole virtualku neda pripojit / pingnut.
