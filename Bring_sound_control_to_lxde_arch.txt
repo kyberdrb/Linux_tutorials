@@ -18,3 +18,7 @@ That opens Volume Control (pavucontrol).
 On the "Playback" you can control, which application outputs sound to witch sound device.
 
 "Output device" tab seems to be broken: changing default devices didn't work.
+
+Sources:
+https://wiki.archlinux.org/index.php/PulseAudio
+https://bbs.archlinux.org/viewtopic.php?id=222294
