@@ -1,6 +1,6 @@
 Display timeouts and power management can be added into LXDE via these packages:
 
-sudo pacman -S xfce-power-management xscreensaver
+sudo pacman -S xfce4-power-management xscreensaver
 
 Power Management utility is availible in LXDE Menu -> Preferences -> Power
 Management
