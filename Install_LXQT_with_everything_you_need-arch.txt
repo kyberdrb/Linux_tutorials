@@ -1,4 +1,13 @@
-sudo pacman -S lxqt sddm oxygen-icons xscreensaver pulseaudio pavucontrol
+sudo pacman -S lxqt lxde-panel sddm oxygen-icons xscreensaver pulseaudio pavucontrol
+
+lxqt -          the desktop enviroment
+lxqt-panel -    panel override for lxqt - needed because compiz will make the panel unresponsive
+sddm -          display manager and login screen
+oxygen-icons -  icon pack
+xscreensaver -  screen locker
+pulseaudio -    audio manager
+pavucontrol -   front end for pulseaudio
+
 sudo systemctl enable sddm.service
 yaourt -S compiz
 
