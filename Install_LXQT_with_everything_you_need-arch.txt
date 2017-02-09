@@ -1,0 +1,12 @@
+sudo pacman -S lxqt sddm oxygen-icons xscreensaver pulseaudio pavucontrol
+sudo systemctl enable sddm.service
+yaourt -S compiz
+
+Log in and go to LXQt Menu -> Preferences -> LXQt Settings -> Session settings
+and type "compiz" in the "Window Manager" text field.
+
+Reboot.
+
+After loggin in there will be a black panel on top of the screen: Right click on it -> "Remove Panel".
+
+For audio setup, see guide "Bring_sound_control_to_lxde_arch.txt"
