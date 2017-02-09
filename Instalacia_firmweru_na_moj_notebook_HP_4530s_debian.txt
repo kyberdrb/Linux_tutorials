@@ -1,0 +1,6 @@
+Edituj subor /etc/apt/sources.list
+Hned ku prvemu repozitaru pridaj za "main" polozky "contrib non-free"
+Uloz subor
+sudo apt-get update
+sudo apt-get install realtek-firmware atheros-firmware
+sudo reboot
