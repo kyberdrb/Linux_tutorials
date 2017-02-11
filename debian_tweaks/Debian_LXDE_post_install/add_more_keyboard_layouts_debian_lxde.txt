@@ -1,0 +1,20 @@
+Vykonaj prikaz:
+leafpad /home/andrej/.config/lxsession/LXDE/autostart
+
+a pridaj do suboru tento riadok
+
+
+@setxkbmap -option grp:switch,grp:alt_shift_toggle,grp_led:scroll sk,us,de
+
+
+pridaj indikator rozlozenia klavesnice
+Prave tlacidlo na panel -> Add / remove panel items -> Panel Applets -> Add - Keyboard Layout Handler
+
+
+reboot
+
+Poznamka:
+nie je potrebne pridavat prikaz do autostart suboru, staci pridat iba keyboard layout handler do taskbaru a v nom nastavit layouty.
+
+zdroje:
+http://noobish-nix.blogspot.sk/2012/06/how-to-add-and-switch-keyboard-layout.html

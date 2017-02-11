@@ -1,0 +1,14 @@
+Enable tap to (left) click and two finger tap to right click on Debian 8.6.0 x64 LXDE
+
+leafpad /home/andrej/.config/lxsession/LXDE/autostart
+
+add there these lines:
+
+@synclient TapButton1=1
+@synclient tapbutton2=3
+
+The first command enables tap to click, and the other two finger tap to right click.
+The changes take effect after reboot.
+
+sources:
+https://www.reddit.com/r/linux/comments/3cy47r/enabling_two_finger_tap_right_click_kali/

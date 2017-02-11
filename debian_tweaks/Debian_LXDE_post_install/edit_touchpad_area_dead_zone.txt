@@ -1,0 +1,30 @@
+Restrict touchpad area (palm click protection) on Debian 8.6.0 x64 LXDE
+
+1) First check touchpad ranges
+
+cat /var/log/Xorg.0.log | grep -i range
+
+Output:
+
+andrej@hp:~/.config/lxsession/LXDE$ cat /var/log/Xorg.0.log | grep -i range
+[    17.228] (--) synaptics: SynPS/2 Synaptics TouchPad: x-axis range 1472 - 5756 (res 51)
+[    17.228] (--) synaptics: SynPS/2 Synaptics TouchPad: y-axis range 1408 - 4876 (res 78)
+[    17.228] (--) synaptics: SynPS/2 Synaptics TouchPad: pressure range 0 - 255
+[    17.228] (--) synaptics: SynPS/2 Synaptics TouchPad: finger width range 0 - 15
+
+This means, that our x axis (the one, that we will restrict) is in the range of 1472 - 5756
+
+2) Open terminal and do:
+
+leafpad /home/andrej/.config/lxsession/LXDE/autostart
+
+3) Add there this line:
+
+@synclient AreaLeftEdge=1700 AreaRightEdge=5000
+
+Working on 
+The changes take effect after reboot.
+
+sources:
+http://askubuntu.com/questions/221664/how-to-tune-touchpad-for-smaller-area
+http://askubuntu.com/questions/113602/add-dead-region-touchpad
