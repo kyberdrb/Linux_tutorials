@@ -1,0 +1,24 @@
+Beacuse the default Volume Control app in LXDE doesn't always behave correctly,
+we need to bypass it somehow.
+
+Hardware
+I have a TV with speakers connected to PC via HDMI and headset connected to audio jacks
+on the motherboard. Sound works, but I can't switch audio inputs nor outputs via the
+integrated LXDE Volume Control utility.
+
+Solution
+Install these packages:
+  sudo pacman -S pulseaudio pavucontrol
+
+Right click on the "speaker" icon in the system tray -> "Volume Control" settings
+Set "Command to Open Mixer" to pavucontrol
+
+Right click on the "speaker" icon in the system tray -> Volume mixer
+That opens Volume Control (pavucontrol).
+On the "Playback" you can control, which application outputs sound to witch sound device.
+
+"Output device" tab seems to be broken: changing default devices didn't work.
+
+Sources:
+https://wiki.archlinux.org/index.php/PulseAudio
+https://bbs.archlinux.org/viewtopic.php?id=222294

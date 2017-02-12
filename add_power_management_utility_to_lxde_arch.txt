@@ -1,9 +1,12 @@
 Display timeouts and power management can be added into LXDE via these packages:
 
-sudo pacman -S xfce-power-management xscreensaver
+sudo pacman -S xfce4-power-manager
 
 Power Management utility is availible in LXDE Menu -> Preferences -> Power
 Management
+
+When you run it for the first time, it will ask, if you want to enable the power management service:
+Click "Yes"
 
 Zdroje:
 http://askubuntu.com/questions/291135/how-to-stop-screen-going-black-after-10-min
