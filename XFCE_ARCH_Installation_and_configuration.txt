@@ -1,4 +1,8 @@
 sudo pacman -S xfce4 xfce4-goodies
 
+if you have a multimedia keyboard, go to terminal and enter command:
+	pactl list sinks short
+from whatever reason this activates my multimedia keys.
+
 change panel to transparent "alpha"
 use "pulseaudio" and "pavucontrol" packages for audio management (see "ARCH_Sound_control")
