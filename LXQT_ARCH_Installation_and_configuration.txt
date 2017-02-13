@@ -19,4 +19,4 @@ Reboot.
 
 After loggin in there will be a black panel on top of the screen: Right click on it -> "Remove Panel".
 
-For audio setup, see guide "Bring_sound_control_to_lxde_arch.txt"
+For audio setup, see guide "ARCH_Sound_control"
