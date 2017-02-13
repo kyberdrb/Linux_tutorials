@@ -1,3 +1,3 @@
-sudo apt-get install python idle
+sudo apt-get install python idle-python3.4
 
-After installation, run IDLE - the Python IDE
+After installation, run IDLE (idle-python3.4) - the Python IDE
