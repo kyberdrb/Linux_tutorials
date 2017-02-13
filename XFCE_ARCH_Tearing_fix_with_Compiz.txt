@@ -1,0 +1,19 @@
+# Install compiz
+	yaourt -S compiz
+# Copy file "xfce_session.xml" to your home directory
+	cp /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+
+# Open it
+	leafpad ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+
+# Find this line
+	<value type="string" value="xfwm4"/>
+
+# Replace "xfwm4" with "compiz"
+	<value type="string" value="compiz"/>
+
+# Save file
+# Reboot	
+
+# Sources:
+http://www.webupd8.org/2012/11/how-to-set-up-compiz-in-xubuntu-1210-or.html

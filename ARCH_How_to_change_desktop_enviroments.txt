@@ -1,0 +1,58 @@
+GENERIC TUTORIAL
+
+# Disable your desktop manager (I use sddm)
+# Reboot
+# Log in with your username and password
+# Uninstall current desktop environment
+# Install new desktop environemt
+# Turn on the desktop manager
+
+
+
+
+FROM GNOME 3 TO LXDE
+
+# Disable your desktop manager (I use sddm)
+	sudo systemctl disable gdm.service
+# Reboot
+	sudo reboot
+# Log in with your username and password
+# Uninstall current desktop environment
+	sudo pacman -Runs X
+# Install new desktop environemt
+	sudo pacman -S Y
+# Turn on the desktop manager
+	sudo systemctl enable lxdm.service
+
+# You should now see the login screen. After logging in, you should see your new desktop environment
+
+#Sources:
+https://bbs.archlinux.org/viewtopic.php?pid=693754#p693754
+personal knowledge
+
+
+
+
+FROM "X" to "Y"
+
+# Disable your desktop manager (I use sddm)
+	sudo systemctl disable sddm.service
+# Reboot
+	sudo reboot
+# Log in with your username and password
+# Uninstall current desktop environment
+	sudo pacman -Runs X
+# Install new desktop environemt
+	sudo pacman -S Y
+# Turn on the desktop manager
+	sudo systemctl enable sddm.service
+
+
+NOTES
+
+#1
+If you don't have sddm, use your current desktop manager or install sddm via
+	sudo pacman -S sddm
+
+#2
+It's always better to have only one desktop environment installed, beacuse although we only use one of them, the other ones can still consume ressources (e.g. uninstalling 'gnome-extra' reduces RAM usage from 500MB to 200MB for LXDE).
