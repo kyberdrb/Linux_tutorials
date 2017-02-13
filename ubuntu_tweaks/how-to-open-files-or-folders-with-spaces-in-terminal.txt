@@ -1,4 +1,0 @@
-lets say, we have a folder named My Downloads and we want to change to that directory
-
-just use backslash and space to separate
-  cd My\ Downloads
