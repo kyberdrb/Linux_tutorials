@@ -1,0 +1,22 @@
+If you get this message:
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+<enter address here>.
+Please contact your system administrator.
+Add correct host key in /home/andrej/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/andrej/.ssh/known_hosts:7
+  remove with: ssh-keygen -f "/home/andrej/.ssh/known_hosts" -R <IP address of remote host>
+ECDSA host key for <IP address of remote host> has changed and you have requested strict checking.
+Host key verification failed.
+Couldn't read packet: Connection reset by peer
+
+
+In terminal issue following command:
+	rm ~/.ssh/known_hosts
