@@ -1,0 +1,3 @@
+sudo apt-get install python idle
+
+After installation, run IDLE - the Python IDE
