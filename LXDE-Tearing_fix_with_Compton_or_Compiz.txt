@@ -1,5 +1,7 @@
 Fix tearing on Debian 8.6.0 x64 LXDE with Compton
 
+### COMPTON ###
+
 sudo apt-add-repository ppa:richardgv/compton
 sudo apt-get update
 sudo apt-get install compton
@@ -74,3 +76,13 @@ and add this to the file:
 
 
 Save file and reboot.
+
+### COMPIZ ###
+
+Compiz works the same as compton. The reason, why I didn't include the tutorial is that Compiz is substantialy harder to install on Debian than on Arch.
+
+To install Compiz on Arch, you have to type:
+	yaourt -S compiz
+and then wait. Then run it:
+	compiz --replace
+and modify Session preferences -> Compositor / Windows manager to 'compiz'. Save reboot, keep calm and carry on. 

@@ -1,6 +1,11 @@
 # Install compiz
 	yaourt -S compiz
-# Copy file "xfce_session.xml" to your home directory
+
+# Test compiz
+# open terminal and enter command
+	compiz --replace
+
+# When everything is OK, copy file "xfce_session.xml" to your home directory
 	cp /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
 
 # Open it
