@@ -45,6 +45,10 @@ When prompted to generate Bootinfo report, confirm!
 After that it will show another windows with the link to the BootInfo report and
 with a message that the grub bootloader was successfuly repaired.
 You can open the link on another computer or send it to your mail for further inspection.
+
+This is a sample of such report:
+  http://paste2.org/vacydsH4
+  
 Close that window and reboot your computer. Dont' forget to remove the USB drive.
 
 The system should now recognize the grub bootloader on it.
