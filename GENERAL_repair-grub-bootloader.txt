@@ -1,3 +1,7 @@
+Problem:
+The computer fails to start and shows following message:
+  "Reboot and select proper Boot device or Insert Boot Media in selected Boot device and press a key"
+
 Install Boot-Repair in Ubuntu
 
 Boot your computer on a Ubuntu live-CD or live-USB.
@@ -17,5 +21,30 @@ If that happens, a series of commands will be displayed to remove the
 existing grub bootloader (you will see something similar to this
 'http://sourcedigit.com/wp-content/uploads/2016/12/boot-repair-2.jpg').
 
-Open a new terminal windows and type:
+Open a new terminal windows and type (last command is a bit modified):
+  sudo -i
+  chroot "/mnt" dpkg --configure -a
+  chroot "/mnt" apt-get install -fy
+  chroot "/mnt" apt-get purge -y --force-yes grub grub2 grub-common grub2-common grub-common:i386
+
+if the last command doesn't work, try executing it by parts:
+  chroot "/mnt" apt-get purge -y --force-yes grub
+  chroot "/mnt" apt-get purge -y --force-yes grub2
+  chroot "/mnt" apt-get purge -y --force-yes grub-common
+  chroot "/mnt" apt-get purge -y --force-yes grub2-common
+  chroot "/mnt" apt-get purge -y --force-yes grub-common:i386
   
+And then press "Forward" button in the Boot-Repair window.
+Boot-Repair will then prompt you again with another command, which will install your 
+bootloader. This part may be different if you use BIOS or UEFI
+  sudo -i
+  chroot "/mnt" apt-get install -y grub-efi-amd64
+
+After the command finishes, press "Forward" in Boot-Repair window.
+When prompted to generate Bootinfo report, confirm!
+After that it will show another windows with the link to the BootInfo report and
+with a message that the grub bootloader was successfuly repaired.
+You can open the link on another computer or send it to your mail for further inspection.
+Close that window and reboot your computer. Dont' forget to remove the USB drive.
+
+The system should now recognize the grub bootloader on it.
