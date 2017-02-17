@@ -1,25 +1,21 @@
-install Boot-Repair in Ubuntu
-- boot your computer on a Ubuntu live-CD or live-USB.
+Install Boot-Repair in Ubuntu
 
-- choose "Try Ubuntu"
+Boot your computer on a Ubuntu live-CD or live-USB.
+Choose "Try Ubuntu"
+Connect internet
+Open a new Terminal and type:
+  sudo -i
+  add-apt-repository ppa:yannubuntu/boot-repair && sudo apt-get update
+  apt-get install -y boot-repair && boot-repair
 
-- connect internet
+It will open the "Boot-Repair" main window.
+Click on "Recommended repair".
+Wait.
 
-- open a new Terminal, then type:
+You may have been prompted with a dialog to uninstall grub bootloader manually;
+If that happens, a series of commands will be displayed to remove the 
+existing grub bootloader (you will see something similar to this
+'http://sourcedigit.com/wp-content/uploads/2016/12/boot-repair-2.jpg').
 
-
-sudo add-apt-repository ppa:yannubuntu/boot-repair && sudo apt-get update
-- Press Enter.
-
-- Then type:
-
-sudo apt-get install -y boot-repair && (boot-repair &)
-- Press Enter
-
-Using Boot-Repair
-Recommended repair
-launch Boot-Repair from either :
-the Dash (the Ubuntu logo at the top-left of the screen)
-or System->Administration->Boot-Repair menu (Ubuntu 10.04 only)
-
-or by typing 'boot-repair' in a terminal
+Open a new terminal windows and type:
+  
