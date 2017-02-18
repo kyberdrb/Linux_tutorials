@@ -1,4 +1,9 @@
+# Install only essential components
 apt-get install texlive texlive-latex-extra unicode texlive-doc-cs+sk texlive-lang-czechslovak
+
+# Or everything (recommended ;) )
+sudo apt-get install texlive-full
 
 Sources:
   http://tex.stackexchange.com/questions/73526/how-to-install-a-language-package-in-texmaker-on-ubuntu-12-04
+  https://www.latex-tutorial.com/tutorials/beginners/latex-packages/
