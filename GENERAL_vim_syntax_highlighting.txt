@@ -1,0 +1,11 @@
+Open a *.tex file in vim and in normal mode type:
+	:syntax on
+
+To turn it off, type:
+	:syntax off
+
+To make syntax highlighting permanent, append this to ".vimrc":
+	syntax on
+
+Sources:
+	https://www.cyberciti.biz/faq/turn-on-or-off-color-syntax-highlighting-in-vi-or-vim/
