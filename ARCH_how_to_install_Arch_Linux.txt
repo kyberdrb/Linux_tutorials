@@ -1,9 +1,11 @@
 Download Arch Linux iso and clone it on the USB drive
-	
+For linux distributions, type these commands in the terminal	
 	# Find USB drive
 		lsblk
 	# Clone iso to USB drive
 		sudo dd if=arch.iso of=/dev/sdb
+
+For Windows, use Rufus and make the Arch Linux installation USB with it.
 
 Plug the USB drive into a PC and boot from it.
 ProTip: Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there. If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
@@ -55,22 +57,25 @@ Firstly, we need to wipe the disk:
 	x
 	z
 	y
+	y
 
 
 Then we need to partition it.
 For UEFI install it will be partitioned like this:
-	EFI, Swap, Root
+	boot (EFI), Swap, Root
 For legacy install it will be partitioned like this:
-	Swap, Root
-
+	swap, Root
 
 **********************************
 UEFI ONLY
 
-UEFI partitioning configuration:
-
+Run the partition tool (I will use cgdisk, but there are many others)
+	
 	cgdisk /dev/sda
-	Press any key to continue ...
+	
+	# Press any key to continue ...
+
+UEFI partitioning configuration:
 
 	# Create EFI partition
 	Select "New"
@@ -100,19 +105,19 @@ LEGACY ONLY
 
 Legacy partitioning scheme:
 
-	# Create Swap partition
-	Select "New"
-	First sector: 4096
-	Size in sectors: 4GiB
-	Hex code or GUID: 8200
-	Partition name: swap
-		
-	# Create Root partition
-	Select "New"
-	First sector: <press Enter - use the first availible sector>
-	Size in sectors: <press Enter - use the rest of the disk space>
-	Hex code or GUID: <press Enter - 8300>
-	Partition name: system
+	1: type command "cfdisk"
+	2: choose dos on next screen
+	3: choose "new"
+	4: type half the size of ur ram
+	5: press enter & choose primary
+	6: choose type
+	7: choose linux swap / solaris
+	8: press "arrow down" and choose new
+	9: press enter & choose primary
+	10: choose bootable
+
+(thx Gregory Nwosibe: https://www.youtube.com/watch?v=Wqh9AQt3nho)	
+	
 ****************************************
 
 Write changes to disk:
@@ -145,6 +150,7 @@ The partitions are useless for now, therefore we need to format them:
 
 Then turn on swap:
 
+	mkswap /dev/sda2
 	swapon /dev/sda2
 
 And again we verify, if the changes have been applied:
@@ -181,10 +187,7 @@ Find the fastest mirrors for pacman:
 
 Install pacman and the base system:
 
-	pacstrap -i /mnt base base-devel
-	<Enter>
-	<Enter>
-	y
+	pacstrap /mnt base base-devel
 
 Generate filesystem file (fstab):
 
@@ -216,7 +219,7 @@ Change timezone:
 	cd /usr/share/zoneinfo
 	cd Europe
 	rm /etc/localtime
-	ln -s Bratislava /etc/localtime
+	ln -s /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
 
 Set up hardware clock
 
@@ -347,13 +350,14 @@ For legacy system we need to install GRUB bootloader
 Generate init file for GRUB
 	
 	mkinitcpio -p linux
-
-grub-mkconfig -o /boot/grub/grub.cfg
+	grub-mkconfig -o /boot/grub/grub.cfg
 *****************************
 
-umount /mnt
-
-Reboot (remove the installation USB!).
+Reboot
+	exit
+	umount /mnt
+	reboot
+	# Remove the installation USB now!
 
 If the system doesn't boot AND you have a NVidia graphics card, boot from the USB again and install and configure graphics drivers:
 
