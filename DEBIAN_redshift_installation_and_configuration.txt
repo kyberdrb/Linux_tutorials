@@ -1,7 +1,10 @@
 Installation of Redshift on Debian 8.6.0 x64 LXDE
 
-sudo apt-get install redshift
+sudo apt-get install redshift gtk-redshift
+
 leafpad ~/.config/redshift.conf
+
+
 
 Copy this in the file:
 
@@ -63,21 +66,11 @@ lon=14
 screen=0
 
 
-run redshift with command "redshift"
+run redshift with command "redshift-gtk"
 If the screen gets an orange shade, it works.
 If you get an error "cant find screen 1" change last line "screen=1" to "screen=0" and run redshift again.
+If you get an error that "a module is missing", google that module :) Probably it is a python module, that needs to be installed.
 
-
-If you want to run redshift at start, type command:
-leafpad /home/andrej/.config/lxsession/LXDE/autostart
-
-
-and add there these lines:
-
-@redshift
-
-
-reboot
 
 sources:
 https://wiki.archlinux.org/index.php/Redshift
