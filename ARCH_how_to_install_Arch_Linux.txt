@@ -1,0 +1,369 @@
+Download Arch Linux iso and clone it on the USB drive
+	
+	# Find USB drive
+		lsblk
+	# Clone iso to USB drive
+		sudo dd if=arch.iso of=/dev/sdb
+
+Plug the USB drive into a PC and boot from it.
+ProTip: Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there. If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
+
+After you get the Arch Linux boot screen, choose "Boot Arch Linux x86_64"
+
+To install Arch Linux you need to have Internet connection. I recommend to use Ethernet cable instead of Wi-Fi if you like your sanity :)
+
+List your network adapters
+	
+	ip a
+
+The Ethernet should be named "enpXsY" (X and Y are numbers).
+Then you need to request an IP address via DHCP (for manual IP configuration see Arch Linux Wiki - Network configuration):
+	
+	dhcpcd enpXsY
+
+an IP address should be assigned to the Ethernet interface.
+
+Test connectivity:
+	
+	ping google.com -c 4
+
+If the ping was successful, we can proceed with Arch Linux installation.
+
+We have to determine, if we want legacy or EFI install of Arch Linux. If you choosed "UEFI" in the boot device selection earlier, read on, otherwise skip this part.
+
+****************************************
+
+If you choosed to boot from USB in UEFI mode, check the list of EFI variables to see, if Arch Linux can be installed in UEFI mode:
+	
+	efivar -l
+
+I it lists a lot of the variables, you can install Arch Linux in UEFI mode :D
+If it doesn't list any variables or prints an error "efivar: error listing variables: Function not implemented", it means, that either we booted into legacy mode, or our UEFI is not supported.
+
+Now we can continue with the next step.
+****************************************
+
+DISK PARTITIONING
+First of all, we have to choose the disk, which Arch Linux will be installed on. Print the list of connected disks with command:
+
+	lsblk
+
+Let's say, we want to install Arch on disk "sda".
+Firstly, we need to wipe the disk:
+
+	gdisk /dev/sda
+	x
+	z
+	y
+
+
+Then we need to partition it.
+For UEFI install it will be partitioned like this:
+	EFI, Swap, Root
+For legacy install it will be partitioned like this:
+	Swap, Root
+
+
+**********************************
+UEFI ONLY
+
+UEFI partitioning configuration:
+
+	cgdisk /dev/sda
+	Press any key to continue ...
+
+	# Create EFI partition
+	Select "New"
+	First sector: 4096
+	Size in sectors: 512MiB
+	Hex code or GUID: EF00
+	Partition name: boot
+
+	# Create Swap partition
+	Select "New"
+	First sector: <press Enter - use the first availible sector>
+	Size in sectors: 4GiB
+	Hex code or GUID: 8200
+	Partition name: swap
+		
+	# Create Root partition
+	Select "New"
+	First sector: <press Enter - use the first availible sector>
+	Size in sectors: <press Enter - use the rest of the disk space>
+	Hex code or GUID: <press Enter - 8300>
+	Partition name: system
+
+****************************************
+
+****************************************
+LEGACY ONLY
+
+Legacy partitioning scheme:
+
+	# Create Swap partition
+	Select "New"
+	First sector: 4096
+	Size in sectors: 4GiB
+	Hex code or GUID: 8200
+	Partition name: swap
+		
+	# Create Root partition
+	Select "New"
+	First sector: <press Enter - use the first availible sector>
+	Size in sectors: <press Enter - use the rest of the disk space>
+	Hex code or GUID: <press Enter - 8300>
+	Partition name: system
+****************************************
+
+Write changes to disk:
+
+	Select "Write"
+	yes
+
+	# Quit from cgdisk
+	Select "Quit"
+
+Restart the computer:
+
+	reboot
+
+Boot from the USB in the same mode as previously.
+
+Verify if the changes have been successfuly applied:
+
+	lsblk
+
+You should see the new partitions under the name of your disk.
+The partitions are useless for now, therefore we need to format them:
+
+	# Format EFI partition (if you have any)
+	mkfs.fat -F32 /dev/sda1
+
+	# Format Root partition
+	mkfs.ext4 /dev/sda3
+	y
+
+Then turn on swap:
+
+	swapon /dev/sda2
+
+And again we verify, if the changes have been applied:
+
+	lsblk
+
+Now we should see partition types (filesystems) next to our new partitions.
+
+
+Now we can proceed with the actual installation of Arch Linux:
+
+	# Mount system partition
+	mount /dev/sda2 /mnt
+
+***********************
+UEFI ONLY
+
+	# Mount EFI partition (if you have any)
+	mkdir /mnt/boot
+	mount /dev/sda1 /mnt/boot
+************************
+
+
+Find the fastest mirrors for pacman:
+
+	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+	
+	# Uncomment all servers
+	sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup
+
+	# Choose the top 6 mirrors
+	rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+
+
+Install pacman and the base system:
+
+	pacstrap -i /mnt base base-devel
+	<Enter>
+	<Enter>
+	y
+
+Generate filesystem file (fstab):
+
+	genfstab -U -p /mnt >> /mnt/etc/fstab
+
+Edit "/etc/fstab" file:
+
+	nano /mnt/etc/fstab
+	# Replace every "relatime" with "noatime" -> better HDD/SSD IO speed
+
+Chroot into /mnt
+
+	arch-chroot /mnt
+
+Edit locale setting (system and application language):
+	
+	nano /etc/locale.gen
+	# Uncomment entries "en_US.UTF-8 UTF-8" and "en_US.ISO-8859-1"
+
+Save file (Ctrl + O) and exit (Ctrl + X).
+Generate new locale settings
+	
+	locale-gen
+	echo LANG=en_US.UTF-8 > /etc/locale.conf
+	export LANG=en_US.UTF-8
+
+Change timezone:
+
+	cd /usr/share/zoneinfo
+	cd Europe
+	rm /etc/localtime
+	ln -s Bratislava /etc/localtime
+
+Set up hardware clock
+
+	hwclock --systohc --utc
+
+Set up hostname
+
+	echo whatever_hostname_you_want > /etc/hostname
+	cat /etc/hostname
+
+The hostname will be set after next reboot.
+
+Set up pacman repositories:
+
+	nano /etc/pacman.conf
+	
+	# Uncomment [multilib] repository
+	# Add AUR to pacman repositories
+	
+	[archlinuxfr]
+	SigLevel = Never
+	Server = http://repo.archlinux.fr/$arch
+
+Save file (Ctrl + O) and exit (Ctrl + X).
+
+Update packages:
+
+	pacman -Syu
+	# If it will prompt you to install packages press 'y' and then <Enter>
+
+Set up root password:
+
+	passwd
+	<type your password>
+	<type your password again>
+
+Add a new user account:
+
+	useradd -m -g users -G wheel,storage,power -s /bin/bash name_of_your_account
+
+Set up password for the new user:
+
+	passwd name_of_your_account
+	<type your password>
+	<type your password again>
+
+Allow the new user to use the "sudo" command:
+
+	EDITOR=nano visudo
+
+	# Find this line:
+
+		## Uncomment to allow members of group wheel to execute any command
+		# %wheel ALL=(ALL) ALL
+
+	# and change it - uncomment the wheel line and require the root password:
+	
+		## Uncomment to allow members of group wheel to execute any command
+		%wheel ALL=(ALL) ALL
+		Defaults rootpw
+
+This will allow for the new user to use the "sudo" command but not with the user password! Instead, the root password will be required.
+
+Save file (Ctrl + O) and exit (Ctrl + X).
+
+Install bash completion to complete commands in bash with <Tab>
+
+	pacman -S bash-completion
+	y
+
+
+
+BOOTLOADER INSTALLATION
+
+***********************
+INTEL CPU ONLY
+
+Install Intel microcode (to improve system stability).
+
+	pacman -S intel-ucode
+
+****************************
+
+
+****************************
+UEFI ONLY
+
+Mount EFI variables (efivars)
+	
+	mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+
+Install bootloader (systemd-boot):
+
+	bootctl install
+
+Generate a root partition UUID and then use it in the bootloader instead of the partition name (more secure):
+
+	# Note: "sda1" is the name of the root partition in this example
+	blkid -s PARTUUID -o value /dev/sda1
+
+	# Output:
+	<partuuid_of_root_partition>	
+
+Edit bootloader configuration:
+
+	# Create new file named "arch.conf"
+	nano /boot/loader/entries/arch.conf
+	
+	# Fill it like this (ommit the line with "intel-ucode", if you don't have an Intel CPU):
+
+	title Arch Linux
+	linux /vmlinuz-linux
+	initrd /intel-ucode.img
+	initrd /initramfs-linux.img
+	options root=PARTUUID=<partuuid_of_root_partition> rw
+
+******************************
+
+*****************************
+LEGACY ONLY
+
+For legacy system we need to install GRUB bootloader
+
+	pacman -S grub-bios
+	y
+	grub-install /dev/sda
+
+Generate init file for GRUB
+	
+	mkinitcpio -p linux
+
+grub-mkconfig -o /boot/grub/grub.cfg
+*****************************
+
+umount /mnt
+
+Reboot (remove the installation USB!).
+
+If the system doesn't boot AND you have a NVidia graphics card, boot from the USB again and install and configure graphics drivers:
+
+	# Mount the root partition
+	mount /dev/sda2 /mnt
+	mount /dev/sda1 /mnt/boot
+	arch-chroot /mnt
+	pacman -S nvidia nvidia-libgl lib32-nvidia-libgl nvidia-utils lib32-nvidia-utils
+	exit
+	reboot
+
+
+If you see the login screen you can proceed with desktop enviroment installation.
