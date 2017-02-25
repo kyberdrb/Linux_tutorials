@@ -7,6 +7,8 @@ from whatever reason this activates my multimedia keys.
 change panel to transparent "alpha"
 use "pulseaudio" and "pavucontrol" packages for audio management (see "ARCH_Sound_control")
 
+Don't forget to switch desktop enviroment in your desktop (login) manager (e.g. sddm)
+
 To disable annoying "Keyring" popup dialog when opening e.g. a web browser uninstall gnome-keyring
 	sudo pacman -Runs gnome-keyring
 and then reboot.

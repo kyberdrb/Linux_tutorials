@@ -371,3 +371,20 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 
 
 If you see the login screen you can proceed with desktop enviroment installation.
+
+
+Sources:
+	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 1 - Preparation and Disk Partitioning
+		https://www.youtube.com/watch?v=MMkST5IjSjY
+	
+	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 2 - Installing Arch and Making it Boot
+		https://www.youtube.com/watch?v=0WBB8v-tiz8
+	
+	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 3 - Making it user friendly and adding a desktop environment
+		https://www.youtube.com/watch?v=n5UK66GF99A
+	
+	GloriousEggroll - 2016 Arch Linux NetworkManager / Wifi Setup guide.
+		https://www.youtube.com/watch?v=MAi9DurTRQc
+
+	goguda55 Tech Tutorials - How to Install Arch Linux
+		https://www.youtube.com/watch?v=Wqh9AQt3nho
