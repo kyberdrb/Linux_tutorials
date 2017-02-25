@@ -250,6 +250,10 @@ Update packages:
 	pacman -Syu
 	# If it will prompt you to install packages press 'y' and then <Enter>
 
+Install yaourt to be able install packages from AUR
+
+	pacman -S yaourt
+
 Set up root password:
 
 	passwd
@@ -353,6 +357,8 @@ Generate init file for GRUB
 	grub-mkconfig -o /boot/grub/grub.cfg
 *****************************
 
+If you got warning messages about missing firmwares, take note which firmwares are you missing. We will install that, after the first login.
+
 Reboot
 	exit
 	umount /mnt
@@ -370,7 +376,15 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 	reboot
 
 
-If you see the login screen you can proceed with desktop enviroment installation.
+If you see the login screen you can proceed with installation of:
+	- desktop (login) manager, sometning like "sddm" (but don't forget to enable it in systemctl)
+	- desktop enviroment, for example "xfce4" (which is my favourite)
+	- things for the desktop enviroment, like "nm-applet (package "network-manager-applet")" for wireless networks
+
+Lastly, install and enable network manager:
+
+	pacman -S networkmanager
+	systemctl enable NetworkManager.service
 
 
 Sources:
