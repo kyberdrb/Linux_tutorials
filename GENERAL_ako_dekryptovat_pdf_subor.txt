@@ -1,0 +1,2 @@
+sudo apt-get install qpdf
+qpdf --password=YOUR-PASSWORD-HERE --decrypt input.pdf output.pdf

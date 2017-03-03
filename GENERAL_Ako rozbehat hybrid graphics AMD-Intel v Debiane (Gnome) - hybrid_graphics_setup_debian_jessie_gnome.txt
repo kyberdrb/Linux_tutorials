@@ -1,0 +1,129 @@
+Ako rozbehat hybrid graphics AMD-Intel v Debiane (Gnome)
+
+
+
+
+1.) Treba sa uistit, ze linux vidi obidve grafiky:
+V terminali ako superuser spustit:
+
+	lspci | grep VGA
+
+v mojom pripade vylistoval toto:
+
+00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Seymour [Radeon HD 6400M/7400M Series] (rev ff)
+
+Pokial vidime iba jednu grafiku, treba tu druhu zapnut v BIOSe alebo nainstalovat ovladace (v mojom pripade trebalo skontrolovat, ci su nainstalovane ovladace ku AMD grafike)
+
+apt-get remove fglrx*
+apt-get install xserver-xorg-video-ati
+
+(zdroj: http://askubuntu.com/questions/159586/how-to-install-radeon-open-source-driver)
+
+
+
+
+
+2.) (Volitelny krok) Akonahle som ju zapol, dostal som hlasku pri bootovani v takomto zneni:
+
+*ERROR* Radeon kernel modesetting for r600 or later requires firmware-linux-nonfree
+
+tak do sources.list pridal "contrib nonfree" ku hlavnemu repozitaru. vyzera to asi takto
+
+	deb http://ftp.sk.debian.org/debian/ jessie main contrib non-free
+
+a spustit cez terminal ako superuser prikazy:
+	apt-get update
+	apt-get install firmware-linux-nonfree
+
+potom treba restartovat pocitac a pokracovat dalsim krokom
+
+(zdroj: http://www.linuxquestions.org/questions/linux-kernel-70/radeon-kernel-modesetting-for-r600-or-later-requires-firmware-linux-nonfree-4175506682/)
+
+3.) Treba skontrolovat, ci mame podporu VGA_switcheroo, aby sme vedeli prepinat grafiky.
+V terminali ako superuser treba vykonat prikaz:
+
+	grep switcheroo /var/log/messages
+
+Toto som dostal ako vystup:
+Dec 24 16:48:22 hp kernel: [    9.302124] VGA switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
+Dec 24 17:11:37 hp kernel: [   10.063568] VGA switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
+Dec 24 17:31:23 hp kernel: [    8.809732] VGA switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
+Dec 24 17:31:23 hp kernel: [   16.265709] vga_switcheroo: enabled
+
+
+
+
+
+
+
+
+4.) (Volitelny krok) Niekedy je treba mountnut debug filesystem pri bootovani systemu. Ubuntu resp. Debian to robia automaticky, ale niekedy je tomu treba pomoct prikazom v terminali ako superuser:
+
+	mount -t debugfs debugfs /sys/kernel/debug
+
+takto je mozne namountovat debug filesystem za behu operacneho systemu. ak to chceme mountovat pocas bootu, potrebujeme do suboru /etc/fstab pridat riadok:
+
+none    /sys/kernel/debug    debugfs    defaults    0 0
+
+ulozit subor a restartovat pocitac
+
+
+
+
+
+
+5.) Este treba pridat riadky do /etc/rc.local
+
+
+
+
+
+
+
+
+
+
+6.) Teraz by uz VGA_switcheroo malo byt rozbehane a schopne prijmat prikazy. Prikazy su odosielane do pseudosuboru /sys/kernel/debug/vgaswitcheroo/switch prostrednictvom ktoreho komunikuju.
+
+Pre zobrazenie aktualneho stavu treba zadat tento prikaz do terminalu ako superuser:
+
+	cat /sys/kernel/debug/vgaswitcheroo/switch
+
+Prikazy pre VGA_switcheroo:
+
+IGD: Integrated Graphic Device (mostly Intel)
+DIS: denotes DIScrete graphic device (nVidia or ATI)
+OFF - power off the unused device
+ON - power on the unused device
+DIGD - delayed switch to integrated device (at next X startup)
+DDIS - delayed switch to discrete device at next X startup)
+IGD - immediate switch to integrated device
+DIS - immediate switch to discrete device
+MIGD - mux switch to integrated device (if I am right, at next reboot) - nepouzivat
+MDIS - mux switch to discrete device (if I am right, at next reboot) - nepouzivat
+
+
+Zatial nefunguje prepinanie grafik, ale ked budem mat chut a cas, tak sa do toho pustim ;)
+Hoci sa nasledujuce prikazy mozu zdat spravne, nefunguju. Radsej sa s tym uz nejdem babrat, lebo to funguje a funguje to dobre.
+
+zapnutie AMD grafickej karty:
+	echo ON > /sys/kernel/debug/vgaswitcheroo/switch
+
+vypnutie AMD grafickej karty:
+	echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
+
+prepnutie na AMD graficku kartu:
+	echo DDIS > /sys/kernel/debug/vgaswitcheroo/switch
+
+prepnutie na Intel graficku kartu
+	echo DIGD > /sys/kernel/debug/vgaswitcheroo/switch
+
+
+
+
+zdroj pre kroky vsetky ostatne kroky okrem kroku 2 a 5
+http://www.linuxquestions.org/questions/slackware-14/how-to-switch-between-graphics-processors-using-vga-switcheroo-4175437338/
+
+zdroj kroku 5:
+http://asusm51ta-with-linux.blogspot.sk/

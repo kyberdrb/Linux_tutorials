@@ -1,0 +1,97 @@
+Aklo zalohovat cely linuxovy operacny system
+
+spust (jeden z prikazov) v terminali ako SUPERUSER!!!:
+
+
+--Este jednoduchsi sposob, ako zazalohovat cely filesystem jednym riadkom, ale najprv sa treba dostat do zelaneho priecinka na externom disku. Treba vytvorit priecinok, ktory bude mat nazov ako dnesny datum
+sudo rsync -aAXogv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} / .
+
+alebo ak sa to niekde zatne (napr. na /etc/usb_modeswitch), namiesto flagov -aAXOGV pouzi iba -aogv:
+sudo rsync -aogv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} / .
+
+
+http://serverfault.com/questions/255120/run-rsync-as-root-but-keep-user-ownership
+
+
+
+
+
+
+
+
+--Pretoze som este lenivsi a netrpezlivejsi, tak to ani neuklaam do archivu ale rovno rekurzivne kopirujem vsetky subory z filesystemu na pevny disk:
+cp -R / /media/andrej/SLAVOO/Debian_backups/<priecinok_s_dnesnym_datumom>
+//problem s typmto sposobom je ten, ze nezazalohuje ownershipy
+
+
+
+
+
+
+--Pretoze som lenivy, tu su 3 prikazy ktore treba vykonat v takom poradi, v akom su napisane
+su	#BUD SUPERUSER!
+cd /media/andrej/SLAVOO/Debian_backups/		#chod do zalohovacieho priecinka na externom HDD
+shutdown -h +240	#vypne pocitac za 240 minut
+tar -cpf backup.tar --exclude=/media  --one-file-system /	#zalohuj
+
+
+
+
+
+
+
+
+tar -cvpzf backup.tar.gz --exclude=/media  --one-file-system /
+tar -cvpf backup.tar --exclude=/media  --one-file-system /
+
+Moj najoblubenejsi a najrychlejsi :)
+tar -cpf backup.tar --exclude=/media  --one-file-system /
+
+tar -cvpzf backup.tar.gz --exclude=/media  --exclude=/home/andrej/Dropbox --one-file-system /
+tar -cvpf backup.tar --exclude=/media  --exclude=/home/andrej/Dropbox --one-file-system /
+tar -cpf backup.tar --exclude=/media  --exclude=/home/andrej/Dropbox --one-file-system /
+
+(UBUNTU Live)
+tar -cvpzf backup.tar.gz --exclude=/media/cdrom --exclude=/media/SLAVOO --one-file-system /media/6d057803-3e93-4e23-b875-6dc1e430ffbb
+
+kde:
+
+
+tar - is the command that creates the archive. It is modified by each letter immediately following, each is explained bellow.
+
+c - create a new backup archive.
+
+v - verbose mode, tar will print what it's doing to the screen.
+
+p - preserves the permissions of the files put in the archive for restoration later.
+
+z - compress the backup file with 'gzip' to make it smaller.
+
+f <filename> - specifies where to store the backup, backup.tar.gz is the filename used in this example. It will be stored in the current working directory, the one you set when you used the cd command.
+
+--exclude=/example/path - The options following this model instruct tar what directories NOT to backup. We don't want to backup everything since some directories aren't very useful to include. The first exclusion rule directs tar not to back itself up, this is important to avoid errors during the operation.
+
+--one-file-system - Do not include files on a different filesystem. If you want other filesystems, such as a /home partition, or external media mounted in /media backed up, you either need to back them up separately, or omit this flag. If you do omit this flag, you will need to add several more --exclude= arguments to avoid filesystems you do not want. These would be /proc, /sys, /mnt, /media, /run and /dev directories in root. /proc and /sys are virtual filesystems that provide windows into variables of the running kernel, so you do not want to try and backup or restore them. /dev is a tmpfs whose contents are created and deleted dynamically by udev, so you also do not want to backup or restore it. Likewise, /run is a tmpfs that holds variables about the running system that do not need backed up.
+
+It is important to note that these exclusions are recursive. This means that all folders located within the one excluded will be ignored as well. In the example, excluding the /media folder excludes all mounted drives and media there.
+
+If there are certain partitions you wish to backup located in /media, simply remove the exclusion and write a new one excluding the partitions you don't want backed up stored within it. For example:
+
+--exclude=/media/unwanted_partition 
+/ - After all options is the directory to backup. Since we want to backup everything on the system we use / for the root directory. Like exclusions, this recursively includes every folder below root not listed in the exclusions or other options.
+
+See tips before operation for additional information.
+
+Once satisfied with the command, execute it and wait until it has completed.
+
+
+
+
+
+
+
+
+
+
+zdroj:
+https://help.ubuntu.com/community/BackupYourSystem/TAR
