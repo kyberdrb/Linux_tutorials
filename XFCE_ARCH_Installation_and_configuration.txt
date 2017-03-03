@@ -1,4 +1,4 @@
-sudo pacman -S xfce4 xfce4-goodies
+sudo pacman -S xorg xfce4 xfce4-goodies
 
 if you have a multimedia keyboard, go to terminal and enter command:
 	pactl list sinks short

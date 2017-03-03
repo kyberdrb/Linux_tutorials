@@ -1,3 +1,6 @@
+# Disable desktop composing in XFCE
+	Applications menu -> Settings -> Window Manager Tweaks -> Compositor -> uncheck "Enable display composing".
+
 # Install compiz
 	yaourt -S compiz
 

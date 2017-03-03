@@ -1,0 +1,12 @@
+If you want to run redshift at start, type command:
+
+leafpad /home/andrej/.config/lxsession/LXDE/autostart
+
+
+and add there these lines:
+
+@redshift-gtk
+
+
+reboot
+

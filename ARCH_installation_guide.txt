@@ -214,16 +214,14 @@ Generate new locale settings
 	echo LANG=en_US.UTF-8 > /etc/locale.conf
 	export LANG=en_US.UTF-8
 
-Change timezone:
+Set time:
 
 	cd /usr/share/zoneinfo
 	cd Europe
 	rm /etc/localtime
 	ln -s /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
-
-Set up hardware clock
-
-	hwclock --systohc --utc
+	timedatectl set-ntp true
+	hwclock --systohc
 
 Set up hostname
 
