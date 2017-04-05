@@ -1,0 +1,30 @@
+Execute as root!
+
+Check graphics hardware:
+  lspci -nn | grep VGA
+
+Install some Nvidia utilities:
+  apt-get install nvidia-detect nvidia-xconfig
+
+Double check graphics hardware:
+  nvidia-detect
+
+Install Nvidia graphics driver (allow 'backports' in 'sources.list' ):
+  nvidia-driver
+During the installation it will ask for couple of things. Just press Enter and continue.
+
+Configure drivers for Xorg:
+  nvidia-xconfig
+
+Reboot
+  rebot
+  
+Log in and type:
+  startx
+  
+It should start the graphics enviroment / login manager.
+Eventually, if you want to start graphics enviroment automatically after login,
+edit '~/.bashrc' file and append to it 'startx' or configure your login manager.
+
+Sources
+https://wiki.debian.org/NvidiaGraphicsDrivers#Configuration
