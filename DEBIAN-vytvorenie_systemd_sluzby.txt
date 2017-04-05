@@ -1,0 +1,40 @@
+1) Vojdeme do adresara "/etc/systemd/system" alebo do "/lib/systemd/system"
+2) Vytvorime tam subor '<nazov_suzby>.service'. Pre nazov pouzivame iba male pismena a bodky.
+3) Obsah suboru moze byt priblizne takyto:
+
+[Unit]
+Description=Hello
+
+[Service]
+Type=oneshot
+ExecStart=/home/andrej/systemd_skriptik.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+4) Nastavime opravnenia a nacitame nove systemd sluzby
+chown root:root <nazov_suzby>.service
+chmod 744 <nazov_suzby>.service
+
+chown root:root /home/andrej/systemd_skriptik.sh
+chmod 744 /home/andrej/systemd_skriptik.sh
+
+sudo systemctl daemon-reload
+
+5) Otestujeme sluzbu
+sudo systemctl start <nazov_suzby>.service
+
+ak to nejde, prejdeme na dalsi krok
+
+6) Aktivujeme sluzbu po spusteni
+sudo systemctl enable <nazov_suzby>.service
+
+7) Spustanie sluzby pri boote vypneme prikazom
+sudo systemctl disable <nazov_suzby>.service
+
+
+Zdroje:
+https://wiki.archlinux.org/index.php/systemd
+https://linuxconfig.org/how-to-automatically-execute-shell-script-at-startup-boot-on-systemd-linux
+http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd
