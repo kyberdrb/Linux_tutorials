@@ -1,0 +1,7 @@
+# Execute as root / sudo
+
+pihole -up
+# Select "Reconfigure"
+pihole -a -p <admin_web_password>
+pihole -g
+reboot
