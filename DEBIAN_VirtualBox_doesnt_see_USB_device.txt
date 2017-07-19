@@ -1,9 +1,13 @@
 ak ti virtualbox nevie detekovat usbcko, potom ho spusti ako superuser:
 
-su
-zadaj heslo
-virtualbox
+Riesenie 1 (radikalnejsie): Spusti VirtualBox ako superuser / sudo:
 
-hotovo
+su -c "virtualbox"
 
-a radsej nevypinat fullscreen mode klavesovou skratkou - akurat ze do fullscreen modu vojde cez klavesovu skratku uplne v pohode, len naopak to blbne
+
+Riesenie 2 (konzervativnejsie): Pridaj pouzivatela do potrebnych skupin
+
+sudo adduser <username> vboxusers
+sudo reboot
+
+Done :D

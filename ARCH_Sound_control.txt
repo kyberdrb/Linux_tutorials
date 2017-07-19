@@ -19,6 +19,20 @@ On the "Playback" you can control, which application outputs sound to witch soun
 
 "Output device" tab seems to be broken: changing default devices didn't work.
 
+
+
+Alternatively, you can install sound management from GNOME:
+
+sudo pacman -S gnome-shell gnome-control-center
+
+Run it from the terminal using command "gnome-control-center". Then navigate to "Sound" category.
+
+
+For Bluetooth support you can install GNOME bluetooth modules:
+
+sudo pacman -S gnome-bluetooth
+
+
 Sources:
 https://wiki.archlinux.org/index.php/PulseAudio
 https://bbs.archlinux.org/viewtopic.php?id=222294
