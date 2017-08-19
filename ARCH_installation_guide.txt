@@ -248,9 +248,31 @@ Update packages:
 	pacman -Syu
 	# If it will prompt you to install packages press 'y' and then <Enter>
 
-Install yaourt to be able install packages from AUR
+Install yaourt to be able install packages from AUR.
+Installation of yaourt is not necessary. Alternatively we can 
+use "herecura" repository, which contains precompiled packages from AUR.
+Both approaches are examined. But it is possible to use them together.
+
+For yaourt:
 
 	pacman -S yaourt
+
+For herecura repository.
+
+	nano /etc/pacman.conf
+
+At the end of the file append these lines:
+
+[herecura]
+Server = http://repo.herecura.be/$repo/$arch
+
+Save and exit.
+
+Synchronize new repository to use its packages.
+
+	pacman -Syu
+
+
 
 Set up root password:
 
