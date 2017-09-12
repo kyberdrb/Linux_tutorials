@@ -1,0 +1,12 @@
+Create bootable Windows USB from Linux
+
+1.) format USB in NTFS
+      use gparted
+2.) make partition active i.e. make it bootable,
+    setting the "boot" flag (this is a step that I didn't know I have to do)
+      use gparted -> manage flags
+3.) extract contents of iso in NTFS formated USB drive
+      7z x en_windows_10_multiple_editions_version_1511_updated_feb_2016_x64_dvd_8379634.iso -o/run/media/andrej/5183449D54BCD503/
+
+Sources
+https://arstechnica.com/civis/viewtopic.php?p=30581473&sid=8edc84b032f4a9a81a1b1d9c157922f4#p30581473
