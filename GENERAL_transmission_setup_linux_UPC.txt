@@ -1,0 +1,259 @@
+Router:
+  -nastavit Advanced Settings podla madarskeho videa
+  -nastavit port forwarding (aj ked je to zbytocne, UPC aj tak blokuje vsetky porty zvonka dnu)
+
+Linux:
+  -nainstalovat transmission
+    sudo pacman -S transmission-gtk transmission-cli transmission-gtk transmission-remote-gtk
+  -spustit transmission
+    bud cez Application Menu, alebo cez terminal ako "transmission-gtk"
+  -nastavit transmission podla "Poznamka #2" + podla torrent stranky, ktoru pouzivame (napr. cztorrent). Uzitocna je aj Tray ikonka pri zatvoreni Transmission
+  -stiahnut testovaci torrent (najlepsie s co najviac leechmi)
+  -nastavit iptables (toto je tiez zbytocne, lebo transmission funguje lepsie, ked ma nahodny port - vid "Poznamka #2" - lebo UPC ne-port-forwarduje :/ )
+     sudo iptables -A INPUT -p udp --dport 25939 -j ACCEPT
+     sudo iptables -A INPUT -p tcp --dport 25939 -j ACCEPT
+
+  -ist na "Poznamku #1" ;)
+
+>>Poznamka #1:
+a este ulozit nastavenia
+
+  sudo -i
+  iptables-save > /etc/iptables/iptables.rules
+
+a este obnovit nastavenia
+
+  sudo -i
+  iptables-restore < /etc/iptables/iptables.rules
+
+>>Poznamka #2:
+Ak transmission nebude chciet stahovat ani seedovat torrenty, tak mu pomozeme.
+Pojdeme do Edit → Preferences → Network
+a zaskrtneme "Pick a random port every time Transmission is started"
+
+>>Poznamka #3 -Vzdialeny pristup cez web
+Pre aktivaciu vzdialeneho pristupu (cez web) pouzi "transmission-daemon" (speci .config dir :/ )
+vid:
+  https://wiki.archlinux.org/index.php/transmission#Transmission_daemon_and_CLI
+  https://wiki.archlinux.org/index.php/transmission#Configuring_the_daemon
+
+spustime daemona
+  transmission-daemon -a *.*.*.*
+
+ukoncime daemona
+  killall -HUP transmission-da
+alebo iba
+  killall transmission-daemon
+
+nastavime daemona
+  nano 
+
+nastavime "peer-port-random-on-start" na true. (nahodny port pri spusteni - vid "Poznamka #2")
+
+spustime daemona
+  transmission-daemon -a *.*.*.*
+
+skontrolujeme daemona
+  ps aux | grep transmission-daemon
+
+Nezabudneme: aby sa zmeny v daemonovi prejavili, musime ho ukoncit a znovu spustit.
+
+
+
+#########################################################
+>>Poznamka #4:
+BONUS: config subor transmission a transmission-deamon
+#########################################################
+
+
+~/.config/transmission/settings.json
+
+
+{
+    "alt-speed-down": 50,
+    "alt-speed-enabled": false,
+    "alt-speed-time-begin": 540,
+    "alt-speed-time-day": 127,
+    "alt-speed-time-enabled": false,
+    "alt-speed-time-end": 1020,
+    "alt-speed-up": 50,
+    "bind-address-ipv4": "0.0.0.0",
+    "bind-address-ipv6": "::",
+    "blocklist-enabled": false,
+    "blocklist-updates-enabled": true,
+    "blocklist-url": "http://www.example.com/blocklist",
+    "cache-size-mb": 4,
+    "compact-view": false,
+    "dht-enabled": true,
+    "download-dir": "/home/htpc/Downloads",
+    "download-queue-enabled": true,
+    "download-queue-size": 5,
+    "encryption": 1,
+    "idle-seeding-limit": 30,
+    "idle-seeding-limit-enabled": false,
+    "incomplete-dir": "/home/htpc/Downloads",
+    "incomplete-dir-enabled": false,
+    "inhibit-desktop-hibernation": false,
+    "lpd-enabled": false,
+    "main-window-height": 500,
+    "main-window-is-maximized": 0,
+    "main-window-width": 657,
+    "main-window-x": 1204,
+    "main-window-y": 0,
+    "message-level": 2,
+    "open-dialog-dir": "/home/htpc/Downloads/torrenty",
+    "peer-congestion-algorithm": "",
+    "peer-id-ttl-hours": 6,
+    "peer-limit-global": 200,
+    "peer-limit-per-torrent": 200,
+    "peer-port": 51056,
+    "peer-port-random-high": 65535,
+    "peer-port-random-low": 49152,
+    "peer-port-random-on-start": true,
+    "peer-socket-tos": "default",
+    "pex-enabled": true,
+    "port-forwarding-enabled": true,
+    "preallocation": 1,
+    "prefetch-enabled": true,
+    "queue-stalled-enabled": true,
+    "queue-stalled-minutes": 30,
+    "ratio-limit": 2,
+    "ratio-limit-enabled": false,
+    "recent-download-dir-1": "/home/htpc/Downloads",
+    "rename-partial-files": true,
+    "rpc-authentication-required": false,
+    "rpc-bind-address": "0.0.0.0",
+    "rpc-enabled": true,
+    "rpc-password": "{f8204398b2fc9d2f18718df0cb794058fa4f2b99v1gkUynp",
+    "rpc-port": 9091,
+    "rpc-url": "/transmission/",
+    "rpc-username": "",
+    "rpc-whitelist": "127.0.0.1,0.0.0.0",
+    "rpc-whitelist-enabled": true,
+    "scrape-paused-torrents-enabled": true,
+    "script-torrent-done-enabled": false,
+    "script-torrent-done-filename": "/home/htpc",
+    "seed-queue-enabled": false,
+    "seed-queue-size": 10,
+    "show-backup-trackers": false,
+    "show-extra-peer-details": false,
+    "show-filterbar": true,
+    "show-notification-area-icon": true,
+    "show-options-window": true,
+    "show-statusbar": true,
+    "show-toolbar": true,
+    "show-tracker-scrapes": false,
+    "sort-mode": "sort-by-name",
+    "sort-reversed": false,
+    "speed-limit-down": 100,
+    "speed-limit-down-enabled": false,
+    "speed-limit-up": 100,
+    "speed-limit-up-enabled": false,
+    "start-added-torrents": true,
+    "statusbar-stats": "total-ratio",
+    "torrent-added-notification-enabled": true,
+    "torrent-complete-notification-enabled": true,
+    "torrent-complete-sound-command": "canberra-gtk-play -i complete-download -d 'transmission torrent downloaded'",
+    "torrent-complete-sound-enabled": true,
+    "trash-can-enabled": true,
+    "trash-original-torrent-files": true,
+    "umask": 18,
+    "upload-slots-per-torrent": 14,
+    "user-has-given-informed-consent": true,
+    "utp-enabled": true,
+    "watch-dir": "/home/htpc/Downloads",
+    "watch-dir-enabled": false
+}
+
+
+
+
+
+
+~/.config/transmission-daemon/settings.json
+
+
+{
+    "alt-speed-down": 50,
+    "alt-speed-enabled": false,
+    "alt-speed-time-begin": 540,
+    "alt-speed-time-day": 127,
+    "alt-speed-time-enabled": false,
+    "alt-speed-time-end": 1020,
+    "alt-speed-up": 50,
+    "bind-address-ipv4": "0.0.0.0",
+    "bind-address-ipv6": "::",
+    "blocklist-enabled": false,
+    "blocklist-url": "http://www.example.com/blocklist",
+    "cache-size-mb": 4,
+    "dht-enabled": true,
+    "download-dir": "/home/htpc/Downloads",
+    "download-queue-enabled": true,
+    "download-queue-size": 5,
+    "encryption": 1,
+    "idle-seeding-limit": 30,
+    "idle-seeding-limit-enabled": false,
+    "incomplete-dir": "/home/htpc/Downloads",
+    "incomplete-dir-enabled": false,
+    "lpd-enabled": false,
+    "message-level": 2,
+    "peer-congestion-algorithm": "",
+    "peer-id-ttl-hours": 6,
+    "peer-limit-global": 200,
+    "peer-limit-per-torrent": 50,
+    "peer-port": 51413,
+    "peer-port-random-high": 65535,
+    "peer-port-random-low": 49152,
+    "peer-port-random-on-start": true,
+    "peer-socket-tos": "default",
+    "pex-enabled": true,
+    "port-forwarding-enabled": true,
+    "preallocation": 1,
+    "prefetch-enabled": true,
+    "queue-stalled-enabled": true,
+    "queue-stalled-minutes": 30,
+    "ratio-limit": 2,
+    "ratio-limit-enabled": false,
+    "rename-partial-files": true,
+    "rpc-authentication-required": false,
+    "rpc-bind-address": "0.0.0.0",
+    "rpc-enabled": true,
+    "rpc-password": "{bb1abb052cb915c5866d96b91ec5e51f83ef1687R/3tABdG",
+    "rpc-port": 9091,
+    "rpc-url": "/transmission/",
+    "rpc-username": "",
+    "rpc-whitelist": "*.*.*.*",
+    "rpc-whitelist-enabled": true,
+    "scrape-paused-torrents-enabled": true,
+    "script-torrent-done-enabled": false,
+    "script-torrent-done-filename": "",
+    "seed-queue-enabled": false,
+    "seed-queue-size": 10,
+    "speed-limit-down": 100,
+    "speed-limit-down-enabled": false,
+    "speed-limit-up": 100,
+    "speed-limit-up-enabled": false,
+    "start-added-torrents": true,
+    "trash-original-torrent-files": false,
+    "umask": 18,
+    "upload-slots-per-torrent": 14,
+    "utp-enabled": true
+}
+
+
+>>Poznamka #5
+Mozno sa este hodi spustanie transmission resp. transmission-daemona po starte
+pre transmission gui:
+  transmission-gtk
+
+pre transmission daemon:
+  transmission-daemon -a *.*.*.*
+
+
+
+Zdroje:
+https://forum.transmissionbt.com/viewtopic.php?t=10539#p49137
+https://www.youtube.com/watch?v=Rqv7gL9NPi4
+https://wiki.archlinux.org/index.php/iptables#Configuration_and_usage
+https://wiki.archlinux.org/index.php/deluge#Firewall
+https://askubuntu.com/questions/391895/why-are-my-torrents-not-downloading
