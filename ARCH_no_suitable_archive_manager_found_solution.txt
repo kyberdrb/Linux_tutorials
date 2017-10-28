@@ -1,0 +1,8 @@
+Tested on XFCE.
+
+Solution
+
+  sudo pacman -S file-roller
+
+Sources:
+  https://bbs.archlinux.org/viewtopic.php?pid=1111260#p1111260
