@@ -1,0 +1,15 @@
+Instalacia
+  sudo pacman -S cpupower tlp tlp-rdw
+
+Konfiguracia
+  sudo cpupower frequency-set -u 2.3GHz
+
+Validacia
+  sudo tlp-stat -p
+
+Zdroje:
+  https://wiki.archlinux.org/index.php/CPU_frequency_scaling#cpupower
+  https://wiki.archlinux.org/index.php/CPU_frequency_scaling#Setting_maximum_and_minimum_frequencies
+  https://ark.intel.com/products/52224/Intel-Core-i5-2410M-Processor-3M-Cache-up-to-2_90-GHz
+  http://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
+  https://www.reddit.com/r/archlinux/comments/5nmkxc/cant_disable_turbo_boost/dcddzrv/
