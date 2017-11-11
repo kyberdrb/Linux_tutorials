@@ -1,0 +1,33 @@
+enable IPv6 privacy extension on Ubuntu Linux
+Skip to end of metadata
+Go to start of metadata
+Symptom:
+By default, the Ubuntu-Linux network stack for IPv6 only configures static IPv6 addresses built from the network prefix and the hardware address of the network card (MAC-Address).
+Problem:
+This IPv6 addresses are stable and will not change over time as long as the network card is not replaced. This can lead to privacy issues, as the static IPv6 address can be tracked by outside parties (external websites).
+Solution
+The IPv6 standards define an algorithm to generate temporary random IPv6 addresses that are less traceable over time. This is documented in RFC 4941 "Privacy Extensions for Stateless Address Autoconfiguration in IPv6".
+
+In Ubuntu-Linux, privacy extensions for IPv6 are disabled by default. To enable them, edit the file "/etc/sysctl.conf" (as superuser "root", create the file if it does not exist) and add one line per network card that is using IPv6 (here 'eth0'):
+net.ipv6.conf.eth0.use_tempaddr=2
+To enable this new setting, execute
+sudo sysctl net.ipv6.conf.eth0.use_tempaddr=2
+sudo /etc/init.d/networking restart
+After this step (or on the next reboot), you should see new IPv6 addresses with IPv6 addresses using your IPv6 network prefixes and random host-part bound to your IPv6 enabled network interfaces (privacy addresses in bold below, one public prefix address 2001:db8:100/64 and one unique local ULA address fd34:2e7e:5a30/64 ):
+user@box:~ $ ifconfig
+eth0      Link encap:Ethernet  HWaddr c8:0a:a9:6a:72:91
+          inet addr:192.168.1.35  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fd34:2e7e:5a30:0:9f:fc3d:176f:ad9a/64 Scope:Global
+          inet6 addr: 2001:db8:100:0:9f:fc3d:176f:ad9a/64 Scope:Global
+          inet6 addr: fd34:2e7e:5a30:0:ca0a:a9ff:fe6a:7291/64 Scope:Global
+          inet6 addr: 2001:db8:100:0:ca0a:a9ff:fe6a:7291/64 Scope:Global
+          inet6 addr: fe80::ca0a:a9ff:fe6a:7291/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:358 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:386 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:214309 (214.3 KB)  TX bytes:52597 (52.5 KB)
+          Interrupt:42
+
+Source:
+  https://docs.menandmice.com/display/MM/enable+IPv6+privacy+extension+on+Ubuntu+Linux
