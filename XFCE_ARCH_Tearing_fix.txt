@@ -1,0 +1,87 @@
+#######################################
+#              METHOD 1 - disable compositor
+#######################################
+
+With this metod the Youtube videos might micro-stutter and windows might tear, but Youtube videos at least will not tear (which is good :) )
+
+# Disable desktop composing in XFCE
+	Applications menu -> Settings -> Window Manager Tweaks -> Compositor -> uncheck "Enable display composing".
+
+Reboot
+
+#######################################
+#              METHOD 2 - xfwm4 build in vsync
+#######################################
+
+# Disable desktop composing in XFCE
+	Applications menu -> Settings -> Window Manager Tweaks -> Compositor -> check "Synchronize drawing to the vertical blank".
+
+Reboot
+
+#######################################
+#              METHOD 3 - compiz
+#######################################
+
+# Disable desktop composing in XFCE
+	Applications menu -> Settings -> Window Manager Tweaks -> Compositor -> uncheck "Enable display composing".
+
+# Install compiz
+	yaourt -S compiz
+
+# Test compiz
+# open terminal and enter command
+	compiz --replace
+
+# When everything is OK, copy file "xfce_session.xml" to your home directory
+	cp /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+
+# Open it
+	leafpad ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+
+# Find this line
+	<value type="string" value="xfwm4"/>
+
+# Replace "xfwm4" with "compiz"
+	<value type="string" value="compiz"/>
+
+# Save file
+# Reboot
+
+# Sources:
+http://www.webupd8.org/2012/11/how-to-set-up-compiz-in-xubuntu-1210-or.html
+
+#######################################
+#              METHOD 4 - compton
+#######################################
+
+# Disable desktop composing in XFCE
+	Applications menu -> Settings -> Window Manager Tweaks -> Compositor -> uncheck "Enable display composing".
+
+# Install compton
+  
+    yaourt -S compton-git
+
+# Test compton
+# open terminal and enter command
+    
+    compton
+
+# Create file compton.conf in ~/compton.conf
+  
+    nano ~/compton.conf
+
+Insert there this content:
+
+backend = "glx";
+paint-on-overlay = true;
+glx-no-stencil = true;
+glx-no-rebind-pixmap = true;
+vsync = "opengl-swc"; 
+
+# Save file
+# Reboot
+
+Sources:
+  https://wiki.archlinux.org/index.php/Compton#Installation
+  https://aur.archlinux.org/packages/compton-git/
+  https://ubuntuforums.org/showthread.php?t=2144468&p=12644745#post12644745
