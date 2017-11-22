@@ -1,0 +1,7 @@
+Go to folder:
+
+  nano .local/share/applications/
+
+Edit file that is broken ("something.desktop")
+
+  Edit path and working directory to the right values.
