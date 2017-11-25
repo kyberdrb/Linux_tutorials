@@ -1,0 +1,40 @@
+**  PACMAN **
+audacity
+firefox
+blueman -> potom: su -c 'systemctl enable bluetooth.service'
+git
+gparted
+gummi -> LaTeX editor
+iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
+lib32-mesa -> Intel grafika
+libreoffice-fresh
+libva-intel-driver -> Intel grafika
+mesa -> Intel grafika
+mousepad
+musescore
+opera
+opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
+pavucontrol
+#pepper-flash -> podpora adobe flash - nemam ho rad, ale vela televiznych stanic ho pouzivaju na streamovanie
+pulseaudio
+pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
+python
+sddm -> potom: systemctl enable sddm.service
+transmission-gtk -> Bittorrent klient
+virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
+virtualbox-ext-oracle
+virtualbox-guest-iso
+xf86-video-intel -> Intel grafika
+xfce4
+xorg
+xfce4-pulseaudio-plugin
+xfce4-xkb-plugin
+wpa_supplicant
+
+**  YAOURT **
+skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - nezbuildi sa qt4 modul
+google-chrome
+
+**  MANUALNE Z INTERNETU **
+pycharm -> skopirovat do /opt adresara
+vmware -> bud player alebo workstation
