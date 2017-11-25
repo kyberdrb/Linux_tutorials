@@ -12,16 +12,62 @@ ProTip: Keep pressing F8 / F9 / F12 to get boot device selection menu or go stra
 
 After you get the Arch Linux boot screen, choose "Boot Arch Linux x86_64"
 
-To install Arch Linux you need to have Internet connection. I recommend to use Ethernet cable instead of Wi-Fi if you like your sanity :)
+To install Arch Linux you need to have Internet connection. It's recommended to use the Ethernet, but Wi-Fi connection is also possible, if your wireless adapter is supported. Below I will explain, how to connect to the Internet via Ethernet and Wi-Fi.
 
 List your network adapters
 	
-	ip a
+	ip link
 
-The Ethernet should be named "enpXsY" (X and Y are numbers).
+****************************************
+WIRELESS (Wi-Fi) ONLY
+
+Find out the name of the wireless adapter:
+
+	ip link
+
+In my case it's called "wlo1". Turn it on:
+
+	ip link set wlo1 up
+
+Check it's name again:
+
+	iw dev
+
+Check it's status:
+
+	iw dev wlo1 link
+
+Check it's properties:
+
+	iw dev wlo1 station dump
+
+Scan availible Wi-Fi networks:
+
+	iw dev wlo1 scan | less
+
+Now choose a Wi-Fi network you want to connect to. Remember it's SSID and security type. Find out the password to the chosen wireless network. Now we will check, if we are able to connect to the chosen network. In my case the security type of my Wi-Fi was WPA2, thus I will use "wpa_passphrase" utility:
+
+	wpa_passphrase SSID_of_the_network "network password"
+
+We should get a response, in which we can see a PSK key.
+If we see the PSK key in the message, we can connect to chosen Wi-Fi network:
+
+	wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
+
+We should get a message "Successfully initialized wpa_supplicant".
+
+Now we can proceed to the step of obtaining IP address via DHCP.
+
+****************************************
+
+The Ethernet should be named "enpXsY" (X and Y are numbers). Wireless adapters have a name in format "wloZ" (Z is a number).
 Then you need to request an IP address via DHCP (for manual IP configuration see Arch Linux Wiki - Network configuration):
 	
 	dhcpcd enpXsY
+
+or for wireless adapters
+
+	dhcpcd wloZ
 
 an IP address should be assigned to the Ethernet interface.
 
