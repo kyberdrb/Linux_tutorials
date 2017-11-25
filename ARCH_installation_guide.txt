@@ -408,6 +408,9 @@ Lastly, install and enable network manager:
 
 
 Sources:
+	GloriousEggroll - 2017 Arch Linux EFI Install Guide
+		https://www.youtube.com/watch?v=iF7Y8IH5A3M
+
 	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 1 - Preparation and Disk Partitioning
 		https://www.youtube.com/watch?v=MMkST5IjSjY
 	
