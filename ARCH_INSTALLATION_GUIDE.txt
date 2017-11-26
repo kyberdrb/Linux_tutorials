@@ -8,7 +8,16 @@ For linux distributions, type these commands in the terminal
 For Windows, use Rufus and make the Arch Linux installation USB with it.
 
 Plug the USB drive into a PC and boot from it.
-ProTip: Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there. If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
+Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there.
+If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
+If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB (only legacy) o these stepps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
+  Rapidly press F9
+  Choose "Boot From EFI File"
+  Choose option "ARCHISO_EFI_..."
+  Select "EFI -> boot -> loader.efi"
+Now the USB will boot in UEFI mode a shortly you will see the ARCH EFI bootloader.
+
+****************************************
 
 After you get the Arch Linux boot screen, choose "Boot Arch Linux x86_64"
 
@@ -100,10 +109,10 @@ Let's say, we want to install Arch on disk "sda".
 Firstly, we need to wipe the disk:
 
 	gdisk /dev/sda
-	x
-	z
-	y
-	y
+	x	- e X pert
+	z	- Z ap
+	y	- Y es
+	y	- Y es
 
 
 Then we need to partition it.
@@ -112,7 +121,7 @@ For UEFI install it will be partitioned like this:
 For legacy install it will be partitioned like this:
 	Swap, Root
 
-**********************************
+****************************************
 UEFI ONLY
 
 Run the partition tool (I will use cgdisk, but there are many others)
@@ -140,16 +149,16 @@ UEFI partitioning configuration:
 	# Create Root partition
 	Select "New"
 	First sector: <press Enter - use the first availible sector>
-	Size in sectors: <press Enter - use the rest of the disk space>
+	Size in sectors: <press Enter
+          for HDD: use the rest of the space
+          for SSD use 80% of the rest of the disk space - the rest leave unallocated as overprovisioning>
 	Hex code or GUID: <press Enter - 8300>
 	Partition name: system
 
 ****************************************
-
-****************************************
 LEGACY ONLY
 
-Legacy partitioning procedure:
+Legacy partitioning procedure. Don't forget to make some overprovisioned space if you are using a SSD (at least 20% of the free space of the system partition)!
 
 	1: type command "cfdisk"
 	2: choose dos on next screen
@@ -165,6 +174,8 @@ Legacy partitioning procedure:
 (thx Gregory Nwosibe: https://www.youtube.com/watch?v=Wqh9AQt3nho)	
 	
 ****************************************
+
+
 
 Write changes to disk:
 
@@ -209,15 +220,16 @@ Now we should see partition types (filesystems) next to our new partitions.
 Now we can proceed with the actual installation of Arch Linux:
 
 	# Mount system partition
-	mount /dev/sda2 /mnt
+	mount /dev/sda3 /mnt
 
-***********************
+****************************************
 UEFI ONLY
 
 	# Mount EFI partition (if you have any)
 	mkdir /mnt/boot
 	mount /dev/sda1 /mnt/boot
-************************
+****************************************
+
 
 
 Find the fastest mirrors for pacman:
@@ -230,10 +242,13 @@ Find the fastest mirrors for pacman:
 	# Choose the top 6 mirrors
 	rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 
+****************************************
 
 Install pacman and the base system:
 
 	pacstrap /mnt base base-devel
+
+****************************************
 
 Generate filesystem file (fstab):
 
@@ -243,10 +258,15 @@ Edit "/etc/fstab" file:
 
 	nano /mnt/etc/fstab
 	# Replace every "relatime" with "noatime" -> better HDD/SSD IO speed
+	# For the boot partition (probably sda1?) change the "rw" to "ro" - more secure booting process and system runtime
+
+****************************************
 
 Chroot into /mnt
 
 	arch-chroot /mnt
+
+****************************************
 
 Edit locale setting (system and application language):
 	
@@ -260,14 +280,17 @@ Generate new locale settings
 	echo LANG=en_US.UTF-8 > /etc/locale.conf
 	export LANG=en_US.UTF-8
 
+****************************************
+
 Set time:
 
 	cd /usr/share/zoneinfo
 	cd Europe
 	rm /etc/localtime
-	ln -s /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
-	timedatectl set-ntp true
+	ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
 	hwclock --systohc
+
+****************************************
 
 Set up hostname
 
@@ -275,6 +298,8 @@ Set up hostname
 	cat /etc/hostname
 
 The hostname will be set after next reboot.
+
+****************************************
 
 Set up pacman repositories:
 
@@ -287,6 +312,12 @@ Set up pacman repositories:
 	SigLevel = Never
 	Server = http://repo.archlinux.fr/$arch
 
+	[herecura]
+	Server = http://repo.herecura.be/$repo/$arch
+
+	[seblu]
+	Server = http://al.seblu.net/$repo/$arch
+
 Save file (Ctrl + O) and exit (Ctrl + X).
 
 Update packages:
@@ -295,30 +326,16 @@ Update packages:
 	# If it will prompt you to install packages press 'y' and then <Enter>
 
 Install yaourt to be able install packages from AUR.
-Installation of yaourt is not necessary. Alternatively we can 
-use "herecura" repository, which contains precompiled packages from AUR.
-Both approaches are examined. But it is possible to use them together.
+Installation of yaourt is not necessary, but sometimes it makes life much easier.
+The "herecura" repository contains precompiled packages from AUR, namely opera-ffmpeg-codecs,
+which extends the multimedia functionality of opera browser.
+The "seblu" repository contains precompiled Virtualbox Extension Pack (virtualbox-ext-oracle)
 
 For yaourt:
 
 	pacman -S yaourt
 
-For herecura repository.
-
-	nano /etc/pacman.conf
-
-At the end of the file append these lines:
-
-[herecura]
-Server = http://repo.herecura.be/$repo/$arch
-
 Save and exit.
-
-Synchronize new repository to use its packages.
-
-	pacman -Syu
-
-
 
 Set up root password:
 
@@ -360,21 +377,25 @@ Install bash completion to complete commands in bash with <Tab>
 	pacman -S bash-completion
 	y
 
+Install additional packages
+
+  pacman -S wpa_supplicant
+
 
 
 BOOTLOADER INSTALLATION
 
-***********************
+****************************************
 INTEL CPU ONLY
 
 Install Intel microcode (to improve system stability).
 
 	pacman -S intel-ucode
 
-****************************
+****************************************
 
 
-****************************
+****************************************
 UEFI ONLY
 
 Mount EFI variables (efivars)
@@ -406,9 +427,9 @@ Edit bootloader configuration:
 	initrd /initramfs-linux.img
 	options root=PARTUUID=<partuuid_of_root_partition> rw
 
-******************************
+****************************************
 
-*****************************
+****************************************
 LEGACY ONLY
 
 For legacy system we need to install GRUB bootloader
@@ -421,13 +442,12 @@ Generate init file for GRUB
 	
 	mkinitcpio -p linux
 	grub-mkconfig -o /boot/grub/grub.cfg
-*****************************
+****************************************
 
 If you got warning messages about missing firmwares, take note which firmwares are you missing. We will install that, after the first login.
 
 Reboot
 	exit
-	umount /mnt
 	reboot
 	# Remove the installation USB now!
 
@@ -441,18 +461,288 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 	exit
 	reboot
 
+****************************************
+FIRST CONSOLE LOGIN
 
-If you see the login screen you can proceed with installation of:
-	- desktop (login) manager, sometning like "sddm" (but don't forget to enable it in systemctl)
-	- desktop enviroment, for example "xfce4" (which is my favourite)
-	- things for the desktop enviroment, like "nm-applet (package "network-manager-applet")" for wireless networks
+Connect to the internet:
+  wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
 
-Lastly, install and enable network manager:
+Install Xserver and desktop environment (XFCE4 is my favourite):
+  pacman -S xfce4 xorg
+      
+Install graphics drivers (I have integrated Intel graphics)
+      pacman -S mesa lib32-mesa xf86-video-intel libva-intel-driver
 
-	pacman -S networkmanager
+Now we have to decide, if we want to decide, if we want to log in to our computer from
+GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast and secure)
+
+****************************************
+A: TERMINAL LOGIN
+
+Edit file ~/.xinitrc:
+
+  cp /etc/X11/xinit/xinitrc ~/.xinitrc
+  nano ~/.xinitrc
+
+Find a line (at the end) with
+  
+  # start some nice programs
+
+Comment out everything underneath.
+At the very end of the file add command to start a destop environment
+
+  exec startxfce4
+
+Save and exit.
+
+Edit file ~/.bash_profile
+Add this to the ent of the file
+
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ];
+then
+  exec startx
+fi
+
+This will start X server right after login.
+Save, exit.
+Reboot.
+You will be greeted with a command line login prompt.
+Enter your username and password. The desktop environment will start immediately.
+Below I provide you with the samples of mentioned files.
+
+
+
+~/.xinitrc
+
+#!/bin/sh
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+
+
+
+
+
+
+
+    xrdb -merge $sysresources
+
+fi
+
+if [ -f $sysmodmap ]; then
+    xmodmap $sysmodmap
+fi
+
+if [ -f "$userresources" ]; then
+
+
+
+
+
+
+
+    xrdb -merge "$userresources"
+
+fi
+
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+fi
+
+# start some nice programs
+#
+#if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+# for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+#  [ -x "$f" ] && . "$f"
+# done
+# unset f
+#fi
+#
+#twm &
+#xclock -geometry 50x50-1+1 &
+#xterm -geometry 80x50+494+51 &
+#xterm -geometry 80x20+494-0 &
+#exec xterm -geometry 80x66+0+0 -name login
+
+# start desktop environment
+exec startxfce4
+
+
+
+
+
+~/.bash_profile
+
+#
+# ~/.bash_profile
+#
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ];
+then
+  exec startx
+fi
+
+****************************************
+B: GRAPHICAL LOGIN
+
+ak sa chceme prihlasovat z desktopoveho manazera (graficka prihlasovacia obrazovka),
+nainstalujeme SDDM a nechame ho spustat sa po starte systemu:
+
+  pacman -S sddm
+  systemctl enable sddm.service
+
+
+****************************************
+POST-INSTALL
+
+Now we all see our desktop environment. 
+Let's make some changes.
+
+****************************************
+PROXY AND GRAPHICS ACCELERATION
+
+Edit /etc/environment file:
+
+  sudo nano /etc/environment
+
+And edit its content to something like this:
+
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+VDPAU_DRIVER=va_gl
+LIBVA_DRIVER_NAME=i965
+#http_proxy=http://192.168.0.3:3128/
+#https_proxy=http://192.168.0.3:3128/
+#ftp_proxy=http://192.168.0.3:3128/
+#no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+#HTTP_PROXY=http://192.168.0.3:3128/
+#HTTPS_PROXY=http://192.168.0.3:3128/
+#FTP_PROXY=http://192.168.0.3:3128/
+#NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+
+At the top we setting system variables VDPAU and LIBVA to enable graphics acceleration for Intel graphics. Then we set up proxy server address for varous protocols.
+
+****************************************
+NTP SYNCHRONIZATION
+
+Open terminal and execute this command:
+  su -c "timedatectl set-ntp true"
+
+****************************************
+SSD OPTIMIZATION
+
+Open terminal and type:
+  sudo systemctl enable fstrim.timer
+
+This will execute TRIM command on all TRIM-capable drives once a week (Periodic TRIM).
+Periodic TRIM is safer and more supported and less prone to errors than Continuous TRIM.
+
+****************************************
+NETWORK MANAGEMENT
+
+You can manage the network interfaces via terminal:
+  "wpa_supplicant" (connecting to Wi-Fi access point)
+  "iw" (scanning for availible Wi-Fi networks)
+For wired connections just use "dhcpcd" :)
+
+If we are not satisfied with manual management of network interfaces,
+we can install a Network Manager and its applet (for the notification area):
+	pacman -S networkmanager network-manager-applet
 	systemctl enable NetworkManager.service
 
+****************************************
+XFCE4 CONFIGURATION
 
+Go to Applications menu -> Settings ->
+
+Keyboard
+  Layout tab
+    Disable "User system defaults"
+    Click on "Add" button
+    Add German layout
+    Click on the button again and add Slovak layout
+    Remove English layout
+    Change layout option: Alt+Shift
+
+Panel
+  Customize it by your liking
+  I like to have no Quick Launch icons
+  and to the right I have:
+    Workspace Switcher
+    PulseAudio Plugin (Volume icon)
+    Power Manager Plugin (Battery indicator)
+    Bluetooth indicator (but it's called "Notification Area (external)")
+    Redshift icon
+    Keyboar layout switcher
+    Clock
+    Action Buttons
+
+Power Manager
+  General tab
+    When power button is pressed: Shutdown (battery and plugged-in)
+    When sleep button is pressed: Sleep (battery and plugged-in)
+    Turn off the rest.
+  Display tab
+    Display power management: Off
+    Blank after: Never (battery and plugged-in) (Disables automatic screen dimming and turning it off.)
+    Reduce after: Never
+
+Removable Drives and Media [Optional]
+  Storage tab
+    This might be useful for automounting removable devices,
+    but I'm using my own scripts (wrappers) to mount and unmount
+    removable devices.
+
+    Enable "Mount removable drives when hot-plugged"
+    Enable "Mount removable drives when inserted"
+
+Window Manager Tweaks
+  Cycling tab
+    Enable "Cycle through windows on all workspaces"
+    Enable "Cycle through windows in a list"
+  Compositor tab
+    Disable "Enable display compositing"
+
+Workspaces
+  General tab
+    Number of workspaces: 2
+  Margins tab
+    Left margin: 1
+    Right margin: 1
+  
+
+****************************************
+ADDITIONAL PROGRAMS
+
+See "ARCH_installed_packages_user.txt".
+
+For installation automation, see
+  https://bbs.archlinux.org/viewtopic.php?pid=470581#p470581
+
+****************************************
+CLEAN-UP
+
+Remove unused packages
+  sudo pacman -Rns $(pacman -Qtdq)
+
+Clear cached packages
+  sudo pacman -Sc
+  :: Do you want to remove all other packages from cache? [Y/n] y
+  :: Do you want to remove unused repositories? [Y/n] n
+
+
+****************************************
 Sources:
 	GloriousEggroll - 2017 Arch Linux EFI Install Guide
 		https://www.youtube.com/watch?v=iF7Y8IH5A3M
@@ -471,3 +761,9 @@ Sources:
 
 	goguda55 Tech Tutorials - How to Install Arch Linux
 		https://www.youtube.com/watch?v=Wqh9AQt3nho
+
+	https://wiki.archlinux.org/index.php/Solid_State_Drives#Periodic_TRIM
+	https://www.digitalocean.com/community/tutorials/how-to-configure-periodic-trim-for-ssd-storage-on-linux-servers
+	https://wiki.archlinux.org/index.php/pacman#Cleaning_the_package_cache
+	https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages_.28orphans.29
+	
