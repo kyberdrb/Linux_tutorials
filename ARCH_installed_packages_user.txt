@@ -16,6 +16,7 @@ mesa -> Intel grafika
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
 ntfs-3g -> NTFS support
+openssh -> SSH client and server
 opera -> recover ~/.opera directory and sync the settings with opera account
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 p7zip -> command line extraction utility
@@ -28,12 +29,14 @@ python-kivy -> Python Kivy cross-platform framework
 python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
 redshift -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart
 shotwell -> image viewer with nice features (crop, rotate, ...)
+tigervnc -> VNC client and server
 transmission-gtk -> Bittorrent klient
 virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virtualbox-ext-oracle
 virtualbox-guest-iso
+vlc -> multimedia player
 xf86-video-intel -> Intel grafika
 xfce4 -> my favourite desktop environment
 xorg -> display server
