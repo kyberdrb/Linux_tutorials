@@ -46,6 +46,7 @@ wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 
 **  YAOURT **
 dtrx -> command line extraction utility
+etcher -> bootable USB creator; replacement for dd
 skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - nezbuildi sa qt4 modul
 google-chrome
 
