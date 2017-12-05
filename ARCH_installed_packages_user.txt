@@ -27,11 +27,13 @@ pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 python -> python3 support
 python-kivy -> Python Kivy cross-platform framework
 python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
+qemu -> generic virtualizer
 redshift -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 transmission-gtk -> Bittorrent klient
 virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
+virt-manager -> front-end ku QEMU
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virtualbox-ext-oracle
