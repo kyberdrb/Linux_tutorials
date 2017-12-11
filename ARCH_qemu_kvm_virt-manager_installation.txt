@@ -1,0 +1,14 @@
+# install qemu (backend) and virt-manager (frontend)
+sudo pacman -S virt-manager qemu
+
+# without this will virt-manager complain: "Cannot connect to libvirt daemon"
+sudo systemctl enable libvirtd.service
+
+# allow regular users to work with kvm virtual machines in virt-manager
+sudo usermod -aG libvirt andrej
+
+sudo reboot
+
+Sources:
+https://wiki.archlinux.org/index.php/QEMU
+https://computingforgeeks.com/use-virt-manager-as-non-root-user/
