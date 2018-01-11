@@ -25,6 +25,8 @@ Now we can remount it as Read-Write
 Run pacman update again
 
   sudo pacman -Syu
+  cd
+  rm -rf ~/.libvirt
 
 The update procedure will finish successfully.
 

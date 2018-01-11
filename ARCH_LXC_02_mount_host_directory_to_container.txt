@@ -1,0 +1,28 @@
+Mounting a directory from host system to container
+
+
+*************************
+PRIVILEDGED CONTAINER
+*************************
+
+Open file
+
+  sudo nano /var/lib/lxc/<container_name>/config
+
+Mount a directory on the host to the container directory (both, host's and container's directory must exist!).
+Mounting as "rw" - read-write
+
+  lxc.mount.entry = /home/andrej/Downloads /var/lib/lxc/<container_name>/rootfs/root none bind,create=file 0 0
+
+Mounting as "ro" - read-only
+
+  lxc.mount.entry = /home/andrej/Downloads /var/lib/lxc/<container_name>/rootfs/root none bind,create=file 0 0
+
+*************************
+UNPRIVILEDGED CONTAINER
+*************************
+
+  https://gist.github.com/julianlam/07abef272136ea14a627
+
+Sources
+  https://github.com/fgrehm/vagrant-lxc/issues/193#issuecomment-37600484

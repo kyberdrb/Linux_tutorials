@@ -6,7 +6,7 @@ sudo systemctl enable libvirtd.service
 
 # allow regular users to work with kvm virtual machines in virt-manager
 sudo usermod -aG libvirt andrej
-
+sudo usermod -aG kvm andrej
 sudo reboot
 
 Sources:

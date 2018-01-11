@@ -1,5 +1,5 @@
 **  PACMAN **
-audacity
+audacity -> audio editing software
 bc- > command line calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
 evince -> PDF reader
@@ -8,16 +8,34 @@ firefox -> recover the ~/.config/mozilla directory
 git -> recover the ~/.gitconfig file
 gparted
 gummi -> LaTeX editor
+gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
+gvfs-mtp -> automouning MTP devices, such as smartphones
+gvfs-gphoto2 -> automounting PTP devices, such as cameras
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 lib32-mesa -> Intel grafika
 libreoffice-fresh
 libva-intel-driver -> Intel grafika
-mesa -> Intel grafika
+
+-LXC/LXD containers support
+lxc -> base LXC support
+arch-install-scripts -> base LXC support
+dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
+debootstrap -> support for Debian based LXC containers in Arch Linux
+
+-Docker
+docker -> base Docker support
+
+-Development
+-code - Visual Studio Code (VS Code) - multiplatform development editor/tool
+-icu55 - debugging support for c# in VS Code
+
+mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
 ntfs-3g -> NTFS support
 openssh -> SSH client and server
 opera -> recover ~/.opera directory and sync the settings with opera account
+openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 p7zip -> command line extraction utility
 pavucontrol -> pulseaudio frontend (gui)
@@ -33,26 +51,31 @@ shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
 transmission-gtk -> Bittorrent klient
-virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
-virt-manager -> front-end ku QEMU
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
+virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
 virtualbox-ext-oracle
 virtualbox-guest-iso
+virt-manager -> front-end ku QEMU
 vlc -> multimedia player
+wget -> terminal downloader utility
+wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 xf86-video-intel -> Intel grafika
 xfce4 -> my favourite desktop environment
 xorg -> display server
 xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
-wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 
 **  YAOURT **
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
 skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - nezbuildi sa qt4 modul
 google-chrome
+
+-LXC/LXD containers support
+yum -> support for Fedora based LXC containers in Arch Linux
+lxd -> base LXD support
 
 **  MANUALNE Z INTERNETU **
 pycharm -> skopirovat do /opt adresara

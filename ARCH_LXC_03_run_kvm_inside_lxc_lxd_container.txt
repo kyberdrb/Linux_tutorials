@@ -1,0 +1,108 @@
+Check the attributes of /dev/kvm on host system
+
+  ls -lh /dev/kvm
+
+  crw-rw-rw- 1 root kvm 10, 232 Dec 31 15:41 /dev/kvm  
+
+Edit config
+
+  sudo nano /var/lib/lxc/arch/config
+
+Add these lines
+
+# Allow /dev/kvm - owned by "kvm" group - mozno bude potrebne pridat viacero interfejsov
+lxc.cgroup.devices.allow = c 10:232 rwm
+lxc.cgroup.devices.allow = b 7:* rwm
+
+# Setup access to /dev/net/tun and /dev/kvm
+lxc.mount.entry = /dev/net/tun dev/net/tun none bind,create=file 0 0
+lxc.mount.entry = /dev/kvm dev/kvm none bind,create=file 0 0
+
+
+Reload kvm modules
+
+  sudo rmmod kvm_intel
+  sudo rmmod kvm
+  sudo modprobe kvm_intel
+
+Start the container
+
+  sudo lxc-start --name arch
+
+Install QEMU and KVM
+
+  pacman -S virt-manager qemu
+
+Enable KVM service
+
+  systemctl enable libvirtd.service
+
+Allow regular users to work with kvm virtual machines in virt-manager
+  usermod -aG libvirt andrej
+  usermod -aG kvm andrej
+  reboot
+
+
+
+
+
+TIETO KROKY PRESKOCIT!!! - KONFIGURAK SA O NE POSTARA!
+Add /dev/kvm device to the container to mimic the host device
+
+  mknod -m 666 /dev/kvm c 10 232
+  ls -l /dev/kvm
+
+Change the group of /dev/kvm to 'kvm'
+
+  chgrp kvm /dev/kvm
+
+
+
+
+
+
+
+
+Check if changes have been applied
+
+  ls -l /dev/kvm
+  ls -l /dev/net/tun
+
+Check if the libvirt deamon for KVM is running
+
+  systemctl status libvirtd.service
+
+If it's not running, start it ...
+
+  systemctl start libvirtd.service
+
+... and verify (should be running and active)
+
+  systemctl status libvirtd.service
+
+
+
+
+
+
+
+
+Launch an arbitrary QCOW2 image in the container.
+Serial console
+QCOW2 must be in dir with rw permiss
+
+  qemu-system-x86_64 virtioa.qcow2 -nographic
+
+If machine runs -> close qemu with "Ctrl + a" and then press 'x'
+Else check settings and config files + their container exposure
+
+
+
+Sources:
+  https://github.com/lxc/lxd/issues/3393
+  https://github.com/lxc/lxd/issues/2718
+  https://wiki.archlinux.org/index.php/Linux_Containers
+  https://unix.stackexchange.com/questions/82012/lxc-running-virtualbox-inside-a-container
+  https://docs.openstack.org/devstack/latest/guides/lxc.html
+  https://serverfault.com/questions/471719/how-to-start-qemu-directly-in-the-console-not-in-curses-or-sdl
+  https://draskodraskovic.wordpress.com/2012/05/26/running-qemu-in-nographic-mode/

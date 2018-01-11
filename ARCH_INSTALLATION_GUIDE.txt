@@ -727,7 +727,7 @@ ADDITIONAL PROGRAMS
 
 See "ARCH_installed_packages_user.txt".
 
-For installation automation, see
+For package installation automation, see
   https://bbs.archlinux.org/viewtopic.php?pid=470581#p470581
 
 ****************************************
@@ -741,6 +741,32 @@ Clear cached packages
   :: Do you want to remove all other packages from cache? [Y/n] y
   :: Do you want to remove unused repositories? [Y/n] n
 
+
+****************************************
+TROUBLESHOOTING
+
+Question:
+Can't update/upgrade system via pacman. Pacman displays these error messages:
+
+error: Partition /boot is mounted read only
+error: not enough free disk space
+error: failed to commit transaction (not enough free disk space)
+Errors occurred, no packages were upgraded.
+
+Answer:
+SEE "ARCH_updating_procedure.txt"
+
+
+Qusetion:
+The USB stick is not mounted automatically nor shown in file manager.
+Answer:
+See "ARCH_XFCE_enable_trash_automounting_removable_drives.txt"
+
+
+Question:
+Trash is not showing in the file manager or Desktop.
+Answer:
+See "ARCH_XFCE_enable_trash_automounting_removable_drives.txt"
 
 ****************************************
 Sources:

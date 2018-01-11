@@ -1,0 +1,35 @@
+Install required packages
+
+  sudo pacman -S gvfs gvfs-mtp gvfs-gphoto2
+
+Adjust XFCE settings
+
+  Applications menu -> Settings -> Removable Drives and Media -> check " Mount removable drives when hot-plugged" and " Mount removable media when inserted"
+
+Plug in your USB stick.
+Open file manager.
+You should see the USB stick mounted in the left column.
+
+
+If not, you can still mount the drive manually via terminal:
+
+Check, which label corresponds your USB stick
+
+  lsblk
+or
+  sudo fdisk -l
+
+Then mount it
+
+  gvfs-mount -d /dev/sdX#
+
+where X is the drive name and # is the partition number, e.g.
+
+  gvfs-mount -d /dev/sdb1
+
+
+Sources:
+  https://forum.voidlinux.eu/t/solved-xfce-missing-trash-and-other-icons-on-the-desktop/2010/2
+  https://bbs.archlinux.org/viewtopic.php?pid=1608701#p1608701
+  https://docs.xfce.org/xfce/thunar/using-removable-media
+  https://www.youtube.com/watch?v=fYlBVkB1gn4
