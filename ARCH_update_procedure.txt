@@ -1,4 +1,4 @@
-If we can' update Arch Linux with
+If we can't update Arch Linux with
 
   sudo pacman -Syu
 

@@ -26,8 +26,7 @@ debootstrap -> support for Debian based LXC containers in Arch Linux
 docker -> base Docker support
 
 -Development
--code - Visual Studio Code (VS Code) - multiplatform development editor/tool
--icu55 - debugging support for c# in VS Code
+mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" for compilation and run instructions
 
 mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
@@ -70,8 +69,12 @@ xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 **  YAOURT **
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
-skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - nezbuildi sa qt4 modul
+skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - neda sa skompilovat qt4 modul
 google-chrome
+teamviewer -> na ovladanie vzdialenych ploch - aj pre android :D (https://crazytechtricks.com/remote-control-android-phone-from-another-android-without-root-download-best-apps/)
+
+-DEVELOPMENT
+code - Visual Studio Code (VS Code) - multiplatform development editor/tool
 
 -LXC/LXD containers support
 yum -> support for Fedora based LXC containers in Arch Linux

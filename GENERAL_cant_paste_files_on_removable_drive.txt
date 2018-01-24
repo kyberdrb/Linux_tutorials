@@ -1,0 +1,1 @@
+sudo chown -R andrej:users /run/media/andrej/6E7348692C6888DA

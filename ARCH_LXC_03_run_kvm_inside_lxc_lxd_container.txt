@@ -59,10 +59,6 @@ Change the group of /dev/kvm to 'kvm'
 
 
 
-
-
-
-
 Check if changes have been applied
 
   ls -l /dev/kvm
