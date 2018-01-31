@@ -1,0 +1,23 @@
+Detach from all tmux sessions:
+
+    Ctrl+b d
+
+Create tmux config file
+
+    vim ~/.tmux.conf
+
+Add this line to enable support for Ctrl+Arrow Lelf/Right
+
+    set-window-option -g xterm-keys on
+
+Attach to your tmux session e.g.:
+
+    tmux a
+
+Tell tmux to use the newly created configuration file
+
+    Ctrl+b :source-file ~/.tmux.conf
+
+
+Sources:
+  https://superuser.com/a/395273
