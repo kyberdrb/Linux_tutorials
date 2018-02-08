@@ -5,6 +5,7 @@ sudo pacman -S virt-manager qemu
 sudo systemctl enable libvirtd.service
 
 # enable autostart for NAT bridge interface for Internet connectivity for VMs
+# Solution to error "NAT (inactive)"
 
 sudo virsh net-autostart default
 
