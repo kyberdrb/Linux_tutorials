@@ -4,11 +4,29 @@ sudo pacman -S virt-manager qemu
 # without this will virt-manager complain: "Cannot connect to libvirt daemon"
 sudo systemctl enable libvirtd.service
 
+# enable autostart for NAT bridge interface for Internet connectivity for VMs
+
+sudo virsh net-autostart default
+
+(manual activation here:
+  http://ask.xmodulo.com/network-default-is-not-active.html)
+
 # allow regular users to work with kvm virtual machines in virt-manager
 sudo usermod -aG libvirt andrej
 sudo usermod -aG kvm andrej
 sudo reboot
 
+# enable memory, disk and network statistics
+After restart run virt-manager. Go to Edit -> Preferences -> Polling
+and check:
+  -Poll Disk I/O
+  -Poll Network I/O
+  -Poll Memory stats
+
 Sources:
 https://wiki.archlinux.org/index.php/QEMU
 https://computingforgeeks.com/use-virt-manager-as-non-root-user/
+https://ubuntuforums.org/showthread.php?t=1589260
+http://www.techotopia.com/index.php/Managing_and_Monitoring_CentOS_based_KVM_Guest_Systems#Monitoring_Virtual_Machine_Performance
+http://ask.xmodulo.com/network-default-is-not-active.html
+https://libvirt.org/sources/virshcmdref/html/sect-net-autostart.html
