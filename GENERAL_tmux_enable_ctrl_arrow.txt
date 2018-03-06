@@ -2,7 +2,7 @@ Detach from all tmux sessions:
 
     Ctrl+b d
 
-Create tmux config file
+Edit/Create tmux config file
 
     vim ~/.tmux.conf
 

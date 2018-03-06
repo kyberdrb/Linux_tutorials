@@ -27,6 +27,10 @@ docker -> base Docker support
 
 -Development
 mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" for compilation and run instructions
+python -> python3 support
+python-kivy -> Python Kivy cross-platform framework
+python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
+c - pip command
 
 mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
@@ -41,9 +45,6 @@ pavucontrol -> pulseaudio frontend (gui)
 #pepper-flash -> podpora adobe flash - nemam ho rad, ale vela televiznych stanic ho pouzivaju na streamovanie
 pulseaudio -> audio server
 pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
-python -> python3 support
-python-kivy -> Python Kivy cross-platform framework
-python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
 qemu -> generic virtualizer
 redshift -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart
 shotwell -> image viewer with nice features (crop, rotate, ...)
