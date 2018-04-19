@@ -1,8 +1,25 @@
 Check the attributes of /dev/kvm on host system
 
-  ls -lh /dev/kvm
+    ls -lh /dev/kvm
 
-  crw-rw-rw- 1 root kvm 10, 232 Dec 31 15:41 /dev/kvm  
+Output:
+    crw-rw-rw- 1 root kvm 10, 232 Dec 31 15:41 /dev/kvm
+
+    
+    ls -l /dev/net/tun
+
+Output
+    crw-rw-rw- 1 root root 10, 200 Apr 16 18:46 /dev/net/tun
+
+These files must have this exact "owner" and "group" attributes:
+
+
+
+If not, execute these commands
+
+    sudo chown root:kvm /dev/kvm
+    sudo chown root:root /dev/net/tun
+
 
 Edit config
 
@@ -10,7 +27,11 @@ Edit config
 
 Add these lines
 
-# Allow /dev/kvm - owned by "kvm" group - mozno bude potrebne pridat viacero interfejsov
+# Allow /dev/kvm (10, 232)
+#   -> must be owned by "kvm" group
+# Allow /dev/net/tun (10, 200)
+#   -> must be owned by "root" group
+lxc.cgroup.devices.allow = c 10:230 rwm
 lxc.cgroup.devices.allow = c 10:232 rwm
 lxc.cgroup.devices.allow = b 7:* rwm
 
