@@ -20,14 +20,27 @@ sr0     11:0    1  1024M  0 rom
 In my case, the boot partition is called '/dev/sda1' and is mounted in '/boot' directory.
 Now we can remount it as Read-Write
 
+**************************************************
   sudo mount -o remount,rw /dev/sda1 /boot
+**************************************************
 
 Run pacman update again
 
   sudo pacman -Syu
-  rm -rf ~/.libvirt
 
 The update procedure will finish successfully.
+
+If not, try
+
+  sudo pacman -Syud
+  sudo pacman -Syyu
+  sudo pacman -Syyuu
+
+The 'd' option disables dependency checking.
+
+Lastly, clear libvirt user directory:
+
+    rm -rf ~/.libvirt
 
 Sources:
 https://askubuntu.com/questions/175739/how-do-i-remount-a-filesystem-as-read-write/175742#175742

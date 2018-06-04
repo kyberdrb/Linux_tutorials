@@ -1,4 +1,5 @@
 **  PACMAN **
+7z - archive manipulation utility
 audacity -> audio editing software
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
@@ -68,6 +69,9 @@ xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to App
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
 **  YAOURT **
+aurman -> AUR helper utility - installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to yaourt
+
+** AURMAN **
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
 skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - neda sa skompilovat qt4 modul
