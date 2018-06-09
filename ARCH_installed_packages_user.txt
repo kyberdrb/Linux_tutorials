@@ -7,8 +7,7 @@ evince -> PDF reader
 filezilla -> FTP client
 firefox -> recover the ~/.config/mozilla directory
 git -> recover the ~/.gitconfig file
-gparted
-gummi -> LaTeX editor
+gparted -> disk and partition manager
 gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
 gvfs-mtp -> automouning MTP devices, such as smartphones
 gvfs-gphoto2 -> automounting PTP devices, such as cameras
@@ -68,10 +67,9 @@ xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
-**  YAOURT **
-aurman -> AUR helper utility - installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to yaourt
+** PIKAUR **
+pikaur -> AUR helper utility - installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to other AUR helpers like yaourt/aurman/bauerbill
 
-** AURMAN **
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
 skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - neda sa skompilovat qt4 modul
