@@ -11,13 +11,13 @@ Copy this in the file:
 ; Global settings for redshift
 [redshift]
 ; Set the day and night screen temperatures
-temp-day=5700
-temp-night=3500
+temp-day=2000
+temp-night=2000
 
 ; Enable/Disable a smooth transition between day and night
 ; 0 will cause a direct change from day to night screen temperature.
 ; 1 will gradually increase or decrease the screen temperature.
-transition=1
+transition=0
 
 ; Set the screen brightness. Default is 1.0.
 ;brightness=0.9
@@ -27,8 +27,8 @@ transition=1
 ;brightness-night=0.4
 ; Set the screen gamma (for all colors, or each color channel
 ; individually)
-gamma=0.8
-;gamma=0.8:0.7:0.8
+gamma=1.0
+;gamma=1.0:0.7:0.7
 ; This can also be set individually for day and night since
 ; version 1.10.
 ;gamma-day=0.8:0.7:0.8
@@ -66,7 +66,7 @@ lon=14
 screen=0
 
 
-run redshift with command "redshift-gtk"
+run redshift with command "redshift-gtk &"
 If the screen gets an orange shade, it works.
 If you get an error "cant find screen 1" change last line "screen=1" to "screen=0" and run redshift again.
 If you get an error that "a module is missing", google that module :) Probably it is a python module, that needs to be installed.

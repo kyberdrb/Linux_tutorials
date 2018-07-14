@@ -30,7 +30,7 @@ mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" f
 python -> python3 support
 python-kivy -> Python Kivy cross-platform framework
 python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
-c - pip command
+python-virtualenv python2-virtualenv -> virtualne prostredia pre python2 a python3
 
 mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)

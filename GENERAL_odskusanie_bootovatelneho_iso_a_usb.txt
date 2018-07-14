@@ -1,0 +1,16 @@
+sudo qemu-system-x86_64 --enable-kvm -m 1024 -machine smm=off -cdrom Downloads/xubuntu-18.04-desktop-i386.iso
+
+sudo qemu-system-x86_64 --enable-kvm -cdrom Downloads/xubuntu-18.04-desktop-i386.iso
+=> Nefunguje
+
+sudo qemu-system-x86_64 -m 1024 -cdrom Downloads/xubuntu-18.04-desktop-i386.iso
+=> Funguje, ale pomaly
+
+sudo qemu-system-x86_64 --enable-kvm -m 1024 -cdrom Downloads/xubuntu-18.04-desktop-i386.iso
+=> Funguje ovela rychejsie
+
+sudo qemu-system-x86_64 --enable-kvm -m 1024 -hda /dev/sdb
+=> Testovanie bootovatelneho USB
+
+Sources:
+https://unix.stackexchange.com/questions/117041/running-kernel-on-qemu/239727#239727
