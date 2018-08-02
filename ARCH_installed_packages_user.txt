@@ -16,22 +16,14 @@ lib32-mesa -> Intel grafika
 libreoffice-fresh
 libva-intel-driver -> Intel grafika
 
--LXC/LXD containers support
+-VIRTUALISATION
 lxc -> base LXC support
 arch-install-scripts -> base LXC support
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 debootstrap -> support for Debian based LXC containers in Arch Linux
-
--Docker
 docker -> base Docker support
 
--Development
-mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" for compilation and run instructions
-python -> python3 support
-python-kivy -> Python Kivy cross-platform framework
-python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
-python-virtualenv python2-virtualenv -> virtualne prostredia pre python2 a python3
-
+-GENERAL
 mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
@@ -77,7 +69,14 @@ google-chrome
 teamviewer -> na ovladanie vzdialenych ploch - aj pre android :D (https://crazytechtricks.com/remote-control-android-phone-from-another-android-without-root-download-best-apps/)
 
 -DEVELOPMENT
-code - Visual Studio Code (VS Code) - multiplatform development editor/tool
+code -> Visual Studio Code (VS Code) - multiplatform development editor/tool
+pycharm-professional -> Python/HTML/CSS/JS IDE from JetBrains; the community edition is good, but is lacking the "code coverage" functionality; needs to be activated - use one of the "jetbrains activation servers" << google that ;) or http://xidea.online/servers.html
+mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" for compilation and run instructions
+python -> python3 support
+python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
+python-virtualenv python2-virtualenv -> virtualne prostredia pre python2 a python3
+python-coverage python2-coverage: For support code coverage measurement for Python 2
+clion clion-cmake clion-gdb clion-jre clion-lldb - C/C++ IDE from JetBrains with bundled toolchains: cmake build plugin, clion debugger, clion jre support and clion lldb debugger; all packages must be installed to have a fully functional IDE; needs to be activated - use one of the "jetbrains activation servers" << google that ;) or http://xidea.online/servers.html
 
 -LXC/LXD containers support
 yum -> support for Fedora based LXC containers in Arch Linux
