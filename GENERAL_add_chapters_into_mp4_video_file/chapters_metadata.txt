@@ -1,0 +1,245 @@
+;FFMETADATA1
+major_brand=mp42
+minor_version=512
+compatible_brands=isomiso2avc1mp41
+encoder=Lavf58.12.100
+
+[CHAPTER]
+TIMEBASE=1/1
+START=0
+END=22
+title=Dopravna situacia 1
+
+[CHAPTER]
+TIMEBASE=1/1
+START=22
+END=45
+title=Dopravna situacia 2
+
+[CHAPTER]
+TIMEBASE=1/1
+START=45
+END=72
+title=Dopravna situacia 3
+
+[CHAPTER]
+TIMEBASE=1/1
+START=72
+END=98
+title=Dopravna situacia 4
+
+[CHAPTER]
+TIMEBASE=1/1
+START=98
+END=118
+title=Dopravna situacia 5
+
+[CHAPTER]
+TIMEBASE=1/10
+START=1180
+END=1385
+title=Dopravna situacia 6
+
+[CHAPTER]
+TIMEBASE=1/10
+START=1385
+END=1625
+title=Dopravna situacia 7
+
+[CHAPTER]
+TIMEBASE=1/10
+START=1625
+END=1888
+title=Dopravna situacia 8
+
+[CHAPTER]
+TIMEBASE=1/10
+START=1888
+END=2245
+title=Dopravna situacia 9
+
+[CHAPTER]
+TIMEBASE=1/10
+START=2245
+END=2709
+title=Dopravna situacia 10
+
+[CHAPTER]
+TIMEBASE=1/10
+START=2709
+END=2945
+title=Dopravna situacia 11
+
+[CHAPTER]
+TIMEBASE=1/10
+START=2945
+END=3155
+title=Dopravna situacia 12
+
+[CHAPTER]
+TIMEBASE=1/10
+START=3155
+END=3427
+title=Dopravna situacia 13
+
+[CHAPTER]
+TIMEBASE=1/10
+START=3427
+END=3683
+title=Dopravna situacia 14
+
+[CHAPTER]
+TIMEBASE=1/10
+START=3683
+END=3920
+title=Dopravna situacia 15
+
+[CHAPTER]
+TIMEBASE=1/10
+START=3920
+END=4105
+title=Dopravna situacia 16
+
+[CHAPTER]
+TIMEBASE=1/10
+START=4105
+END=4357
+title=Dopravna situacia 17
+
+[CHAPTER]
+TIMEBASE=1/10
+START=4357
+END=4575
+title=Dopravna situacia 18
+
+[CHAPTER]
+TIMEBASE=1/10
+START=4575
+END=4805
+title=Dopravna situacia 19
+
+[CHAPTER]
+TIMEBASE=1/10
+START=4805
+END=5038
+title=Dopravna situacia 20
+
+[CHAPTER]
+TIMEBASE=1/10
+START=5038
+END=5265
+title=Dopravna situacia 21
+
+[CHAPTER]
+TIMEBASE=1/10
+START=5265
+END=5525
+title=Dopravna situacia 22
+
+[CHAPTER]
+TIMEBASE=1/10
+START=5525
+END=5757
+title=Dopravna situacia 23
+
+[CHAPTER]
+TIMEBASE=1/10
+START=5757
+END=6020
+title=Dopravna situacia 24
+
+[CHAPTER]
+TIMEBASE=1/1
+START=602
+END=621
+title=Dopravna situacia 25
+
+[CHAPTER]
+TIMEBASE=1/10
+START=6210
+END=6445
+title=Dopravna situacia 26
+
+[CHAPTER]
+TIMEBASE=1/10
+START=6445
+END=6610
+title=Dopravna situacia 27
+
+[CHAPTER]
+TIMEBASE=1/10
+START=6610
+END=6798
+title=Dopravna situacia 28
+
+[CHAPTER]
+TIMEBASE=1/10
+START=6798
+END=6982
+title=Dopravna situacia 29
+
+[CHAPTER]
+TIMEBASE=1/10
+START=6982
+END=7172
+title=Dopravna situacia 30
+
+[CHAPTER]
+TIMEBASE=1/10
+START=7172
+END=7589
+title=Dopravna situacia 31
+
+[CHAPTER]
+TIMEBASE=1/10
+START=7589
+END=7948
+title=Dopravna situacia 32
+
+[CHAPTER]
+TIMEBASE=1/10
+START=7948
+END=8250
+title=Dopravna situacia 33
+
+[CHAPTER]
+TIMEBASE=1/10
+START=8250
+END=8446
+title=Dopravna situacia 34
+
+[CHAPTER]
+TIMEBASE=1/10
+START=8446
+END=8636
+title=Dopravna situacia 35
+
+[CHAPTER]
+TIMEBASE=1/10
+START=8636
+END=8872
+title=Dopravna situacia 36
+
+[CHAPTER]
+TIMEBASE=1/10
+START=8872
+END=9123
+title=Dopravna situacia 37
+
+[CHAPTER]
+TIMEBASE=1/10
+START=9123
+END=9342
+title=Dopravna situacia 38
+
+[CHAPTER]
+TIMEBASE=1/10
+START=9342
+END=9569
+title=Dopravna situacia 39
+
+[CHAPTER]
+TIMEBASE=1/10
+START=9569
+END=9770
+title=Dopravna situacia 40
