@@ -1,0 +1,20 @@
+hardverova akceleracia videa pre arch linux na amd athlon 5350 (kabini)
+
+nainstaluj va-api:
+
+export LIBVA_DRIVER_NAME=radeonsi
+echo $LIBVA_DRIVER_NAME
+sudo pacman -S  libva-mesa-driver
+grep -iE 'vdpau|dri driver' ~/.local/share/xorg/Xorg.0.log
+vainfo
+
+
+
+nainstaluj vdpau:
+
+export VDPAU_DRIVER=radeonsi
+sudo pacman -S mesa-vdpau vdpauinfo
+vdpauinfo
+
+Zdroje:
+https://wiki.archlinux.org/index.php/Hardware_video_acceleration
