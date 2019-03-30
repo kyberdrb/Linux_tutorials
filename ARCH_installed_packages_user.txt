@@ -78,7 +78,7 @@ python -> python3 support
 python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
 python-virtualenv python2-virtualenv -> virtualne prostredia pre python2 a python3
 python-coverage python2-coverage: For support code coverage measurement for Python 2
-clion clion-cmake clion-gdb clion-jre clion-lldb gtest- C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; cmake build plugin, clion debugger, clion jre support and clion lldb debugger; all packages must be installed to have a fully functional IDE; needs to be activated - use one of the "jetbrains activation servers" << google that ;) or http://xidea.online/servers.html
+clion clion-cmake clion-gdb clion-jre clion-lldb gtest perf valgrind - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework, Valgrind for memory leaks test and Perf for profiling; cmake build plugin, clion debugger, clion jre support and clion lldb debugger; all packages must be installed to have a fully functional IDE; to reset trial period see "https://gist.github.com/kyberdrb/28ee3454b3fc42c262bf9e0e455fc22d"
 
 -LXC/LXD containers support
 yum -> support for Fedora based LXC containers in Arch Linux
