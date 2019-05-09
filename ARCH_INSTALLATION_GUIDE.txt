@@ -10,7 +10,7 @@ For Windows, use Rufus and make the Arch Linux installation USB with it.
 Plug the USB drive into a PC and boot from it.
 Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there.
 If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
-If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB (only legacy) o these stepps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
+If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB (only legacy) boot from `EFI/boot/loader.efi` these steps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
   Rapidly press F9
   Choose "Boot From EFI File"
   Choose option "ARCHISO_EFI_..."
@@ -97,7 +97,16 @@ If you choosed to boot from USB in UEFI mode, check the list of EFI variables to
 If it lists a lot of the variables, you can install Arch Linux in UEFI mode :D
 If it doesn't list any variables or prints an error "efivar: error listing variables: Function not implemented", it means, that either we booted into legacy mode, or our UEFI is not supported.
 
-Now we can continue with the next step.
+Now we can continue with the disk partitioning.
+
+****************************************
+
+Continue by this installation guide
+
+            https://wiki.archlinux.org/index.php/User:Altercation/Bullet_Proof_Arch_Install
+
+up until `Generate new locale settings`. Skip unnecessary commands.
+
 ****************************************
 
 DISK PARTITIONING
