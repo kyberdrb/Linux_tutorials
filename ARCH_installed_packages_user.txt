@@ -19,18 +19,18 @@ libva-intel-driver -> Intel grafika
 -VIRTUALIZATION
 lxc -> base LXC support
 arch-install-scripts -> base LXC support
-dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 debootstrap -> support for Debian based LXC containers in Arch Linux
 docker -> base Docker support
 
 -GENERAL
 android-file-transfer - transfer data with a mobile device via MTP
+dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
+lxqt - LXQt desktop environment - UNINSTALL XFCE4 AND TEST AGAIN AFTER REBOOT
 mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
 ntfs-3g -> NTFS support
 openssh -> SSH client and server
-opera -> recover ~/.opera directory and sync the settings with opera account
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 p7zip -> command line extraction utility
@@ -54,6 +54,7 @@ vlc -> multimedia player
 wget -> terminal downloader utility
 wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 xf86-video-intel -> Intel grafika
+
 xfce4 -> my favourite desktop environment
 xorg -> display server
 xfce4-pulseaudio-plugin -> Volume control in notification tray
