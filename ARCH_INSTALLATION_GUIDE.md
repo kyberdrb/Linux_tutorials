@@ -21,51 +21,22 @@ Now the USB will boot in UEFI mode a shortly you will see the ARCH EFI bootloade
 
 After you get the Arch Linux boot screen, choose "Boot Arch Linux x86_64"
 
-To install Arch Linux you need to have Internet connection. It's recommended to use the Ethernet, but Wi-Fi connection is also possible, if your wireless adapter is supported. Below I will explain, how to connect to the Internet via Ethernet and Wi-Fi.
+To install Arch Linux you need to have Internet connection. It's recommended to use the Ethernet, but Wi-Fi connection is also possible, if your wireless adapter is supported. Below I will explain how to connect to the Internet via Ethernet and Wi-Fi.
 
-List your network adapters
+List all your wired and wireless network adapters
 	
 	ip link
 
 ****************************************
 WIRELESS (Wi-Fi) ONLY
 
-Find out the name of the wireless adapter:
+Connect to a Wi-Fi network
 
-	ip link
+    wifi-menu
+    
+Choose the network, confirm profile name and enter password.
 
-In my case it's called "wlo1". Turn it on:
-
-	ip link set wlo1 up
-
-Check it's name again:
-
-	iw dev
-
-Check it's status:
-
-	iw dev wlo1 link
-
-Check it's properties:
-
-	iw dev wlo1 station dump
-
-Scan availible Wi-Fi networks:
-
-	iw dev wlo1 scan | less
-
-Now choose a Wi-Fi network you want to connect to. Remember it's SSID and security type. Find out the password to the chosen wireless network. Now we will check, if we are able to connect to the chosen network. In my case the security type of my Wi-Fi was WPA2, thus I will use "wpa_passphrase" utility:
-
-	wpa_passphrase SSID_of_the_network "network password"
-
-We should get a response, in which we can see a PSK key.
-If we see the PSK key in the message, we can connect to chosen Wi-Fi network:
-
-	wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
-
-We should get a message "Successfully initialized wpa_supplicant".
-
-Now we can proceed to the step of obtaining IP address via DHCP.
+The Wi-Fi adapter is turned on automatically by the command and the IP address is obtained automatically as well via DHCP.
 
 ****************************************
 
@@ -94,20 +65,10 @@ If you choosed to boot from USB in UEFI mode, check the list of EFI variables to
 	
 	efivar -l
 
-If it lists a lot of the variables, you can install Arch Linux in UEFI mode :D
+If it lists variables, you can install Arch Linux in UEFI mode :D
 If it doesn't list any variables or prints an error "efivar: error listing variables: Function not implemented", it means, that either we booted into legacy mode, or our UEFI is not supported.
 
-Now we can continue with the disk partitioning.
-
-****************************************
-
-Continue by this installation guide
-
-            https://wiki.archlinux.org/index.php/User:Altercation/Bullet_Proof_Arch_Install
-
-up until `Generate new locale settings`. Skip unnecessary commands.
-
-****************************************
+Now we can continue with the disk partitioning
 
 DISK PARTITIONING
 First of all, we have to choose the disk, which Arch Linux will be installed on. Print the list of connected disks with command:
@@ -117,11 +78,7 @@ First of all, we have to choose the disk, which Arch Linux will be installed on.
 Let's say, we want to install Arch on disk "sda".
 Firstly, we need to wipe the disk:
 
-	gdisk /dev/sda
-	x	- e X pert
-	z	- Z ap
-	y	- Y es
-	y	- Y es
+	sgdisk --zap-all /dev/sda
 
 
 Then we need to partition it.
@@ -132,6 +89,10 @@ For legacy install it will be partitioned like this:
 
 ****************************************
 UEFI ONLY
+
+    sgdisk --clear /dev/sda
+    sgdisk --new=1:0:+600MiB --typecode=1:ef00 /dev/sda    
+    sgdisk --new=2:0:+210GiB --typecode=2:8300 /dev/sda
 
 Run the partition tool (I will use cgdisk, but there are many others)
 	
@@ -179,7 +140,6 @@ Legacy partitioning procedure. Don't forget to make some overprovisioned space i
 	8: press "arrow down" and choose "new"
 	9: press enter & choose primary
 	10: choose bootable
-
 (thx Gregory Nwosibe: https://www.youtube.com/watch?v=Wqh9AQt3nho)	
 	
 ****************************************
@@ -206,12 +166,11 @@ Verify if the changes have been successfuly applied:
 
 You should see the new partitions under the name of your disk.
 The partitions are useless for now, therefore we need to format them:
-
-	# Format EFI partition (if you have any)
+# Format EFI partition (if you have any)
 	mkfs.fat -F32 /dev/sda1
 
 	# Format Root partition
-	mkfs.ext4 /dev/sda3
+	mkfs.ext4 -t ext4 -F /dev/sda3
 	y
 
 Then turn on swap:
@@ -225,6 +184,7 @@ And again we verify, if the changes have been applied:
 
 Now we should see partition types (filesystems) next to our new partitions.
 
+    fdisk -l /dev/sda
 
 Now we can proceed with the actual installation of Arch Linux:
 
@@ -255,11 +215,11 @@ Find the fastest mirrors for pacman:
 
 Install pacman and the base system:
 
-	pacstrap /mnt base base-devel
+	pacstrap /mnt base
 
 ****************************************
 
-Generate filesystem file (fstab):
+Generate filesystem file (fstab) using UUIDs:
 
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 
@@ -273,10 +233,11 @@ Edit "/etc/fstab" file:
 
 Chroot into /mnt
 
-	arch-chroot /mnt
+    systemd-nspawn -b -D /mnt
 
-****************************************
-
+	
+	
+	****************************************
 Edit locale setting (system and application language):
 	
 	nano /etc/locale.gen
@@ -286,8 +247,9 @@ Save file (Ctrl + O) and exit (Ctrl + X).
 Generate new locale settings
 	
 	locale-gen
-	echo LANG=en_US.UTF-8 > /etc/locale.conf
-	export LANG=en_US.UTF-8
+	
+	
+	
 
 ****************************************
 
@@ -331,7 +293,7 @@ Save file (Ctrl + O) and exit (Ctrl + X).
 
 Update packages:
 
-	pacman -Syu
+	pacman -Syyuu
 	# If it will prompt you to install packages press 'y' and then <Enter>
 
 Install yaourt to be able install packages from AUR.
@@ -354,17 +316,19 @@ Set up root password:
 
 Add a new user account:
 
-	useradd -m -g users -G wheel,storage,power -s /bin/bash name_of_your_account
+	useradd -m -g users -G wheel,storage,power -s /bin/bash laptop
 
 Set up password for the new user:
 
-	passwd name_of_your_account
+	passwd laptop
 	<type your password>
 	<type your password again>
 
 Allow the new user to use the "sudo" command:
 
-	EDITOR=nano visudo
+        pacman -S --noconfirm sudo
+
+	visudo
 
 	# Find this line:
 
@@ -376,21 +340,22 @@ Allow the new user to use the "sudo" command:
 		## Uncomment to allow members of group wheel to execute any command
 		%wheel ALL=(ALL) ALL
 		Defaults rootpw
-    Defaults timestamp_timeout=180
+                Defaults timestamp_timeout=180
 
 This will allow for the new user to use the "sudo" command but not with the user password! Instead, the root password will be required.
 
-Save file (Ctrl + O) and exit (Ctrl + X).
+Save and exit
 
-Install bash completion to complete commands in bash with <Tab>
-
-	pacman -S bash-completion
-	y
+    press (Esc)
+    :wq
 
 Install additional packages
+    - `dialog` - contains `wifi-menu` utility which interactively connects to the internet
+    - `wpa_supplicant` - dependency of  `diaalog`
+    - `bash-completion` - complete  commands with `Tab` key
 
-  pacman -S wpa_supplicant
-
+	pacman -S --noconfirm dialog wpa_supplicant bash-completion
+	
 
 
 BOOTLOADER INSTALLATION
@@ -400,10 +365,17 @@ INTEL CPU ONLY
 
 Install Intel microcode (to improve system stability).
 
-	pacman -S intel-ucode
+	pacman -S --noconfirm intel-ucode
 
 ****************************************
 
+Exit from systemd container
+
+    shutdown now
+    
+Enter Arch chroot environment beacuse in systemd container the directory `/sys/firmware/efi/efivars` is empty. In `arch-chroot` environment is the directory populated.
+
+    arch-chroot /mnt
 
 ****************************************
 UEFI ONLY
@@ -419,10 +391,14 @@ Install bootloader (systemd-boot):
 Generate a root partition UUID and then use it in the bootloader instead of the partition name (more secure):
 
 	# Note: "sda1" is the name of the root partition in this example
-	blkid -s PARTUUID -o value /dev/sda1
+	blkid -s PARTUUID -o value /dev/sda1 >> /boot/loader/entries/arch.conf
+	
+	
 
 	# Output:
-	<partuuid_of_root_partition>	
+	<partuuid_of_root_partition>
+	
+	
 
 Edit bootloader configuration:
 
@@ -474,10 +450,18 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 ****************************************
 FIRST CONSOLE LOGIN
 
+Login as root
+
 Connect to the internet:
-  wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
+
+    wifi-menu
+
+or
+
+    wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
 
 Install Xserver and desktop environment (XFCE4 is my favourite):
+
   pacman -S xfce4 xorg
       
 Install graphics drivers (I have integrated Intel graphics)
