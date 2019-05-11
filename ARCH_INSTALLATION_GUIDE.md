@@ -283,8 +283,8 @@ Set up pacman repositories:
 	SigLevel = Never
 	Server = http://repo.archlinux.fr/$arch
 
-	[herecura]
-	Server = http://repo.herecura.be/$repo/$arch
+	
+	
 
 	[seblu]
 	Server = http://al.seblu.net/$repo/$arch
@@ -414,8 +414,7 @@ Edit bootloader configuration:
 	options root=PARTUUID=<partuuid_of_root_partition> rw
 
 ****************************************
-
-****************************************
+ 
 LEGACY ONLY
 
 For legacy system we need to install GRUB bootloader
@@ -450,7 +449,7 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 ****************************************
 FIRST CONSOLE LOGIN
 
-Login as root
+Login as regular user i.e. under `laptop` user account.
 
 Connect to the internet:
 
@@ -460,14 +459,24 @@ or
 
     wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
 
-Install Xserver and desktop environment (XFCE4 is my favourite):
+Install X server and desktop environment:
 
-  pacman -S xfce4 xorg
+    pacman -S --noconfirm lxqt
+    
+    pacman -S xorg
       
-Install graphics drivers (I have integrated Intel graphics)
-      pacman -S mesa lib32-mesa xf86-video-intel libva-intel-driver
+Install graphics drivers (I have integrated Intel graphics):
 
-Now we have to decide, if we want to decide, if we want to log in to our computer from
+    1. Uncomment the `[multilib]` repository in `/etc/pacman.conf`
+    1. Update package list
+    
+        sudo pacman -Syyuu
+	
+	
+
+        pacman -S mesa lib32-mesa xf86-video-intel libva-intel-driver
+
+Now we have to decide, if we want to log in to our computer from
 GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast and secure)
 
 ****************************************
@@ -475,22 +484,23 @@ A: TERMINAL LOGIN
 
 Edit file ~/.xinitrc:
 
-  cp /etc/X11/xinit/xinitrc ~/.xinitrc
-  nano ~/.xinitrc
+    sudo pacman -S xorg-xinit
+    cp /etc/X11/xinit/xinitrc ~
+    mv xinitrc .xinitrc #add dot before filename: mv xi<Tab> xi<Tab><Alt+b>.<Enter>
+    nano ~/.xinitrc
 
 Find a line (at the end) with
   
-  # start some nice programs
+    # start some nice programs
 
-Comment out everything underneath.
 At the very end of the file add command to start a destop environment
 
-  exec startxfce4
+  exec startlxqt
 
 Save and exit.
 
 Edit file ~/.bash_profile
-Add this to the ent of the file
+Add this to the end of the file
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ];
 then
@@ -565,7 +575,7 @@ fi
 #exec xterm -geometry 80x66+0+0 -name login
 
 # start desktop environment
-exec startxfce4
+exec startlxqt
 
 
 
@@ -600,6 +610,10 @@ POST-INSTALL
 Now we all see our desktop environment. 
 Let's make some changes.
 
+
+
+sudo pacman -S breeze-icons xscreensaver
+
 ****************************************
 PROXY AND GRAPHICS ACCELERATION
 
@@ -625,21 +639,14 @@ LIBVA_DRIVER_NAME=i965
 #FTP_PROXY=http://192.168.0.3:3128/
 #NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
 
-At the top we setting system variables VDPAU and LIBVA to enable graphics acceleration for Intel graphics. Then we set up proxy server address for varous protocols.
-
-****************************************
-NTP SYNCHRONIZATION
-
-Open terminal and execute this command:
-  su -c "timedatectl set-ntp true"
+At the top we setting system variables VDPAU and LIBVA to enable graphics acceleration for Intel graphics. Then we set up proxy server address for various protocols.
 
 ****************************************
 SSD OPTIMIZATION
 
 Open terminal and type:
   sudo systemctl enable fstrim.timer
-
-This will execute TRIM command on all TRIM-capable drives once a week (Periodic TRIM).
+This will execute TRIM command on all TRIM-capable drives once a week (Periodic TRIM
 Periodic TRIM is safer and more supported and less prone to errors than Continuous TRIM.
 
 ****************************************
