@@ -5,7 +5,7 @@ bc- > command line calculator => set default scale (decimal precision) - https:/
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
 evince -> PDF reader
 filezilla -> FTP client
-firefox -> recover the ~/.config/mozilla directory
+* firefox -> recover the ~/.config/mozilla directory
 git -> recover the ~/.gitconfig file
 gparted -> disk and partition manager
 gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
@@ -54,8 +54,9 @@ virtualbox-guest-iso
 virt-manager -> front-end ku QEMU
 vlc -> multimedia player
 wget -> terminal downloader utility
-wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
-xf86-video-intel -> Intel grafika
+* wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
+* xf86-video-intel -> Intel grafika
+* xorg - display server
 
 xfce4
 xorg -> display server
