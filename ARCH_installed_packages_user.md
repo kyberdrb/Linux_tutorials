@@ -13,7 +13,7 @@ gvfs-mtp -> automouning MTP devices, such as smartphones
 gvfs-gphoto2 -> automounting PTP devices, such as cameras
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 lib32-mesa -> Intel grafika
-libreoffice-fresh
+* libreoffice-still
 libva-intel-driver -> Intel grafika
 
 -VIRTUALIZATION
