@@ -26,6 +26,7 @@ docker -> base Docker support
 android-file-transfer - transfer data with a mobile device via MTP
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
+* base-devel - development tools for Arch Linux
 * gvim - graphical vim text editor
 * lxqt - LXQt desktop environment
 * mesa -> Intel graphics driver
