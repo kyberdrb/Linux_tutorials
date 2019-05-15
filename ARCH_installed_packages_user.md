@@ -66,7 +66,8 @@ xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to App
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
 ** AUR **
-pikaur -> AUR helper utility - installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to other AUR helpers like yaourt/aurman/bauerbill
+yaourt - the AUR helper utility to install `pikaur`; never touch yaourt again beacuse it's a discontinued project
+pikaur -> AUR helper utility; the only AUR helper I need; Installation: `sudo pacman -Syyuu && sudo pacman -S base-devel yaourt -Syyuu && yaourt -S pikaur` installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to other AUR helpers like yaourt/aurman/bauerbill
 
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
