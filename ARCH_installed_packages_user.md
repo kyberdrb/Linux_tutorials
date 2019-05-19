@@ -1,4 +1,5 @@
 **  PACMAN **
+
 7z - archive manipulation utility
 audacity -> audio editing software
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
@@ -46,7 +47,7 @@ redshift -> color temperature changer (spares eyes) -> run on background in tray
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
-transmission-gtk / transmission-qt -> torrent klient
+* transmission-gtk / transmission-qt -> torrent klient
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
