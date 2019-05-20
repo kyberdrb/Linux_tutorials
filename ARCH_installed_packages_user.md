@@ -58,10 +58,9 @@ vlc -> multimedia player
 wget -> terminal downloader utility
 * wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 * xf86-video-intel -> Intel grafika
-* xorg - display server
+* xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 
 xfce4
-xorg -> display server
 xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
