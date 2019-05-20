@@ -14,8 +14,8 @@ gvfs-mtp -> automouning MTP devices, such as smartphones
 gvfs-gphoto2 -> automounting PTP devices, such as cameras
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 lib32-mesa -> Intel grafika
-* libreoffice-still
-libva-intel-driver -> Intel grafika
+* libreoffice-still - office suite
+* libva-intel-driver -> video hardware acceleration for Intel graphics; for my laptop it is SandyBridge integrated graphics
 
 -VIRTUALIZATION
 lxc -> base LXC support
@@ -29,6 +29,7 @@ dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
 * base-devel - development tools for Arch Linux
 * gvim - graphical vim text editor
+* chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
 * lxqt - LXQt desktop environment
 * mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
@@ -66,8 +67,8 @@ xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to App
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
 ** AUR **
-yaourt - the AUR helper utility to install `pikaur`; never touch yaourt again beacuse it's a discontinued project
-pikaur -> AUR helper utility; the only AUR helper I need; Installation: `sudo pacman -Syyuu && sudo pacman -S base-devel yaourt -Syyuu && yaourt -S pikaur` installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to other AUR helpers like yaourt/aurman/bauerbill
+* yaourt - the AUR helper utility to install `pikaur`; never touch yaourt again beacuse it's a discontinued project
+* pikaur -> AUR helper utility; the only AUR helper I need; Installation: `sudo pacman -Syyuu && sudo pacman -S base-devel yaourt -Syyuu && yaourt -S pikaur` installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to other AUR helpers like yaourt/aurman/bauerbill
 
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
