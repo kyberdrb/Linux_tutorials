@@ -9,13 +9,17 @@ filezilla -> FTP client
 * firefox -> recover the ~/.config/mozilla directory
 git -> recover the ~/.gitconfig file
 gparted -> disk and partition manager
-gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
-gvfs-mtp -> automouning MTP devices, such as smartphones
-gvfs-gphoto2 -> automounting PTP devices, such as cameras
+* gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
+* gvfs-mtp -> automouning MTP devices, such as smartphones
+* gvfs-gphoto2 -> automounting PTP devices, such as cameras
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
-lib32-mesa -> Intel grafika
 * libreoffice-still - office suite
+
+- GRAPHICS DRIVERS
+* lib32-mesa -> Intel grafika
 * libva-intel-driver -> video hardware acceleration for Intel graphics; for my laptop it is SandyBridge integrated graphics
+* mesa -> Intel graphics driver
+* xf86-video-intel -> Intel grafika
 
 -VIRTUALIZATION
 lxc -> base LXC support
@@ -31,10 +35,9 @@ dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * gvim - graphical vim text editor
 * chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
 * lxqt - LXQt desktop environment
-* mesa -> Intel graphics driver
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
-ntfs-3g -> NTFS support
+* ntfs-3g -> NTFS support
 openssh -> SSH client and server
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
@@ -58,7 +61,6 @@ virt-manager -> front-end ku QEMU
 vlc -> multimedia player
 wget -> terminal downloader utility
 * wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
-* xf86-video-intel -> Intel grafika
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 
 xfce4
