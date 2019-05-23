@@ -12,6 +12,9 @@ gparted -> disk and partition manager
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
 * gvfs-mtp -> automouning MTP devices, such as smartphones
 * gvfs-gphoto2 -> automounting PTP devices, such as cameras
+android-file-transfer - transfer data with a mobile device via MTP
+* android-tools - Android platform tools; `adb` etc.
+
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 * libreoffice-still - office suite
 
@@ -28,7 +31,6 @@ debootstrap -> support for Debian based LXC containers in Arch Linux
 docker -> base Docker support
 
 -GENERAL
-android-file-transfer - transfer data with a mobile device via MTP
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
 * base-devel - development tools for Arch Linux
