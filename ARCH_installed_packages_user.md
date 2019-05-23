@@ -13,7 +13,7 @@ gparted -> disk and partition manager
 * gvfs-mtp -> automouning MTP devices, such as smartphones
 * gvfs-gphoto2 -> automounting PTP devices, such as cameras
 android-file-transfer - transfer data with a mobile device via MTP
-* android-tools - Android platform tools; `adb` etc.
+* android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
 
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 * libreoffice-still - office suite
