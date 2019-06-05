@@ -1,6 +1,6 @@
 **  PACMAN **
 
-7z - archive manipulation utility
+* p7zip - archive manipulation utility
 audacity -> audio editing software
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
