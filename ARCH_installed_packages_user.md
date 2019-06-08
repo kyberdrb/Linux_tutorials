@@ -5,7 +5,7 @@ audacity -> audio editing software
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
 * evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
-filezilla -> FTP client
+* filezilla -> FTP client
 * firefox -> recover the ~/.config/mozilla directory
 git -> recover the ~/.gitconfig file
 gparted -> disk and partition manager
