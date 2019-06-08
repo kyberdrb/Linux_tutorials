@@ -794,3 +794,7 @@ Sources:
 	https://wiki.archlinux.org/index.php/pacman#Cleaning_the_package_cache
 	https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages_.28orphans.29
 	https://apple.stackexchange.com/questions/10139/how-do-i-increase-sudo-password-remember-timeout/51763#51763
+	https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers
+	https://wiki.archlinux.org/index.php/Intel_graphics#Installation
+	https://wiki.archlinux.org/index.php/Environment_variables#Defining_variables
+	https://wiki.archlinux.org/index.php/Xinit#xinitrc
