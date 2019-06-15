@@ -1,36 +1,6 @@
 **  PACMAN **
 
-* p7zip - archive manipulation utility
-audacity -> audio editing software
-bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
-blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
-* evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
-* filezilla -> FTP client
-* firefox -> recover the ~/.config/mozilla directory
-git -> recover the ~/.gitconfig file
-gparted -> disk and partition manager
-* gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
-* gvfs-mtp -> automouning MTP devices, such as smartphones
-* gvfs-gphoto2 -> automounting PTP devices, such as cameras
-android-file-transfer - transfer data with a mobile device via MTP
-* android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
-
-iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
-* libreoffice-still - office suite
-
-- GRAPHICS DRIVERS
-* lib32-mesa -> Intel grafika
-* libva-intel-driver -> video hardware acceleration for Intel graphics; for my laptop it is SandyBridge integrated graphics
-* mesa -> Intel graphics driver
-* xf86-video-intel -> Intel grafika
-
--VIRTUALIZATION
-lxc -> base LXC support
-arch-install-scripts -> base LXC support
-debootstrap -> support for Debian based LXC containers in Arch Linux
-docker -> base Docker support
-
--GENERAL
+* aic94xx-firmware wd719x-firmware - missing firmwares for my laptop
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
 * base-devel - development tools for Arch Linux
@@ -69,6 +39,36 @@ xfce4
 xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
+
+* p7zip - archive manipulation utility
+audacity -> audio editing software
+bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
+blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
+* evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
+* filezilla -> FTP client
+* firefox -> recover the ~/.config/mozilla directory
+git -> recover the ~/.gitconfig file
+gparted -> disk and partition manager
+* gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
+* gvfs-mtp -> automouning MTP devices, such as smartphones
+* gvfs-gphoto2 -> automounting PTP devices, such as cameras
+android-file-transfer - transfer data with a mobile device via MTP
+* android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
+
+iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
+* libreoffice-still - office suite
+
+- GRAPHICS DRIVERS
+* lib32-mesa -> Intel grafika
+* libva-intel-driver -> video hardware acceleration for Intel graphics; for my laptop it is SandyBridge integrated graphics
+* mesa -> Intel graphics driver
+* xf86-video-intel -> Intel grafika
+
+-VIRTUALIZATION
+lxc -> base LXC support
+arch-install-scripts -> base LXC support
+debootstrap -> support for Debian based LXC containers in Arch Linux
+docker -> base Docker support
 
 ** AUR **
 * yaourt - the AUR helper utility to install `pikaur`; never touch yaourt again beacuse it's a discontinued project
