@@ -56,9 +56,9 @@ tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
 * transmission-gtk / transmission-qt -> torrent klient
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
-virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
-virtualbox-ext-oracle
-virtualbox-guest-iso
+* virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
+* virtualbox-ext-oracle
+* virtualbox-guest-iso
 virt-manager -> front-end ku QEMU
 vlc -> multimedia player
 wget -> terminal downloader utility
