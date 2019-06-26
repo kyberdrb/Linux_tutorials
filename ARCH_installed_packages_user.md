@@ -19,7 +19,8 @@ pavucontrol -> pulseaudio frontend (gui)
 pulseaudio -> audio server
 pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 qemu -> generic virtualizer
-redshift -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart
+* redshift -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart; create configuration file by https://github.com/jonls/redshift/blob/master/redshift.conf.sample; in Qt desktop enviroments run as `redshift&`
+
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
