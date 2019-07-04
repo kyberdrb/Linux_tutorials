@@ -10,7 +10,7 @@ dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
 * ntfs-3g -> NTFS support
-openssh -> SSH client and server
+* openssh -> SSH client and server
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 p7zip -> command line extraction utility
