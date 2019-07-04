@@ -33,6 +33,7 @@ virt-manager -> front-end ku QEMU
 vlc -> multimedia player
 wget -> terminal downloader utility
 * wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
+* xclip - terminal clipboard manipulation utility
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 
 xfce4
