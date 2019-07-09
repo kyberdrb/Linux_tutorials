@@ -14,10 +14,10 @@ musescore
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 p7zip -> command line extraction utility
-pavucontrol -> pulseaudio frontend (gui)
+pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 #pepper-flash -> podpora adobe flash - nemam ho rad, ale vela televiznych stanic ho pouzivaju na streamovanie
-pulseaudio -> audio server
-pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
+* pulseaudio -> audio server
+* pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 qemu -> generic virtualizer
 * redshift / redshift-qt -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart; create configuration file by https://github.com/jonls/redshift/blob/master/redshift.conf.sample; change `temp-day` and `temp-night` to `1800`, `fade` to `0` - TODO add entire config file
 shotwell -> image viewer with nice features (crop, rotate, ...)
@@ -48,7 +48,7 @@ blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will
 * evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
 * filezilla -> FTP client
 * firefox -> recover the ~/.config/mozilla directory
-git -> recover the ~/.gitconfig file
+* git -> recover the ~/.gitconfig file
 gparted -> disk and partition manager
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
 * gvfs-mtp -> automouning MTP devices, such as smartphones
