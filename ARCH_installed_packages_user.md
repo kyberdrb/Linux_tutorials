@@ -90,7 +90,7 @@ python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctl
 python-virtualenv python2-virtualenv -> virtualne prostredia pre python2 a python3
 python-coverage python2-coverage: For support code coverage measurement for Python 2
 
-* clion clion-cmake clion-gdb clion-jre clion-lldb gtest - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE; to reset trial period see "https://gist.github.com/kyberdrb/28ee3454b3fc42c262bf9e0e455fc22d"
+* clion clion-cmake clion-gdb clion-jre clion-lldb gtest - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE
 perf - profiling tool for Linux kernel; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run profiler via "Run -> Profile '<ProjectName>'"
 * valgrind - memory leaks test; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run Valgrind via "Run -> Run '<ProjectName>' with Valgrind Memcheck"
 
