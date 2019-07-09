@@ -18,6 +18,9 @@ pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 #pepper-flash -> podpora adobe flash - nemam ho rad, ale vela televiznych stanic ho pouzivaju na streamovanie
 * pulseaudio -> audio server
 * pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
+
+* soundwire pulseaudio-alsa lib32-libpulse lib32-alsa-plugins - SoundWire and its dependencies; enables the use of an Android phone as a wireless speaker; Configuration: open _PulseAudio_ GUI `pavucontrol[-qt]` -\> Recording tab -\> ALSA Capture from `Monitor of Built-in Audio Analog Stereo`
+
 qemu -> generic virtualizer
 * redshift / redshift-qt -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart; create configuration file by https://github.com/jonls/redshift/blob/master/redshift.conf.sample; change `temp-day` and `temp-night` to `1800`, `fade` to `0` - TODO add entire config file
 shotwell -> image viewer with nice features (crop, rotate, ...)
@@ -104,4 +107,5 @@ vmware -> bud player alebo workstation
 
 
 Sources:
-https://ubuntuforums.org/showthread.php?t=1716649
+XFCE Screenshot utility - https://ubuntuforums.org/showthread.php?t=1716649
+SoundWire - https://bbs.archlinux.org/viewtopic.php?pid=1514780#p1514780
