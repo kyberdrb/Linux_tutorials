@@ -1,19 +1,3 @@
-# CLion setup
-- Remove the file header from the beginning of the newly created files in `File -> Settings -> File and Code Templates -> Includes (tab) -> C File Header`
-
-            #if ($HEADER_COMMENTS)
-            //
-            // Created by $USER_NAME on ${DATE}.
-            #if ($ORGANIZATION_NAME && $ORGANIZATION_NAME != "")
-            // Copyright (c) $YEAR ${ORGANIZATION_NAME}#if (!$ORGANIZATION_NAME.endsWith(".")).#end All rights reserved.
-            #end
-            //
-            #end
-
-
-- Use numpad arrows to navigate
-    - Set up new key bindings for `Up`, `Down`, `Left` and `Right` in `File -> Settings -> Keymap`
-
 ## Gtest setup - CLion
 
 - Download/Clone Google Test from GitHub
@@ -45,3 +29,4 @@ https://stackoverflow.com/questions/33638433/setup-google-test-in-clion/44870138
 https://stackoverflow.com/questions/26030700/unit-testing-c-setup-and-teardown/26034482#26034482
 
 https://meekrosoft.wordpress.com/2009/10/04/testing-c-code-with-the-googletest-framework/
+
