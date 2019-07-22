@@ -15,9 +15,12 @@
             //
             #end
 
+- Replace `ifndef` with `pragma` keyword
 
 - Use numpad arrows to navigate
     - Set up new key bindings for `Up`, `Down`, `Left` and `Right` in `File -> Settings -> Keymap`
+
+- Reassign keyboard shortcut to toggle `Vim Emulator` to `Ctrl + Alt + V`, beacuse it may conflict with CLion's _Extract variable_ functionality.
 
 ### Plugins
 
