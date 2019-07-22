@@ -6,6 +6,7 @@ dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * base-devel - development tools for Arch Linux
 * gvim - graphical vim text editor
 * chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
+* dmidecode - RAM info
 * lxqt - LXQt desktop environment
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
