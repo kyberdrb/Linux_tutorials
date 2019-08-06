@@ -22,6 +22,10 @@
 
 - Reassign keyboard shortcut to toggle `Vim Emulator` to `Ctrl + Alt + V`, beacuse it may conflict with CLion's _Extract variable_ functionality.
 
+- Disable notifications for IdeaVim plugin. Go to `File -> Settings -> Appearance and Behavior -> Notifications` find `ideavim` and `ideavim-sticky` and in the _Popup_ column set the value  to _No popup_.
+
+- Change indexed for loop for C/C++ to `i++` instead of default `++i`
+
 ### Plugins
 
 - IdeaVim

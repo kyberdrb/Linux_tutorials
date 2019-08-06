@@ -6,19 +6,49 @@
 
     You can check the server IP by typing ipconfig in the command prompt.
 
-    OR
+    1. Enable USB Tethering on the Android phone
 
-    Disconnect from the current wireless network
+    1. Connect to the USB Tethering network adapter by requesting a new IP address from DHCP. The interface name is, in my case, variable according to which USB port the phone is plugged in.
 
-        wpa_cli disconnect
+        sudo dhcpcd enp0s29u1u3
 
-    Enable USB Tethering on the Android phone
+    The routing table looks like this
 
-    Connect to the USB Tethering network adapter by requesting a new IP address from DHCP:
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	0.0.0.0         192.168.42.129  0.0.0.0         UG    205    0        0 enp0s29u1u3
+	0.0.0.0         192.168.0.1     0.0.0.0         UG    303    0        0 wlo1
+	192.168.0.0     0.0.0.0         255.255.255.0   U     303    0        0 wlo1
+	192.168.42.0    0.0.0.0         255.255.255.0   U     205    0        0 enp0s29u1u3 
 
-       sudo dhcpcd enp0s29u1u1
+    1. Set the Wi-Fi network connection to higher priority by lowering the metric value. Otherwise the tethered adapter will be prioritized.
 
-1. Connect from the SoundWire app on your phone. You might need to enter the IP address of the SoundWire server. You might also get a message that WiFi is disabled, but it still works fine.
+    Delete the route for the wireless network adapter.
+
+        sudo route del -net 0.0.0.0 gw 192.168.0.1 netmask 0.0.0.0 dev wlo1
+
+    1. Routing table entries after removing the route.
+
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	0.0.0.0         192.168.42.129  0.0.0.0         UG    205    0        0 enp0s29u1u3
+	192.168.0.0     0.0.0.0         255.255.255.0   U     303    0        0 wlo1
+	192.168.42.0    0.0.0.0         255.255.255.0   U     205    0        0 enp0s29u1u3
+
+    1. Add the same route again with changed metric. In my case I needed to lower the metric value to 200 in order to make it a higher priority.
+
+        sudo route add -net 0.0.0.0 gw 192.168.0.1 metric 200 netmask 0.0.0.0 dev wlo1
+
+    Routing table entries after re-adding the route.
+
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.0.1     0.0.0.0         UG    200    0        0 wlo1
+0.0.0.0         192.168.42.129  0.0.0.0         UG    205    0        0 enp0s29u1u3
+192.168.0.0     0.0.0.0         255.255.255.0   U     303    0        0 wlo1
+192.168.42.0    0.0.0.0         255.255.255.0   U     205    0        0 enp0s29u1u3
+
+1. Connect from the SoundWire app on your phone. You might need to enter the IP address of the SoundWire server. You might also get a message that WiFi is disabled, but it still works without the wireless connection.
 
 **Sources**
 
