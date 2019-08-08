@@ -15,7 +15,7 @@
             //
             #end
 
-- Replace `ifndef` with `pragma` keyword
+- Replace `ifndef` with `#pragma once` keyword
 
 - Use numpad arrows to navigate
     - Set up new key bindings for `Up`, `Down`, `Left` and `Right` in `File -> Settings -> Keymap`

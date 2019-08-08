@@ -8,7 +8,7 @@
 
     1. Enable USB Tethering on the Android phone
 
-    1. Connect to the USB Tethering network adapter by requesting a new IP address from DHCP. The interface name is, in my case, variable according to which USB port the phone is plugged in.
+    1. Connect to the USB Tethering network adapter by requesting a new IP address from DHCP. The tethered interface name is, in my case, variable according to which USB port the phone is plugged in.
 
         sudo dhcpcd enp0s29u1u3
 
@@ -48,9 +48,21 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.0.0     0.0.0.0         255.255.255.0   U     303    0        0 wlo1
 192.168.42.0    0.0.0.0         255.255.255.0   U     205    0        0 enp0s29u1u3
 
-1. Connect from the SoundWire app on your phone. You might need to enter the IP address of the SoundWire server. You might also get a message that WiFi is disabled, but it still works without the wireless connection.
+1. Install the _SoundWire_ app. For Arch:
+
+    pikaur -S soundwire # Prepare for a long compilation of an entire Qt universe ;)
+
+1. Run the _SoundWire_ server.
+
+    SoundWireServer &
+
+Ignore the IP address you see in the `Server Address:` filed. 
+
+1. Connect from the SoundWire app on the phone. You might need to enter the IP address of the SoundWire server. The IP address is in the output of `ip a` under the tethered interface. You might also get a message that WiFi is disabled, but it still works without the wireless connection.
 
 **Sources**
 
 https://android.stackexchange.com/questions/112496/can-i-use-my-android-phone-as-a-usb-speaker/113863#113863
+
+https://serverfault.com/questions/181094/how-do-i-delete-a-route-from-linux-routing-table
 
