@@ -14,9 +14,9 @@ musescore
 * openssh -> SSH client and server
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
-p7zip -> command line extraction utility
-pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
-#pepper-flash -> podpora adobe flash - nemam ho rad, ale vela televiznych stanic ho pouzivaju na streamovanie
+* p7zip -> command line extraction utility
+* pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
+pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
 * pulseaudio -> audio server
 * pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 
@@ -24,6 +24,7 @@ pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 
 qemu -> generic virtualizer
 * redshift / redshift-qt -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart; create configuration file by https://github.com/jonls/redshift/blob/master/redshift.conf.sample; change `temp-day` and `temp-night` to `1800`, `fade` to `0` - TODO add entire config file
+* reflector - automatic mirror ranking by their speed; `su -c 'cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && reflector --sort rate > /etc/pacman.d/mirrorlist`; the command takes couple of minutes to finish
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
@@ -34,7 +35,7 @@ unrar -> needed for dtrx to extract RAR archives
 * virtualbox-ext-oracle
 * virtualbox-guest-iso
 virt-manager -> front-end ku QEMU
-vlc -> multimedia player
+* vlc -> multimedia player
 wget -> terminal downloader utility
 * wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 * xclip - terminal clipboard manipulation utility
