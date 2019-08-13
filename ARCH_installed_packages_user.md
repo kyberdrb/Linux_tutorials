@@ -15,6 +15,7 @@ musescore
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 * p7zip -> command line extraction utility
+* parallel - parallelize shell commands
 * pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
 * pulseaudio -> audio server
