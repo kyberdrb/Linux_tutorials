@@ -7,7 +7,7 @@ dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * gvim - graphical vim text editor
 * chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
 * dmidecode - RAM info
-* lxqt - LXQt desktop environment
+* lxqt - LXQt desktop environment: REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
 * ntfs-3g -> NTFS support
@@ -28,6 +28,7 @@ qemu -> generic virtualizer
 * reflector - automatic mirror ranking by their speed; `su -c 'cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && reflector --sort rate > /etc/pacman.d/mirrorlist`; the command takes couple of minutes to finish
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
+* thunar - favorite file manager
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
 * transmission-gtk / transmission-qt -> torrent klient
 tk -> tkinter library for Python
