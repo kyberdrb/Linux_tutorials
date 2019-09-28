@@ -394,7 +394,7 @@ Open boot configuration file
     # Create new file named "arch.conf"
     nano /boot/loader/entries/arch.conf
 	
-Edit bootloader configuration like it is shown below. Ommit the line with "intel-ucode", if you don't have an Intel CPU):
+Edit bootloader configuration like it is shown below. Ommit the line with "intel-ucode", if you don't have an Intel CPU.
 
     title Andrej
     linux /vmlinuz-linux
@@ -457,7 +457,7 @@ Set time:
 
 Install X server and desktop environment:
 
-    pacman -S --noconfirm lxqt
+    pacman -S xfce4 xfce4-goodies
     
     pacman -S xorg
       
@@ -470,7 +470,39 @@ Install graphics drivers (I have integrated Intel graphics):
 	
 	
 
-        pacman -S mesa lib32-mesa xf86-video-intel libva-intel-driver
+Basic packages for Intel graphics
+
+    pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel
+    
+Hardware acceleration for Intel graphics for my new laptop
+
+    pacman -S intel-media-driver libvdpau-va-gl
+    
+### Enable hardware acceleration for graphics
+
+Open the file with environment variables
+
+    sudo vim /etc/environment
+
+Enable hardware for intel acceleration
+
+    VDPAU_DRIVER=va_gl
+    LIBVA_DRIVER_NAME=iHD
+    
+### Reboot to activate hardware acceleration ???
+    
+### Verify hardware acceleration for graphics
+
+Install verification utilities
+
+    sudo pacman -S libva-utils vdpauinfo
+    
+Check `VAAPI` and `VDPAU` configuration
+
+    $ vainfo
+    $ vdpauinfo
+
+## Login
 
 Now we have to decide, if we want to log in to our computer from
 GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast and secure)
@@ -601,7 +633,7 @@ Let's make some changes.
 sudo pacman -S breeze-icons xscreensaver
 
 ****************************************
-PROXY AND GRAPHICS ACCELERATION
+PROXY
 
 Edit /etc/environment file:
 
@@ -609,21 +641,16 @@ Edit /etc/environment file:
 
 And edit its content to something like this:
 
-#
-# This file is parsed by pam_env module
-#
-# Syntax: simple "KEY=VAL" pairs on separate lines
-#
-VDPAU_DRIVER=va_gl
-LIBVA_DRIVER_NAME=i965
-#http_proxy=http://192.168.0.3:3128/
-#https_proxy=http://192.168.0.3:3128/
-#ftp_proxy=http://192.168.0.3:3128/
-#no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-#HTTP_PROXY=http://192.168.0.3:3128/
-#HTTPS_PROXY=http://192.168.0.3:3128/
-#FTP_PROXY=http://192.168.0.3:3128/
-#NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+    <snip>
+    #http_proxy=http://192.168.0.3:3128/
+    #https_proxy=http://192.168.0.3:3128/
+    #ftp_proxy=http://192.168.0.3:3128/
+    #no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+    #HTTP_PROXY=http://192.168.0.3:3128/
+    #HTTPS_PROXY=http://192.168.0.3:3128/
+    #FTP_PROXY=http://192.168.0.3:3128/
+    #NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+    <snip>
 
 At the top we setting system variables VDPAU and LIBVA to enable graphics acceleration for Intel graphics. Then we set up proxy server address for various protocols.
 
