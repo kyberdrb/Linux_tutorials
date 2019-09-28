@@ -1,13 +1,19 @@
-Download Arch Linux iso and clone it on the USB drive
-For linux distributions, type these commands in the terminal	
-	# Find USB drive
-		lsblk
-	# Clone iso to USB drive
-		sudo dd if=arch.iso of=/dev/sdb
+# Arch Linux Installation
 
-For Windows, use Rufus and make the Arch Linux installation USB with it.
+1. Download Arch Linux iso and clone it on the USB drive
 
-Plug the USB drive into a PC and boot from it.
+    Linux
+    
+        lsblk
+        sudo dd if=arch.iso of=/dev/sdb
+    
+    Windows
+    
+    - Rufus
+    
+    [Arch Wiki - USB flash installation media](https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_Windows)
+
+1. Plug the USB drive into a PC and boot from it.
 Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there.
 If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
 If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB (only legacy) boot from `EFI/boot/loader.efi` these steps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
