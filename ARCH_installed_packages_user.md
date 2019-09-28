@@ -1,5 +1,3 @@
-**  PACMAN **
-
 * pulseaudio -> audio server
 * pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 * chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
@@ -132,12 +130,6 @@ android-file-transfer - transfer data with a mobile device via MTP
 
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 * libreoffice-still - office suite
-
-- GRAPHICS DRIVERS
-* lib32-mesa -> Intel grafika
-* libva-intel-driver -> video hardware acceleration for Intel graphics; for my laptop it is SandyBridge integrated graphics
-* mesa -> Intel graphics driver
-* xf86-video-intel -> Intel grafika
 
 -VIRTUALIZATION
 lxc -> base LXC support
