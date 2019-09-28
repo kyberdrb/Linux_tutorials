@@ -1,31 +1,98 @@
 **  PACMAN **
 
+* pulseaudio -> audio server
+* pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
+* chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
+* openssh -> SSH client and server
+* git -> recover the ~/.gitconfig file; generate a new SSH key
+    - https://help.github.com/en/enterprise/2.16/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent  
+    - https://help.github.com/en/articles/connecting-to-github-with-ssh
+* base-devel - development tools for Arch Linux
+* pikaur -> AUR helper utility; the only AUR helper I need
+    - Installation: 
+        
+            cd /tmp
+            git clone https://aur.archlinux.org/pikaur.git
+            cd pikaur
+            makepkg -fsri
+        
+        Source: https://github.com/actionless/pikaur#installation
+        
+    - Configuration
+    
+            [sync]
+            alwaysshowpkgorigin = no
+            develpkgsexpiration = -1
+            upgradesorting = versiondiff
+            showdownloadsize = no
+
+            [build]
+            keepbuilddir = no
+            keepdevbuilddir = yes
+            skipfailedbuild = no
+            alwaysusedynamicusers = no
+
+            # changed from default
+            noedit = yes
+
+            # changed from default
+            donteditbydefault = yes
+
+            # changed from default
+            nodiff = yes
+
+            gitdiffargs = --ignore-space-change,--ignore-all-space
+
+            [colors]
+            version = 10
+            versiondiffold = 11
+            versiondiffnew = 9
+
+            [ui]
+            requireenterconfirm = yes
+            diffpager = auto
+            printcommands = no
+            reversesearchsorting = no
+
+            [misc]
+            sudoloopinterval = 59
+            pacmanpath = pacman
+            aurhost = aur.archlinux.org
+            newsurl = https://www.archlinux.org/feeds/news/
+
+            [network]
+            socks5proxy = 
+
+
+            
+        Source: https://github.com/actionless/pikaur#configuration
+
+---
+
 * aic94xx-firmware wd719x-firmware - missing firmwares for my laptop
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
-* base-devel - development tools for Arch Linux
 * gvim - graphical vim text editor
-* chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
+
 * dmidecode - RAM info
 * lxqt - LXQt desktop environment: REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
 * ntfs-3g -> NTFS support
-* openssh -> SSH client and server
+
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
 * p7zip -> command line extraction utility
 * parallel - parallelize shell commands
-* pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
+
 pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
-* pulseaudio -> audio server
+
 * pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 
 * soundwire pulseaudio-alsa lib32-libpulse lib32-alsa-plugins - SoundWire and its dependencies; enables the use of an Android phone as a wireless speaker; Configuration: open _PulseAudio_ GUI `pavucontrol[-qt]` -\> Recording tab -\> ALSA Capture from `Monitor of Built-in Audio Analog Stereo`
 
 qemu -> generic virtualizer
 * redshift / redshift-qt -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart; create configuration file by https://github.com/jonls/redshift/blob/master/redshift.conf.sample; change `temp-day` and `temp-night` to `1800`, `fade` to `0` - TODO add entire config file
-* reflector - automatic mirror ranking by their speed; `su -c 'cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && reflector --sort rate > /etc/pacman.d/mirrorlist`; the command takes couple of minutes to finish
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 * thunar - favorite file manager
@@ -55,7 +122,7 @@ blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will
 * evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
 * filezilla -> FTP client
 * firefox -> recover the ~/.config/mozilla directory
-* git -> recover the ~/.gitconfig file
+
 gparted -> disk and partition manager
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
 * gvfs-mtp -> automouning MTP devices, such as smartphones
@@ -77,10 +144,6 @@ lxc -> base LXC support
 arch-install-scripts -> base LXC support
 debootstrap -> support for Debian based LXC containers in Arch Linux
 docker -> base Docker support
-
-** AUR **
-* yaourt - the AUR helper utility to install `pikaur`; never touch yaourt again beacuse it's a discontinued project
-* pikaur -> AUR helper utility; the only AUR helper I need; Installation: `sudo pacman -Syyuu && sudo pacman -S base-devel yaourt -Syyuu && yaourt -S pikaur` installs packages from AUR; yaourt alternative; according to https://wiki.archlinux.org/index.php/AUR_helpers it's a more stable alternative to other AUR helpers like yaourt/aurman/bauerbill
 
 dtrx -> command line extraction utility
 etcher -> bootable USB creator; replacement for dd
