@@ -463,75 +463,39 @@ Install X server and desktop environment:
       
 Install graphics drivers (I have integrated Intel graphics):
 
-    1. Uncomment the `[multilib]` repository in `/etc/pacman.conf`
-    1. Update package list
-    
-        sudo pacman -Syyuu
-	
-	
-
 Basic packages for Intel graphics
 
     pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel
-    
-Hardware acceleration for Intel graphics for my new laptop
-
-    pacman -S intel-media-driver libvdpau-va-gl
-    
-### Enable hardware acceleration for graphics
-
-Open the file with environment variables
-
-    sudo vim /etc/environment
-
-Enable hardware for intel acceleration
-
-    VDPAU_DRIVER=va_gl
-    LIBVA_DRIVER_NAME=iHD
-    
-### Reboot to activate hardware acceleration ???
-    
-### Verify hardware acceleration for graphics
-
-Install verification utilities
-
-    sudo pacman -S libva-utils vdpauinfo
-    
-Check `VAAPI` and `VDPAU` configuration
-
-    $ vainfo
-    $ vdpauinfo
 
 ## Login
 
 Now we have to decide, if we want to log in to our computer from
 GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast and secure)
 
-****************************************
-A: TERMINAL LOGIN
+### TERMINAL LOGIN
 
-1. Edit file ~/.xinitrc:
+#### Edit file `~/.xinitrc`
 
-    sudo pacman -S xorg-xinit
-    cp /etc/X11/xinit/xinitrc ~
-    mv xinitrc .xinitrc #add dot before filename: mv xi<Tab> xi<Tab><Alt+b>.<Enter>
-    nano ~/.xinitrc
+        sudo pacman -S xorg-xinit
+        cp /etc/X11/xinit/xinitrc ~
+        mv xinitrc .xinitrc #add dot before filename: mv xi<Tab> xi<Tab><Alt+b>.<Enter>
+        nano ~/.xinitrc
 
-Find a line (at the end) with
+1. Find a line (at the end) with
   
-    # start some nice programs
+        # start some nice programs
 
-At the very end of the file add command to start a destop environment
+1. At the very end of the file add command to start a destop environment
 
-    exec startlxqt
+        exec startlxqt
 
-or
+    or
 
-    exec startxfce4
+        exec startxfce4
     
-depending on which desktop environment is installed.
+    depending on which desktop environment is installed.
 
-Save and exit.
+1. Save and exit.
 
 Sample `~/.xinitrc`
 
@@ -589,7 +553,8 @@ Sample `~/.xinitrc`
 
     exec startxfce4
 
-1. Edit file ~/.bash_profile
+#### Edit file `~/.bash_profile`
+
 Add this to the end of the file
 
     exec startx
@@ -621,6 +586,67 @@ nainstalujeme SDDM a nechame ho spustat sa po starte systemu:
   pacman -S sddm
   systemctl enable sddm.service
 
+
+## Enable hardware acceleration for graphics
+
+Hardware acceleration for Intel graphics for my new laptop
+
+    pacman -S intel-media-driver libvdpau-va-gl
+
+Open the file with environment variables
+
+    sudo vim /etc/environment
+
+Enable hardware for intel acceleration
+
+    VDPAU_DRIVER=va_gl
+    LIBVA_DRIVER_NAME=iHD
+    
+Reboot to activate hardware acceleration
+    
+## Verify hardware acceleration for graphics
+
+Install verification utilities
+
+    sudo pacman -S libva-utils vdpauinfo
+    
+Check `VAAPI` and `VDPAU` configuration
+
+    $ vainfo
+    
+    vainfo: VA-API version: 1.5 (libva 2.5.0)
+    vainfo: Driver version: Intel iHD driver - 1.0.0
+    vainfo: Supported profile and entrypoints
+          VAProfileNone                   :	VAEntrypointVideoProc
+          VAProfileNone                   :	VAEntrypointStats
+          VAProfileMPEG2Simple            :	VAEntrypointVLD
+	  
+---
+
+    $ vdpauinfo
+    
+    display: :0.0   screen: 0
+    API version: 1
+    Information string: OpenGL/VAAPI backend for VDPAU
+    
+    Video surface:
+    
+    name   width height types
+    -------------------------------------------
+    420     4096  4096  NV12 YV12 UYVY YUYV Y8U8V8A8 V8U8Y8A8 
+    422     4096  4096  NV12 YV12 UYVY YUYV Y8U8V8A8 V8U8Y8A8 
+    444     4096  4096  NV12 YV12 UYVY YUYV Y8U8V8A8 V8U8Y8A8 
+    
+    Decoder capabilities:
+    
+    name                        level macbs width height
+    ----------------------------------------------------
+    MPEG1                          --- not supported ---
+    MPEG2_SIMPLE                   --- not supported ---
+    MPEG2_MAIN                     --- not supported ---
+    H264_BASELINE                  51 16384  2048  2048
+    H264_MAIN                      51 16384  2048  2048
+    H264_HIGH                      51 16384  2048  2048
 
 ****************************************
 POST-INSTALL
