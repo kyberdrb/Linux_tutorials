@@ -1,82 +1,57 @@
+* aic94xx-firmware wd719x-firmware - missing firmwares for my laptop
+* ntfs-3g -> NTFS support
+* gvim - graphical vim text editor
 * pulseaudio -> audio server
 * pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 * chromium - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
-* openssh -> SSH client and server
-* git -> recover the ~/.gitconfig file; generate a new SSH key
-    - https://help.github.com/en/enterprise/2.16/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent  
-    - https://help.github.com/en/articles/connecting-to-github-with-ssh
-* base-devel - development tools for Arch Linux
-* pikaur -> AUR helper utility; the only AUR helper I need
-    - Installation: 
-        
-            cd /tmp
-            git clone https://aur.archlinux.org/pikaur.git
-            cd pikaur
-            makepkg -fsri
-        
-        Source: https://github.com/actionless/pikaur#installation
-        
-    - Configuration
+* firefox -> recover the ~/.config/mozilla directory
+* redshift-minimal -> color temperature changer (spares eyes) -> run on background in tray with "redshift&"
+    - Create environment for the config file
     
-            [sync]
-            alwaysshowpkgorigin = no
-            develpkgsexpiration = -1
-            upgradesorting = versiondiff
-            showdownloadsize = no
+            mkdir -p ~/.config/redshift/
+            cd ~/.config/redshift/
+            vim redshift.conf
+    
+    - Sample `redshift.conf`
+    
+            [redshift]
+            temp-day=2600
+            temp-night=2600
+            fade=0
+            gamma=0.8
+            location-provider=manual
+            adjustment-method=randr
 
-            [build]
-            keepbuilddir = no
-            keepdevbuilddir = yes
-            skipfailedbuild = no
-            alwaysusedynamicusers = no
+            [manual]
+            lat=48
+            lon=11
 
-            # changed from default
-            noedit = yes
-
-            # changed from default
-            donteditbydefault = yes
-
-            # changed from default
-            nodiff = yes
-
-            gitdiffargs = --ignore-space-change,--ignore-all-space
-
-            [colors]
-            version = 10
-            versiondiffold = 11
-            versiondiffnew = 9
-
-            [ui]
-            requireenterconfirm = yes
-            diffpager = auto
-            printcommands = no
-            reversesearchsorting = no
-
-            [misc]
-            sudoloopinterval = 59
-            pacmanpath = pacman
-            aurhost = aur.archlinux.org
-            newsurl = https://www.archlinux.org/feeds/news/
-
-            [network]
-            socks5proxy = 
-
-
+            [randr]
+            screen=0
             
-        Source: https://github.com/actionless/pikaur#configuration
+    - Add to autostart XFCE4
+
+    - Sources
+        - [Redshift config file location](https://wiki.archlinux.org/index.php/Redshift#Configuration)
+        - [Sample redshift config file](https://github.com/jonls/redshift/blob/master/redshift.conf.sample)
+        - If you want to create the config file from scratch
+            - [`cp redshift.conf redshift.conf.original && sed -e '/^;/d' redshift.conf.original > redshift.conf.config_with_removed_comments`](https://unix.stackexchange.com/questions/13525/sed-one-liner-to-delete-any-line-that-begins-with-a-digit/13526#13526)
+            - [`sed '/^$/d' redshift.conf.config_with_removed_comments > redshift.conf` - then open the file manually and insert a new line before each section for better readability](https://www.cyberciti.biz/faq/using-sed-to-delete-empty-lines/)
+        
+* virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
+* virtualbox-ext-oracle
+* virtualbox-guest-iso
 
 ---
 
-* aic94xx-firmware wd719x-firmware - missing firmwares for my laptop
+
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
-* gvim - graphical vim text editor
 
 * dmidecode - RAM info
 * lxqt - LXQt desktop environment: REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 musescore
-* ntfs-3g -> NTFS support
 
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
@@ -90,7 +65,6 @@ pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
 * soundwire pulseaudio-alsa lib32-libpulse lib32-alsa-plugins - SoundWire and its dependencies; enables the use of an Android phone as a wireless speaker; Configuration: open _PulseAudio_ GUI `pavucontrol[-qt]` -\> Recording tab -\> ALSA Capture from `Monitor of Built-in Audio Analog Stereo`
 
 qemu -> generic virtualizer
-* redshift / redshift-qt -> color temperature changer (spares eyes) -> run on background in tray with "redshift-gtk&" -> right click on the tray icon and enable Autostart; create configuration file by https://github.com/jonls/redshift/blob/master/redshift.conf.sample; change `temp-day` and `temp-night` to `1800`, `fade` to `0` - TODO add entire config file
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
 * thunar - favorite file manager
@@ -98,9 +72,6 @@ tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
 * transmission-gtk / transmission-qt -> torrent klient
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
-* virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
-* virtualbox-ext-oracle
-* virtualbox-guest-iso
 virt-manager -> front-end ku QEMU
 * vlc -> multimedia player
 wget -> terminal downloader utility
@@ -119,7 +90,6 @@ bc- > command line calculator => set default scale (decimal precision) - https:/
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
 * evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
 * filezilla -> FTP client
-* firefox -> recover the ~/.config/mozilla directory
 
 gparted -> disk and partition manager
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
