@@ -319,7 +319,7 @@ Set up password for the new user:
 	<type your password>
 	<type your password again>
 
-Allow the new user to use the "sudo" command:
+Allow the new user to use the `sudo` command:
 
         pacman -S --noconfirm sudo
 
@@ -345,13 +345,11 @@ Save and exit
     :wq
 
 Install additional packages
-    - `dialog` - contains `wifi-menu` utility which interactively connects to the internet
-    - `wpa_supplicant` - dependency of  `diaalog`
-    - `bash-completion` - complete  commands with `Tab` key
+- `dialog` - contains `wifi-menu` utility which interactively connects to the internet
+- `wpa_supplicant` - dependency of  `diaalog`
+- `bash-completion` - complete  commands with `Tab` key
 
-	pacman -S --noconfirm dialog wpa_supplicant bash-completion
-	
-
+        pacman -S --noconfirm dialog wpa_supplicant bash-completion
 
 BOOTLOADER INSTALLATION
 
@@ -360,7 +358,7 @@ INTEL CPU ONLY
 
 Install Intel microcode (to improve system stability).
 
-	pacman -S --noconfirm intel-ucode
+    pacman -S --noconfirm intel-ucode
 
 ****************************************
 
@@ -377,36 +375,32 @@ UEFI ONLY
 
 Mount EFI variables (efivars)
 	
-	mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+    mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 
 Install bootloader (systemd-boot):
 
-	bootctl install
+    bootctl install
 
 Generate a system partition UUID, i.e. the partition, where you installed the operating system Arch Linux on, and then use it in the bootloader instead of the partition name (more secure):
 
-	# Note: "sda1" is the name of the root partition in this example
-	blkid -s PARTUUID -o value /dev/sda2 >> /boot/loader/entries/arch.conf
-	
-	
+    echo "title Andrej" >> /boot/loader/entries/arch.conf
+    basename /boot/vmlinuz-linux >> /boot/loader/entries/arch.conf
+    basename /boot/intel-ucode.img >> /boot/loader/entries/arch.conf
+    basename /boot/initramfs-linux.img >> /boot/loader/entries/arch.conf
+    blkid -s PARTUUID -o value /dev/sda2 >> /boot/loader/entries/arch.conf
 
-	# Output:
-	<partuuid_of_root_partition>
-	
-	
+Open boot configuration file
 
-Edit bootloader configuration:
-
-	# Create new file named "arch.conf"
-	nano /boot/loader/entries/arch.conf
+    # Create new file named "arch.conf"
+    nano /boot/loader/entries/arch.conf
 	
-	# Fill it like this (ommit the line with "intel-ucode", if you don't have an Intel CPU):
+Edit bootloader configuration like it is shown below. Ommit the line with "intel-ucode", if you don't have an Intel CPU):
 
-	title Arch Linux
-	linux /vmlinuz-linux
-	initrd /intel-ucode.img
-	initrd /initramfs-linux.img
-	options root=PARTUUID=<partuuid_of_root_partition> rw
+    title Andrej
+    linux /vmlinuz-linux
+    initrd /intel-ucode.img
+    initrd /initramfs-linux.img
+    options root=PARTUUID=d65b559b-fe10-43e8-8853-09f55b3fa25d rw
 
 ****************************************
  
@@ -440,7 +434,8 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 	exit
 	reboot
 
-****************************************
+# Arch Linux Configuration - move to a separate file
+
 FIRST CONSOLE LOGIN
 
 Login as regular user i.e. under `laptop` user account.
@@ -483,7 +478,7 @@ GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast
 ****************************************
 A: TERMINAL LOGIN
 
-Edit file ~/.xinitrc:
+1. Edit file ~/.xinitrc:
 
     sudo pacman -S xorg-xinit
     cp /etc/X11/xinit/xinitrc ~
@@ -496,104 +491,94 @@ Find a line (at the end) with
 
 At the very end of the file add command to start a destop environment
 
-  exec startlxqt
+    exec startlxqt
+
+or
+
+    exec startxfce4
+    
+depending on which desktop environment is installed.
 
 Save and exit.
 
-Edit file ~/.bash_profile
+Sample `~/.xinitrc`
+
+    $ cat ~/.xinitrc
+
+    #!/bin/sh
+
+    userresources=$HOME/.Xresources
+    usermodmap=$HOME/.Xmodmap
+    sysresources=/etc/X11/xinit/.Xresources
+    sysmodmap=/etc/X11/xinit/.Xmodmap
+
+    # merge in defaults and keymaps
+
+    if [ -f $sysresources ]; then
+
+
+
+
+
+
+
+        xrdb -merge $sysresources
+
+    fi
+
+    if [ -f $sysmodmap ]; then
+        xmodmap $sysmodmap
+    fi
+
+    if [ -f "$userresources" ]; then
+
+
+
+
+
+
+
+        xrdb -merge "$userresources"
+
+    fi
+
+    if [ -f "$usermodmap" ]; then
+        xmodmap "$usermodmap"
+    fi
+
+    # start some nice programs
+
+    if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+     for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+      [ -x "$f" ] && . "$f"
+     done
+     unset f
+    fi
+
+    exec startxfce4
+
+1. Edit file ~/.bash_profile
 Add this to the end of the file
 
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ];
-then
-  exec startx
-fi
+    exec startx
 
 This will start X server right after login.
 Save, exit.
 Reboot.
 You will be greeted with a command line login prompt.
 Enter your username and password. The desktop environment will start immediately.
-Below I provide you with the samples of mentioned files.
 
+Sample `~/.bash_profile`
 
+    $ cat ~/.bash_profile
 
-~/.xinitrc
-
-#!/bin/sh
-
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-
-# merge in defaults and keymaps
-
-if [ -f $sysresources ]; then
-
-
-
-
-
-
-
-    xrdb -merge $sysresources
-
-fi
-
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
-if [ -f "$userresources" ]; then
-
-
-
-
-
-
-
-    xrdb -merge "$userresources"
-
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-# start some nice programs
-#
-#if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-# for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-#  [ -x "$f" ] && . "$f"
-# done
-# unset f
-#fi
-#
-#twm &
-#xclock -geometry 50x50-1+1 &
-#xterm -geometry 80x50+494+51 &
-#xterm -geometry 80x20+494-0 &
-#exec xterm -geometry 80x66+0+0 -name login
-
-# start desktop environment
-exec startlxqt
-
-
-
-
-
-~/.bash_profile
-
-#
-# ~/.bash_profile
-#
-
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ];
-then
-  exec startx
-fi
+    #
+    # ~/.bash_profile
+    #
+    
+    [[ -f ~/.bashrc ]] && . ~/.bashrc
+    
+    exec startx
 
 ****************************************
 B: GRAPHICAL LOGIN
