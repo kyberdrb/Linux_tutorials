@@ -293,33 +293,29 @@ Update packages:
 
 Install yaourt to be able install packages from AUR.
 Installation of yaourt is not necessary, but sometimes it makes life much easier.
-The "herecura" repository contains precompiled packages from AUR, namely opera-ffmpeg-codecs,
-which extends the multimedia functionality of opera browser.
+
 The "seblu" repository contains precompiled Virtualbox Extension Pack (virtualbox-ext-oracle)
 
-For yaourt:
+The "herecura" repository contains precompiled packages from AUR, namely opera-ffmpeg-codecs,
+which extends the multimedia functionality of opera browser.
 
-	pacman -S yaourt
-
-Save and exit.
-
-Set up root password:
+## Set up root password:
 
 	passwd
 	<type your password>
 	<type your password again>
 
-Add a new user account:
+## Add a new user account:
 
 	useradd -m -g users -G wheel,storage,power -s /bin/bash laptop
 
-Set up password for the new user:
+## Set up password for the new user:
 
 	passwd laptop
 	<type your password>
 	<type your password again>
 
-Allow the new user to use the `sudo` command:
+## Allow the new user to use the `sudo` command:
 
         pacman -S --noconfirm sudo
 
@@ -344,7 +340,10 @@ Save and exit
     press (Esc)
     :wq
 
-Install additional packages
+### Install additional packages
+
+I need these packages beacuse they simplify the work at first login.
+
 - `dialog` - contains `wifi-menu` utility which interactively connects to the internet
 - `wpa_supplicant` - dependency of  `diaalog`
 - `bash-completion` - complete  commands with `Tab` key
@@ -454,14 +453,88 @@ Set time:
     cd Europe
     ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
     hwclock --systohc
+    
+## Install AUR helper utility
 
-Install X server and desktop environment:
+I'll install `pikaur` beacuse It's convenient for me to use.
+
+Prepare packages for `pikaur`
+
+    sudo pacman -S openssh git base-devel
+    
+Recover the ~/.gitconfig file
+
+generate a new SSH key
+    - https://help.github.com/en/enterprise/2.16/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent  
+    - https://help.github.com/en/articles/connecting-to-github-with-ssh
+
+- Installation: 
+        
+        cd /tmp
+        git clone https://aur.archlinux.org/pikaur.git
+        cd pikaur
+        makepkg -fsri
+        
+    Source: https://github.com/actionless/pikaur#installation
+      
+- Configuration
+    
+        [sync]
+        alwaysshowpkgorigin = no
+        develpkgsexpiration = -1
+        upgradesorting = versiondiff
+        showdownloadsize = no
+
+        [build]
+        keepbuilddir = no
+        keepdevbuilddir = yes
+        skipfailedbuild = no
+        alwaysusedynamicusers = no
+
+        # changed from default
+        noedit = yes
+
+        # changed from default
+        donteditbydefault = yes
+
+        # changed from default
+        nodiff = yes
+
+        gitdiffargs = --ignore-space-change,--ignore-all-space
+
+        [colors]
+        version = 10
+        versiondiffold = 11
+        versiondiffnew = 9
+
+        [ui]
+        requireenterconfirm = yes
+        diffpager = auto
+        printcommands = no
+        reversesearchsorting = no
+
+        [misc]
+        sudoloopinterval = 59
+        pacmanpath = pacman
+        aurhost = aur.archlinux.org
+        newsurl = https://www.archlinux.org/feeds/news/
+
+        [network]
+        socks5proxy = 
+            
+    Source: https://github.com/actionless/pikaur#configuration
+    
+**From now on, I only use `pikaur` to manage all my packages instead of `pacman`.**
+
+## Install X server
 
     pacman -S xfce4 xfce4-goodies
     
     pacman -S xorg
       
-Install graphics drivers (I have integrated Intel graphics):
+## Install graphics drivers
+
+I have integrated graphics on Intel Skylake platform.
 
 Basic packages for Intel graphics
 
