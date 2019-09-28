@@ -176,18 +176,19 @@ The partitions are useless for now, therefore we need to format them:
 	mkfs.fat -F32 /dev/sda1
 
 	# Format Root partition
-	mkfs.ext4 -t ext4 -F /dev/sda3
+	mkfs.ext4 -t ext4 -F /dev/sda1
 	y
 
-Then turn on swap:
+1. [Optional step] Turn on swap:
 
-	mkswap /dev/sda2
-	swapon /dev/sda2
+	mkswap /dev/sdaX
+	swapon /dev/sdaX
 
-And again we verify, if the changes have been applied:
+    Verify, if the changes have been applied:
 
 	lsblk
 
+1. Check partition types
 Now we should see partition types (filesystems) next to our new partitions.
 
     fdisk -l /dev/sda
@@ -195,7 +196,7 @@ Now we should see partition types (filesystems) next to our new partitions.
 Now we can proceed with the actual installation of Arch Linux:
 
 	# Mount system partition
-	mount /dev/sda3 /mnt
+	mount /dev/sda2 /mnt
 
 ****************************************
 UEFI ONLY
@@ -394,10 +395,10 @@ Install bootloader (systemd-boot):
 
 	bootctl install
 
-Generate a root partition UUID and then use it in the bootloader instead of the partition name (more secure):
+Generate a system partition UUID, i.e. the partition, where you installed the operating system Arch Linux on, and then use it in the bootloader instead of the partition name (more secure):
 
 	# Note: "sda1" is the name of the root partition in this example
-	blkid -s PARTUUID -o value /dev/sda1 >> /boot/loader/entries/arch.conf
+	blkid -s PARTUUID -o value /dev/sda2 >> /boot/loader/entries/arch.conf
 	
 	
 
@@ -444,7 +445,6 @@ Reboot
 
 If the system doesn't boot AND you have a NVidia graphics card, boot from the USB again and install and configure graphics drivers:
 
-	# Mount the root partition
 	mount /dev/sda2 /mnt
 	mount /dev/sda1 /mnt/boot
 	arch-chroot /mnt
@@ -459,7 +459,7 @@ Login as regular user i.e. under `laptop` user account.
 
 Connect to the internet:
 
-    wifi-menu
+    sudo wifi-menu
 
 or
 
