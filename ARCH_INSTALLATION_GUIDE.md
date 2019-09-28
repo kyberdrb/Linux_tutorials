@@ -1,5 +1,7 @@
 # Arch Linux Installation
 
+## Create a bootable Arch Linux USB
+
 1. Download Arch Linux iso and clone it on the USB drive
 
     Linux
@@ -13,59 +15,53 @@
     
     [Arch Wiki - USB flash installation media](https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_Windows)
 
-1. Plug the USB drive into a PC and boot from it.
-Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there.
-If your computer supports it, boot in UEFI mode, which I really recommend. Otherwise boot in legacy mode.
-If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB (only legacy) boot from `EFI/boot/loader.efi` these steps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
-  Rapidly press F9
-  Choose "Boot From EFI File"
-  Choose option "ARCHISO_EFI_..."
-  Select "EFI -> boot -> loader.efi"
-Now the USB will boot in UEFI mode a shortly you will see the ARCH EFI bootloader.
+## Boot from the USB
 
-****************************************
-
-After you get the Arch Linux boot screen, choose "Boot Arch Linux x86_64"
-
-To install Arch Linux you need to have Internet connection. It's recommended to use the Ethernet, but Wi-Fi connection is also possible, if your wireless adapter is supported. Below I will explain how to connect to the Internet via Ethernet and Wi-Fi.
-
-List all your wired and wireless network adapters
-	
-	ip link
-
-****************************************
-WIRELESS (Wi-Fi) ONLY
-
-Connect to a Wi-Fi network
-
-    wifi-menu
+1. Plug the USB drive into a PC and boot from it. Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there. I recommend booting the USB and installing Arch Linux in UEFI mode. The booting mode can be set in the BIOS.
+    1. If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB, only the _Legacy_ one, boot from `EFI/boot/loader.efi` these steps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
+        1. Rapidly press F9
+        1. Choose `Boot From EFI File`
+        1. Choose option `ARCHISO_EFI_...`
+        1. Select `EFI -> boot -> loader.efi`
     
-Choose the network, confirm profile name and enter password.
+    Now the USB will boot in UEFI mode a shortly you will see the ARCH EFI bootloader.
 
-The Wi-Fi adapter is turned on automatically by the command and the IP address is obtained automatically as well via DHCP.
+1. After you get the Arch Linux boot screen, choose `Boot Arch Linux x86_64`
 
-****************************************
+## Connect to the Internet
 
-The Ethernet should be named "enpXsY" (X and Y are numbers). Wireless adapters have a name in format "wloZ" (Z is a number).
-Then you need to request an IP address via DHCP (for manual IP configuration see Arch Linux Wiki - Network configuration):
+1. To install Arch Linux you need to have Internet connection. It's recommended to use the Ethernet, but Wi-Fi connection is also possible, if your wireless adapter is supported. Below I will explain how to connect to the Internet via Ethernet and Wi-Fi.
+
+    1. List all your wired and wireless network adapters
 	
-	dhcpcd enpXsY
+	        ip link
+    
+    1. Connect to the internet. Below are the steps for connecting to the wireless and wired network
+        - Connect to a Wi-Fi network
+    
+            1. Execute command
 
-or for wireless adapters
+                    wifi-menu
+    
+            1. Choose the network, confirm profile name and enter password. The Wi-Fi adapter is turned on automatically by the command and the IP address is obtained automatically as well via DHCP.
 
-	dhcpcd wloZ
-
-an IP address should be assigned to the Ethernet interface.
-
-Test connectivity:
+        - Connect to a wired network
+            The Ethernet should be named similar to `enpXsY` where X and Y are numbers. Wireless adapters have a name in format similar to `wloZ` where Z is a number. Then you need to request an IP address via DHCP
 	
-	ping google.com -c 4
+	            dhcpcd enpXsY
 
-If the ping was successful, we can proceed with Arch Linux installation.
+            an IP address should be assigned to the Ethernet interface.
+	    For manual IP configuration see [Arch Linux Wiki - Network configuration](https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address)
 
-We have to determine, if we want legacy or EFI install of Arch Linux. If you choosed "UEFI" in the boot device selection earlier, read on, otherwise skip this part.
+    1. Test connectivity:
+	
+            ping google.com -c 4
 
-****************************************
+        If the ping was successful, we can proceed with Arch Linux installation.
+
+## Check UEFI mode
+
+Now we neet do decide, if we want legacy or EFI install of Arch Linux. If you chose "UEFI" in the boot device selection earlier, read on, otherwise skip this part.
 
 If you choosed to boot from USB in UEFI mode, check the list of EFI variables to see, if Arch Linux can be installed in UEFI mode:
 	
@@ -76,7 +72,8 @@ If it doesn't list any variables or prints an error "efivar: error listing varia
 
 Now we can continue with the disk partitioning
 
-DISK PARTITIONING
+## Partition the disks
+
 First of all, we have to choose the disk, which Arch Linux will be installed on. Print the list of connected disks with command:
 
 	lsblk
@@ -85,20 +82,22 @@ Let's say, we want to install Arch on disk "sda".
 Firstly, we need to wipe the disk:
 
 	sgdisk --zap-all /dev/sda
+	
+The target disk is now clean. We can proceed to the disk partitioning.
 
+### UEFI partitioning
 
-Then we need to partition it.
 For UEFI install it will be partitioned like this:
-	boot (EFI), Swap, Root
-For legacy install it will be partitioned like this:
-	Swap, Root
 
-****************************************
-UEFI ONLY
+	boot (EFI), Swap, Root
+
+#### via `sgdisk` (preferred)
 
     sgdisk --clear /dev/sda
     sgdisk --new=1:0:+600MiB --typecode=1:ef00 /dev/sda    
     sgdisk --new=2:0:+210GiB --typecode=2:8300 /dev/sda
+
+#### via `cgdisk`
 
 Run the partition tool (I will use cgdisk, but there are many others)
 	
@@ -127,14 +126,24 @@ UEFI partitioning configuration:
 	First sector: <press Enter - use the first availible sector>
 	Size in sectors: <press Enter
           for HDD: use the rest of the space
-          for SSD use 80% of the rest of the disk space - the rest leave unallocated as overprovisioning>
 	Hex code or GUID: <press Enter - 8300>
 	Partition name: system
+	
+Write changes to disk:
 
-****************************************
-LEGACY ONLY
+	Select "Write"
+	yes
 
-Legacy partitioning procedure. Don't forget to make some overprovisioned space if you are using a SSD (at least 20% of the free space of the system partition)!
+	# Quit from cgdisk
+	Select "Quit"
+
+### Legacy partitioning
+
+For legacy install it will be partitioned like this:
+
+	Swap, Root
+
+Remember to make some overprovisioned space if you are using a SSD (at least 20% of the free space of the system partition)!
 
 	1: type command "cfdisk"
 	2: choose dos on next screen
@@ -146,87 +155,76 @@ Legacy partitioning procedure. Don't forget to make some overprovisioned space i
 	8: press "arrow down" and choose "new"
 	9: press enter & choose primary
 	10: choose bootable
-(thx Gregory Nwosibe: https://www.youtube.com/watch?v=Wqh9AQt3nho)	
-	
-****************************************
-
-
+(thx Gregory Nwosibe: https://www.youtube.com/watch?v=Wqh9AQt3nho)
 
 Write changes to disk:
 
 	Select "Write"
 	yes
 
-	# Quit from cgdisk
+	# Quit from cfdisk
 	Select "Quit"
 
-Restart the computer:
-
-	reboot
-
-Boot from the USB in the same mode as previously.
+## Verify created partitions
 
 Verify if the changes have been successfuly applied:
 
 	lsblk
 
 You should see the new partitions under the name of your disk.
-The partitions are useless for now, therefore we need to format them:
-# Format EFI partition (if you have any)
-	mkfs.fat -F32 /dev/sda1
 
-	# Format Root partition
-	mkfs.ext4 -t ext4 -F /dev/sda1
-	y
+## Format partitions
+
+1. Format EFI partition (if you have any)
+
+        mkfs.fat -F32 /dev/sda1
+	
+        # Format Root partition
+        mkfs.ext4 -t ext4 -F /dev/sda1
+        y
 
 1. [Optional step] Turn on swap:
 
-	mkswap /dev/sdaX
-	swapon /dev/sdaX
+        mkswap /dev/sdaX
+        swapon /dev/sdaX
 
-    Verify, if the changes have been applied:
+1. Verify, if the changes have been applied:
 
-	lsblk
+        lsblk
 
-1. Check partition types
-Now we should see partition types (filesystems) next to our new partitions.
+1. Check partition types. Now we should see partition types (filesystems) next to our new partitions.
 
-    fdisk -l /dev/sda
+        fdisk -l /dev/sda
 
-Now we can proceed with the actual installation of Arch Linux:
+## Mount partitions
 
-	# Mount system partition
-	mount /dev/sda2 /mnt
+Mount system partition
 
-****************************************
-UEFI ONLY
+    mount /dev/sda2 /mnt
 
-	# Mount EFI partition (if you have any)
-	mkdir /mnt/boot
-	mount /dev/sda1 /mnt/boot
-****************************************
+### UEFI ONLY
 
+Mount EFI partition
 
+    mkdir /mnt/boot
+    mount /dev/sda1 /mnt/boot
 
-Find the fastest mirrors for pacman:
+## Select the fastest repository servers
 
-	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+	pacman -S reflector
+	`su -c 'cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && reflector --sort rate > /etc/pacman.d/mirrorlist`
 	
-	# Uncomment all servers
-	sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup
+The command can take a while to finish depending on the speed of your internet connection.
 
-	# Choose the top 6 mirrors
-	rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
-
-****************************************
+## Install Arch Linux
 
 Install pacman and the base system:
 
 	pacstrap /mnt base
 
-****************************************
+## Generate filesystem table
 
-Generate filesystem file (fstab) using UUIDs:
+fstab using UUIDs:
 
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 
