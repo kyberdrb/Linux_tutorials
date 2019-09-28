@@ -216,6 +216,8 @@ Mount EFI partition
 	
 The command can take a while to finish depending on the speed of your internet connection.
 
+https://wiki.archlinux.org/index.php/mirrors#Server-side_ranking
+
 ## Install Arch Linux
 
 Install pacman and the base system:
@@ -236,11 +238,9 @@ Edit "/etc/fstab" file:
 
 ****************************************
 
-Chroot into /mnt
+Chroot into /mnt using systemd containers
 
     systemd-nspawn -b -D /mnt
-
-	
 	
 	****************************************
 Edit locale setting (system and application language):
@@ -252,19 +252,9 @@ Save file (Ctrl + O) and exit (Ctrl + X).
 Generate new locale settings
 	
 	locale-gen
+	localectl set-locale LANG=en_US.UTF-8
 	
-	
-	
-
-****************************************
-
-Set time:
-
-	cd /usr/share/zoneinfo
-	cd Europe
-	rm /etc/localtime
-	ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
-	hwclock --systohc
+If the `localectl` command wouldn't be issued, we would see in the desktop environment meaningless characters
 
 ****************************************
 
@@ -462,6 +452,13 @@ Connect to the internet:
 or
 
     wpa_supplicant -B -i wlo1 -c <(wpa_passphrase SSID_of_the_network "network password")
+    
+Set time:
+
+    cd /usr/share/zoneinfo
+    cd Europe
+    ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
+    hwclock --systohc
 
 Install X server and desktop environment:
 
