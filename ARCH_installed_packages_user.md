@@ -10,11 +10,13 @@ Be sure to install correct VA-API driver for your video card and verify VA-API h
 
 To enable video acceleration, append the following flags to persistent configuration:
 
-~/.config/chromium-flags.conf
---enable-accelerated-mjpeg-decode
---enable-accelerated-video
+    $ ~/.config/chromium-flags.conf
+    
+    --enable-accelerated-mjpeg-decode
+    --enable-accelerated-video
+    --disable-gpu-driver-bug-workarounds
 
-Note: Additionally #Force GPU acceleration and set --disable-gpu-driver-bug-workarounds to remove video freezes (especially when watching in fullscreen). I enabled this flag.
+**Note:** `--disable-gpu-driver-bug-workarounds` is a optional flag.
 
 To check if it's working play a video which is using a codec supported by your VA-API driver (vainfo tell you which codecs are supported) go to chrome://media-internals/ and check video_decoder :
 
@@ -62,9 +64,13 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
     - choose the option `2) virtualbox-host-modules-arch`, see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
     - after installation add the user to the VirtualBox group. This allows for USB mounting for the virtual machine
     
-            gpasswd -a $USER vboxusers
+            sudo gpasswd -a $USER vboxusers
             
-        Source: https://wiki.archlinux.org/index.php/VirtualBox#Accessing_host_USB_devices_in_guest
+        Source: https://wiki.archlinux.org/index.php/VirtualBox#Accessing_host_USB_devices_in_guest    
+        
+    - reboot
+            
+            reboot
             
 * virtualbox-ext-oracle
 * virtualbox-guest-iso
