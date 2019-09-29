@@ -764,6 +764,73 @@ Install sound server and graphical front-end
 Reboot
 
     reboot
+    
+## Enable tap-to-click and natural scrolling for touchpad
+
+1. List IDs of all input devices
+
+        $ xinput list
+        
+        ...
+        ⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
+        ⎜   ↳ AlpsPS/2 ALPS DualPoint Stick           	id=13	[slave  pointer  (2)]
+        ⎜   ↳ AlpsPS/2 ALPS DualPoint TouchPad        	id=14	[slave  pointer  (2)]
+        ...
+
+1. Identify the touchpad device
+
+    This line is telling me the ID of the touchpad device which is `14`:
+
+    **AlpsPS/2 ALPS DualPoint TouchPad        	id=14	[slave  pointer  (2)]**
+
+1. List the capabilities of the touchpad
+
+        $ xinput list-props 14
+
+        Device 'AlpsPS/2 ALPS DualPoint TouchPad':
+            Device Enabled (165):	1
+            Coordinate Transformation Matrix (167):	1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
+            libinput Tapping Enabled (318):	0
+            ...
+            libinput Natural Scrolling Enabled (300):	0
+            ...
+	    
+1. Enable `Tapping` and `Natural Scrolling`
+
+        xinput set-prop 14 318 1
+        xinput set-prop 14 300 1
+
+1. Verify touchpad settings
+
+        $ xinput list-props 14
+
+        Device 'AlpsPS/2 ALPS DualPoint TouchPad':
+            Device Enabled (165):	1
+            Coordinate Transformation Matrix (167):	1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
+            libinput Tapping Enabled (318):	1
+            ...
+            libinput Natural Scrolling Enabled (300):	1
+            ...
+
+1. Add it to autostart
+    - XFCE4
+        1. Go to `Applications -> Settings -> Session and Startup`
+	1. Tab `Application Autostart`
+	1. Click on `Add` button
+	1. Create a _tap-to-click_ startup task
+	    - **Name:** `Touchpad: tap-to-click`
+	    - **Command:** `xinput set-prop 14 318 1`
+	    - ***Trigger:* `on login`
+	1. Create a _natural scrolling_ startup task
+	    - **Name:** `Touchpad: tap-to-click`
+	    - **Command:** `xinput set-prop 14 300 1`
+	    - ***Trigger:* `on login`
+	    
+	1. Log out and back in to verify the startup tasks are effective.
+
+Sources:
+- https://askubuntu.com/questions/1087328/lubuntu-18-10-how-to-activate-tap-to-click/1089387#1089387
+- https://wiki.archlinux.org/index.php/Libinput#Via_xinput
 
 ****************************************
 POST-INSTALL
