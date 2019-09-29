@@ -3,7 +3,13 @@
     - install also the `linux` package to load these modules into kernel
 * ntfs-3g -> NTFS support
 * gvim - graphical vim text editor
-* chromium-vaapi-bin - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
+* chromium/chromium-vaapi-bin - web browser
+    - Settings
+        1. Click on the three-dots-icon in the upper right corner
+        1. Click on `Settings`
+        1. Section `On startup`
+            - Continue where you left off
+    - for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
     - Hardware video acceleration
 Accelerated video decoding using VA-API can be used with community made patches [1], packages are available in AUR as chromium-vaapi or chromium-vaapi-bin.
 
