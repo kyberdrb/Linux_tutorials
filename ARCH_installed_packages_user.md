@@ -64,6 +64,8 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
     
             gpasswd -a $USER vboxusers
             
+        Source: https://wiki.archlinux.org/index.php/VirtualBox#Accessing_host_USB_devices_in_guest
+            
 * virtualbox-ext-oracle
 * virtualbox-guest-iso
 
