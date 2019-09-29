@@ -1,8 +1,6 @@
 * aic94xx-firmware wd719x-firmware - missing firmwares for my laptop
 * ntfs-3g -> NTFS support
 * gvim - graphical vim text editor
-* pulseaudio -> audio server
-* pavucontrol/pavucontrol-qt -> pulseaudio frontend (gui)
 * chromium-vaapi-bin - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
     - Hardware video acceleration
 Accelerated video decoding using VA-API can be used with community made patches [1], packages are available in AUR as chromium-vaapi or chromium-vaapi-bin.
@@ -60,7 +58,12 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
             - [`cp redshift.conf redshift.conf.original && sed -e '/^;/d' redshift.conf.original > redshift.conf.config_with_removed_comments`](https://unix.stackexchange.com/questions/13525/sed-one-liner-to-delete-any-line-that-begins-with-a-digit/13526#13526)
             - [`sed '/^$/d' redshift.conf.config_with_removed_comments > redshift.conf` - then open the file manually and insert a new line before each section for better readability](https://www.cyberciti.biz/faq/using-sed-to-delete-empty-lines/)
         
-* virtualbox -> zvolit "virtualbox-host-modules-arch". po instalacii vykonat prikaz: gpasswd -a $USER vboxusers
+* virtualbox
+    - choose the option `2) virtualbox-host-modules-arch`, see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
+    - after installation add the user to the VirtualBox group. This allows for USB mounting for the virtual machine
+    
+            gpasswd -a $USER vboxusers
+            
 * virtualbox-ext-oracle
 * virtualbox-guest-iso
 
