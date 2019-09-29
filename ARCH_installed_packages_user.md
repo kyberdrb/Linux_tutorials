@@ -91,6 +91,9 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
 ---
 
 * vlc -> multimedia player
+* tuxboot
+* dcfldd
+* p7zip -> command line extraction utility
 
 ---
 
@@ -106,7 +109,6 @@ musescore
 
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
-* p7zip -> command line extraction utility
 * parallel - parallelize shell commands
 
 pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
