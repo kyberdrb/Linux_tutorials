@@ -318,23 +318,27 @@ which extends the multimedia functionality of opera browser.
 
 ## Allow the new user to use the `sudo` command:
 
+1. Install `sudo`
+
         pacman -S sudo
 
-	visudo
+1. Allow the user to use `sudo` command
 
-	# Find this line:
+        visudo
 
-		## Uncomment to allow members of group wheel to execute any command
-		# %wheel ALL=(ALL) ALL
+1. Find this line:
 
-	# and change it - uncomment the wheel line and require the root password:
+        ## Uncomment to allow members of group wheel to execute any command
+        # %wheel ALL=(ALL) ALL
+
+1. Change it by uncommenting the `wheel` line and require the root password:
 	
 		## Uncomment to allow members of group wheel to execute any command
 		%wheel ALL=(ALL) ALL
 		Defaults rootpw
                 Defaults timestamp_timeout=180
 
-This will allow for the new user to use the "sudo" command but not with the user password! Instead, the root password will be required.
+This will allow for the new user to use the `sudo` command but not with the user password! Instead, the root password will be required. The root password will be valid for `180` minutes.
 
 Save and exit
 
@@ -348,6 +352,7 @@ I need these packages beacuse they simplify the work at first login.
 - `dialog` - contains `wifi-menu` utility which interactively connects to the internet
 - `wpa_supplicant` - dependency of  `diaalog`
 - `bash-completion` - complete  commands with `Tab` key
+- `vim` - text editor
 
         pacman -S dialog wpa_supplicant bash-completion vim
 
@@ -616,12 +621,16 @@ Prepare packages for `pikaur`
         git clone https://github.com/actionless/pikaur.git
         cd pikaur
         makepkg -fsri
+	
+    Reinstall `pikaur` by itself
+    
+        pikaur -S pikaur
         
     Source: https://github.com/actionless/pikaur#installation
       
 - Configuration
 
-    Configuration file is in `~/.config/pikaur`
+        $ vim ~/.config/pikaur.conf
     
         [sync]
         alwaysshowpkgorigin = no
@@ -730,6 +739,16 @@ Check `VAAPI` and `VDPAU` configuration
     H264_BASELINE                  51 16384  2048  2048
     H264_MAIN                      51 16384  2048  2048
     H264_HIGH                      51 16384  2048  2048
+    
+## Sound
+
+Install sound server and graphical front-end
+
+    pikaur -S pulseaudio pavucontrol
+    
+Reboot
+
+    reboot
 
 ****************************************
 POST-INSTALL
@@ -772,7 +791,17 @@ This will execute TRIM command on all TRIM-capable drives once a week (Periodic 
 Periodic TRIM is safer and more supported and less prone to errors than Continuous TRIM.
 
 ****************************************
-NETWORK MANAGEMENT
+## NETWORK MANAGEMENT
+
+### Terminal (preferred)
+
+I manage all networks in terminal.
+
+For wireless networks I use `wifi-menu`.
+
+For wired networks I use `dhcpcd`.
+
+### Graphical
 
 You can manage the network interfaces via terminal:
   "wpa_supplicant" (connecting to Wi-Fi access point)
@@ -784,8 +813,7 @@ we can install a Network Manager and its applet (for the notification area):
 	pacman -S networkmanager network-manager-applet
 	systemctl enable NetworkManager.service
 
-****************************************
-XFCE4 CONFIGURATION
+## XFCE4 CONFIGURATION
 
 - Terminal
 
