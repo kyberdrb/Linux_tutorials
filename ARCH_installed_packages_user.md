@@ -91,7 +91,6 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
 ---
 
 * vlc -> multimedia player
-* tuxboot
 * dcfldd
 * p7zip -> command line extraction utility
 
