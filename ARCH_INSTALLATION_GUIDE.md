@@ -217,10 +217,16 @@ Update package database
 
         pacman - Syy
 	
-	
+Install `reflector`
 	
 	pacman -S reflector
+
+Backup original pacman's mirror list
+
 	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+
+Create new mirror list. The servers which we will provide the fastest speed for downloading packages will be on the top of the list.
+
         reflector --sort rate > /etc/pacman.d/mirrorlist
 	
 The command can take a while to finish depending on the speed of your internet connection.
@@ -250,20 +256,8 @@ Edit "/etc/fstab" file:
 Chroot into /mnt using systemd containers
 
     systemd-nspawn -b -D /mnt
-	
-	****************************************
-Edit locale setting (system and application language):
-	
-	nano /etc/locale.gen
-	# Uncomment entries "en_US.UTF-8 UTF-8" and "en_US.ISO-8859-1"
 
-Save file (Ctrl + O) and exit (Ctrl + X).
-Generate new locale settings
-	
-	locale-gen
-	localectl set-locale LANG=en_US.UTF-8
-	
-If the `localectl` command wouldn't be issued, we would see in the desktop environment meaningless characters
+Login as `root`
 
 ****************************************
 
@@ -287,9 +281,6 @@ Set up pacman repositories:
 	SigLevel = Never
 	Server = http://repo.archlinux.fr/$arch
 
-	
-	
-
 	[seblu]
 	Server = http://al.seblu.net/$repo/$arch
 
@@ -297,11 +288,12 @@ Save file (Ctrl + O) and exit (Ctrl + X).
 
 Update packages:
 
-	pacman -Syyuu
-	# If it will prompt you to install packages press 'y' and then <Enter>
+	pacman -Syy
 
-Install yaourt to be able install packages from AUR.
-Installation of yaourt is not necessary, but sometimes it makes life much easier.
+Install updates
+
+        pacman -Syu
+	# If it will prompt you to install packages press 'y' and then <Enter>
 
 The "seblu" repository contains precompiled Virtualbox Extension Pack (virtualbox-ext-oracle)
 
@@ -326,7 +318,7 @@ which extends the multimedia functionality of opera browser.
 
 ## Allow the new user to use the `sudo` command:
 
-        pacman -S --noconfirm sudo
+        pacman -S sudo
 
 	visudo
 
@@ -357,7 +349,7 @@ I need these packages beacuse they simplify the work at first login.
 - `wpa_supplicant` - dependency of  `diaalog`
 - `bash-completion` - complete  commands with `Tab` key
 
-        pacman -S --noconfirm dialog wpa_supplicant bash-completion
+        pacman -S dialog wpa_supplicant bash-completion vim
 
 BOOTLOADER INSTALLATION
 
@@ -366,7 +358,7 @@ INTEL CPU ONLY
 
 Install Intel microcode (to improve system stability).
 
-    pacman -S --noconfirm intel-ucode
+    pacman -S intel-ucode
 
 ****************************************
 
@@ -458,88 +450,27 @@ or
     
 Set time:
 
-    cd /usr/share/zoneinfo
-    cd Europe
-    ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
-    hwclock --systohc
-    
-## Install AUR helper utility
+    sudo ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
+    sudo hwclock --systohc
 
-I'll install `pikaur` beacuse It's convenient for me to use.
+## Select language
 
-Prepare packages for `pikaur`
+Edit locale setting (system and application language):
+	
+	sudo nano /etc/locale.gen
+	# Uncomment entries "en_US.UTF-8 UTF-8" and "en_US.ISO-8859-1"
 
-    sudo pacman -S openssh git base-devel
-    
-Recover the ~/.gitconfig file
-
-generate a new SSH key
-    - https://help.github.com/en/enterprise/2.16/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent  
-    - https://help.github.com/en/articles/connecting-to-github-with-ssh
-
-- Installation: 
-        
-        cd /tmp
-        git clone https://aur.archlinux.org/pikaur.git
-        cd pikaur
-        makepkg -fsri
-        
-    Source: https://github.com/actionless/pikaur#installation
-      
-- Configuration
-    
-        [sync]
-        alwaysshowpkgorigin = no
-        develpkgsexpiration = -1
-        upgradesorting = versiondiff
-        showdownloadsize = no
-
-        [build]
-        keepbuilddir = no
-        keepdevbuilddir = yes
-        skipfailedbuild = no
-        alwaysusedynamicusers = no
-
-        # changed from default
-        noedit = yes
-
-        # changed from default
-        donteditbydefault = yes
-
-        # changed from default
-        nodiff = yes
-
-        gitdiffargs = --ignore-space-change,--ignore-all-space
-
-        [colors]
-        version = 10
-        versiondiffold = 11
-        versiondiffnew = 9
-
-        [ui]
-        requireenterconfirm = yes
-        diffpager = auto
-        printcommands = no
-        reversesearchsorting = no
-
-        [misc]
-        sudoloopinterval = 59
-        pacmanpath = pacman
-        aurhost = aur.archlinux.org
-        newsurl = https://www.archlinux.org/feeds/news/
-
-        [network]
-        socks5proxy = 
-            
-    Source: https://github.com/actionless/pikaur#configuration
-    
-**From now on, I only use `pikaur` to manage all my packages instead of `pacman`.**
+Save file (Ctrl + O) and exit (Ctrl + X).
+Generate new locale settings
+	
+	sudo locale-gen
+	sudo localectl set-locale LANG=en_US.UTF-8
+	
+If the `localectl` command wouldn't be issued, we would see in the desktop environment meaningless characters
 
 ## Install X server
-
-    pacman -S xfce4 xfce4-goodies
     
-    pacman -S xorg
+    sudo pacman -S xorg
       
 ## Install graphics drivers
 
@@ -548,6 +479,13 @@ I have integrated graphics on Intel Skylake platform.
 Basic packages for Intel graphics
 
     pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel
+
+
+## Install desktop environment
+
+XFCE4
+
+    sudo pacman -S xfce4 xfce4-goodies
 
 ## Login
 
@@ -563,9 +501,7 @@ GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast
         mv xinitrc .xinitrc #add dot before filename: mv xi<Tab> xi<Tab><Alt+b>.<Enter>
         nano ~/.xinitrc
 
-1. Find a line (at the end) with
-  
-        # start some nice programs
+1. Delete everything after the `fi` i.e. after the end of the condition after the line `# start some nice programs`.
 
 1. At the very end of the file add command to start a destop environment
 
@@ -637,15 +573,14 @@ Sample `~/.xinitrc`
 
 #### Edit file `~/.bash_profile`
 
+`TODO nano...`
+
 Add this to the end of the file
 
     exec startx
 
 This will start X server right after login.
 Save, exit.
-Reboot.
-You will be greeted with a command line login prompt.
-Enter your username and password. The desktop environment will start immediately.
 
 Sample `~/.bash_profile`
 
@@ -657,23 +592,89 @@ Sample `~/.bash_profile`
     
     [[ -f ~/.bashrc ]] && . ~/.bashrc
     
-    exec startx
+    exec start
 
-****************************************
-B: GRAPHICAL LOGIN
+1. Reboot
 
-ak sa chceme prihlasovat z desktopoveho manazera (graficka prihlasovacia obrazovka),
-nainstalujeme SDDM a nechame ho spustat sa po starte systemu:
+        reboot
 
-  pacman -S sddm
-  systemctl enable sddm.service
+    You will be greeted with a command line login prompt.
 
+    Enter your username and password. The desktop environment will start immediately.
+
+## Install AUR helper utility
+
+I'll install `pikaur` beacuse It's convenient for me to use.
+
+Prepare packages for `pikaur`
+
+    sudo pacman -S openssh git base-devel
+
+- Installation: 
+        
+        cd /tmp
+        git clone https://github.com/actionless/pikaur.git
+        cd pikaur
+        makepkg -fsri
+        
+    Source: https://github.com/actionless/pikaur#installation
+      
+- Configuration
+
+    Configuration file is in `~/.config/pikaur`
+    
+        [sync]
+        alwaysshowpkgorigin = no
+        develpkgsexpiration = -1
+        upgradesorting = versiondiff
+        showdownloadsize = no
+
+        [build]
+        keepbuilddir = no
+        keepdevbuilddir = yes
+        skipfailedbuild = no
+        alwaysusedynamicusers = no
+
+        # changed from default
+        noedit = yes
+
+        # changed from default
+        donteditbydefault = yes
+
+        # changed from default
+        nodiff = yes
+
+        gitdiffargs = --ignore-space-change,--ignore-all-space
+
+        [colors]
+        version = 10
+        versiondiffold = 11
+        versiondiffnew = 9
+
+        [ui]
+        requireenterconfirm = yes
+        diffpager = auto
+        printcommands = no
+        reversesearchsorting = no
+
+        [misc]
+        sudoloopinterval = 59
+        pacmanpath = pacman
+        aurhost = aur.archlinux.org
+        newsurl = https://www.archlinux.org/feeds/news/
+
+        [network]
+        socks5proxy = 
+            
+    Source: https://github.com/actionless/pikaur#configuration
+    
+**From now on, I only use `pikaur` to manage all my packages instead of `pacman`.**
 
 ## Enable hardware acceleration for graphics
 
 Hardware acceleration for Intel graphics for my new laptop
 
-    pacman -S intel-media-driver libvdpau-va-gl
+    sudo pacman -S intel-media-driver libvdpau-va-gl
 
 Open the file with environment variables
 
@@ -683,22 +684,6 @@ Enable hardware for intel acceleration
 
     VDPAU_DRIVER=va_gl
     LIBVA_DRIVER_NAME=iHD
-    
-
-### Tearing
-
-The SNA acceleration method causes tearing on some machines. To fix this, enable the "TearFree" option in the driver by adding the following line to your configuration file:
-
-    /etc/X11/xorg.conf.d/20-intel.conf
-    Section "Device"
-        Identifier "Intel Graphics"
-        Driver "intel"
-        Option "TearFree" "true"
-    EndSection
-
-Source: https://wiki.archlinux.org/index.php/Intel_graphics#Tearing
-
-
     
 Reboot to activate hardware acceleration
     
