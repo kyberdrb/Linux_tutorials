@@ -1,4 +1,6 @@
-* aic94xx-firmware wd719x-firmware - missing firmwares for my laptop
+* aic94xx-firmware wd719x-firmware linux
+    - missing firmwares for my laptop
+    - install also the `linux` package to load these modules into kernel
 * ntfs-3g -> NTFS support
 * gvim - graphical vim text editor
 * chromium-vaapi-bin - web browser; for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
