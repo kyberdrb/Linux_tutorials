@@ -162,7 +162,8 @@ Write changes to disk:
 	Select "Write"
 	yes
 
-	# Quit from cfdisk
+Quit from cfdisk
+
 	Select "Quit"
 
 ## Verify created partitions
@@ -179,8 +180,9 @@ You should see the new partitions under the name of your disk.
 
         mkfs.fat -F32 /dev/sda1
 	
-        # Format Root partition
-        mkfs.ext4 -t ext4 -F /dev/sda1
+Format system partition
+
+        mkfs.ext4 -t ext4 -F /dev/sda2
         y
 
 1. [Optional step] Turn on swap:
@@ -211,8 +213,10 @@ Mount EFI partition
 
 ## Select the fastest repository servers
 
+        pacman - Syy
 	pacman -S reflector
-	`su -c 'cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && reflector --sort rate > /etc/pacman.d/mirrorlist`
+	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+        reflector --sort rate > /etc/pacman.d/mirrorlist
 	
 The command can take a while to finish depending on the speed of your internet connection.
 
