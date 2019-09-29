@@ -1,7 +1,6 @@
 * aic94xx-firmware wd719x-firmware linux
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
-* ntfs-3g -> NTFS support
 * gvim - graphical vim text editor
 * chromium/chromium-vaapi-bin - web browser
     - Settings
@@ -91,6 +90,11 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
 
 ---
 
+* vlc -> multimedia player
+
+---
+
+* ntfs-3g -> NTFS support
 
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
@@ -120,7 +124,6 @@ tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virt-manager -> front-end ku QEMU
-* vlc -> multimedia player
 wget -> terminal downloader utility
 * wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 * xclip - terminal clipboard manipulation utility
