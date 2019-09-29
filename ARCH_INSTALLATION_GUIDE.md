@@ -213,7 +213,12 @@ Mount EFI partition
 
 ## Select the fastest repository servers
 
+Update package database
+
         pacman - Syy
+	
+	
+	
 	pacman -S reflector
 	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
         reflector --sort rate > /etc/pacman.d/mirrorlist
