@@ -675,6 +675,22 @@ Enable hardware for intel acceleration
     VDPAU_DRIVER=va_gl
     LIBVA_DRIVER_NAME=iHD
     
+
+### Tearing
+
+The SNA acceleration method causes tearing on some machines. To fix this, enable the "TearFree" option in the driver by adding the following line to your configuration file:
+
+    /etc/X11/xorg.conf.d/20-intel.conf
+    Section "Device"
+        Identifier "Intel Graphics"
+        Driver "intel"
+        Option "TearFree" "true"
+    EndSection
+
+Source: https://wiki.archlinux.org/index.php/Intel_graphics#Tearing
+
+
+    
 Reboot to activate hardware acceleration
     
 ## Verify hardware acceleration for graphics
