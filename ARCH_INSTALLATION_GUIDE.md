@@ -793,7 +793,48 @@ we can install a Network Manager and its applet (for the notification area):
 ****************************************
 XFCE4 CONFIGURATION
 
+- Terminal
+
+1. Open Terminal (Ctrl + Alt + T) 
+1. `Edit -> Preferences`
+1. Tab `General`
+    1. Uncheck `Show unsafe paste dialog`
+1. Tab `Appearance`
+    1. Font
+        1. Click on font
+        1. Find `Monospace Bold`
+        1. Set the font size to 14
+        1. Close the dialog window
+    1. Tabs
+        1. Check option `Use custom styling to make tabs slim`
+    1. Close the Preferences window
+    1. Check the settings by reopening a terminal window
+
+- Desktop
+
+1. Go to the Desktop (Ctrl + Alt + D)
+1. Right click on empty space on the Desktop
+1. Choose `Desktop Settings`
+1. Background
+    1. `Style:` None
+    1. `Color:` Solid color
+    1. Click on the first color box next to `Color` menu
+    1. Choose _black_ color
+    1. Select
+1. Icons
+    1. Appearance
+        1. `Icon type:` None
+1. Close
+
 Go to Applications menu -> Settings ->
+
+- Session and Startup
+
+1. Tab `Application Autostart`
+    1. `Add`
+        - `Name:` Redshift
+        - `Command:` `redshift &`
+        - `Trigger:` on login
 
 Keyboard
   Layout tab
