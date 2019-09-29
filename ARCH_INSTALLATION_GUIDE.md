@@ -930,17 +930,26 @@ we can install a Network Manager and its applet (for the notification area):
         1. `Icon type:` None
 1. Close
 
-### Automount devices
+### Quick connecting to wireless network
+
+    Alt + F2
+    xfce4-terminal -e 'bash -c "sudo wifi-menu"'
+
+First time you need to execute the entire command.
+
+Next time it will be enough to type `wifi`. The command pops-up below the command line.
+
+Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run-command-in-same-window/983865#983865
+
+### Automount devices and enable Trash
 
 Install required packages
 
-    pikaur -S gvfs 
+    pikaur -S gvfs
   
 For automounting mobile devices:
 
     pikaur -S gvfs-mtp gvfs-gphoto2
-
-#### Adjust XFCE settings
 
 1. Go to `Applications menu -> Settings -> Removable Drives and Media`
 1. check `Mount removable drives when hot-plugged` and `Mount removable media when inserted`
@@ -983,7 +992,7 @@ Go to Applications menu -> Settings ->
 1. Tab `Application Autostart`
     1. `Add`
         - `Name:` Redshift
-        - `Command:` `redshift &`
+        - `Command:` `redshift`
         - `Trigger:` on login
 
 Keyboard
