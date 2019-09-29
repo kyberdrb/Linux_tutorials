@@ -28,7 +28,12 @@ Also chrome://gpu should read Video Decode: Hardware accelerated
 
 Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
 
-* firefox -> recover the ~/.config/mozilla directory
+* firefox
+    - in the upper right corner click on a hamburger icon with a label `Open menu`
+    - click on `Preferences`
+    - Tab `General`
+        - check `Restore previous session`
+        - uncheck `Ctrl+Tab cycles through tabs in recently used order`
 * redshift-minimal -> color temperature changer (spares eyes) -> run on background in tray with "redshift&"
     - Create environment for the config file
     
@@ -53,7 +58,7 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
             [randr]
             screen=0
             
-    - Add to autostart XFCE4
+    - Add to autostart XFCE4 if you want in `Applications -> Settings -> Session and Startup -> Application autostart`. Set command as `redshift &`. I assume that the configuration file is present and correct.
 
     - Sources
         - [Redshift config file location](https://wiki.archlinux.org/index.php/Redshift#Configuration)
@@ -61,7 +66,8 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
         - If you want to create the config file from scratch
             - [`cp redshift.conf redshift.conf.original && sed -e '/^;/d' redshift.conf.original > redshift.conf.config_with_removed_comments`](https://unix.stackexchange.com/questions/13525/sed-one-liner-to-delete-any-line-that-begins-with-a-digit/13526#13526)
             - [`sed '/^$/d' redshift.conf.config_with_removed_comments > redshift.conf` - then open the file manually and insert a new line before each section for better readability](https://www.cyberciti.biz/faq/using-sed-to-delete-empty-lines/)
-        
+
+--- 
 * virtualbox
     - choose the option `2) virtualbox-host-modules-arch`, see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
     - after installation add the user to the VirtualBox group. This allows for USB mounting for the virtual machine
