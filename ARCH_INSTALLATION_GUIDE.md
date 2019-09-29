@@ -848,6 +848,52 @@ we can install a Network Manager and its applet (for the notification area):
         1. `Icon type:` None
 1. Close
 
+### Automount devices
+
+Install required packages
+
+    pikaur -S gvfs 
+  
+For automounting mobile devices:
+
+    pikaur -S gvfs-mtp gvfs-gphoto2
+
+#### Adjust XFCE settings
+
+1. Go to `Applications menu -> Settings -> Removable Drives and Media`
+1. check `Mount removable drives when hot-plugged` and `Mount removable media when inserted`
+1. Disconnect the removable disk, if it's connected.
+1. Plug in your removable device.
+1. Open file manager.
+
+The removeable device will appear in the left column.
+
+
+If not, you can still mount the drive manually via terminal:
+
+Check, which label corresponds your USB stick
+
+  lsblk
+or
+  sudo fdisk -l
+
+Then mount it
+
+  gvfs-mount -d /dev/sdX#
+
+where X is the drive name and # is the partition number, e.g.
+
+  gvfs-mount -d /dev/sdb1
+
+
+Sources:
+  https://forum.voidlinux.eu/t/solved-xfce-missing-trash-and-other-icons-on-the-desktop/2010/2
+  https://bbs.archlinux.org/viewtopic.php?pid=1608701#p1608701
+  https://docs.xfce.org/xfce/thunar/using-removable-media
+  https://www.youtube.com/watch?v=fYlBVkB1gn4
+
+---
+
 Go to Applications menu -> Settings ->
 
 - Session and Startup
