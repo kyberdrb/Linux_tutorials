@@ -457,6 +457,17 @@ Set time:
 
     sudo ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
     sudo hwclock --systohc
+    
+## Create `vim` configuration
+
+- Create `vim` config file with these contents
+
+        $ vim ~/.vimrc
+
+        set tabstop=4
+        set shiftwidth=4
+        set expandtab
+
 
 ## Select language
 
@@ -607,9 +618,11 @@ Sample `~/.bash_profile`
 
     Enter your username and password. The desktop environment will start immediately.
 
-## Install AUR helper utility
+## AUR helper utility
 
 I'll install `pikaur` beacuse It's convenient for me to use.
+
+### Installation
 
 Prepare packages for `pikaur`
 
@@ -628,7 +641,9 @@ Prepare packages for `pikaur`
         
     Source: https://github.com/actionless/pikaur#installation
       
-- Configuration
+### Configuration
+
+Create `pikaur` config file
 
         $ vim ~/.config/pikaur.conf
     
