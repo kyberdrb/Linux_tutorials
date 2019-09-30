@@ -72,7 +72,8 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
             - [`cp redshift.conf redshift.conf.original && sed -e '/^;/d' redshift.conf.original > redshift.conf.config_with_removed_comments`](https://unix.stackexchange.com/questions/13525/sed-one-liner-to-delete-any-line-that-begins-with-a-digit/13526#13526)
             - [`sed '/^$/d' redshift.conf.config_with_removed_comments > redshift.conf` - then open the file manually and insert a new line before each section for better readability](https://www.cyberciti.biz/faq/using-sed-to-delete-empty-lines/)
 
---- 
+---
+
 * virtualbox
     - choose the option `2) virtualbox-host-modules-arch`, see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
     - after installation add the user to the VirtualBox group. This allows for USB mounting for the virtual machine
@@ -92,7 +93,9 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
 
 * vlc -> multimedia player
 * dcfldd
-* p7zip -> command line extraction utility
+* p7zip - archive creation and extraction utility
+* **evince**/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
+* libreoffice-still - office suite
 
 ---
 
@@ -126,7 +129,6 @@ tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virt-manager -> front-end ku QEMU
 wget -> terminal downloader utility
-* wpa_supplicant -> utility to connect to Wi-Fi networks with WPA/WPA2 encryption
 * xclip - terminal clipboard manipulation utility
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 
@@ -135,11 +137,9 @@ xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
-* p7zip - archive manipulation utility
 audacity -> audio editing software
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
-* evince/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
 * filezilla -> FTP client
 
 gparted -> disk and partition manager
@@ -150,7 +150,6 @@ android-file-transfer - transfer data with a mobile device via MTP
 * android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
 
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
-* libreoffice-still - office suite
 
 -VIRTUALIZATION
 lxc -> base LXC support
