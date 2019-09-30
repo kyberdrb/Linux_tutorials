@@ -10,28 +10,28 @@
             - Continue where you left off
     - for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
     - Hardware video acceleration
-Accelerated video decoding using VA-API can be used with community made patches [1], packages are available in AUR as chromium-vaapi or chromium-vaapi-bin.
+        Accelerated video decoding using VA-API can be used with community made patches [1], packages are available in AUR as chromium-vaapi or chromium-vaapi-bin.
 
-Warning: Wayland support is not enabled in above packages yet. XWayland is broken on libva-intel-driver.
-Be sure to install correct VA-API driver for your video card and verify VA-API has been enabled and working correctly, see Hardware video acceleration#Verifying VA-API.
+        Warning: Wayland support is not enabled in above packages yet. XWayland is broken on libva-intel-driver.
+        Be sure to install correct VA-API driver for your video card and verify VA-API has been enabled and working correctly, see Hardware video acceleration#Verifying VA-API.
 
-To enable video acceleration, append the following flags to persistent configuration:
+        To enable video acceleration, append the following flags to persistent configuration:
 
-    $ ~/.config/chromium-flags.conf
+            $ ~/.config/chromium-flags.conf
     
-    --enable-accelerated-mjpeg-decode
-    --enable-accelerated-video
-    --disable-gpu-driver-bug-workarounds
+            --enable-accelerated-mjpeg-decode
+            --enable-accelerated-video
+            --disable-gpu-driver-bug-workarounds
 
-**Note:** `--disable-gpu-driver-bug-workarounds` is a optional flag.
+        **Note:** `--disable-gpu-driver-bug-workarounds` is a optional flag.
 
-To check if it's working play a video which is using a codec supported by your VA-API driver (vainfo tell you which codecs are supported) go to chrome://media-internals/ and check video_decoder :
+        To check if it's working play a video which is using a codec supported by your VA-API driver (vainfo tell you which codecs are supported) go to chrome://media-internals/ and check video_decoder :
 
-Hardware acceleration: MojoVideoDecoder, GpuVideoDecoder
-Software acceleration: VpxVideoDecoder, FFmpegVideoDecoder (some say it's Hardware acceleration?)
-Also chrome://gpu should read Video Decode: Hardware accelerated
+        Hardware acceleration: MojoVideoDecoder, GpuVideoDecoder
+        Software acceleration: VpxVideoDecoder, FFmpegVideoDecoder (some say it's Hardware acceleration?)
+        Also chrome://gpu should read Video Decode: Hardware accelerated
 
-Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
+        Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
 
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
@@ -96,10 +96,9 @@ Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleratio
 * p7zip - archive creation and extraction utility
 * **evince**/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
 * libreoffice-still - office suite
+* ntfs-3g -> NTFS support
 
 ---
-
-* ntfs-3g -> NTFS support
 
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
