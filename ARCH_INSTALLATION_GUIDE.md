@@ -2,18 +2,24 @@
 
 ## Create a bootable Arch Linux USB
 
-1. Download Arch Linux iso and clone it on the USB drive
+1. Download Arch Linux ISO
 
-    Linux
+1. Clone it on the USB drive
+
+    - Linux
+        Preferred method: `dd`
+	
+	1. Find the name of the USB stick
     
-        lsblk
-        sudo dd if=arch.iso of=/dev/sdb
+            lsblk
+	    
+	1. Clone the Arch ISO on it
+	
+            sudo dd if=arch.iso of=/dev/sdb
     
-    Windows
+    - Windows
     
-    - Rufus
-    
-    [Arch Wiki - USB flash installation media](https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_Windows)
+        - Preferred method: [Rufus](https://wiki.archlinux.org/index.php/USB_flash_installation_media#Using_Rufus)
 
 ## Boot from the USB
 
@@ -898,42 +904,53 @@ we can install a Network Manager and its applet (for the notification area):
 ## XFCE4 CONFIGURATION
 
 - Terminal
-
-1. Open Terminal (Ctrl + Alt + T) 
-1. `Edit -> Preferences`
-1. Tab `General`
-    1. Uncheck `Show unsafe paste dialog`
-1. Tab `Appearance`
-    1. Font
-        1. Click on font
-        1. Find `Monospace Bold`
-        1. Set the font size to 14
-        1. Close the dialog window
-    1. Tabs
-        1. Check option `Use custom styling to make tabs slim`
-    1. Close the Preferences window
-    1. Check the settings by reopening a terminal window
+    1. Open Terminal (Ctrl + Alt + T) 
+    1. `Edit -> Preferences`
+    1. Tab `General`
+        1. Uncheck `Show unsafe paste dialog`
+    1. Tab `Appearance`
+        1. Font
+            1. Click on font
+            1. Find `Monospace Bold`
+            1. Set the font size to `14`
+            1. Close the dialog window
+        1. Tabs
+            1. Check option `Use custom styling to make tabs slim`
+        1. Close the Preferences window
+        1. Check the settings by reopening a terminal window
 
 - Desktop
+    1. Go to the Desktop (Ctrl + Alt + D)
+    1. Right click on empty space on the Desktop
+    1. Choose `Desktop Settings`
+    1. Background
+        1. `Style:` None
+        1. `Color:` Solid color
+        1. Click on the first color box next to `Color` menu
+        1. Choose _black_ color
+        1. Select
+    1. Icons
+        1. Appearance
+            1. `Icon type:` None
+	    
+    1. Go back to the Desktop
+    1. Right click on the bottom panel
+    1. Navigate to `Panel -> Panel Preferences`
+    1. On the top of the dialog window click on a button with a minus sign on it. This will remove the panel.
 
-1. Go to the Desktop (Ctrl + Alt + D)
-1. Right click on empty space on the Desktop
-1. Choose `Desktop Settings`
-1. Background
-    1. `Style:` None
-    1. `Color:` Solid color
-    1. Click on the first color box next to `Color` menu
-    1. Choose _black_ color
-    1. Select
-1. Icons
-    1. Appearance
-        1. `Icon type:` None
-1. Close
+### Quick connecting to a network
 
-### Quick connecting to wireless network
+1. Open application finder
 
-    Alt + F2
-    xfce4-terminal -e 'bash -c "sudo wifi-menu"'
+        Alt + F2
+
+    - Wireless network
+
+            xfce4-terminal -e 'bash -c "sudo wifi-menu"'
+	
+    - Ethernet
+
+            xfce4-terminal -e 'bash -c "sudo dhcpcd enp0s31f6"'
 
 First time you need to execute the entire command.
 
@@ -985,94 +1002,99 @@ Sources:
 
 ---
 
-Go to Applications menu -> Settings ->
+1. Go to `Applications menu -> Settings`
 
 - Session and Startup
+    1. Tab `Application Autostart`
+        1. `Add`
+            - `Name:` Redshift
+            - `Command:` `redshift`
+            - `Trigger:` on login
 
-1. Tab `Application Autostart`
-    1. `Add`
-        - `Name:` Redshift
-        - `Command:` `redshift`
-        - `Trigger:` on login
+- Keyboard
+    - `Layout` tab
+        1. Uncheck `User system defaults`
+        1. Change layout option: Alt+Shift
+        1. Click on "Add" button
+        1. Add German layout
+        1. Add a Slovak layout the same way
+        1. Remove English layout
 
-Keyboard
-  Layout tab
-    Disable "User system defaults"
-    Click on "Add" button
-    Add German layout
-    Click on the button again and add Slovak layout
-    Remove English layout
-    Change layout option: Alt+Shift
+- Panel
+    - `Items` tab
+        - Workspace Switcher
+        - PulseAudio Plugin - Volume icon
+        - Power Manager Plugin - Battery indicator
+        - Clock
+        - Keyboar layout switcher
 
-Panel
-  Customize it by your liking
-  I like to have no Quick Launch icons
-  and to the right I have:
-    Workspace Switcher
-    PulseAudio Plugin (Volume icon)
-    Power Manager Plugin (Battery indicator)
-    Bluetooth indicator (but it's called "Notification Area (external)")
-    Redshift icon
-    Keyboar layout switcher
-    Clock
-    Action Buttons
+- Power Manager
+    - `General` tab
+        - Buttons
+            - When power button is pressed: Shutdown (battery and plugged-in)
+            - When sleep button is pressed: Suspend (battery and plugged-in)
+            - Set the rest of the actions to `None`.
+        - Laptop Lid
+            - When laptop lid is closed: Suspend (battery and plugged-in)
+    - `System` tab
+        - Critical power
+            - On critical battery power: Ask
 
-Power Manager
-  General tab
-    When power button is pressed: Shutdown (battery and plugged-in)
-    When sleep button is pressed: Sleep (battery and plugged-in)
-    Turn off the rest.
-  Display tab
-    Display power management: Off
-    Blank after: Never (battery and plugged-in) (Disables automatic screen dimming and turning it off.)
-    Reduce after: Never
+- Removable Drives and Media [Optional]
+    - Storage tab
+        - Enable `Mount removable drives when hot-plugged`
+        - Enable `Mount removable drives when inserted`
 
-Removable Drives and Media [Optional]
-  Storage tab
-    This might be useful for automounting removable devices,
-    but I'm using my own scripts (wrappers) to mount and unmount
-    removable devices.
+- Window Manager Tweaks
+    - Cycling tab
+        - Enable `Cycle through windows on all workspaces`
+        - Enable `Cycle through windows in a list`
 
-    Enable "Mount removable drives when hot-plugged"
-    Enable "Mount removable drives when inserted"
+- Workspaces
+    - General tab
+        - Number of workspaces: `2`
+    - Margins tab
+        - Left margin: `1`
+        - Right margin: `1`
 
-Window Manager Tweaks
-  Cycling tab
-    Enable "Cycle through windows on all workspaces"
-    Enable "Cycle through windows in a list"
-  Compositor tab
-    Disable "Enable display compositing"
-
-Workspaces
-  General tab
-    Number of workspaces: 2
-  Margins tab
-    Left margin: 1
-    Right margin: 1
-  
-
-****************************************
-ADDITIONAL PROGRAMS
+## Additional programs
 
 See "ARCH_installed_packages_user.txt".
 
 For package installation automation, see
   https://bbs.archlinux.org/viewtopic.php?pid=470581#p470581
 
-****************************************
-CLEAN-UP
+## Updating
 
-Remove unused packages
-  sudo pacman -Rns $(pacman -Qtdq)
+    cat update_arch.sh
 
-Clear cached packages
-  sudo pacman -Sc
-  :: Do you want to remove all other packages from cache? [Y/n] y
-  :: Do you want to remove unused repositories? [Y/n] n
+    #!/bin/bash
+
+    PIKAUR_INSTALLED=$(pacman -Q | grep pikaur)
+    if [[ -z $PIKAUR_INSTALLED ]]; then 
+        rm -rf /tmp/pikaur-git
+        mkdir /tmp/pikaur-git
+        curl https://aur.archlinux.org/cgit/aur.git/snapshot/pikaur-git.tar.gz --output /tmp/pikaur-git.tar.gz
+        tar -xvzf /tmp/pikaur-git.tar.gz --directory /tmp/pikaur-git
+        cd /tmp/pikaur-git/pikaur-git
+        makepkg --ignorearch --clean --syncdeps --noconfirm
+        PIKAUR_PACKAGE_NAME=$(ls *.tar*)
+        sudo pacman -U $PIKAUR_PACKAGE_NAME --noconfirm
+        rm -rf /tmp/pikaur-git
+    fi
+
+    rm -rf ~/.libvirt
+    pikaur -Syyuu
+    pikaur -Scc --noconfirm
+
+    COMMAND=$1
+    SHUTDOWN_TIME=$2
+    if [[ $COMMAND == "--shutdown" ]]; then
+        shutdown $SHUTDOWN_TIME
+    fi
 
 
-****************************************
-TROUBLESHOOTING
+## Troubleshooting
 
 Question:
 Can't update/upgrade system via pacman. Pacman displays these error messages:
@@ -1083,46 +1105,23 @@ error: failed to commit transaction (not enough free disk space)
 Errors occurred, no packages were upgraded.
 
 Answer:
-SEE "ARCH_updating_procedure.txt"
+Also see `ARCH_updating_procedure.txt`
 
+## Sources
 
-Qusetion:
-The USB stick is not mounted automatically nor shown in file manager.
-Answer:
-See "ARCH_XFCE_enable_trash_automounting_removable_drives.txt"
+[GloriousEggroll - 2017 Arch Linux EFI Install Guide](https://www.youtube.com/watch?v=iF7Y8IH5A3M)
+- GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 1 - Preparation and Disk Partitioning: https://www.youtube.com/watch?v=MMkST5IjSjY
+- GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 2 - Installing Arch and Making it Boot: https://www.youtube.com/watch?v=0WBB8v-tiz8
+- GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 3 - Making it user friendly and adding a desktop environment: https://www.youtube.com/watch?v=n5UK66GF99A
+- GloriousEggroll - 2016 Arch Linux NetworkManager / Wifi Setup guide: https://www.youtube.com/watch?v=MAi9DurTRQc
+- goguda55 Tech Tutorials - How to Install Arch Linux: https://www.youtube.com/watch?v=Wqh9AQt3nho
+- https://wiki.archlinux.org/index.php/Solid_State_Drives#Periodic_TRIM
+- https://www.digitalocean.com/community/tutorials/how-to-configure-periodic-trim-for-ssd-storage-on-linux-servers
+- https://wiki.archlinux.org/index.php/pacman#Cleaning_the_package_cache
+- https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages_.28orphans.29
+- https://apple.stackexchange.com/questions/10139/how-do-i-increase-sudo-password-remember-timeout/51763#51763
+- https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers
+- https://wiki.archlinux.org/index.php/Intel_graphics#Installation
+- https://wiki.archlinux.org/index.php/Environment_variables#Defining_variables
+- https://wiki.archlinux.org/index.php/Xinit#xinitrc
 
-
-Question:
-Trash is not showing in the file manager or Desktop.
-Answer:
-See "ARCH_XFCE_enable_trash_automounting_removable_drives.txt"
-
-****************************************
-Sources:
-	GloriousEggroll - 2017 Arch Linux EFI Install Guide
-		https://www.youtube.com/watch?v=iF7Y8IH5A3M
-
-	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 1 - Preparation and Disk Partitioning
-		https://www.youtube.com/watch?v=MMkST5IjSjY
-	
-	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 2 - Installing Arch and Making it Boot
-		https://www.youtube.com/watch?v=0WBB8v-tiz8
-	
-	GloriousEggroll - 2016 Arch Linux EFI Install Guide Part 3 - Making it user friendly and adding a desktop environment
-		https://www.youtube.com/watch?v=n5UK66GF99A
-	
-	GloriousEggroll - 2016 Arch Linux NetworkManager / Wifi Setup guide.
-		https://www.youtube.com/watch?v=MAi9DurTRQc
-
-	goguda55 Tech Tutorials - How to Install Arch Linux
-		https://www.youtube.com/watch?v=Wqh9AQt3nho
-
-	https://wiki.archlinux.org/index.php/Solid_State_Drives#Periodic_TRIM
-	https://www.digitalocean.com/community/tutorials/how-to-configure-periodic-trim-for-ssd-storage-on-linux-servers
-	https://wiki.archlinux.org/index.php/pacman#Cleaning_the_package_cache
-	https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages_.28orphans.29
-	https://apple.stackexchange.com/questions/10139/how-do-i-increase-sudo-password-remember-timeout/51763#51763
-	https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers
-	https://wiki.archlinux.org/index.php/Intel_graphics#Installation
-	https://wiki.archlinux.org/index.php/Environment_variables#Defining_variables
-	https://wiki.archlinux.org/index.php/Xinit#xinitrc
