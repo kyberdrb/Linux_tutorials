@@ -1034,11 +1034,15 @@ Sources:
             - When power button is pressed: Shutdown (battery and plugged-in)
             - When sleep button is pressed: Suspend (battery and plugged-in)
             - Set the rest of the actions to `None`.
+	    - Enable `Handle display brightness keys`. This prevents from occasional brigntness-key-blocking.
         - Laptop Lid
             - When laptop lid is closed: Suspend (battery and plugged-in)
     - `System` tab
         - Critical power
-            - On critical battery power: Ask
+            - On critical battery power: `Ask`
+    - `Display` tab
+        - Display power management
+	    - set everything to `Never`
 
 - Removable Drives and Media [Optional]
     - Storage tab
