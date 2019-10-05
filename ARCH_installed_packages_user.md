@@ -80,10 +80,11 @@
         
         Source: https://wiki.archlinux.org/index.php/Media_Transfer_Protocol#gvfs-mtp
 
+* code - Visual Studio Code (VS Code) - multiplatform development editor/tool
+
 ---
 
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
-* code - Visual Studio Code (VS Code) - multiplatform development editor/tool
 
 * dmidecode - RAM info
 * lxqt - LXQt desktop environment: REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
