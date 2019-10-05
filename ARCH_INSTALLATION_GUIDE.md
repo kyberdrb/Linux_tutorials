@@ -765,11 +765,19 @@ Check `VAAPI` and `VDPAU` configuration
 
 Install sound server and graphical front-end
 
-    pikaur -S pulseaudio pavucontrol
+    pikaur -S pulseaudio pavucontrol alsa-utils
+    alsactl restore
+    
+Installing `alsa-utils` package and issuing command `alsactl restore` enlived the audio output from the headphone jack on `Dell Latitude E5470`.
     
 Reboot
 
     reboot
+    
+Sources:
+- https://bbs.archlinux.org/viewtopic.php?pid=1749454#p1749454
+- https://www.reddit.com/r/archlinux/comments/7ahv5n/linux_41310_no_audio/?st=ja1l4lq2&sh=65b079bd
+- https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#ALSA_Utilities
     
 ## Enable tap-to-click and natural scrolling for touchpad
 
@@ -971,48 +979,6 @@ Next time it will be enough to type `wifi`. The command pops-up below the comman
 
 Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run-command-in-same-window/983865#983865
 
-### Automount devices and enable Trash
-
-Install required packages
-
-    pikaur -S gvfs
-  
-For automounting mobile devices:
-
-    pikaur -S gvfs-mtp gvfs-gphoto2
-
-1. Go to `Applications menu -> Settings -> Removable Drives and Media`
-1. check `Mount removable drives when hot-plugged` and `Mount removable media when inserted`
-1. Disconnect the removable disk, if it's connected.
-1. Plug in your removable device.
-1. Open file manager.
-
-The removeable device will appear in the left column.
-
-
-If not, you can still mount the drive manually via terminal:
-
-Check, which label corresponds your USB stick
-
-  lsblk
-or
-  sudo fdisk -l
-
-Then mount it
-
-  gvfs-mount -d /dev/sdX#
-
-where X is the drive name and # is the partition number, e.g.
-
-  gvfs-mount -d /dev/sdb1
-
-
-Sources:
-  https://forum.voidlinux.eu/t/solved-xfce-missing-trash-and-other-icons-on-the-desktop/2010/2
-  https://bbs.archlinux.org/viewtopic.php?pid=1608701#p1608701
-  https://docs.xfce.org/xfce/thunar/using-removable-media
-  https://www.youtube.com/watch?v=fYlBVkB1gn4
-
 ---
 
 1. Go to `Applications menu -> Settings`
@@ -1080,6 +1046,48 @@ See "ARCH_installed_packages_user.txt".
 
 For package installation automation, see
   https://bbs.archlinux.org/viewtopic.php?pid=470581#p470581
+  
+### Automount devices and enable Trash
+
+Install required packages
+
+    pikaur -S gvfs
+  
+For automounting mobile devices:
+
+    pikaur -S gvfs-mtp gvfs-gphoto2
+
+1. Go to `Applications menu -> Settings -> Removable Drives and Media`
+1. check `Mount removable drives when hot-plugged` and `Mount removable media when inserted`
+1. Disconnect the removable disk, if it's connected.
+1. Plug in your removable device.
+1. Open file manager.
+
+The removeable device will appear in the left column.
+
+
+If not, you can still mount the drive manually via terminal:
+
+Check, which label corresponds your USB stick
+
+  lsblk
+or
+  sudo fdisk -l
+
+Then mount it
+
+  gvfs-mount -d /dev/sdX#
+
+where X is the drive name and # is the partition number, e.g.
+
+  gvfs-mount -d /dev/sdb1
+
+
+Sources:
+  https://forum.voidlinux.eu/t/solved-xfce-missing-trash-and-other-icons-on-the-desktop/2010/2
+  https://bbs.archlinux.org/viewtopic.php?pid=1608701#p1608701
+  https://docs.xfce.org/xfce/thunar/using-removable-media
+  https://www.youtube.com/watch?v=fYlBVkB1gn4
 
 ## Updating
 
