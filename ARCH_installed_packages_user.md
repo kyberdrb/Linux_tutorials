@@ -2,37 +2,7 @@
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
 * gvim - graphical vim text editor
-* chromium/chromium-vaapi-bin - web browser
-    - Settings
-        1. Click on the three-dots-icon in the upper right corner
-        1. Click on `Settings`
-        1. Section `On startup`
-            - Continue where you left off
-    - for video hardware acceleration see https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
-    - Hardware video acceleration
-        Accelerated video decoding using VA-API can be used with community made patches [1], packages are available in AUR as chromium-vaapi or chromium-vaapi-bin.
-
-        Warning: Wayland support is not enabled in above packages yet. XWayland is broken on libva-intel-driver.
-        Be sure to install correct VA-API driver for your video card and verify VA-API has been enabled and working correctly, see Hardware video acceleration#Verifying VA-API.
-
-        To enable video acceleration, append the following flags to persistent configuration:
-
-            $ ~/.config/chromium-flags.conf
-    
-            --enable-accelerated-mjpeg-decode
-            --enable-accelerated-video
-            --disable-gpu-driver-bug-workarounds
-
-        **Note:** `--disable-gpu-driver-bug-workarounds` is a optional flag.
-
-        To check if it's working play a video which is using a codec supported by your VA-API driver (vainfo tell you which codecs are supported) go to chrome://media-internals/ and check video_decoder :
-
-        Hardware acceleration: MojoVideoDecoder, GpuVideoDecoder
-        Software acceleration: VpxVideoDecoder, FFmpegVideoDecoder (some say it's Hardware acceleration?)
-        Also chrome://gpu should read Video Decode: Hardware accelerated
-
-        Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
-
+* chromium
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
     - click on `Preferences`
