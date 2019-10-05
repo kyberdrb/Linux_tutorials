@@ -97,6 +97,18 @@
 * **evince**/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
 * libreoffice-still - office suite
 * ntfs-3g -> NTFS support
+* gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
+* gvfs-mtp
+    - automouning MTP devices, such as smartphones
+    - issue the command below to mount all MTP devices
+    
+            gio mount -li | awk -F= '{if(index($2,"mtp") == 1)system("gio mount "$2)}'
+            
+        All MTP devices will be mounted in their respective directories in `/run/user/$UID/gvfs/`, e.g. `/run/user/1000/gvfs/`
+        
+        Source: https://wiki.archlinux.org/index.php/Media_Transfer_Protocol#gvfs-mtp
+* gvfs-gphoto2 -> automounting PTP devices, such as cameras
+android-file-transfer - transfer data with a mobile device via MTP
 
 ---
 
@@ -142,10 +154,7 @@ blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will
 * filezilla -> FTP client
 
 gparted -> disk and partition manager
-* gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
-* gvfs-mtp -> automouning MTP devices, such as smartphones
-* gvfs-gphoto2 -> automounting PTP devices, such as cameras
-android-file-transfer - transfer data with a mobile device via MTP
+
 * android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
 
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
