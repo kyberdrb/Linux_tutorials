@@ -924,8 +924,31 @@ I used these settings:
 
 ## XFCE4 CONFIGURATION
 
+### Quick connecting to a network
+
+1. Open application finder
+
+        Alt + F2
+
+    - Wireless network
+
+            xfce4-terminal -e 'bash -c "sudo wifi-menu"'
+	
+    - Ethernet
+
+            xfce4-terminal -e 'bash -c "sudo dhcpcd enp0s31f6"'
+
+First time you need to execute the entire command.
+
+Next time it will be enough to type `wifi`. The command pops-up below the command line.
+
+Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run-command-in-same-window/983865#983865
+
+---
 - Terminal
-    1. Open Terminal (Ctrl + Alt + T) 
+    1. Open Terminal (Ctrl + Alt + T)
+    1. In the menu bar click on `Terminal` item
+    1. Disable `Scroll on output`
     1. `Edit -> Preferences`
     1. Tab `General`
         1. Uncheck `Show unsafe paste dialog`
@@ -958,29 +981,7 @@ I used these settings:
     1. Right click on the bottom panel
     1. Navigate to `Panel -> Panel Preferences`
     1. On the top of the dialog window click on a button with a minus sign on it. This will remove the panel.
-
-### Quick connecting to a network
-
-1. Open application finder
-
-        Alt + F2
-
-    - Wireless network
-
-            xfce4-terminal -e 'bash -c "sudo wifi-menu"'
-	
-    - Ethernet
-
-            xfce4-terminal -e 'bash -c "sudo dhcpcd enp0s31f6"'
-
-First time you need to execute the entire command.
-
-Next time it will be enough to type `wifi`. The command pops-up below the command line.
-
-Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run-command-in-same-window/983865#983865
-
----
-
+    
 1. Go to `Applications menu -> Settings`
 
 - Session and Startup
@@ -1027,6 +1028,11 @@ Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run
     - Storage tab
         - Enable `Mount removable drives when hot-plugged`
         - Enable `Mount removable drives when inserted`
+	
+- Screensaver
+    - `Lockscreen` tab
+    	- disable `Lock Screen with Screensaver`. I will lock the screen manually with the keyboard shortcut `Ctrl + Alt + L`
+    Source: https://askubuntu.com/questions/259717/power-manager-gui-settings-not-to-shut-down-the-display-are-not-followed/259723#259723
 
 - Window Manager Tweaks
     - Cycling tab
