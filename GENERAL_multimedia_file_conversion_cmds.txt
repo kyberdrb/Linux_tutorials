@@ -1,0 +1,8 @@
+ffmpeg -i NonViolent\ Compassionate\ Communication\ A\ Language\ of\ Life\ Marshall\ Rosenberg\ AUDIOBOOK-CBZUpt1bmnM.webm -vn -y NonViolent\ Compassionate\ Communication\ A\ Language\ of\ Life\ Marshall\ Rosenberg\ AUDIOBOOK-CBZUpt1bmnM.ogg
+
+ffmpeg -ss "11:23:16.000" -to "11:53:28.000" -i /home/laptop/Desktop/Lehrmaterialien/2_done/Effective_Communication_Skills-Dalton_Kehoe/EffectiveCommunicationSkills_ep6_Audible.ogg /home/laptop/Desktop/Lehrmaterialien/2_done/Effective_Communication_Skills-Dalton_Kehoe/EffectiveCommunicationSkills_ep6_chapter_24.ogg
+
+parallel 'ffmpeg -i "{}" -c:a libvorbis -vn -b:a 64k -y "{.}.ogg"' ::: $(ls *.m4v)
+(https://gist.github.com/Brainiarc7/18fca697891aea0e879f13ed092cb213)
+
+for file in *; do mv "$file" $(echo $file | sed -e 's/_m4v/.m4v/') ; done
