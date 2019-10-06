@@ -1088,6 +1088,19 @@ Sources:
   https://bbs.archlinux.org/viewtopic.php?pid=1608701#p1608701
   https://docs.xfce.org/xfce/thunar/using-removable-media
   https://www.youtube.com/watch?v=fYlBVkB1gn4
+  
+### Generate SSH certificate for GitHub
+
+1. https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+1. https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account
+1. https://help.github.com/en/articles/testing-your-ssh-connection
+
+Set global `git` configuration attributes
+
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+    
+Now is the `git` SSH communication active and ready to communicate with GitHub servers.
 
 ## Updating
 
