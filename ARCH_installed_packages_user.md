@@ -64,7 +64,10 @@
 * vlc -> multimedia player
 * dcfldd
 * p7zip - archive creation and extraction utility
-* **evince**/okular -> PDF readers; Evince for GTK, Okular for Qt (backend: phonon-qt5-vlc)
+* evince/**okular** -> PDF readers; Evince for GTK, Okular for Qt (backend: **phonon-qt5-gstreamer**/phonon-qt5-vlc)
+    - Sources
+        - https://www.reddit.com/r/kde/comments/5w9wty/gstreamer_or_vlc_as_phonon_backend/
+        - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
 * libreoffice-still - office suite
 * ntfs-3g -> NTFS support
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
