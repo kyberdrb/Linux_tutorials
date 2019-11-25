@@ -84,7 +84,7 @@
         Source: https://wiki.archlinux.org/index.php/Media_Transfer_Protocol#gvfs-mtp
 
 * code - Visual Studio Code (VS Code) - multiplatform development editor/tool
-* clion clion-cmake clion-gdb clion-jre clion-lldb gtest perf valgrind - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE
+* clion clion-cmake clion-gdb clion-jre clion-lldb make cmake gdb lldb gtest perf valgrind - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE
     - perf - profiling tool for Linux kernel; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run profiler via "Run -> Profile '<ProjectName>'"
     - valgrind - memory leaks test; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run Valgrind via "Run -> Run '<ProjectName>' with Valgrind Memcheck"
 
