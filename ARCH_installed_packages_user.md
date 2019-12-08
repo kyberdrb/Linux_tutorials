@@ -64,10 +64,16 @@
 * vlc -> multimedia player
 * dcfldd
 * p7zip - archive creation and extraction utility
-* evince/**okular** -> PDF readers; Evince for GTK, Okular for Qt (backend: **phonon-qt5-gstreamer**/phonon-qt5-vlc)
-    - Sources
-        - https://www.reddit.com/r/kde/comments/5w9wty/gstreamer_or_vlc_as_phonon_backend/
-        - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
+* evince/**okular**
+    - PDF readers
+    - Evince (GTK)
+    - Okular (Qt)
+        - backend: **phonon-qt5-gstreamer**/phonon-qt5-vlc
+        - Text-to-Speech packages: `espeak-ng 1.49.2-6 speech-dispatcher 0.9.1-1`
+        - Sources
+            - https://www.reddit.com/r/kde/comments/5w9wty/gstreamer_or_vlc_as_phonon_backend/
+            - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
+            - TTS: https://bugs.archlinux.org/task/62629
 * libreoffice-still - office suite
 * ntfs-3g -> NTFS support
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
@@ -92,6 +98,8 @@
 ---
 
 * musescore - music notation software. For development, uninstall `musescore` package via `sudo pacman -R musescore`. This will leave only one copy of the application installed on the system when we build it. The dependent packages will still remain present which will be helpful when compiling the application. For `musescore` dependencies see the [Arch-Based OS Compilation Instructions](https://musescore.org/en/handbook/developers-handbook/compilation/compile-instructions-archlinux-based-distros-git)
+* doxygen - documentation generator for 
+* graphviz - utility for graphically generating UML diagrams
 
 ---
 
