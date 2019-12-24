@@ -103,6 +103,10 @@
 
 ---
 
+* parallel - utility for parallel execution of commands
+
+---
+
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 
 * dmidecode - RAM info
