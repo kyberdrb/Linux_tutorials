@@ -15,4 +15,4 @@
 **Note:** Before running `parallel`, make sure the file name contains only alphanumeric characters and symbols.
 The file name mustn't contain white characters, like spaces, unique language characters, like 'ö', 'ä' etc.
 Otherwise `parallel` splits the filename and treats them as multiple files which produces and error message 
-or it ignores the altogether
+or it ignores them altogether
