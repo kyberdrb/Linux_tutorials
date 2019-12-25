@@ -13,6 +13,6 @@
         (https://gist.github.com/Brainiarc7/18fca697891aea0e879f13ed092cb213)
 
 **Note:** Before running `parallel`, make sure the file name contains only alphanumeric characters and symbols.
-The file name mustn't contain white characters, like spaces, unique language characters, like 'ö', 'ä' etc.
+The file name mustn't contain white characters, like spaces, unique language characters, like 'ö', 'ä', 'ß' etc.
 Otherwise `parallel` splits the filename and treats them as multiple files which produces and error message 
 or it ignores them altogether
