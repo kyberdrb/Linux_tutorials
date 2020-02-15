@@ -98,13 +98,14 @@
 ---
 
 * musescore - music notation software. For development, uninstall `musescore` package via `sudo pacman -R musescore`. This will leave only one copy of the application installed on the system when we build it. The dependent packages will still remain present which will be helpful when compiling the application. For `musescore` dependencies see the [Arch-Based OS Compilation Instructions](https://musescore.org/en/handbook/developers-handbook/compilation/compile-instructions-archlinux-based-distros-git)
-* doxygen - documentation generator for 
+* doxygen - documentation generator for software projects; UML and text docs
 * graphviz - utility for graphically generating UML diagrams
 
 ---
 
 * parallel - utility for parallel execution of commands
 * ttf-vlgothic - Japanese font to support Japanese characters in the operating system and apps like webbrowsers etc.; https://wiki.archlinux.de/title/Schriftarten
+* xclip - terminal clipboard manipulation utility
 
 ---
 
@@ -134,7 +135,6 @@ tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virt-manager -> front-end ku QEMU
 wget -> terminal downloader utility
-* xclip - terminal clipboard manipulation utility
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 
 xfce4
