@@ -106,6 +106,7 @@
 * parallel - utility for parallel execution of commands
 * ttf-vlgothic - Japanese font to support Japanese characters in the operating system and apps like webbrowsers etc.; https://wiki.archlinux.de/title/Schriftarten
 * xclip - terminal clipboard manipulation utility
+* libc++ - C++ standard library for LLVM
 
 ---
 
