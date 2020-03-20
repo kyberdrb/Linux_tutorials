@@ -854,13 +854,13 @@ Let's make some changes.
 
 
 
-sudo pacman -S breeze-icons xscreensaver
+sudo pacman -S breeze-icons
 
-Configure `xscreensaver`
-- Applications menu -- Settings -- Screensaver
-    - If they are two or more Screensaver applications, open all of them and then close all Screensaver apps but the XScreenSaver one.
-- When prompted to start a daemon, confirm it. It resolves the issue with the error message "None of the screen lock tools ran successfully, the screen will not be locked"
-- Play with the Power Manager a little (System tab)
+---
+
+Configure screen locking
+
+- Screel locking in Power Manager is broken: "None of the screen lock tools ran successfully, the screen will not be locked" message appears, when going to sleep.
 
 ****************************************
 PROXY
