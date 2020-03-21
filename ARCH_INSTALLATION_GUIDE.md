@@ -860,7 +860,26 @@ sudo pacman -S breeze-icons
 
 Configure screen locking
 
-- Screel locking in Power Manager is broken: "None of the screen lock tools ran successfully, the screen will not be locked" message appears, when going to sleep.
+- When I pressed `Fn + Insert` to put the system to sleep, the lock screen appeared instead of going immediately to sleep. When I logged back in after a while the Power Manager displayed a message _None of the screen lock tools ran successfully, the screen will not be locked_. The Power Manager had the _Lock screen when system is going to sleep_ checkbox checked. when I unchecked this checkbox, the system went to sleep immediately. The system goes to sleep immediately after I executed the xfce4 suspend command. Then I found out to bind the xfce suspend command to the same keyboard shortcut `Fn + Insert`. But I got the same lockscreen with the error message after logging back in. Then I tried to bind it to a different keyboard shortcut. Then the system went to sleep immediately just like with the xfce suspend command.
+    - **Solution:**
+    
+    	1. Go to `Applications -- Settings -- Power Manager -- System [tab]`.
+        1. Uncheck checkbox _Lock screen when system is going to sleep_.
+        1. Go to `Applications -- Settings -- Screensaver -- Lock Screen [tab]`.
+        1. Check checkbox _Lock Screen with System Sleep_.
+	    The checkbox _Lock screen when system is going to sleep_ under `Applications -- Settings -- Power Manager -- System [tab]` will also be checked [these two settings are probably linked].
+        1. Go to `Applications -- Settings -- Keyboard -- Application Shortcuts [tab]`.
+        1. Click _Add_ button to add a new keyboard shortcut to put the system to sleep.
+        1. As for command, enter `xfce4-session-logout --suspend`
+        1. Press _OK_ to confirm the command.
+        1. A _Command Shortcut_ popup window appears. 
+	    Press `Ctrl + Alt + Insert` to assign keyboard shortcut to the command.
+        1. Test the new keyboard shortcut.
+	    The system will go to sleep immediately without any error or warning messages.
+	    After waking up the system will display a lock screen to enter the password, although the checkbox _Lock screen when system is going to sleep_ in Power Manager is unchecked. 
+            The checked option _Lock Screen with System Sleep_ in Screensaver is taking care of it.
+
+    https://wiki.archlinux.org/index.php/Xfce#Suspend
 
 ****************************************
 PROXY
