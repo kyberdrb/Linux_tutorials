@@ -1,11 +1,19 @@
+## Download
+
+        MEDIA_URL=youtube/soundcloud/vimeo/etc.
+        youtube-dl --verbose --list-formats $MEDIA_URL
+        youtube-dl --verbose --format <format> $MEDIA_URL
+        youtube-dl --write-sub --sub-lang <language> --skip-download $MEDIA_URL
+        # https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl/1353474#1353474
+
 
 ## Convert
 
-        ffmpeg -i NonViolent\ Compassionate\ Communication\ A\ Language\ of\ Life\ Marshall\ Rosenberg\ AUDIOBOOK-CBZUpt1bmnM.webm -vn -y NonViolent\ Compassionate\ Communication\ A\ Language\ of\ Life\ Marshall\ Rosenberg\ AUDIOBOOK-CBZUpt1bmnM.ogg
+        ffmpeg -i file_name.webm -vn -y converted_file_name.ogg
 
 ## Cut
 
-        ffmpeg -ss "11:23:16.000" -to "11:53:28.000" -i /home/laptop/Desktop/Lehrmaterialien/2_done/Effective_Communication_Skills-Dalton_Kehoe/EffectiveCommunicationSkills_ep6_Audible.ogg /home/laptop/Desktop/Lehrmaterialien/2_done/Effective_Communication_Skills-Dalton_Kehoe/EffectiveCommunicationSkills_ep6_chapter_24.ogg
+        ffmpeg -ss "11:23:16.000" -to "11:53:28.000" -i /full/path/to/file.ogg /full/path/to/cut_file.ogg
 
 ## Batch convert
 
