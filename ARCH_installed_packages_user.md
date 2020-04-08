@@ -2,6 +2,25 @@
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
 * gvim - graphical vim text editor
+* vlc - multimedia player
+    - Youtube network streaming fix
+        
+            # Go to the VLC directory
+            cd /usr/lib/vlc/intf/playlist/
+            
+            # Backup the original script for youtube streaming
+            sudo mv youtube.luac youtube.luac.bak
+            
+            # Download the fixed 
+            sudo curl https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua --output youtube.lua
+            sudo curl https://raw.githubusercontent.com/videolan/vlc/8bbb13419d4bc5505cb75416d5b8049142a27358/share/lua/playlist/youtube.lua --output youtube.lua
+            
+        Sources:
+        - [YouTube VLC Stream LUA Fix](https://www.youtube.com/watch?v=jg4Og5ra_F0)
+        - [tested fixed script for youtube streaming](https://raw.githubusercontent.com/videolan/vlc/8bbb13419d4bc5505cb75416d5b8049142a27358/share/lua/playlist/youtube.lua)
+        - [latest script for youtube streaming - master branch](https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua)
+            
+            
 * chromium
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
@@ -61,7 +80,6 @@
 
 ---
 
-* vlc -> multimedia player
 * dcfldd
 * p7zip - archive creation and extraction utility
 * evince/**okular**
