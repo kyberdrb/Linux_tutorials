@@ -34,10 +34,10 @@ Confirm font settings by clicking on _Apply_.
     1. Click on _Add_
     1. Tap-to-click
         - Name: Enable tap-to-click for touchpad
-        - Command: `xinput set-prop 14 318 1`
+        - Command: `xinput set-prop 14 321 1`
     1. Natural scrolling
         - Name: Enable natural scrolling for touchpad
-        - Command: `xinput set-prop 14 300 1`
+        - Command: `xinput set-prop 14 303 1`
 
 - Sources
     - https://wiki.archlinux.org/index.php/LXQt#Autostart
@@ -61,3 +61,6 @@ Restart Firefox
 
 - wifi-menu backup
     - /etc/netctl/
+
+- remove _Window Manager_ key bindings if they interfere with other programs, e.g. IDE (CLion) etc.
+	- https://askubuntu.com/questions/75097/how-to-remove-altf7-window-moving-hot-key-in-xubuntu/75229#75229
