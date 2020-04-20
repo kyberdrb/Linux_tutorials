@@ -18,6 +18,7 @@
 ## Batch convert
 
         parallel 'ffmpeg -i "{}" -c:a libvorbis -vn -b:a 64k -y "{.}.ogg"' ::: $(ls *.webm *.mp3 *.m4a)
+        parallel 'ffmpeg -i "{}" -c:a libvorbis -vn -y "{.}.ogg"' ::: $(ls *.webm *.mp3 *.m4a)
         (https://gist.github.com/Brainiarc7/18fca697891aea0e879f13ed092cb213)
 
 **Note:** Before running `parallel`, make sure the file name contains only alphanumeric characters and symbols.
