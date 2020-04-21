@@ -15,10 +15,8 @@ Sort files in a directory by the latest modification time `mtime` from newest.
 - `-r` - sort in reverse order, i.e. show the latest modified file first
 
         ls -l --sort=time -r --time-style="+%D %H:%M" | awk '{ print $6,$7,$8 }'
-        
-    or
-
         ls -l --time-style="+%Y %m %d %H:%M" | awk '{ print $6,$7,$8,$9,$10 }' | sort
+        ls -l --time-style="+%Y %m %d %H:%M" *.ogg | awk '{ print $6,$7,$8,$9,$10 }' | sort
         
 
 Show length of a media file
