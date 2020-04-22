@@ -3,6 +3,7 @@
         MEDIA_URL=youtube/soundcloud/vimeo/etc.
         youtube-dl --verbose --list-formats $MEDIA_URL
         youtube-dl --verbose --format <format> $MEDIA_URL
+        youtube-dl --list-sub $MEDIA_URL
         youtube-dl --write-sub --sub-lang <language> --skip-download $MEDIA_URL
         # https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl/1353474#1353474
 
