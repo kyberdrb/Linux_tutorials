@@ -6,7 +6,8 @@
         youtube-dl --list-sub $MEDIA_URL
         youtube-dl --write-sub --sub-lang <language> --skip-download $MEDIA_URL
         youtube-dl --write-auto-sub --skip-download $MEDIA_URL
-        # https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl/1353474#1353474
+        
+        # https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl
         
 `--write-auto-sub` option can be used only for Youtube videos, according to the man page.
 
