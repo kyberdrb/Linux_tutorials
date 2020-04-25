@@ -1,6 +1,6 @@
 List all files in a directory recursively sorted by size with largest first
 
-        ls -hl -R -S <folder_name> > <output_file_name>
+    ls -hl -R -S <folder_name> > <output_file_name>
 
 Rename all files in current directory
 - singlify duplicate characters, replace spaces and special characters with another character
@@ -24,3 +24,8 @@ Show length of a media file
 - the `2>&1` redirection filters out the details of the output leaving only the duration visible
 
         ffprobe "MEDIA_FILE_NAME" 2>&1 | awk '/Duration/ { print $2 }' | cut -d',' -f1
+
+Move files to trash
+
+    gio trash FILENAME
+    gio trash --empty
