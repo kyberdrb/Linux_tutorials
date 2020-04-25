@@ -28,4 +28,6 @@ Show length of a media file
 Move files to trash
 
     gio trash FILENAME
+    gio list trash://
     gio trash --empty
+    # https://wiki.archlinux.org/index.php/Trash_management
