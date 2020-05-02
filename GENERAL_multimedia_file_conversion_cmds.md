@@ -2,12 +2,16 @@
 
         MEDIA_URL=youtube/soundcloud/vimeo/etc.
         youtube-dl --verbose --list-formats $MEDIA_URL
+        
+        youtube-dl --verbose --format <format> -o "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --format <format> $MEDIA_URL
+        
         youtube-dl --list-sub $MEDIA_URL
         youtube-dl --write-sub --sub-lang <language> --skip-download $MEDIA_URL
         youtube-dl --write-auto-sub --skip-download $MEDIA_URL
         
         # https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl
+        # https://askubuntu.com/questions/948516/how-do-i-download-with-youtube-dl-to-get-video-title-as-filename/948531#948531
         
 `--write-auto-sub` option can be used only for Youtube videos, according to the man page.
 
