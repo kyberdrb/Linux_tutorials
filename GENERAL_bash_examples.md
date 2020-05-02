@@ -19,6 +19,8 @@ Sort files in a directory by the latest modification time `mtime` from newest.
         ls -l --time-style="+%Y %m %d %H:%M" *.ogg | awk '{ print $6,$7,$8,$9,$10 }' | sort
         while read -r line; do printf '%s\n' "$line" | tr -s ' ' | cut -d' ' -f6,7,8,9,10; done < <(ls -l --time-style="+%Y %m %d %H:%M") | sort
         
+    or use [this script for listing media files sorted by modification time](https://gist.github.com/kyberdrb/28a35fee042c49cb038c1f73f8a25e23).
+        
 
 Show length of a media file
 - the `2>&1` redirection filters out the details of the output leaving only the duration visible
