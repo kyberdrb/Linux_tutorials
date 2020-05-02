@@ -37,3 +37,7 @@ Move files to trash
 Copy folder name, change all uppercase letters to lowercase and copy it to clipboard
 
     echo -n $(basename $(pwd) | tr '[:upper:]' '[:lower:]') | xclip -se c
+
+Replace multiple consecutive whitespaces in a filename with one space character and replace all spaces with underscores
+
+    mv "file with spaces" "$(echo 'file with spaces' | tr -s ' ' | sed 's/ /_/g')"
