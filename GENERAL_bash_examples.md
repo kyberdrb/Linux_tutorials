@@ -33,3 +33,7 @@ Move files to trash
     gio list trash://
     gio trash --empty
     # https://wiki.archlinux.org/index.php/Trash_management
+    
+Copy folder name, change all uppercase letters to lowercase and copy it to clipboard
+
+    echo -n $(basename $(pwd) | tr '[:upper:]' '[:lower:]') | xclip -se c
