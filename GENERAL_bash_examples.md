@@ -61,5 +61,8 @@ Managing and stopping processes
         killall -9 mousepad
         killall -KILL mousepad
         killall -TERM mousepad
-    killall -INT mousepad
+        killall -INT mousepad
     
+        # https://unix.stackexchange.com/questions/254463/what-does-the-option-9-mean-for-killall
+        # https://unix.stackexchange.com/questions/5642/what-if-kill-9-does-not-work/5648#5648
+        # Sending and Handling Signals in Linux (kill, signal, sigaction): https://www.youtube.com/watch?v=83M5-NPDeWs
