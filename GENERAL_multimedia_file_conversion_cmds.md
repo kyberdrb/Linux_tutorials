@@ -3,7 +3,7 @@
         MEDIA_URL=youtube/soundcloud/vimeo/etc.
         youtube-dl --verbose --list-formats $MEDIA_URL
         
-        youtube-dl --verbose --format <format> -o "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --format <format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --format <format> $MEDIA_URL
         
         youtube-dl --list-sub $MEDIA_URL
