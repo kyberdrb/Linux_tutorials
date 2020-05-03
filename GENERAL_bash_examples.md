@@ -47,3 +47,19 @@ Replace whitespaces and special characters
     echo -n text with spaces | sed 's/["]//g' | sed "s/'//g" | sed 's/[:]/_-_/g' | sed 's/[, ]/_/g' | sed 's/;/_-_/g' | tr -s '_' | xclip -se c
     echo -n "text with single quotes' and spaces" | sed 's/["]//g' | sed "s/'//g" | sed 's/[:]/_-_/g' | sed 's/[, ]/_/g' | sed 's/;/_-_/g' | tr -s '_' | xclip -se c
     echo -n text with "double quotes" and spaces | sed 's/["]//g' | sed "s/'//g" | sed 's/[:]/_-_/g' | sed 's/[, ]/_/g' | sed 's/;/_-_/g' | tr -s '_' | xclip -se c
+
+Managing and stopping processes
+
+- Force process to terminate
+
+        kill -9 <PIDs>
+        kill -s 9 <PIDs>
+        kill - KILL <PIDs>
+
+- Other ways of managing processes
+
+        killall -9 mousepad
+        killall -KILL mousepad
+        killall -TERM mousepad
+    killall -INT mousepad
+    
