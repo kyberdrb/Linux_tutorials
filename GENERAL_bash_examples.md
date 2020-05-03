@@ -41,3 +41,9 @@ Copy folder name, change all uppercase letters to lowercase and copy it to clipb
 Replace multiple consecutive whitespaces in a filename with one space character and replace all spaces with underscores
 
     mv "file with spaces" "$(echo 'file with spaces' | tr -s ' ' | sed 's/ /_/g')"
+    
+Replace whitespaces and special characters
+
+    echo -n text with spaces | sed 's/["]//g' | sed "s/'//g" | sed 's/[:]/_-_/g' | sed 's/[, ]/_/g' | sed 's/;/_-_/g' | tr -s '_' | xclip -se c
+    echo -n "text with single quotes' and spaces" | sed 's/["]//g' | sed "s/'//g" | sed 's/[:]/_-_/g' | sed 's/[, ]/_/g' | sed 's/;/_-_/g' | tr -s '_' | xclip -se c
+    echo -n text with "double quotes" and spaces | sed 's/["]//g' | sed "s/'//g" | sed 's/[:]/_-_/g' | sed 's/[, ]/_/g' | sed 's/;/_-_/g' | tr -s '_' | xclip -se c
