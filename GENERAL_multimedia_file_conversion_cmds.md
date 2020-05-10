@@ -11,6 +11,7 @@
         youtube-dl --write-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --write-sub --sub-lang <language> --skip-download $MEDIA_URL
         
+        youtube-dl --write-auto-sub --sub-lang en --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --write-auto-sub --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --write-auto-sub --skip-download $MEDIA_URL
         
