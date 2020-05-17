@@ -19,7 +19,38 @@
         - [YouTube VLC Stream LUA Fix](https://www.youtube.com/watch?v=jg4Og5ra_F0)
         - [tested fixed script for youtube streaming](https://raw.githubusercontent.com/videolan/vlc/8bbb13419d4bc5505cb75416d5b8049142a27358/share/lua/playlist/youtube.lua)
         - [latest script for youtube streaming - master branch](https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua)
+        
+    - Disable cover art for audio files in normal mode
+    
+        Disable cover art in the playback panel by editing the VLC configuration file.  
+        The VLC configuration file is located in:
+        - Linux: `~/.config/vlc/vlcrc`
+        - Windows: `%HOMEPATH\AppData\Roaming\vlc\vlcrc`
+        
+                $ sed -i 's/.*qt-bgcone=.*/qt-bgcone=0/' ~/.config/vlc/vlcrc
+                $ #Source: https://forum.videolan.org/viewtopic.php?t=129402#p433995
+    
+    - Disable cover art for any file in playlist mode
+    
+    - Disable automatic window resizing and scaling
+    
+        - Disable variable window size in the VLC configuration file
+    
+                $ sed -i 's/.*qt-video-autoresize=.*/qt-video-autoresize=0/' ~/.config/vlc/vlcrc
             
+            This will also uncheck the checkbox for _Tools - Preferences - Interface - Resize interface to video size_
+            
+            When it won't work, continue with the other options. Otherwise continue with next steps.
+            
+            Sources:
+            - https://superuser.com/questions/368743/how-to-prevent-vlc-from-automatically-resizing-its-window-according-to-viewed-co/412290#412290
+            - https://superuser.com/questions/368743/how-to-prevent-vlc-from-automatically-resizing-its-window-according-to-viewed-co/368759#368759
+            
+        - Tools - Preferences - Show settings (in bottom left corner): All - Video
+        
+            In _Window properties_ section uncheck _Video Auto Scaling_.
+            
+            Source: https://superuser.com/questions/368743/how-to-prevent-vlc-from-automatically-resizing-its-window-according-to-viewed-co/687776#687776
             
 * chromium
 * firefox
