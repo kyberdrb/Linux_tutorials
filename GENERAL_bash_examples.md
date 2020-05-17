@@ -66,3 +66,34 @@ Managing and stopping processes
         # https://unix.stackexchange.com/questions/254463/what-does-the-option-9-mean-for-killall
         # https://unix.stackexchange.com/questions/5642/what-if-kill-9-does-not-work/5648#5648
         # Sending and Handling Signals in Linux (kill, signal, sigaction): https://www.youtube.com/watch?v=83M5-NPDeWs
+
+- the `export` command
+
+        $ # Illustrating how 'export' command works
+        $ # 
+        $ # Sources:
+        $ # https://stackoverflow.com/questions/1158091/defining-a-variable-with-or-without-export
+        $ # https://stackoverflow.com/questions/1158091/defining-a-variable-with-or-without-export/1158231#1158231
+        $ # https://stackoverflow.com/questions/1158091/defining-a-variable-with-or-without-export/1158268#1158268
+        $
+        $ foo="Hello World"
+        $ echo $foo
+        Hello World
+        $ bar="Goodbye"
+        $ echo $bar
+        Goodbye
+        $ export foo
+        $ echo $foo
+        Hello World
+        $ echo $bar
+        Goodbye
+        $ bash
+        $ exit
+        exit
+        $ bash
+        $ echo $foo
+        Hello World
+        $ echo $bar
+
+        $ exit
+        exit
