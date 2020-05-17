@@ -32,6 +32,10 @@
     
     - Disable cover art for any file in playlist mode
     
+        1. Show playlist by pressing _Ctrl + L_ or in _View - Playlist_
+        1. Find the cover art panel. In my case it was in the bottom left corner.
+        1. Drag the upper border of the cover art panel all the way down. This will hide the panel with the cover art, and leave the left menu panel visible.
+    
     - Disable automatic window resizing and scaling
     
         - Disable variable window size in the VLC configuration file
