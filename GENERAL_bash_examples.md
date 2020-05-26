@@ -34,6 +34,14 @@ Move files to trash
     gio trash --empty
     # https://wiki.archlinux.org/index.php/Trash_management
     
+Copy absolute path of the current working directory
+
+    echo -n "$(pwd)" | xclip -se c
+
+or in complete syntax
+
+    echo -n $(pwd) | xclip -selection clipboard
+    
 Copy folder name, change all uppercase letters to lowercase and copy it to clipboard
 
     echo -n $(basename $(pwd) | tr '[:upper:]' '[:lower:]') | xclip -se c
