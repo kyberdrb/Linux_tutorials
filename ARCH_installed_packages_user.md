@@ -11,8 +11,9 @@
             # Backup the original script for youtube streaming
             sudo mv youtube.luac youtube.luac.bak
             
-            # Download the fixed 
+            # Download the fixed Youtube streaming plugin from the master branch ...
             sudo curl https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua --output youtube.lua
+            # ... or directly from the commit I tested it from
             sudo curl https://raw.githubusercontent.com/videolan/vlc/8bbb13419d4bc5505cb75416d5b8049142a27358/share/lua/playlist/youtube.lua --output youtube.lua
             
         Sources:
@@ -55,6 +56,16 @@
             In _Window properties_ section uncheck _Video Auto Scaling_.
             
             Source: https://superuser.com/questions/368743/how-to-prevent-vlc-from-automatically-resizing-its-window-according-to-viewed-co/687776#687776
+            
+    - Specify default video resolution - useful for streams with multiple resolutions available
+    
+        1. Tools - Preferences - Show settings (in bottom left corner): All - Input / Codecs
+        1. In _Track settings_ section find option _Preferred video resolution_. 
+        1. Click on the drop-down menu
+        1. Choose the preferred video resolution. I selected option _Full HD (1080p)_ because it matches with the resolution of my display.
+        
+        Sources:
+        - https://www.quora.com/How-do-I-select-the-video-quality-in-VLC-while-playing-a-YouTube-stream
             
 * chromium
 * firefox
