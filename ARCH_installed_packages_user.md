@@ -2,6 +2,36 @@
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
 * gvim - graphical vim text editor
+* atom - text editor
+    - Installed packages:
+        - tree-view-click
+    - Configuration:
+        - Disable welcome screen: uncheck the “Show Welcome Guide when opening Atom” box.
+        
+            Source: https://discuss.atom.io/t/how-to-get-rid-of-welcome-md/12838/10
+        - Edit -- Preferences -- Themes -- UI Theme: Atom Light; Syntax Theme: Atom Light
+        - Edit -- Preferences -- Editor -- disable _Atomic Soft Tabs_, Font Family: **Source Code Pro** (because of the clear distinction among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2), Menlo, Consolas, DejaVu Sans Mono, monospace, Tab Length: 4, Tab Type: soft
+        
+            Source: https://discuss.atom.io/t/how-do-you-use-spaces-instead-of-tabs/64730/2
+         - Keybindings -- click on _your keymap file_. Copy this to it:
+         
+                 'atom-workspace atom-text-editor':
+                     'ctrl-left': 'editor:move-to-previous-word-boundary'
+                     'ctrl-right': 'editor:move-to-next-word-boundary'
+                     'ctrl-shift-left': 'editor:select-to-previous-word-boundary'
+                     'ctrl-shift-right': 'editor:select-to-next-word-boundary'
+                     'ctrl-backspace': 'editor:delete-to-previous-word-boundary'
+                     'ctrl-delete': 'editor:delete-to-next-word-boundary'
+                     
+             Sources:
+             - https://www.reddit.com/r/Atom/comments/534mno/how_to_configure_atom_to_properly_delete_words/
+             - https://discuss.atom.io/t/ctrl-backspace-deletes-last-character-from-line-above/56256/3
+
+    - Keyboard shortcuts:
+        - Command Pallete: Ctrl-Shift-P
+        - Markdown Preview: Ctrl-Shift-M
+        - Ctrl + Shift + D
+        
 * vlc - multimedia player
     - Youtube network streaming fix
         
@@ -153,11 +183,12 @@
         
         Source: https://wiki.archlinux.org/index.php/Media_Transfer_Protocol#gvfs-mtp
 
-* code - Visual Studio Code (VS Code) - multiplatform development editor/tool
-* clion clion-cmake clion-gdb clion-jre clion-lldb make cmake gdb lldb gtest perf valgrind - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE
+* make cmake gdb lldb libc++ gtest perf valgrind - C/C++ toolchain; libc++ - C++ standard library for LLVM
+* clion clion-cmake clion-gdb clion-jre clion-lldb - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE
     - perf - profiling tool for Linux kernel; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run profiler via "Run -> Profile '<ProjectName>'"
     - valgrind - memory leaks test; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run Valgrind via "Run -> Run '<ProjectName>' with Valgrind Memcheck"
 * qtcreator - IDE for Qt Framework
+* python-pip - pip package installer
     
 ---
 
@@ -170,38 +201,39 @@
 * parallel - utility for parallel execution of commands
 * ttf-vlgothic - Japanese font to support Japanese characters in the operating system and apps like webbrowsers etc.; https://wiki.archlinux.de/title/Schriftarten
 * xclip - terminal clipboard manipulation utility
-* libc++ - C++ standard library for LLVM
 
 ---
-
-dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 
 * dmidecode - RAM info
 * lxqt - LXQt desktop environment: REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
 mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
+* parallel - parallelize shell commands
+* thunar - favorite file manager
+* transmission-gtk / transmission-qt -> torrent klient
+* filezilla -> FTP client
+* gparted -> disk and partition manager
+* xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
+
+---
 
 openvswitch -> virtual switch for bridging VMs and containers
 opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
-* parallel - parallelize shell commands
+dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 
 pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
 
-* pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
+pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 
-* soundwire pulseaudio-alsa lib32-libpulse lib32-alsa-plugins - SoundWire and its dependencies; enables the use of an Android phone as a wireless speaker; Configuration: open _PulseAudio_ GUI `pavucontrol[-qt]` -\> Recording tab -\> ALSA Capture from `Monitor of Built-in Audio Analog Stereo`
+soundwire pulseaudio-alsa lib32-libpulse lib32-alsa-plugins - SoundWire and its dependencies; enables the use of an Android phone as a wireless speaker; Configuration: open _PulseAudio_ GUI `pavucontrol[-qt]` -\> Recording tab -\> ALSA Capture from `Monitor of Built-in Audio Analog Stereo`
 
 qemu -> generic virtualizer
 shotwell -> image viewer with nice features (crop, rotate, ...)
 tigervnc -> VNC client and server
-* thunar - favorite file manager
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
-* transmission-gtk / transmission-qt -> torrent klient
 tk -> tkinter library for Python
 unrar -> needed for dtrx to extract RAR archives
 virt-manager -> front-end ku QEMU
 wget -> terminal downloader utility
-* xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
-
 xfce4
 xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
@@ -210,12 +242,9 @@ xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 audacity -> audio editing software
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
-* filezilla -> FTP client
-
-gparted -> disk and partition manager
 
 android-file-transfer - transfer data with a mobile device via MTP
-* android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
+android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debugging" activated on Android device otherwise it will be hidden from `adb devices` command
 
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 
