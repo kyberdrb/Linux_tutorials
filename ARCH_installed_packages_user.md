@@ -13,15 +13,17 @@
         - Edit -- Preferences -- Editor -- disable _Atomic Soft Tabs_, Font Family: **Source Code Pro** (because of the clear distinction among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2), Menlo, Consolas, DejaVu Sans Mono, monospace, Tab Length: 4, Tab Type: soft
         
             Source: https://discuss.atom.io/t/how-do-you-use-spaces-instead-of-tabs/64730/2
-         - Keybindings -- click on _your keymap file_. Copy this to it:
+        - Keybindings -- click on _your keymap file_. Copy this to it:
          
-                 'atom-workspace atom-text-editor':
-                     'ctrl-left': 'editor:move-to-previous-word-boundary'
-                     'ctrl-right': 'editor:move-to-next-word-boundary'
-                     'ctrl-shift-left': 'editor:select-to-previous-word-boundary'
-                     'ctrl-shift-right': 'editor:select-to-next-word-boundary'
-                     'ctrl-backspace': 'editor:delete-to-previous-word-boundary'
-                     'ctrl-delete': 'editor:delete-to-next-word-boundary'
+                'atom-workspace atom-text-editor':
+                    'ctrl-left': 'editor:move-to-previous-word-boundary'
+                    'ctrl-right': 'editor:move-to-next-word-boundary'
+                    'ctrl-shift-left': 'editor:select-to-previous-word-boundary'
+                    'ctrl-shift-right': 'editor:select-to-next-word-boundary'
+                    'ctrl-backspace': 'editor:delete-to-previous-word-boundary'
+                    'ctrl-delete': 'editor:delete-to-next-word-boundary'
+                    'ctrl-shift-S': 'window:save-all'
+                    'ctrl-alt-S': 'core:save-as'
                      
              Sources:
              - https://www.reddit.com/r/Atom/comments/534mno/how_to_configure_atom_to_properly_delete_words/
