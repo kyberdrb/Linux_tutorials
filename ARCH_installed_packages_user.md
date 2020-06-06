@@ -5,6 +5,10 @@
 * atom - text editor
     - Installed packages:
         - tree-view-click
+            - double click, instead of single click, to open item in the tree view panel
+        - asciidoc-preview
+            - AsciiDoc support
+        
     - Configuration:
         - Disable welcome screen: uncheck the “Show Welcome Guide when opening Atom” box.
         
@@ -32,7 +36,8 @@
     - Keyboard shortcuts:
         - Command Pallete: Ctrl-Shift-P
         - Markdown Preview: Ctrl-Shift-M
-        - Ctrl + Shift + D
+        - AsciiDoc Preview: Ctrl-Shift-A
+        - Duplicate Line: Ctrl + Shift + D
         
 * vlc - multimedia player
     - Youtube network streaming fix
