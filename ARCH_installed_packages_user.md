@@ -4,8 +4,6 @@
 * gvim - graphical vim text editor
 * atom - text editor
     - Installed packages:
-        - tree-view-click
-            - double click, instead of single click, to open item in the tree view panel
         - asciidoc-preview
             - AsciiDoc support
         
@@ -13,6 +11,9 @@
         - Disable welcome screen: uncheck the “Show Welcome Guide when opening Atom” box.
         
             Source: https://discuss.atom.io/t/how-to-get-rid-of-welcome-md/12838/10
+        - Edit -- Preferences -- Core -- disable _Allow Pending Pane Items_ - temporary preview of files - fixes the bug with opening a file permanently from the tree view
+        
+            Source: https://discuss.atom.io/t/atom-doesnt-open-file-on-single-click-in-tree-view/27902/9
         - Edit -- Preferences -- Themes -- UI Theme: Atom Light; Syntax Theme: Atom Light
         - Edit -- Preferences -- Editor -- disable _Atomic Soft Tabs_, Font Family: **Source Code Pro** (because of the clear distinction among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2), Menlo, Consolas, DejaVu Sans Mono, monospace, Tab Length: 4, Tab Type: soft
         
