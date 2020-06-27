@@ -1,6 +1,18 @@
 * aic94xx-firmware wd719x-firmware linux
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
+* vim
+    - create a configuration file with preferred settings
+
+            set tabstop=4
+            set shiftwidth=4
+            set expandtab
+            set display+=lastline
+
+        - Sources
+            - https://vi.stackexchange.com/questions/4141/how-to-indent-as-spaces-instead-of-tab/4175#4175
+            - https://vim.fandom.com/wiki/Working_with_long_lines
+    
 * gvim - graphical vim text editor
 * atom - text editor
     - Installed packages:
