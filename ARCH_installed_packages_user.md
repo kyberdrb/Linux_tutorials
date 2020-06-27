@@ -176,6 +176,30 @@
             - https://www.reddit.com/r/kde/comments/5w9wty/gstreamer_or_vlc_as_phonon_backend/
             - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
             - TTS: https://bugs.archlinux.org/task/62629
+            
+* ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
+    - A document is unsearchable, if it's composed of images, or the text cannot be searched, e.g. by `Ctrl + F`, or text cannot by selected
+    - -The command to make a PDF document searchable
+    
+            ocrmypdf --verbose --language eng -O 1 --png-quality 100 document_in_english-nonsearchable.pdf document_in_english-searchable.pdf
+            
+        - The `--language` option explicitely specifies the dataset that will be used for OCR (Optical Character Recognition); e.g. for `eng` it will use the  `tesseract-data-eng` dataset, i.e. the dataset for English language.
+        - The `-O` option optimizes the final document. With value `1` the utility performs lossless optimizations which affect the size of the final document.
+    
+    - Sources
+        - https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf/421686#421686
+        - https://aur.archlinux.org/packages/ocrmypdf/
+        - https://ocrmypdf.readthedocs.io/en/latest/jbig2.html#jbig2
+        - https://aur.archlinux.org/packages/jbig2enc-git/
+        - https://www.archlinux.org/packages/?sort=&q=tesseract-data&maintainer=&flagged=
+        - https://stackoverflow.com/questions/39037823/tesseract-data-language-codes-with-country-name/39040220#39040220
+        - https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+        - https://www.archlinux.org/packages/community/any/tesseract-data-eng/
+        - https://www.archlinux.org/packages/community/any/tesseract-data-slk/
+        - https://www.archlinux.org/packages/community/any/tesseract-data-dan/
+        - `ocrmypdf --help`
+- jbig2enc-git - optional dependency for `ocrmypdf` utility - takes advantage of the lossy compression to JPEG image format in order to reduce the size of the final document to the minimum
+    
 * libreoffice-still - office suite
 * ntfs-3g -> NTFS support
 * gvfs -> enables Trash icon/functionality (trash virtual file system) and automatic mounting of system drives
