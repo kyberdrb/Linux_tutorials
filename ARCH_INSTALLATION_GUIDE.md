@@ -464,16 +464,28 @@ Set time:
     sudo ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
     sudo hwclock --systohc
     
-## Create `vim` configuration
+## Configure `vim`
 
-- Create `vim` config file with these contents
+See the `vim` entry in the [installed packages file](https://github.com/kyberdrb/Linux_tutorials/blob/master/ARCH_installed_packages_user.md)
+    
+## Change directory colors in terminal for better readablilty on black background
 
-        $ vim ~/.vimrc
+1. Export current colors of the terminal	
 
-        set tabstop=4
-        set shiftwidth=4
-        set expandtab
+        dircolors --bourne-shell >> ~/.bashrc
+    
+1. Open the exported file
 
+        vim ~/.bashrc
+
+1. Find variable `LS_COLORS`
+1. Modify entry `di` - i.e. _directory_ - from, e.g. `di=01;34:` (34 - blue - i don't see the directory names clearly on black background in terminal) to `di=01;33:` (33 - orange - easier to read on black background)
+1. Save the file and exit
+1. Test new settings by opening a new terminal window. Existing terminal windows need to be reopened in order for them to reload changes.
+
+Sources:
+- https://askubuntu.com/questions/466198/how-do-i-change-the-color-for-directories-with-ls-in-the-console/466203#466203
+- https://linuxhint.com/ls_colors_bash/
 
 ## Select language
 
