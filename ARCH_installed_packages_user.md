@@ -227,7 +227,7 @@
         
         Source: https://wiki.archlinux.org/index.php/Media_Transfer_Protocol#gvfs-mtp
 
-* make cmake gdb lldb libc++ gtest perf valgrind - C/C++ toolchain; libc++ - C++ standard library for LLVM
+* make cmake gdb lldb libc++ gtest perf valgrind - C/C++ toolchain; `libc++`is a C++ standard library for LLVM
 * clion clion-cmake clion-gdb clion-jre clion-lldb - C/C++ IDE from JetBrains with bundled toolchains and Google Test Framework; all packages must be installed to have a fully functional IDE
     - perf - profiling tool for Linux kernel; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run profiler via "Run -> Profile '<ProjectName>'"
     - valgrind - memory leaks test; useful for CLion; set it up in CLion under "File -> Settings -> Build, Execution, Deployment -> Dynamic analysis tools" - run Valgrind via "Run -> Run '<ProjectName>' with Valgrind Memcheck"
