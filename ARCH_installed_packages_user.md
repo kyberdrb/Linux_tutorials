@@ -302,6 +302,8 @@ android-tools - Android platform tools; `adb` etc.; make sure to have "USB Debug
 
 iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 
+wireshark-qt - network traffic inspector
+
 -VIRTUALIZATION
 lxc -> base LXC support
 arch-install-scripts -> base LXC support
