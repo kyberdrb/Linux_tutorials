@@ -27,6 +27,7 @@
         ffmpeg -i file_name.webm -vn -y converted_file_name.ogg
         
         # https://stackoverflow.com/questions/42947957/how-convert-high-bitrate-mp3-to-lower-rate-using-ffmpeg-in-android/49433551#49433551
+        # https://trac.ffmpeg.org/wiki/AudioChannelManipulation
 
 ## Cut
 
