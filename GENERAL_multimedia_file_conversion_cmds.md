@@ -23,6 +23,7 @@
 
 ## Convert
 
+        ffmpeg -i file_name.webm -vn -y -b:a 128k -ar 44100 converted_file_name.ogg
         ffmpeg -i file_name.webm -vn -y -b:a 128k -ac <channels: 1 - mono, 2 - stereo> -ar 44100 converted_file_name.ogg
         ffmpeg -i file_name.webm -vn -y converted_file_name.ogg
         
