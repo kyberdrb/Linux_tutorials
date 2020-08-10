@@ -1177,16 +1177,43 @@ Now is the `git` SSH communication active and ready to communicate with GitHub s
 
 ## Troubleshooting
 
-Question:
+Question:  
 Can't update/upgrade system via pacman. Pacman displays these error messages:
 
-error: Partition /boot is mounted read only
-error: not enough free disk space
-error: failed to commit transaction (not enough free disk space)
-Errors occurred, no packages were upgraded.
+    error: Partition /boot is mounted read only
+    error: not enough free disk space
+    error: failed to commit transaction (not enough free disk space)
+    Errors occurred, no packages were upgraded.
 
-Answer:
+Answer:  
 Also see `ARCH_updating_procedure.txt`
+
+---
+
+Question:  
+The laptop reboots after waking up from sleep / The laptop doesn't go to sleep but locks the screen instead.
+
+Answer:  
+Reset the sleep mode
+
+    $ cat /sys/power/mem_sleep 
+    s2idle [deep]
+    $ echo s2idle | sudo tee /sys/power/mem_sleep
+    [sudo] password for root: 
+    s2idle
+    $ cat /sys/power/mem_sleep 
+    [s2idle] deep
+    $ echo deep | sudo tee /sys/power/mem_sleep
+    deep
+    $ cat /sys/power/mem_sleep 
+    s2idle [deep]
+
+Sources:
+- Dell XPS 15 9570 Linux Sleep Suspend Fix: https://www.youtube.com/watch?v=f-u7Zk_itUU
+
+Alternative:
+- XFCE Session Restore: not fully functioning (some applications don't open, e.g. Atom) - XFCE save session: https://docs.xfce.org/xfce/xfce4-session/preferences
+
 
 ## Sources
 
