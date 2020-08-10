@@ -194,11 +194,12 @@
     - A document is unsearchable, if it's composed of images, or the text cannot be searched, e.g. by `Ctrl + F`, or text cannot by selected
     - The command to make a PDF document searchable
     
-            ocrmypdf --verbose --language eng -O 0 --png-quality 100 --force-ocr document_in_english-nonsearchable.pdf document_in_english-searchable.pdf
+            ocrmypdf --verbose --language eng --sidecar -O 0 --png-quality 100 --force-ocr document_in_english-nonsearchable.pdf document_in_english-searchable.pdf
             ocrmypdf --verbose --language eng -O 1 --png-quality 100 document_in_english-nonsearchable.pdf document_in_english-searchable.pdf
             
         - The `--language` option explicitely specifies the dataset that will be used for OCR (Optical Character Recognition); e.g. for `eng` it will use the  `tesseract-data-eng` dataset, i.e. the dataset for English language.
         - The `-O` option optimizes the final document. With value `1` the utility performs lossless optimizations which affect the size of the final document.
+        - `sidecar` outputs the decoded text into a separate `txt` file
     
     - Sources
         - https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf/421686#421686
