@@ -189,10 +189,12 @@
             - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
             - TTS: https://bugs.archlinux.org/task/62629
             
-* ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
+* ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan tesseract-data-ces - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
+    - trained datasets are stored in firectory `/usr/share/tessdata/`
     - A document is unsearchable, if it's composed of images, or the text cannot be searched, e.g. by `Ctrl + F`, or text cannot by selected
-    - -The command to make a PDF document searchable
+    - The command to make a PDF document searchable
     
+            ocrmypdf --verbose --language eng -O 0 --png-quality 100 --force-ocr document_in_english-nonsearchable.pdf document_in_english-searchable.pdf
             ocrmypdf --verbose --language eng -O 1 --png-quality 100 document_in_english-nonsearchable.pdf document_in_english-searchable.pdf
             
         - The `--language` option explicitely specifies the dataset that will be used for OCR (Optical Character Recognition); e.g. for `eng` it will use the  `tesseract-data-eng` dataset, i.e. the dataset for English language.
