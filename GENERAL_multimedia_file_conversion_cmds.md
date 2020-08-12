@@ -6,14 +6,13 @@
         youtube-dl --verbose --format <format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --format <format> $MEDIA_URL
         
-        youtube-dl --list-sub $MEDIA_URL
+        youtube-dl --verbose --list-sub $MEDIA_URL
         
-        youtube-dl --write-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        youtube-dl --write-sub --sub-lang <language> --skip-download $MEDIA_URL
+        youtube-dl --verbose --write-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --write-sub --sub-lang <language> --skip-download $MEDIA_URL
         
-        youtube-dl --write-auto-sub --sub-lang en --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        youtube-dl --write-auto-sub --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        youtube-dl --write-auto-sub --skip-download $MEDIA_URL
+        youtube-dl --verbose --write-auto-sub --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --write-auto-sub --sub-lang en --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         
         # https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl
         # https://askubuntu.com/questions/948516/how-do-i-download-with-youtube-dl-to-get-video-title-as-filename/948531#948531
