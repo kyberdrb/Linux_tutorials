@@ -15,9 +15,11 @@
     
 * gvim - graphical vim text editor
 * atom - text editor
-    - Installed packages:
+    - Installed packages - Edit → Preferences → Install:
         - asciidoc-preview
             - AsciiDoc support
+        - highlight-selected
+            - Highlights the current word selected when double clicking
         
     - Configuration:
         - Disable welcome screen: uncheck the “Show Welcome Guide when opening Atom” box.
@@ -30,6 +32,10 @@
         - Edit -- Preferences -- Editor -- disable _Atomic Soft Tabs_, Font Family: **Source Code Pro** (because of the clear distinction among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2), Menlo, Consolas, DejaVu Sans Mono, monospace, Tab Length: 4, Tab Type: soft
         
             Source: https://discuss.atom.io/t/how-do-you-use-spaces-instead-of-tabs/64730/2
+        - Disable spell-cheking (it disturbs me when almost everything is red-squiggly-underlined)
+            - Edit → Preferences → Packages → search for `spell` → disable package `spell-check`
+            
+            Source: https://superuser.com/questions/999695/how-to-disable-spell-checking-in-atom/1022779#1022779
         - Keybindings -- click on _your keymap file_. Copy this to it:
          
                 'atom-workspace atom-text-editor':
@@ -41,10 +47,12 @@
                     'ctrl-delete': 'editor:delete-to-next-word-boundary'
                     'ctrl-shift-S': 'window:save-all'
                     'ctrl-alt-S': 'core:save-as'
+                    'alt-z':'editor:toggle-soft-wrap'
                      
              Sources:
              - https://www.reddit.com/r/Atom/comments/534mno/how_to_configure_atom_to_properly_delete_words/
              - https://discuss.atom.io/t/ctrl-backspace-deletes-last-character-from-line-above/56256/3
+             - https://discuss.atom.io/t/toggle-soft-wrap-key-binding/2643
 
     - Keyboard shortcuts:
         - Command Pallete: Ctrl-Shift-P
