@@ -8,6 +8,7 @@
         
         youtube-dl --verbose --list-sub $MEDIA_URL
         
+        youtube-dl --verbose --write-auto-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --write-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --write-sub --sub-lang <language> --skip-download $MEDIA_URL
         
