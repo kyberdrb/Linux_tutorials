@@ -2,16 +2,32 @@
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
 * vim
-    - create a configuration file with preferred settings
+    - Plugins
+        - nerdtree
+            - starting nerdtree: in address bar enter `NERDTree`
+            - switch between windows with `Ctrl-W + h/j/k/l OR arrow keys`
+        - surround
+        - clang_complete
+            - complete statements with `Ctrl-N` or `Ctrl-P`
+    - `~/.vimrc` - configuration file with preferred settings
 
             set tabstop=4
             set shiftwidth=4
             set expandtab
             set display+=lastline
+            autocmd vimenter * NERDTree
+            let g:NERDTreeNodeDelimiter = "\u00a0"
+            let g:clang_library_path='/usr/lib64/libclang.so.10'
 
         - Sources
             - https://vi.stackexchange.com/questions/4141/how-to-indent-as-spaces-instead-of-tab/4175#4175
             - https://vim.fandom.com/wiki/Working_with_long_lines
+            - https://vimawesome.com/plugin/nerdtree-red
+            - (https://github.com/preservim/nerdtree/issues/928#issuecomment-445755327)[fix for `^G` in the nerdtree]
+            - https://github.com/tpope/vim-surround
+            - https://vi.stackexchange.com/questions/82/how-to-get-intelligent-c-auto-completion/389#389
+            - https://vimawesome.com/plugin/clang-complete-please-everybody
+            - https://superuser.com/questions/280500/how-does-one-switch-between-windows-on-vim/280501#280501
     
 * gvim - graphical vim text editor
 * atom - text editor
@@ -222,6 +238,16 @@
         - https://www.archlinux.org/packages/community/any/tesseract-data-dan/
         - `ocrmypdf --help`
 - jbig2enc-git - optional dependency for `ocrmypdf` utility - takes advantage of the lossy compression to JPEG image format in order to reduce the size of the final document to the minimum
+* pocketsphinx - audio transcription
+    - Usage
+    
+            ffmpeg -i file.mp3 -ar 16000 -ac 1 file.wav
+            pocketsphinx_continuous -time yes -infile file.wav 2> pocketsphinx.log > subtitle_file.txt
+        
+        The english language model is installed by default. More language models can be found in https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/. Then move the model to `/usr/share/pocketsphinx/model/`
+        
+    - Source
+        - https://askubuntu.com/questions/837408/convert-speech-mp3-audio-files-to-text/1030253#1030253
     
 * libreoffice-still - office suite
 * ntfs-3g -> NTFS support
