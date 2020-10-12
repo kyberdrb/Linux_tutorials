@@ -1,3 +1,17 @@
+Generate Speech to Text for audio files:
+
+  convert the file to the compatible format
+  
+    ffmpeg -i audio.mp3 -ar 16000 -ac 1 audio.wav
+
+  without timestamps
+    
+    pocketsphinx_continuous -infile audio.wav 2> pocketsphinx.log > audio.txt
+    
+  with timestamps
+
+    pocketsphinx_continuous -time yes -infile audio.wav 2> pocketsphinx.log > audio-with_timestamps.txt
+
 List all files in a directory recursively sorted by size with largest first
 
     ls -hl -R -S <folder_name> > <output_file_name>
