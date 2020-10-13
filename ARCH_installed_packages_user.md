@@ -1,7 +1,7 @@
 * aic94xx-firmware wd719x-firmware linux
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
-* vim
+* vim, gvim - vim text editor with its graphical extension
     - Plugins
         - nerdtree
             - starting nerdtree: in address bar enter `NERDTree`
@@ -15,9 +15,12 @@
             set shiftwidth=4
             set expandtab
             set display+=lastline
-            autocmd vimenter * NERDTree
             let g:NERDTreeNodeDelimiter = "\u00a0"
             let g:clang_library_path='/usr/lib64/libclang.so.10'
+    
+    - Running gvim with NERDtree with all tabs from previous session
+    
+            gvim -S ~/git/freiwillige_aufgaben/vim_Sitzungen/Sitzung.vim -c "tabdo NERDTree" -c "tabdo wincmd l"
 
         - Sources
             - https://vi.stackexchange.com/questions/4141/how-to-indent-as-spaces-instead-of-tab/4175#4175
@@ -29,7 +32,6 @@
             - https://vimawesome.com/plugin/clang-complete-please-everybody
             - https://superuser.com/questions/280500/how-does-one-switch-between-windows-on-vim/280501#280501
     
-* gvim - graphical vim text editor
 * atom - text editor
     - Installed packages - Edit → Preferences → Install:
         - asciidoc-preview
