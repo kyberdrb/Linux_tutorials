@@ -19,8 +19,18 @@
             let g:clang_library_path='/usr/lib64/libclang.so.10'
     
     - Running gvim with NERDtree with all tabs from previous session
+        Run this command from **Application Finder** `Alt + F2` or from terminal
     
-            gvim -S ~/git/freiwillige_aufgaben/vim_Sitzungen/Sitzung.vim -c "tabdo NERDTree" -c "tabdo wincmd l"
+            gvim -S ~/git/freiwillige_aufgaben/vim_Sitzungen/Sitzung.vim -c "tabdo NERDTree" -c "tabdo wincmd l" -c "tabnext"
+            
+        Description: Open a session in vim, for each tab add NERD Tree, for each tab move the focus from NERD Tree to editing area, and move the focus to the next (first) tab.
+            
+    - Closing the session
+        Copy the below line, press `:` [colon] to get in to command line and paste it there with keyboard shortcut `Ctrl + R` and then `*`
+    
+            tabdo NERDTreeClose | tabnext | mks! ~/git/freiwillige_aufgaben/vim_Sitzungen/Sitzung.vim
+            
+        Description: For each tab close NERD Tree, move the focus to the next (first) tab, and save current session to a file overriding the previous one.
 
         - Sources
             - https://vi.stackexchange.com/questions/4141/how-to-indent-as-spaces-instead-of-tab/4175#4175
