@@ -152,7 +152,9 @@
         
         Sources:
         - https://www.quora.com/How-do-I-select-the-video-quality-in-VLC-while-playing-a-YouTube-stream
-            
+
+* obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
+
 * chromium
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
@@ -219,11 +221,14 @@
     - Evince (GTK)
     - Okular (Qt)
         - backend: **phonon-qt5-gstreamer**/phonon-qt5-vlc
-        - Text-to-Speech packages: `espeak-ng 1.49.2-6 speech-dispatcher 0.9.1-1`
-        - Sources
             - https://www.reddit.com/r/kde/comments/5w9wty/gstreamer_or_vlc_as_phonon_backend/
             - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
+        - Text-to-Speech packages: `espeak-ng 1.49.2-6 speech-dispatcher 0.9.1-1`
             - TTS: https://bugs.archlinux.org/task/62629
+        - For `epub` support install package `ebook-tools`
+            - https://bbs.archlinux.org/viewtopic.php?pid=1418697#p1418697
+            
+* **ebook-tools** - support for ebooks in EPUB format for **okular**
             
 * ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan tesseract-data-ces - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
     - trained datasets are stored in firectory `/usr/share/tessdata/`
