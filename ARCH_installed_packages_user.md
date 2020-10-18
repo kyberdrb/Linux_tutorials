@@ -15,8 +15,8 @@
             set shiftwidth=4
             set expandtab
             set display+=lastline
+            set ignorecase
             let g:NERDTreeNodeDelimiter = "\u00a0"
-            let g:clang_library_path='/usr/lib64/libclang.so.10'
     
     - Running gvim with NERDtree with all tabs from previous session
         Run this command from **Application Finder** `Alt + F2` or from terminal
