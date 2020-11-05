@@ -156,6 +156,11 @@
 * obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
 
 * chromium
+    - Pinterest without log-in prompting
+        1. https://www.lifehacker.com.au/2015/05/this-tweak-lets-you-browse-pinterest-without-signing-up/
+        1. Install plugin `Tampermonkey` from https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo/related
+        1. Install script `Pinterest without registration` from https://greasyfork.org/en/scripts/6325-pinterest-without-registration
+        
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
     - click on `Preferences`
