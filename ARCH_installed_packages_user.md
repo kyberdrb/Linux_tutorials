@@ -160,6 +160,10 @@
         1. https://www.lifehacker.com.au/2015/05/this-tweak-lets-you-browse-pinterest-without-signing-up/
         1. Install plugin `Tampermonkey` from https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo/related
         1. Install script `Pinterest without registration` from https://greasyfork.org/en/scripts/6325-pinterest-without-registration
+    - (https://chrome.google.com/webstore/detail/image-transparency/ihnkmjaflangdaififmekbjicpafmdek/related)[Image Transparency - configurable background color for images with transparent background]
+        - by default black, but text is also by default black so I don't see usually any text
+        - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
+        - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
@@ -326,6 +330,10 @@ mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colo
 * filezilla -> FTP client
 * gparted -> disk and partition manager
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
+* audacity pulseaudio-alsa -> audio editing software
+    * (https://bbs.archlinux.org/viewtopic.php?pid=1639294#p1639294)[[SOLVED]No sound in Audacity]
+    * (https://www.archlinux.org/packages/extra/x86_64/pulseaudio-alsa/)[pulseaudio-alsa - archlinux ]
+    * (https://forum.audacityteam.org/viewtopic.php?t=98318#p344598)[remove vocal from a song - No "Mono" option for each track - Audacity Forum]
 
 ---
 
@@ -352,7 +360,7 @@ xfce4-pulseaudio-plugin -> Volume control in notification tray
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
-audacity -> audio editing software
+
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
 
