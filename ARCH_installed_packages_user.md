@@ -6,7 +6,6 @@
         - nerdtree
             - starting nerdtree: in address bar enter `NERDTree`
             - switch between windows with `Ctrl-W + h/j/k/l OR arrow keys`
-        - surround
         - clang_complete
             - complete statements with `Ctrl-N` or `Ctrl-P`
     - `~/.vimrc` - configuration file with preferred settings
@@ -155,7 +154,8 @@
 
 * obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
 
-* chromium
+* chromium / (https://aur.archlinux.org/packages/ungoogled-chromium/)[ungoogled-chromium]: see (https://github.com/Eloston/ungoogled-chromium#enhancing-features)[ungoogled-chromium GitHub]
+    - (https://uc.droidware.info/)[ungoogled-chromium for Android]
     - Pinterest without log-in prompting
         1. https://www.lifehacker.com.au/2015/05/this-tweak-lets-you-browse-pinterest-without-signing-up/
         1. Install plugin `Tampermonkey` from https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo/related
