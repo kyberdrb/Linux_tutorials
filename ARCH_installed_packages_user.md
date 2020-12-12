@@ -15,6 +15,7 @@
             set expandtab
             set display+=lastline
             set ignorecase
+            set number
             let g:NERDTreeNodeDelimiter = "\u00a0"
     
     - Running gvim with NERDtree with all tabs from previous session
