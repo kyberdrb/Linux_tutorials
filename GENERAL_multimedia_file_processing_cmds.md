@@ -25,7 +25,7 @@
 
 Merge audio and video file to a single file
 
-        ffmpeg -i video_without_audio.mp4 -i audio.m4a -c copy video_with_audio-merged.mp4
+        ffmpeg -i video_without_audio.mp4 -i audio_without_video.m4a -c copy video_with_audio-merged.mp4
 
 * https://gist.github.com/aik099/69f221d100b87cb29f4fb6c29d72838e#file-vimeo-downloader-js-L40
 * https://stackoverflow.com/questions/38379412/what-does-copy-do-in-a-ffmpeg-command-line/38381173#38381173
@@ -54,3 +54,35 @@ Merge audio and video file to a single file
 The file name mustn't contain white characters, like spaces, unique language characters, like 'ö', 'ä', 'ß' etc.
 Otherwise `parallel` splits the filename and treats them as multiple files which produces and error message 
 or it ignores them altogether
+
+## Integrate chapters for a video
+
+Extract Metadata From Video
+
+        ffmpeg -i INPUT.mp4 -f ffmetadata FFMETADATAFILE.txt
+
+Create chapter file. Example of a chapter file:
+
+        [CHAPTER]
+        TIMEBASE=1/1000
+        START=1
+        END=448000
+        title=The Pledge
+
+        [CHAPTER]
+        TIMEBASE=1/1000
+        START=448001
+        END= 3883999
+        title=The Turn
+
+        [CHAPTER]
+        TIMEBASE=1/1000
+        START=3884000
+        END=4418000
+        title= The Prestige
+
+Write Metadata To Video
+
+        ffmpeg -i INPUT.mp4 -i FFMETADATAFILE.txt -map_metadata 1 -codec copy OUTPUT.mp4
+
+* https://ikyle.me/blog/2020/add-mp4-chapters-ffmpeg
