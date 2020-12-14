@@ -1,3 +1,10 @@
+Recursively rename all files, directories etc. that contain spaces in their filenames with underscores:
+
+    find . -name '* *' -exec bash -c 'mv "$1" "${1// /_}"' bash "{}" \;
+
+* https://unix.stackexchange.com/questions/172186/find-xargs-and-mv-renaming-files-with-double-quotes-expansion-and-bash-preced/172196#172196
+* https://unix.stackexchange.com/questions/389705/understanding-the-exec-option-of-find/389706#389706
+
 Generate Speech to Text for audio files:
 
 1. convert the file to the compatible format
