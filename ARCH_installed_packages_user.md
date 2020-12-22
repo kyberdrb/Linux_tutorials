@@ -1,10 +1,15 @@
 * eidklient disig-web-signer - aplikacie pre pripojenie k portalu www.slovensko.sk
-    - systemctl start pcscd.service
+    - Start SmardCard service: `systemctl start pcscd.service`
     - pripravit si hesla k elektronickemu OP
     - spustit aplikaciu eID [XFCE: Applications - Other - Aplikacia pre eID]
     - vlozit elekronicky obciansky preukaz (OP) cipom nahor do lubovolnej SmartCard citacky: bud integrovanej v notoebooku/PC alebo externej citacky [napriklad do tej, ktora bola dodana spolu s OP]
     - nasledovat instrukcie v aplikacii eID
     - pripojit sa k portalu slovensko.sk
+    - Sources:
+        - https://wiki.archlinux.org/index.php/Smartcards#Installation
+        - https://aur.archlinux.org/packages/eidklient/
+        - https://aur.archlinux.org/packages/disig-web-signer/
+        - 
 
 * aic94xx-firmware wd719x-firmware linux
     - missing firmwares for my laptop
