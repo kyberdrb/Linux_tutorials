@@ -1,3 +1,11 @@
+* eidklient disig-web-signer - aplikacie pre pripojenie k portalu www.slovensko.sk
+    - systemctl start pcscd.service
+    - pripravit si hesla k elektronickemu OP
+    - spustit aplikaciu eID [XFCE: Applications - Other - Aplikacia pre eID]
+    - vlozit elekronicky obciansky preukaz (OP) cipom nahor do lubovolnej SmartCard citacky: bud integrovanej v notoebooku/PC alebo externej citacky [napriklad do tej, ktora bola dodana spolu s OP]
+    - nasledovat instrukcie v aplikacii eID
+    - pripojit sa k portalu slovensko.sk
+
 * aic94xx-firmware wd719x-firmware linux
     - missing firmwares for my laptop
     - install also the `linux` package to load these modules into kernel
@@ -332,14 +340,14 @@ mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colo
 * gparted -> disk and partition manager
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 * audacity pulseaudio-alsa -> audio editing software
-    * (https://bbs.archlinux.org/viewtopic.php?pid=1639294#p1639294)[[SOLVED]No sound in Audacity]
-    * (https://www.archlinux.org/packages/extra/x86_64/pulseaudio-alsa/)[pulseaudio-alsa - archlinux ]
-    * (https://forum.audacityteam.org/viewtopic.php?t=98318#p344598)[remove vocal from a song - No "Mono" option for each track - Audacity Forum]
+    * [https://bbs.archlinux.org/viewtopic.php?pid=1639294#p1639294](SOLVED]No sound in Audacity)
+    * [https://www.archlinux.org/packages/extra/x86_64/pulseaudio-alsa/](pulseaudio-alsa - archlinux)
+    * [https://forum.audacityteam.org/viewtopic.php?t=98318#p344598](remove vocal from a song - No "Mono" option for each track - Audacity Forum)
 
 ---
 
 openvswitch -> virtual switch for bridging VMs and containers
-opera-ffmpeg-codecs -> predkompilovane na herecura repozitari - kodeky na podporu videoformatov vratane 60fps videi
+
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 
 pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
@@ -349,18 +357,30 @@ pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 soundwire pulseaudio-alsa lib32-libpulse lib32-alsa-plugins - SoundWire and its dependencies; enables the use of an Android phone as a wireless speaker; Configuration: open _PulseAudio_ GUI `pavucontrol[-qt]` -\> Recording tab -\> ALSA Capture from `Monitor of Built-in Audio Analog Stereo`
 
 qemu -> generic virtualizer
+
 shotwell -> image viewer with nice features (crop, rotate, ...)
+
 tigervnc -> VNC client and server
+
 tmux -> Terminal MUltipleXor - watch multiple terminals in one SSH session
+
 tk -> tkinter library for Python
+
 unrar -> needed for dtrx to extract RAR archives
+
 virt-manager -> front-end ku QEMU
+
 wget -> terminal downloader utility
+
 xfce4
+
 xfce4-pulseaudio-plugin -> Volume control in notification tray
+
 xfce4-screenshooter -> Screenshots for XFCE; to enable PrintScreen key go to Application Menu -> Keyboard -> Application Shortcuts tab -> Add button -> as command enter "xfce4-screenshooter" without quotes -> as key press "PrintScreen (PrtSc)" key.
+
 xfce4-xkb-plugin -> Keyboard layout changer in notification tray
 
+---
 
 bc- > command line calculator => set default scale (decimal precision) - https://askubuntu.com/questions/621017/how-to-set-default-scale-for-bc-calculator
 blueman -> then execute: su -c 'systemctl enable bluetooth.service' -> this will enable the Bluetooth icon in notification tray
@@ -373,35 +393,62 @@ iw -> Sprava bezdrotovych adapterov (skenovanie Wi-Fi sieti)
 wireshark-qt - network traffic inspector
 
 -VIRTUALIZATION
+
 lxc -> base LXC support
+
 arch-install-scripts -> base LXC support
+
 debootstrap -> support for Debian based LXC containers in Arch Linux
+
 docker -> base Docker support
 
+---
+
 dtrx -> command line extraction utility
+
 etcher -> bootable USB creator; replacement for dd
-google-chrome
+
 * otf-sans-forgetica - font for better memorizing; setup for XFCE4: https://docs.xfce.org/xfce/xfce4-settings/appearance#fonts; setup for Chromium: https://www.techadvisor.co.uk/how-to/software/how-change-font-in-google-chrome-3606119/
-skypeforlinux-bin -> skype-legacy sa neda uz nainstalovat - neda sa skompilovat qt4 modul
+
 teamviewer -> na ovladanie vzdialenych ploch - aj pre android :D (https://crazytechtricks.com/remote-control-android-phone-from-another-android-without-root-download-best-apps/)
 
+---
+
 -DEVELOPMENT
+
 pycharm-professional -> Python/HTML/CSS/JS IDE from JetBrains; the community edition is good, but is lacking the "code coverage" functionality; needs to be activated - use one of the "jetbrains activation servers" << google that ;) or http://xidea.online/servers.html
+
 mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" for compilation and run instructions
+
 python -> python3 support
+
 python-xdg -> dependency for redshift-gtk (tray icon) to launch and run correctly
+
 python-virtualenv python2-virtualenv -> virtualne prostredia pre python2 a python3
+
 python-coverage python2-coverage: For support code coverage measurement for Python 2
 
+---
+
 -LXC/LXD containers support
+
 yum -> support for Fedora based LXC containers in Arch Linux
+
 lxd -> base LXD support
 
+---
+
 **  MANUALNE Z INTERNETU **
+
 pycharm -> skopirovat do /opt adresara
+
 vmware -> bud player alebo workstation
 
+---
 
 Sources:
+
 XFCE Screenshot utility - https://ubuntuforums.org/showthread.php?t=1716649
+
 SoundWire - https://bbs.archlinux.org/viewtopic.php?pid=1514780#p1514780
+
