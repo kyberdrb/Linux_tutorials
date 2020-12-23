@@ -1,5 +1,6 @@
 * linux-zen linux-zen-headers linux-ck linux-ck-headers linux-pf-skylake linux-pf-headers-skylake
     - Building a kernel from source, e.g. linux-ck on my laptop with i5-6300U, took approximately 3 hours.
+    - BEFORE BUILDING A KERNEL, REMOUNT THE `BOOT` PARTITION AS WRITABLE (if it's not already)
     - https://wiki.archlinux.org/index.php/Kernel
     - https://dev.to/sakshatshinde/a-simple-guide-to-install-linux-zen-the-zen-kernel-on-arch-linux-for-systemd-boot-1b0e
     - for available kernel names see the directory `/etc/mkinitcpio.d/`
