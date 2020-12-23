@@ -868,38 +868,38 @@ Natural Scrolling
 	
 	xinput list-props ${TOUCHPAD_ID} | grep ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID}
 	
-Start these scripts at start by creating following entries in `~/.config/autostart`
+Start these scripts at start by creating following files in XFCE4 autostart directory
 
-`Touchpad_Tap-to-Click.desktop`
+	vim ~/.config/autostart/Touchpad_Tap-to-Click.desktop
 
 	[Desktop Entry]
 	Encoding=UTF-8
 	Type=Application
 	Name=Touchpad_Tap-to-Click
 	Comment=
-	Exec=/full/path/to/the/script.sh
+	Exec=/home/laptop/git/kyberdrb/Linux_utils_and_gists/touchpad_tap-to-click_enable.sh
 	OnlyShowIn=XFCE;
 	RunHook=0
 	StartupNotify=false
 	Terminal=false
 	Hidden=false
 
-`Touchpad_Natural_Scrolling.desktop`
+	vim ~/.config/autostart/Touchpad_Natural_Scrolling.desktop
 
 	[Desktop Entry]
 	Encoding=UTF-8
 	Type=Application
 	Name=Touchpad_Natural_Scrolling
 	Comment=
-	Exec=/full/path/to/the/script.sh
+	Exec=/home/laptop/git/kyberdrb/Linux_utils_and_gists/touchpad_natural_scrolling-enable.sh
 	OnlyShowIn=XFCE;
 	RunHook=0
 	StartupNotify=false
 	Terminal=false
 	Hidden=false
-	
+
 Source: https://edoceo.com/sys/xfce-autostart-apps
-	
+
 The entries should be then visible in the `Applications - Settings - Session and Startup - Application Autostart` tab.
 
 ### Manual
