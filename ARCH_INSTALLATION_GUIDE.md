@@ -970,6 +970,8 @@ Start these scripts at start by creating following entries in `~/.config/autosta
 	Terminal=false
 	Hidden=false
 	
+Source: https://edoceo.com/sys/xfce-autostart-apps
+	
 The entries should be then visible in the `Applications - Settings - Session and Startup - Application Autostart` tab.
 
 ### Manual
