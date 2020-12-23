@@ -276,83 +276,18 @@ The hostname will be set after next reboot.
 
 ****************************************
 
-Set up pacman repositories:
+Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/index.php/Unofficial_user_repositories]:
 
 	nano /etc/pacman.conf
 	
-	#
-	# /etc/pacman.conf
-	#
-	# See the pacman.conf(5) manpage for option and repository directives
-
-	#
-	# GENERAL OPTIONS
-	#
 	[options]
-	# The following paths are commented out with their default values listed.
-	# If you wish to use different paths, uncomment and update the paths.
-	#RootDir     = /
-	#DBPath      = /var/lib/pacman/
-	#CacheDir    = /var/cache/pacman/pkg/
-	#LogFile     = /var/log/pacman.log
-	#GPGDir      = /etc/pacman.d/gnupg/
-	#HookDir     = /etc/pacman.d/hooks/
 	HoldPkg     = pacman glibc
-	#XferCommand = /usr/bin/curl -L -C - -f -o %o %u
-	#XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
-	#CleanMethod = KeepInstalled
-	#UseDelta    = 0.7
 	Architecture = auto
 
-	# Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
-	#IgnorePkg   =
-	#IgnoreGroup =
-
-	#NoUpgrade   =
-	#NoExtract   =
-
-	# Misc options
-	#UseSyslog
-	#Color
-	#TotalDownload
 	CheckSpace
-	#VerbosePkgLists
 
-	# By default, pacman accepts packages signed by keys that its local keyring
-	# trusts (see pacman-key and its man page), as well as unsigned packages.
 	SigLevel    = Required DatabaseOptional
 	LocalFileSigLevel = Optional
-	#RemoteFileSigLevel = Required
-
-	# NOTE: You must run `pacman-key --init` before first using pacman; the local
-	# keyring can then be populated with the keys of all official Arch Linux
-	# packagers with `pacman-key --populate archlinux`.
-
-	#
-	# REPOSITORIES
-	#   - can be defined here or included from another file
-	#   - pacman will search repositories in the order defined here
-	#   - local/custom mirrors can be added here or in separate files
-	#   - repositories listed first will take precedence when packages
-	#     have identical names, regardless of version number
-	#   - URLs will have $repo replaced by the name of the current repo
-	#   - URLs will have $arch replaced by the name of the architecture
-	#
-	# Repository entries are of the format:
-	#       [repo-name]
-	#       Server = ServerName
-	#       Include = IncludePath
-	#
-	# The header [repo-name] is crucial - it must be present and
-	# uncommented to enable the repo.
-	#
-
-	# The testing repositories are disabled by default. To enable, uncomment the
-	# repo name header and Include lines. You can add preferred servers immediately
-	# after the header, and they will be used before the default mirrors.
-
-	#[testing]
-	#Include = /etc/pacman.d/mirrorlist
 
 	[core]
 	Include = /etc/pacman.d/mirrorlist
@@ -360,26 +295,11 @@ Set up pacman repositories:
 	[extra]
 	Include = /etc/pacman.d/mirrorlist
 
-	#[community-testing]
-	#Include = /etc/pacman.d/mirrorlist
-
 	[community]
 	Include = /etc/pacman.d/mirrorlist
 
-	# If you want to run 32 bit applications on your x86_64 system,
-	# enable the multilib repositories as required here.
-
-	#[multilib-testing]
-	#Include = /etc/pacman.d/mirrorlist
-
 	[multilib]
 	Include = /etc/pacman.d/mirrorlist
-
-	# An example of a custom package repository.  See the pacman manpage for
-	# tips on creating your own repositories.
-	#[custom]
-	#SigLevel = Optional TrustAll
-	#Server = file:///home/custompkgs
 
 	[archlinuxfr]
 	SigLevel = Never
@@ -389,10 +309,9 @@ Set up pacman repositories:
 	[seblu]
 	Server = http://al.seblu.net/$repo/$arch
 
-	#pocketsphinx
+	#pocketsphinx, vscodium
 	[ownstuff]
-	SigLevel = Never
-	#SigLevel = TrustAll
+	SigLevel = TrustAll
 	Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
 	Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
 
@@ -400,11 +319,24 @@ Set up pacman repositories:
 	# curl https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/x86_64/home_post-factum_kernels_Arch.key -o ~/home_post-factum_kernels_Arch.key
 	# sudo pacman-key --add home_post-factum_kernels_Arch.key
 	[home_post-factum_kernels_Arch]
-	SigLevel = Never
-	#SigLevel = TrustAll
+	SigLevel = TrustAll
 	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
 
 Save file (Ctrl + O) and exit (Ctrl + X).
+
+P.S.: The final `pacman.conf` achieved by commands
+
+	# Make backup of current pacman.conf file
+	sudo cp /etc/pacman.conf /etc/pacman.conf.bak
+	
+	# Iterate first 100 lines and remove only commented lines
+	sudo sed -i '1,100{/^#/d}' /etc/pacman.conf
+	
+	# Replace multiple emtpy lines with single empty line
+	cat -s /etc/pacman.conf | sudo tee /etc/pacman.conf
+	
+	# Remove the first line if the line is empty
+	sudo sed -i '1{/^$/d}' /etc/pacman.conf
 
 Update packages:
 
@@ -412,12 +344,8 @@ Update packages:
 
 Install updates
 
-        pacman -Syu
-	# If it will prompt you to install packages press 'y' and then <Enter>
-
-The `seblu` repository contains precompiled Virtualbox Extension Pack (virtualbox-ext-oracle)
-
-The `ownstuff` repository contains precompiled packages of `vscodium` - debranded _Microsoft VS Code_
+        pacman -Syyuu
+	# If it will prompt you to install packages, press 'y' and then <Enter>
 
 ## Set up root password:
 
