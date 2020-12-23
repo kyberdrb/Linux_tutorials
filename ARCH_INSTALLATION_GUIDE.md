@@ -284,7 +284,7 @@ Set up pacman repositories:
 	# /etc/pacman.conf
 	#
 	# See the pacman.conf(5) manpage for option and repository directives
-	
+
 	#
 	# GENERAL OPTIONS
 	#
@@ -303,31 +303,31 @@ Set up pacman repositories:
 	#CleanMethod = KeepInstalled
 	#UseDelta    = 0.7
 	Architecture = auto
-	
+
 	# Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
 	#IgnorePkg   =
 	#IgnoreGroup =
-	
+
 	#NoUpgrade   =
 	#NoExtract   =
-	
+
 	# Misc options
 	#UseSyslog
 	#Color
 	#TotalDownload
 	CheckSpace
 	#VerbosePkgLists
-	
+
 	# By default, pacman accepts packages signed by keys that its local keyring
 	# trusts (see pacman-key and its man page), as well as unsigned packages.
 	SigLevel    = Required DatabaseOptional
 	LocalFileSigLevel = Optional
 	#RemoteFileSigLevel = Required
-	
+
 	# NOTE: You must run `pacman-key --init` before first using pacman; the local
 	# keyring can then be populated with the keys of all official Arch Linux
 	# packagers with `pacman-key --populate archlinux`.
-	
+
 	#
 	# REPOSITORIES
 	#   - can be defined here or included from another file
@@ -346,52 +346,63 @@ Set up pacman repositories:
 	# The header [repo-name] is crucial - it must be present and
 	# uncommented to enable the repo.
 	#
-	
+
 	# The testing repositories are disabled by default. To enable, uncomment the
 	# repo name header and Include lines. You can add preferred servers immediately
 	# after the header, and they will be used before the default mirrors.
-	
+
 	#[testing]
 	#Include = /etc/pacman.d/mirrorlist
-	
+
 	[core]
 	Include = /etc/pacman.d/mirrorlist
-	
+
 	[extra]
 	Include = /etc/pacman.d/mirrorlist
-	
+
 	#[community-testing]
 	#Include = /etc/pacman.d/mirrorlist
-	
+
 	[community]
 	Include = /etc/pacman.d/mirrorlist
-	
+
 	# If you want to run 32 bit applications on your x86_64 system,
 	# enable the multilib repositories as required here.
-	
+
 	#[multilib-testing]
 	#Include = /etc/pacman.d/mirrorlist
-	
+
 	[multilib]
 	Include = /etc/pacman.d/mirrorlist
-	
+
 	# An example of a custom package repository.  See the pacman manpage for
 	# tips on creating your own repositories.
 	#[custom]
 	#SigLevel = Optional TrustAll
 	#Server = file:///home/custompkgs
-	
+
 	[archlinuxfr]
 	SigLevel = Never
 	Server = http://repo.archlinux.fr/$arch
-	
+
+	#virtualbox_extension_pack
 	[seblu]
 	Server = http://al.seblu.net/$repo/$arch
-	
+
+	#pocketsphinx
 	[ownstuff]
 	SigLevel = Never
+	#SigLevel = TrustAll
 	Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
 	Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
+
+	#kernel: linux-pf-skylake linux-pf-headers-skylake
+	# curl https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/x86_64/home_post-factum_kernels_Arch.key -o ~/home_post-factum_kernels_Arch.key
+	# sudo pacman-key --add home_post-factum_kernels_Arch.key
+	[home_post-factum_kernels_Arch]
+	SigLevel = Never
+	#SigLevel = TrustAll
+	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
 
 Save file (Ctrl + O) and exit (Ctrl + X).
 
