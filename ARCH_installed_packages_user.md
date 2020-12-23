@@ -51,8 +51,8 @@
             - complete statements with `Ctrl-N` or `Ctrl-P`
     - `~/.vimrc` - configuration file with preferred settings
 
-            set tabstop=4
-            set shiftwidth=4
+            set tabstop=2
+            set shiftwidth=2
             set expandtab
             set display+=lastline
             set ignorecase
