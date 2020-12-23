@@ -11,6 +11,7 @@
             SigLevel = Never
             #SigLevel = TrustAll
             Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
+        - SigLevel could be some of those values e.g. Never, Optional, Required, TrustedOnly, TrustAll
         - Sources
             - https://wiki.archlinux.org/index.php/Unofficial_user_repositories#post-factum_kernels
             - https://wiki.archlinux.org/index.php/Pacman/Package_signing#Adding_unofficial_keys
