@@ -1,3 +1,28 @@
+* linux-zen linux-zen-headers linux-ck linux-ck-headers linux-pf-skylake linux-pf-headers-skylake
+    - https://wiki.archlinux.org/index.php/Kernel
+    - https://dev.to/sakshatshinde/a-simple-guide-to-install-linux-zen-the-zen-kernel-on-arch-linux-for-systemd-boot-1b0e
+    - for available kernel names see the directory `/etc/mkinitcpio.d/`
+    - For unofficial repositories, add them to the `/etc/pacman.conf` with option `SigLevel = Never` e.g.
+            
+            #kernel: linux-pf-skylake linux-pf-headers-skylake
+            # curl https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/x86_64/home_post-factum_kernels_Arch.key -o ~/home_post-factum_kernels_Arch.key
+            # sudo pacman-key --add home_post-factum_kernels_Arch.key
+            [home_post-factum_kernels_Arch]
+            SigLevel = Never
+            #SigLevel = TrustAll
+            Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
+        - Sources
+            - https://wiki.archlinux.org/index.php/Unofficial_user_repositories#post-factum_kernels
+            - https://wiki.archlinux.org/index.php/Pacman/Package_signing#Adding_unofficial_keys
+            - https://jlk.fjfi.cvut.cz/arch/manpages/man/pacman.conf.5#PACKAGE_AND_DATABASE_SIGNATURE_CHECKING
+            - https://bbs.archlinux.org/viewtopic.php?pid=1495376#p1495376
+            - https://stackoverflow.com/questions/35251359/cannot-upgrade-archlinux-pacman-syu-not-working/35256655#35256655
+            - https://wiki.archlinux.org/index.php/Linux-ck
+            - https://wiki.archlinux.org/index.php/Unofficial_user_repositories/Repo-ck
+    - Benchmarking:
+        - https://wiki.archlinux.org/index.php/Benchmarking
+* unixbench interbench - benchmarking kernel and system performance
+
 * eidklient disig-web-signer - aplikacie pre pripojenie k portalu www.slovensko.sk
     - Start SmardCard service: `systemctl start pcscd.service`
     - pripravit si hesla k elektronickemu OP
