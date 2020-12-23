@@ -939,6 +939,38 @@ Natural Scrolling
 	echo ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_CURRENT_STATUS}
 	
 	xinput list-props ${TOUCHPAD_ID} | grep ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID}
+	
+Start these scripts at start by creating following entries in `~/.config/autostart`
+
+`Touchpad_Tap-to-Click.desktop`
+
+	[Desktop Entry]
+	Encoding=UTF-8
+	Type=Application
+	Name=Touchpad_Tap-to-Click
+	Comment=
+	Exec=/full/path/to/the/script.sh
+	OnlyShowIn=XFCE;
+	RunHook=0
+	StartupNotify=false
+	Terminal=false
+	Hidden=false
+
+`Touchpad_Natural_Scrolling.desktop`
+
+	[Desktop Entry]
+	Encoding=UTF-8
+	Type=Application
+	Name=Touchpad_Natural_Scrolling
+	Comment=
+	Exec=/full/path/to/the/script.sh
+	OnlyShowIn=XFCE;
+	RunHook=0
+	StartupNotify=false
+	Terminal=false
+	Hidden=false
+	
+The entries should be then visible in the `Applications - Settings - Session and Startup - Application Autostart` tab.
 
 ### Manual
 
