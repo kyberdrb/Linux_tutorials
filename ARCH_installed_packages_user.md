@@ -249,7 +249,10 @@
 ---
 
 * virtualbox
-    - choose the option `2) virtualbox-host-modules-arch`, see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
+    - choose the option 
+        - `virtualbox-host-modules-arch`, if you have the default arch kernel,
+        - but if you have any custom kernel installed, like `linux-pf` use the package `virtualbox-host-dkms` see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
+        - if you install, or forget to install, the compatible package matching the kernel type, the virtualbox virtual machine will fail to start with an error message. [https://bbs.archlinux.org/viewtopic.php?id=258955](The VirtualBox Linux kernel driver is either not loaded or not set up correctly.)
     - after installation add the user to the VirtualBox group. This allows for USB mounting for the virtual machine
     
             sudo gpasswd -a $USER vboxusers
@@ -266,7 +269,8 @@
 ---
 
 * dcfldd
-* p7zip - archive creation and extraction utility
+* p7zip/peazip-qt-bin - archive creation and extraction utility
+    - use `peazip` for maximum compression rate: https://peazip.github.io/maximum-compression-benchmark.html
 * evince/**okular**
     - PDF readers
     - Evince (GTK)
