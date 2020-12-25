@@ -286,7 +286,6 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
 	CheckSpace
 
-	#SigLevel    = Required DatabaseOptional
 	SigLevel    = Optional TrustAll
 	LocalFileSigLevel = Optional
 
@@ -317,9 +316,11 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 	#kernel: linux-pf-skylake linux-pf-headers-skylake
 	[home_post-factum_kernels_Arch]
 	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
-
+	
 
 Save file (Ctrl + O) and exit (Ctrl + X).
+
+Source: https://jlk.fjfi.cvut.cz/arch/manpages/man/pacman.conf.5#PACKAGE_AND_DATABASE_SIGNATURE_CHECKING
 
 P.S.: The final `pacman.conf` achieved by commands
 
