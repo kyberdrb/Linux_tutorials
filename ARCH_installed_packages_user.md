@@ -14,7 +14,8 @@
     - Benchmark the performance of different kernels to quantify the performance differences
     
 * unixbench interbench - benchmarking kernel and system performance
-    date && sleep 5 && ubench && sleep 10 && sudo interbench && date
+
+        date && sleep 5 && ubench && sleep 10 && sudo interbench && date
     
     - https://wiki.archlinux.org/index.php/Benchmarking
 
