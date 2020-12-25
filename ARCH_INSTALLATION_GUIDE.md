@@ -286,7 +286,8 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
 	CheckSpace
 
-	SigLevel    = Required DatabaseOptional
+	#SigLevel    = Required DatabaseOptional
+	SigLevel    = Optional TrustAll
 	LocalFileSigLevel = Optional
 
 	[core]
@@ -302,7 +303,6 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 	Include = /etc/pacman.d/mirrorlist
 
 	[archlinuxfr]
-	SigLevel = Never
 	Server = http://repo.archlinux.fr/$arch
 
 	#virtualbox_extension_pack
@@ -311,16 +311,13 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
 	#pocketsphinx, vscodium
 	[ownstuff]
-	SigLevel = TrustAll
 	Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
 	Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
 
 	#kernel: linux-pf-skylake linux-pf-headers-skylake
-	# curl https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/x86_64/home_post-factum_kernels_Arch.key -o ~/home_post-factum_kernels_Arch.key
-	# sudo pacman-key --add home_post-factum_kernels_Arch.key
 	[home_post-factum_kernels_Arch]
-	SigLevel = TrustAll
 	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
+
 
 Save file (Ctrl + O) and exit (Ctrl + X).
 
