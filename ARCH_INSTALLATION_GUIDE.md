@@ -435,7 +435,7 @@ Install bootloader (systemd-boot):
 
 Generate a system partition UUID, i.e. the partition, where you installed the operating system Arch Linux on, and then use it in the bootloader instead of the partition name (more secure):
 
-    echo "title Andrej" >> /boot/loader/entries/arch.conf
+    echo "title Arch Linux" >> /boot/loader/entries/arch.conf
     basename /boot/vmlinuz-linux >> /boot/loader/entries/arch.conf
     basename /boot/intel-ucode.img >> /boot/loader/entries/arch.conf
     basename /boot/initramfs-linux.img >> /boot/loader/entries/arch.conf
@@ -448,7 +448,7 @@ Open boot configuration file
 	
 Edit bootloader configuration like it is shown below. Ommit the line with "intel-ucode", if you don't have an Intel CPU.
 
-    title Andrej
+    title Arch Linux
     linux /vmlinuz-linux
     initrd /intel-ucode.img
     initrd /initramfs-linux.img
