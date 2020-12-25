@@ -14,8 +14,8 @@
     - Benchmark the performance of different kernels to quantify the performance differences
     
 * unixbench interbench - benchmarking kernel and system performance
-    - unixbench: `ubench`
-    - interbench: `sudo interbench`
+    date && sleep 5 && ubench && sleep 10 && sudo interbench && date
+    
     - https://wiki.archlinux.org/index.php/Benchmarking
 
 * eidklient disig-web-signer - aplikacie pre pripojenie k portalu www.slovensko.sk
