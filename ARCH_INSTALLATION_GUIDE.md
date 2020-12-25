@@ -286,6 +286,7 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
 	CheckSpace
 
+	#SigLevel    = Required DatabaseOptional
 	SigLevel    = Optional TrustAll
 	LocalFileSigLevel = Optional
 
@@ -316,6 +317,25 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 	#kernel: linux-pf-skylake linux-pf-headers-skylake
 	[home_post-factum_kernels_Arch]
 	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
+
+	#kernel: linux-tkg
+	#for using, see: https://lonewolf.pedrohlc.com/chaotic-aur/
+	[chaotic-aur]
+	# Germany
+	Server = http://chaotic.bangl.de/$repo/$arch
+	# Netherlands
+	Server = https://chaotic.tn.dedyn.io/$arch
+	# Spain
+	Server = https://repo.jkanetwork.com/repo/$repo/$arch
+	# USA
+	Server = https://builds.garudalinux.org/repos/$repo/$arch
+	Server = https://repo.kitsuna.net/$arch
+	# Brazil
+	Server = https://lonewolf.pedrohlc.com/$repo/$arch
+	# Korea
+	Server = https://mirror.maakpain.kro.kr/garuda/$repo/$arch
+
+
 	
 
 Save file (Ctrl + O) and exit (Ctrl + X).
