@@ -15,7 +15,7 @@
     
 * unixbench interbench - benchmarking kernel and system performance
 
-        date && sleep 5 && ubench && sleep 10 && sudo interbench && date
+        sudo ls && clear && date && sleep 5 && ubench && date && sleep 10 && sudo interbench && date
     
     - https://wiki.archlinux.org/index.php/Benchmarking
 
