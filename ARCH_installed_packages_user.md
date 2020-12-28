@@ -18,6 +18,8 @@
         sudo ls && clear && date && sleep 5 && ubench && date && sleep 10 && sudo interbench && date
     
     - https://wiki.archlinux.org/index.php/Benchmarking
+    - https://github.com/kdlucas/byte-unixbench
+    - https://linux.die.net/man/8/interbench
 
 * eidklient disig-web-signer - aplikacie pre pripojenie k portalu www.slovensko.sk
     - Start SmardCard service: `systemctl start pcscd.service`
