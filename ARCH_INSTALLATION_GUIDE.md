@@ -286,8 +286,7 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
 	CheckSpace
 
-	#SigLevel    = Required DatabaseOptional
-	SigLevel    = Optional TrustAll
+	SigLevel    = Required DatabaseOptional TrustedOnly
 	LocalFileSigLevel = Optional
 
 	[core]
@@ -302,6 +301,7 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 	[multilib]
 	Include = /etc/pacman.d/mirrorlist
 
+	#AUR - Arch User Repository
 	[archlinuxfr]
 	Server = http://repo.archlinux.fr/$arch
 
@@ -314,11 +314,9 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 	Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
 	Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
 
-	#kernel: linux-pf-skylake linux-pf-headers-skylake
-	[home_post-factum_kernels_Arch]
-	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
-
-	#kernel: linux-tkg
+	#chaotic-keyring
+	#kernel: linux-tkg-muqss-skylake, linux-tkg-muqss-skylake-headers
+	#kernel: linux-lqx, linux-lqx-headers
 	#for using, see: https://lonewolf.pedrohlc.com/chaotic-aur/
 	[chaotic-aur]
 	# Germany
@@ -335,8 +333,15 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 	# Korea
 	Server = https://mirror.maakpain.kro.kr/garuda/$repo/$arch
 
+	#kernel: linux-ck-skylake, linux-ck-skylake-headers
+	[repo-ck]
+	Server = https://mirror.lesviallon.fr/$repo/os/$arch
+	Server = http://repo-ck.com/$arch
 
-	
+	#kernel: linux-pf-skylake linux-pf-headers-skylake
+	[home_post-factum_kernels_Arch]
+	SigLevel = TrustAll
+	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
 
 Save file (Ctrl + O) and exit (Ctrl + X).
 
