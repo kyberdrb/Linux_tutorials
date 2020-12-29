@@ -1,15 +1,22 @@
-* linux-pf-skylake linux-pf-headers-skylake
+* linux-pf-skylake linux-pf-headers-skylake linux-ck-skylake linux-ck-skylake-headers linux-lqx linux-lqx-headers linux-tkg-muqss linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers
     - Building a kernel from source, e.g. linux-ck on my laptop with i5-6300U, took approximately 3 hours.
     - BEFORE BUILDING A KERNEL, REMOUNT THE `BOOT` PARTITION AS WRITABLE (if it's not already)
     - https://wiki.archlinux.org/index.php/Kernel
-    - https://dev.to/sakshatshinde/a-simple-guide-to-install-linux-zen-the-zen-kernel-on-arch-linux-for-systemd-boot-1b0e
-    - for available kernel names see the directory `/etc/mkinitcpio.d/`
+    - To switch kernels, you need to change the configuration of the bootloader. I use `bootctl` - the systemd bootloader. For available kernel names and presets see the directory `/etc/mkinitcpio.d/`
+        - https://dev.to/sakshatshinde/a-simple-guide-to-install-linux-zen-the-zen-kernel-on-arch-linux-for-systemd-boot-1b0e
         - Sources
+            - [How to add repo to pacman](https://lonewolf.pedrohlc.com/chaotic-aur/)
+            - [How to add repo to pacman - with key signing](https://wiki.archlinux.org/index.php/Unofficial_user_repositories/Repo-ck#Add_Repo)
+            - [chaotic - repo package list](http://chaotic.bangl.de/chaotic-aur/x86_64/)
+            - https://wiki.archlinux.org/index.php/Linux-ck
             - https://wiki.archlinux.org/index.php/Unofficial_user_repositories#post-factum_kernels
             - https://wiki.archlinux.org/index.php/Pacman/Package_signing#Adding_unofficial_keys
             - https://jlk.fjfi.cvut.cz/arch/manpages/man/pacman.conf.5#PACKAGE_AND_DATABASE_SIGNATURE_CHECKING
             - [gpg --recv-keys](https://bbs.archlinux.org/viewtopic.php?pid=1495376#p1495376)
             - https://stackoverflow.com/questions/35251359/cannot-upgrade-archlinux-pacman-syu-not-working/35256655#35256655
+            - https://liquorix.net/
+            - https://github.com/Frogging-Family/linux-tkg
+            - [MuQSS CPU Scheduler Explained](https://lkml.org/lkml/2016/10/29/4)
             
     - Benchmark the performance of different kernels to quantify the performance differences
     
@@ -17,8 +24,10 @@
 
         sudo ls && clear && date && sleep 5 && ubench && date && sleep 10 && sudo interbench && date
     
+    - https://github.com/kyberdrb/benchmarking-linux-kernels
     - https://wiki.archlinux.org/index.php/Benchmarking
     - https://github.com/kdlucas/byte-unixbench
+    - https://github.com/ckolivas/interbench
     - https://linux.die.net/man/8/interbench
 
 * eidklient disig-web-signer - aplikacie pre pripojenie k portalu www.slovensko.sk
