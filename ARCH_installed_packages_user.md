@@ -210,22 +210,41 @@
         - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
-    - Edit shortcut in Applications menu in XFCE/LXDE (or maybe other desktop environment) by editing the `.desktop` file `sudo vim /usr/share/applications/chromium.desktop`. For each of the lines with the `Exec` add at the end of the line switch `--enable-oop-rasterization --disable-gpu-driver-bug-workarounds`
-        - If screen tearing is still present, sometimes `--use-gl=desktop` can fixes the tearing.
-        - `--enable-oop-rasterization` enables `Out-of-process Rasterization: Hardware accelerated` in `chrome://gpu`
-        - `--disable-gpu-driver-bug-workarounds` sometimes lowers the CPU strain at video playback
-    - install plugin `enhanced-h264ify` - HW acceleration for Youtube videos - better smoothness of videos + video tearing fix
-    - `chrome://flags/`
-        - Override software rendering list: #ignore-gpu-blocklist
-            - Enables `Hardware Protected Video Decode: Hardware accelerated` in `chrome://gpu`
-        - Enable Reader Mode: #enable-reader-mode
-            - Force enables reader mode for all pages without ads and other distractions
-        - GPU rasterization: #enable-gpu-rasterization
-            - Enables `Rasterization: Hardware accelerated on all pages` in `chrome://gpu`
-        - Hardware-accelerated video decode: #enable-accelerated-video-decode
-            - Enables `Video Decode: Hardware accelerated` in `chrome://gpu`
-            
-    - check HW acceleration for videos at `chrome://media-internals/`
+    - Enabling Hardware Acceleration for Chromium - offloading strain from CPU to GPU at video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
+        - Check if the changes make effect at
+            - chrome://gpu/ - checking the status of `Graphics Feature Status`
+            - chrome://media-internals/ - checking, whether the videos are accelerated through GPU `MojoVideoDecoder`
+            - Source: https://bbs.archlinux.org/viewtopic.php?id=244031
+        - Edit shortcut in Applications menu in XFCE/LXDE (or maybe other desktop environment) by editing the `.desktop` file `sudo vim /usr/share/applications/chromium.desktop` [Customize the Xfce menu - Copy a .desktop file](https://wiki.xfce.org/howto/customize-menu). For each of the lines with the `Exec` add at the end of the line switch `--enable-oop-rasterization --disable-gpu-driver-bug-workarounds`
+            - If screen tearing is still present, sometimes `--use-gl=desktop` can fixes the tearing. Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
+            - `--enable-oop-rasterization` enables `Out-of-process Rasterization: Hardware accelerated` in `chrome://gpu` - [Chromium flags](https://www.reddit.com/r/vscode/comments/fp6zao/how_do_i_pass_chromium_flags_to_vs_code/)
+            - `--disable-gpu-driver-bug-workarounds` sometimes lowers the CPU strain at video playback - [Chromium screen tearing fix](https://www.reddit.com/r/archlinux/comments/8n5w7z/chromiumchrome_full_screen_videos_screen_tearing/), [Chromium screen tearing fix - original answer](https://bbs.archlinux.org/viewtopic.php?pid=1788065#p1788065)
+            - Example (excerpts) - [full `chromium.desktop` file](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/Chromium_modified_flags-HW_GPU_acceleration-performance/chromium.desktop)
+                    
+                    ...
+                    Exec=/usr/bin/chromium %U --enable-oop-rasterization --disable-gpu-driver-bug-workarounds
+                    ...
+                    Exec=/usr/bin/chromium --enable-oop-rasterization --disable-gpu-driver-bug-workarounds
+                    ...
+                    Exec=/usr/bin/chromium --incognito --enable-oop-rasterization --disable-gpu-driver-bug-workarounds
+                    ...
+                
+        - install plugin [`enhanced-h264ify`](https://chrome.google.com/webstore/detail/enhanced-h264ify/omkfmpieigblcllmkgbflkikinpkodlk) - HW acceleration for Youtube videos - better smoothness of videos + video tearing fix [Hardware Acceleration In Chromium](https://www.linuxuprising.com/2018/08/how-to-enable-hardware-accelerated.html)
+        - [`chrome://flags/`](chrome://flags/)
+            - Override software rendering list: #ignore-gpu-blocklist
+                - Enables `Hardware Protected Video Decode: Hardware accelerated` in `chrome://gpu`
+            - Enable Reader Mode: #enable-reader-mode
+                - not related to GPU video acceleration but it ...
+                - ... force enables reader mode for all pages without ads and other distractions
+            - GPU rasterization: #enable-gpu-rasterization
+                - Enables `Rasterization: Hardware accelerated on all pages` in `chrome://gpu`
+            - Hardware-accelerated video decode: #enable-accelerated-video-decode
+                - Enables `Video Decode: Hardware accelerated` in `chrome://gpu`
+            - Try to enable more flags by [Modified chromium flags for desktop and mobile](https://github.com/kyberdrb/Linux_utils_and_gists/tree/master/Chromium_modified_flags-HW_GPU_acceleration-performance) and see how stable and effective they are.
+            - I didn't enable the `Vulkan` decoding because it resulted in having white video screen on Youtube with videos using `h264` codecs which are hardware accelerated by GPU. This didn't happen when the video was decoded with VP8 or VP9 formats which are unfortunately decoded by CPU.
+            - Sources: https://www.lifewire.com/hardware-acceleration-in-chrome-4125122
+        - check HW acceleration for videos at `chrome://media-internals/`. Look for `MojoVideoDecoder` which indicates that the video is decoded using hardware acceleration through GPU
+            - [chromium: hardware video acceleration with VA-API](https://bbs.archlinux.org/viewtopic.php?id=244031)
         
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
