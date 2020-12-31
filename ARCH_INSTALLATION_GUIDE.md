@@ -800,8 +800,10 @@ Reboot to activate hardware acceleration
 Sources
 
 https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
+
 https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers - Note #4
-https://bbs.archlinux.org/viewtopic.php?pid=1343287#p1343287
+
+[[SOLVED] So, which is better; VDPAU or VAAPI?](https://bbs.archlinux.org/viewtopic.php?pid=1343287#p1343287)
     
 ## Verify hardware acceleration for graphics
 
