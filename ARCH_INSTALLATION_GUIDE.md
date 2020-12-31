@@ -779,26 +779,35 @@ Create `pikaur` config file
 
 ## Enable hardware acceleration for graphics
 
-Hardware acceleration for Intel graphics for my new laptop
+Smoother video playback, less strain on CPU, more strain on GPU. Instead of the CPU doing the rendering, the rendering is offloaded to the GPU
 
-    sudo pacman -S intel-media-driver libvdpau-va-gl
+Hardware acceleration for Intel graphics for my new laptop. I preffer `intel-media-driver` before `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often.
 
-Open the file with environment variables
+    sudo pacman -S intel-media-driver
+
+Maybe, in the future I will experiment with the alternative drivers `intel-hybrid-codec-driver` in order to enable hardware acceleration
+
+According to [VA-API drivers supported formats table](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers) we can see that the MPEG4 format is not supported for hardware acceleration. But we can still try to force it. Open the file with environment variables
 
     sudo vim /etc/environment
+    
+Try to enable hardware acceleration for this format explicitely by defining a new environment variable. Adding to the file this line:
 
-Enable hardware for intel acceleration
-
-    VDPAU_DRIVER=va_gl
-    LIBVA_DRIVER_NAME=iHD
+    VAAPI_MPEG4_ENABLED=true
     
 Reboot to activate hardware acceleration
+
+Sources
+
+https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
+https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers - Note #4
+https://bbs.archlinux.org/viewtopic.php?pid=1343287#p1343287
     
 ## Verify hardware acceleration for graphics
 
 Install verification utilities
 
-    sudo pacman -S libva-utils vdpauinfo
+    sudo pacman -S libva-utils
     
 Check `VAAPI` and `VDPAU` configuration
 
@@ -811,32 +820,9 @@ Check `VAAPI` and `VDPAU` configuration
           VAProfileNone                   :	VAEntrypointStats
           VAProfileMPEG2Simple            :	VAEntrypointVLD
 	  
----
+Sources:
 
-    $ vdpauinfo
-    
-    display: :0.0   screen: 0
-    API version: 1
-    Information string: OpenGL/VAAPI backend for VDPAU
-    
-    Video surface:
-    
-    name   width height types
-    -------------------------------------------
-    420     4096  4096  NV12 YV12 UYVY YUYV Y8U8V8A8 V8U8Y8A8 
-    422     4096  4096  NV12 YV12 UYVY YUYV Y8U8V8A8 V8U8Y8A8 
-    444     4096  4096  NV12 YV12 UYVY YUYV Y8U8V8A8 V8U8Y8A8 
-    
-    Decoder capabilities:
-    
-    name                        level macbs width height
-    ----------------------------------------------------
-    MPEG1                          --- not supported ---
-    MPEG2_SIMPLE                   --- not supported ---
-    MPEG2_MAIN                     --- not supported ---
-    H264_BASELINE                  51 16384  2048  2048
-    H264_MAIN                      51 16384  2048  2048
-    H264_HIGH                      51 16384  2048  2048
+https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Verifying_VA-API
     
 ## Sound
 
