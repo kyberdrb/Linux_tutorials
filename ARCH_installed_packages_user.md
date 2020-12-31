@@ -210,8 +210,10 @@
         - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
-    - Edit `chromium.desktop` and add to the each end of the `Exec` lines switch `--enable-oop-rasterization`
-        - If screen tearing is still present, sometimes `--use-gl=desktop`, sometimes fixes the tearing.
+    - Edit shortcut in Applications menu in XFCE/LXDE (or maybe other desktop environment) by editing the `.desktop` file `sudo vim /usr/share/applications/chromium.desktop`. For each of the lines with the `Exec` add at the end of the line switch `--enable-oop-rasterization --disable-gpu-driver-bug-workarounds`
+        - If screen tearing is still present, sometimes `--use-gl=desktop` can fixes the tearing.
+        - `--enable-oop-rasterization` enables `Out-of-process Rasterization: Hardware accelerated` in `chrome://gpu`
+        - `--disable-gpu-driver-bug-workarounds` sometimes lowers the CPU strain at video playback
     - install plugin `enhanced-h264ify` - HW acceleration for Youtube videos - better smoothness of videos + video tearing fix
     - `chrome://flags/`
         - Override software rendering list: #ignore-gpu-blocklist
