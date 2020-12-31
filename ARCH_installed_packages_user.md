@@ -210,6 +210,21 @@
         - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
+    - Edit `chromium.desktop` and add to the each end of the `Exec` lines switch `--enable-oop-rasterization`
+        - If screen tearing is still present, sometimes `--use-gl=desktop`, sometimes fixes the tearing.
+    - install plugin `enhanced-h264ify` - HW acceleration for Youtube videos - better smoothness of videos + video tearing fix
+    - `chrome://flags/`
+        - Override software rendering list: #ignore-gpu-blocklist
+            - Don't know what this does...
+        - Enable Reader Mode: #enable-reader-mode
+            - Enables reader mode for pages without ads and other distractions
+        - GPU rasterization: #enable-gpu-rasterization
+            - Enables `Rasterization: Hardware accelerated on all pages` in `chrome://gpu`
+        - Hardware-accelerated video decode: #enable-accelerated-video-decode
+            - Enables `Hardware Protected Video Decode: Hardware accelerated` in `chrome://gpu`
+            
+    - check HW acceleration for videos at `chrome://media-internals/`
+        
 * firefox
     - in the upper right corner click on a hamburger icon with a label `Open menu`
     - click on `Preferences`
