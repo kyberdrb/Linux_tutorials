@@ -573,12 +573,26 @@ If the `localectl` command wouldn't be issued, we would see in the desktop envir
       
 ## Install graphics drivers
 
+Common graphics drivers
+
+    pacman -S mesa lib32-mesa
+
 I have integrated graphics on Intel Skylake platform.
 
 Basic packages for Intel graphics
 
-    pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel
+    pacman -S xf86-video-intel vulkan-intel
+    
+- TODO describe what the packages do and why I chose them
+- https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
+    
+For AMD/ATI graphics and AMD APUs, e.g. Kabini, I'm using the opensource drivers for better compatibility
 
+    pacman -S xf86-video-amdgpu vulkan-radeon
+
+- TODO describe what the packages do and why I chose them
+- https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD
+- https://wiki.archlinux.org/index.php/AMDGPU
 
 ## Install desktop environment
 
@@ -784,8 +798,14 @@ Smoother video playback, less strain on CPU, more strain on GPU. Instead of the 
 Hardware acceleration for Intel graphics for my new laptop. I preffer `intel-media-driver` before `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often.
 
     sudo pacman -S intel-media-driver
+    
+Maybe, in the future I will experiment with the alternative drivers [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) in order to enable hardware acceleration for [VP8 and VP9 acceleration](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel).
+    
+For AMD/ATI GPUs or AMD APUs:
 
-Maybe, in the future I will experiment with the alternative drivers `intel-hybrid-codec-driver` in order to enable hardware acceleration
+    libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
+
+This activates VAAPI hardware acceleration for Intel GPU.
 
 According to [VA-API drivers supported formats table](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers) we can see that the MPEG4 format is not supported for hardware acceleration. But we can still try to force it. Open the file with environment variables
 
@@ -795,7 +815,14 @@ Try to enable hardware acceleration for this format explicitely by defining a ne
 
     VAAPI_MPEG4_ENABLED=true
     
-Reboot to activate hardware acceleration
+This should be enough for the Intel graphics. We don't need to explicitely define the `LIBVA_DRIVER_NAME` when the output of `vainfo` shows acceleration of media formats for the GPU.
+
+But AMDGPU also supports hardware acceleration through VDPAU drivers. Therefore we need to define another enviroment variable `VDPAU_DRIVER`  and set it to the value given by command `grep -iE 'vdpau | dri driver' /var/log/Xorg.0.log`  Int he case of my AMD Kabini APU build, the output signalized a `radeonsi` name of the GPU type. Therefore we set the variable `VDPAU_DRIVER` to `radeonsi`. The resulting `/etc/environment` looks like this for AND Kabini APU build:
+
+    VAAPI_MPEG4_ENABLED=true
+    VDPAU_DRIVER=radeonsi
+    
+Reboot to activate hardware acceleration.
 
 Sources
 
@@ -805,13 +832,13 @@ https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers 
 
 [[SOLVED] So, which is better; VDPAU or VAAPI?](https://bbs.archlinux.org/viewtopic.php?pid=1343287#p1343287)
     
-## Verify hardware acceleration for graphics
+### Verify hardware acceleration for graphics
 
 Install verification utilities
 
     sudo pacman -S libva-utils
     
-Check `VAAPI` and `VDPAU` configuration
+Check `VAAPI` [Intel, AMD] and `VDPAU` [AMD, NVIDIA] configuration
 
     $ vainfo
     
@@ -821,10 +848,17 @@ Check `VAAPI` and `VDPAU` configuration
           VAProfileNone                   :	VAEntrypointVideoProc
           VAProfileNone                   :	VAEntrypointStats
           VAProfileMPEG2Simple            :	VAEntrypointVLD
-	  
+          
+    $ vdpauinfo
+    [outputs some video codec acceleration info]
+    
+If you get any kind of error in the outpu, or a `Segmentation fault` at the end of the `vdpauinfo` output, the value of the `VDPAU_DRIVER` variable is set to a value which doesn't match with the GPU type in the output. Check the output of the command `` again. Make sure the driver is available under ``. If not, reinstall VDPAU drivers with `sudo pacman -Syy mesa-vdpau lib32-mesa-vdpau`, reboot the computer and run the `vdpauinfo` utility again.
+
 Sources:
 
 https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Verifying_VA-API
+
+https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Verifying_VDPAU
     
 ## Sound
 
@@ -848,39 +882,13 @@ Sources:
 
 ### Automatic
 
-# TODO-Scriptify
-Tap-to-Click
+[Tap-to-Click](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/touchpad_tap-to-click_enable.sh)
 
-	TOUCHPAD_ID=$(xinput list | grep -i touchpad | sed 's/\s/_/g' | cut -d'=' -f2 | cut -d'_' -f1)
-	echo ${TOUCHPAD_ID} 
+[Natural Scrolling](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/touchpad_natural_scrolling-enable.sh)	
 
-	TOUCHPAD_TAPPING_PROPERTY_ID=$(xinput list-props ${TOUCHPAD_ID} | grep -i "Tapping Enabled" | grep -v -i "default" | tr -d ' \t' | cut -d'(' -f2 | cut -d')' -f1)
-	echo ${TOUCHPAD_TAPPING_PROPERTY_ID}
+### TODO-Scriptify touchpad features autostart
 
-	xinput set-prop ${TOUCHPAD_ID} ${TOUCHPAD_TAPPING_PROPERTY_ID} 1
-
-	TOUCHPAD_TAPPING_PROPERTY_CURRENT_STATUS=$(xinput list-props ${TOUCHPAD_ID} | grep ${TOUCHPAD_TAPPING_PROPERTY_ID} | tr -d ' \t' | cut -d':' -f2)
-	echo ${TOUCHPAD_TAPPING_PROPERTY_CURRENT_STATUS}
-	
-	xinput list-props ${TOUCHPAD_ID} | grep ${TOUCHPAD_TAPPING_PROPERTY_ID}
-
-# TODO-Scriptify
-Natural Scrolling
-
-	TOUCHPAD_ID=$(xinput list | grep -i touchpad | sed 's/\s\+/_/g' | cut -d'=' -f2 | cut -d'_' -f1)
-	echo ${TOUCHPAD_ID}
-
-	TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID=$(xinput list-props ${TOUCHPAD_ID} | grep -i "natural scrolling" | grep -v -i "Default" | tr -d ':space:' | cut -d'(' -f2 | cut -d')' -f1)
-	echo ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID} 
-
-	xinput set-prop ${TOUCHPAD_ID} ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID} 1
-
-	TOUCHPAD_NATURAL_SCROLLING_PROPERTY_CURRENT_STATUS=$(xinput list-props ${TOUCHPAD_ID} | grep ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID} | tr -d '[:space:]' | cut -d':' -f2)
-	echo ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_CURRENT_STATUS}
-	
-	xinput list-props ${TOUCHPAD_ID} | grep ${TOUCHPAD_NATURAL_SCROLLING_PROPERTY_ID}
-	
-Start these scripts at start by creating following files in XFCE4 autostart directory
+Start these scripts at start by creating following files in XFCE4 autostart directory. Below are examples of such files. 
 
 	vim ~/.config/autostart/Touchpad_Tap-to-Click.desktop
 
