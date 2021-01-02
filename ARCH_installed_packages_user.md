@@ -132,6 +132,8 @@
         - AsciiDoc Preview: Ctrl-Shift-A
         - Duplicate Line: Ctrl + Shift + D
         
+* obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
+        
 * vlc - multimedia player
     - Youtube network streaming fix
         
@@ -197,37 +199,68 @@
         Sources:
         - https://www.quora.com/How-do-I-select-the-video-quality-in-VLC-while-playing-a-YouTube-stream
 
-* obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
-
 * chromium / (https://aur.archlinux.org/packages/ungoogled-chromium/)[ungoogled-chromium]: see (https://github.com/Eloston/ungoogled-chromium#enhancing-features)[ungoogled-chromium GitHub]
     - (https://uc.droidware.info/)[ungoogled-chromium for Android]
-    - Pinterest without log-in prompting
-        1. https://www.lifehacker.com.au/2015/05/this-tweak-lets-you-browse-pinterest-without-signing-up/
+    - [Pinterest without log-in prompting](https://www.lifehacker.com.au/2015/05/this-tweak-lets-you-browse-pinterest-without-signing-up/)
         1. Install plugin `Tampermonkey` from https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo/related
         1. Install script `Pinterest without registration` from https://greasyfork.org/en/scripts/6325-pinterest-without-registration
-    - (https://chrome.google.com/webstore/detail/image-transparency/ihnkmjaflangdaififmekbjicpafmdek/related)[Image Transparency - configurable background color for images with transparent background]
+    - [Image Transparency - configurable background color for images with transparent background](https://chrome.google.com/webstore/detail/image-transparency/ihnkmjaflangdaififmekbjicpafmdek/related)
         - by default black, but text is also by default black so I don't see usually any text
         - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
-    - Enabling Hardware Acceleration for Chromium - offloading strain from CPU to GPU at video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
-        - Check if the changes make effect at
+    - Enabling Hardware Acceleration for Chromium - offloading strain from CPU to GPU for video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
+        - The way that uses least CPU is to forward video playback to external multimedia player. In a dedicated multimedia player the CPU usage is lower and GPU usage higher, which is what I wanted. Videos play smooth, without stutter or tearing with GPU hardware acceleration.
+        
+            I tested VLC and MPV player. Both support GPU hardware acceleration for videos thourh VAAPI or VDPAU, according to what's enabled or preferred by the player.
+            
+            I tested **VLC player** through 'Send to VLC' extension on RTVS streams and YouTube streams, which played videos smoothly, but didn't offer the 'seeking' functionality - jumping back and forth in the video, and also VLC didn't support subtitles. RTVS streams could be played, but only from the  from the browser right from the extension, which I find very convenient. VLC doesn't support format and video quality choosing, it only plays the video or stream. Allegedly, the `fmt` parameter for YouTube URLs should enable the choosing of video quality, but it didn't work for me anyway.
+            
+            Then I tested **MPV player** with extension 'Watch with MPV', which played videos smoothly, and offers 'seeking' functionality - jumping back and forth in the video, and supports subtitles. MPV supports format and video quality choosing, but only statically through configuration file `~/.config/mpv.conf`
+            
+            **Streamlink + MPV/VLC**: combination that combines GPU hardware acceleration of MPV/VLC with the ability to choose the video or stream quality
+            
+            1. List formats for video (example)
+                
+                    streamlink https://www.youtube.com/watch?v=LXb3EKWsInQ
+                    
+            1. Play video with an player in selected quality
+            
+                    streamlink --player="mpv --hwdec=auto" https://www.youtube.com/watch?v=LXb3EKWsInQ 1080p60
+            
+            To set up all of this, frst install extensions [Send to VLC (VideoLAN) media player](https://chrome.google.com/webstore/detail/send-to-vlc-videolan-medi/hfckgfbhdacemicpjljhfbjmkiggeche) and [Watch with MPV](https://chrome.google.com/webstore/detail/watch-with-mpv/gbgfakmgjoejbcffelendicfedkegllf) to Chromium browser.
+            
+            Then install needed packages:
+            
+                    pikaur -Syy mpv vlc streamlink
+                    
+            The extensions _Send to VLC (VideoLAN) media player_ and _Watch with MPV_ forward the requests from browser to the media player on the system through their native clients installed in the system. `watch-with-mpv` is a native client 
+            
+            Install the native client for _Watch with MPV_ extension
+            
+                pikaur -Syy watch-with-mpv
+                
+            Download the forked repository which has MPV with hardware acceleration enabled and install it on top of the already installed native client. (Example for Linux)
+            
+                mkdir -p ~/git/forks
+                cd ~/git/forks
+                git clone https://github.com/kyberdrb/watch-with-mpv.git
+                cd watch-with-mpv/native/build/linux/
+                npm run build
+                sudo make install
+            
+            This replaces ... The video forwarding to MPV is immediately usable without restarting Chromium or reloading the site.
+            
+            Test it (example)
+            
+        - Check if the changes make effect at:
             - chrome://gpu/ - checking the status of `Graphics Feature Status`
             - chrome://media-internals/ - checking, whether the videos are accelerated through GPU `MojoVideoDecoder`
             - Source: https://bbs.archlinux.org/viewtopic.php?id=244031
-        - Edit shortcut in Applications menu in XFCE/LXDE (or maybe other desktop environment) by editing the `.desktop` file `sudo vim /usr/share/applications/chromium.desktop` [Customize the Xfce menu - Copy a .desktop file](https://wiki.xfce.org/howto/customize-menu). For each of the lines with the `Exec` add at the end of the line switch `--enable-oop-rasterization --disable-gpu-driver-bug-workarounds`
-            - If screen tearing is still present, sometimes `--use-gl=desktop` can fixes the tearing. Source: https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration
-            - `--enable-oop-rasterization` enables `Out-of-process Rasterization: Hardware accelerated` in `chrome://gpu` - [Chromium flags](https://www.reddit.com/r/vscode/comments/fp6zao/how_do_i_pass_chromium_flags_to_vs_code/)
-            - `--disable-gpu-driver-bug-workarounds` sometimes lowers the CPU strain at video playback - [Chromium screen tearing fix](https://www.reddit.com/r/archlinux/comments/8n5w7z/chromiumchrome_full_screen_videos_screen_tearing/), [Chromium screen tearing fix - original answer](https://bbs.archlinux.org/viewtopic.php?pid=1788065#p1788065)
-            - Example (excerpts) - [full `chromium.desktop` file](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/Chromium_modified_flags-HW_GPU_acceleration-performance/chromium.desktop)
-                    
-                    ...
-                    Exec=/usr/bin/chromium %U --enable-oop-rasterization --disable-gpu-driver-bug-workarounds
-                    ...
-                    Exec=/usr/bin/chromium --enable-oop-rasterization --disable-gpu-driver-bug-workarounds
-                    ...
-                    Exec=/usr/bin/chromium --incognito --enable-oop-rasterization --disable-gpu-driver-bug-workarounds
-                    ...
+        - Edit `~/.config/chromium-flags.conf`. For reasons why to edit this, see [README](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/Chromium_modified_flags-HW_GPU_acceleration-performance/README.md).
+            - Example (excerpts)
+                - [`chromium-flags.conf` for AMDGPU](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/Chromium_modified_flags-HW_GPU_acceleration-performance/chromium-flags.conf.amd_gpu)
+                - [`chromium-flags.conf` for Intel GPU](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/Chromium_modified_flags-HW_GPU_acceleration-performance/chromium-flags.conf.intel_gpu)
                 
         - install plugin [`enhanced-h264ify`](https://chrome.google.com/webstore/detail/enhanced-h264ify/omkfmpieigblcllmkgbflkikinpkodlk) - HW acceleration for Youtube videos - better smoothness of videos + video tearing fix [Hardware Acceleration In Chromium](https://www.linuxuprising.com/2018/08/how-to-enable-hardware-accelerated.html)
         - [`chrome://flags/`](chrome://flags/)
@@ -235,14 +268,15 @@
                 - Enables `Hardware Protected Video Decode: Hardware accelerated` in `chrome://gpu`
             - Enable Reader Mode: #enable-reader-mode
                 - not related to GPU video acceleration but it ...
-                - ... force enables reader mode for all pages without ads and other distractions
+                - ... force enables reader mode for all pages without ads and other distractions, because reader mode helps me to focus on the article.
             - GPU rasterization: #enable-gpu-rasterization
                 - Enables `Rasterization: Hardware accelerated on all pages` in `chrome://gpu`
             - Hardware-accelerated video decode: #enable-accelerated-video-decode
                 - Enables `Video Decode: Hardware accelerated` in `chrome://gpu`
-            - Try to enable more flags by [Modified chromium flags for desktop and mobile](https://github.com/kyberdrb/Linux_utils_and_gists/tree/master/Chromium_modified_flags-HW_GPU_acceleration-performance) and see how stable and effective they are.
+            - I only mentioned the most essential flags. Try to enable more flags by [Modified chromium flags for desktop and mobile](https://github.com/kyberdrb/Linux_utils_and_gists/tree/master/Chromium_modified_flags-HW_GPU_acceleration-performance) and see how stable and effective they are.
             - I didn't enable the `Vulkan` decoding because it resulted in having white video screen on Youtube with videos using `h264` codecs which are hardware accelerated by GPU. This didn't happen when the video was decoded with VP8 or VP9 formats which are unfortunately decoded by CPU.
             - Sources: https://www.lifewire.com/hardware-acceleration-in-chrome-4125122
+            
         - check HW acceleration for videos at `chrome://media-internals/`. Look for `MojoVideoDecoder` which indicates that the video is decoded using hardware acceleration through GPU
             - [chromium: hardware video acceleration with VA-API](https://bbs.archlinux.org/viewtopic.php?id=244031)
         
