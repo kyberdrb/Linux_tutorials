@@ -214,11 +214,11 @@
         
             I tested VLC and MPV player. Both support GPU hardware acceleration for videos thourh VAAPI or VDPAU, according to what's enabled or preferred by the player.
             
-            I tested **VLC player** through 'Send to VLC' extension on RTVS streams and YouTube streams, which played videos smoothly, but didn't offer the 'seeking' functionality - jumping back and forth in the video, and also VLC didn't support subtitles. RTVS streams could be played, but only from the  from the browser right from the extension, which I find very convenient. VLC doesn't support format and video quality choosing, it only plays the video or stream. Allegedly, the `fmt` parameter for YouTube URLs should enable the choosing of video quality, but it didn't work for me anyway.
+            I tested **VLC player** through 'Send to VLC' extension on RTVS streams and YouTube streams, which played videos smoothly, but didn't offer the 'seeking' functionality - jumping back and forth in the video, and also VLC didn't support subtitles. RTVS streams could be played, but only from the  from the browser right from the extension, which I find very convenient. VLC doesn't support format and video quality choosing, it only plays the video or stream. Allegedly, the `fmt` parameter for YouTube URLs should enable the choosing of video quality, but it didn't work for me anyway. [1](https://www.reddit.com/r/VLC/comments/3mk8p5/vlc_seems_to_stream_youtube_only_in_720p_how_can/), [2](https://www.reddit.com/r/youtube/comments/3ijei1/how_to_watch_youtube_above_720p_dash_streams_in/cvi4bnx/?utm_source=reddit&utm_medium=web2x&context=3), [3](https://www.reddit.com/r/VLC/comments/aorvvm/how_can_i_play_this_youtube_video_in_1080p_in_vlc/ek7izf2/), [Possible fix/patch for video quality selection for VLC](https://trac.videolan.org/vlc/ticket/10237#no1)
             
             Then I tested **MPV player** with extension 'Watch with MPV', which played videos smoothly, and offers 'seeking' functionality - jumping back and forth in the video, and supports subtitles. MPV supports format and video quality choosing, but only statically through configuration file `~/.config/mpv.conf`
             
-            **Streamlink + MPV/VLC**: combination that combines GPU hardware acceleration of MPV/VLC with the ability to choose the video or stream quality
+            **Streamlink + MPV/VLC**: combination that combines GPU hardware acceleration of MPV/VLC with the ability to choose the video or stream quality. It provides an alternative way of playing web streams outside of (usually) poorly and less efficient multimedia player in browsers. [Streamlink - Arch Wiki](https://wiki.archlinux.org/index.php/Streamlink), [Streamlink - Homepage](https://streamlink.github.io/index.html) [List of multimedia plugins and utilities](https://github.com/ahjolinna/mpv-conf), [streamlink usage](https://github.com/ahjolinna/mpv-conf#basic-features), [another streamlink usage](https://stackoverflow.com/questions/13439442/command-line-youtube-in-vlc-player-quality-control/55110722#55110722), [Streamlink - Usage examples](https://streamlink.github.io/cli.html#tutorial)
             
             1. List formats for video (example)
                 
@@ -227,6 +227,8 @@
             1. Play video with an player in selected quality
             
                     streamlink --player="mpv --hwdec=auto" https://www.youtube.com/watch?v=LXb3EKWsInQ 1080p60
+                    
+            ---
             
             To set up all of this, frst install extensions [Send to VLC (VideoLAN) media player](https://chrome.google.com/webstore/detail/send-to-vlc-videolan-medi/hfckgfbhdacemicpjljhfbjmkiggeche) and [Watch with MPV](https://chrome.google.com/webstore/detail/watch-with-mpv/gbgfakmgjoejbcffelendicfedkegllf) to Chromium browser.
             
@@ -252,6 +254,22 @@
             This replaces ... The video forwarding to MPV is immediately usable without restarting Chromium or reloading the site.
             
             Test it (example)
+            
+            ---
+            
+            !!!!!!!!!!!! TODO FINISH DESCRIPTION !!!!!!!!!!!!!!!!
+            
+            Install the native client for _Send to VLC_ extension
+            
+            Download
+            
+                https://github.com/belaviyo/native-client/releases
+                
+            Install
+            
+            Test
+                
+                https://www.rtvs.sk/televizia/archiv/16350/251893
             
         - Check if the changes make effect at:
             - chrome://gpu/ - checking the status of `Graphics Feature Status`
