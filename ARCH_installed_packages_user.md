@@ -1,4 +1,4 @@
-* linux-pf-skylake linux-pf-headers-skylake linux-ck-skylake linux-ck-skylake-headers linux-lqx linux-lqx-headers linux-tkg-muqss linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers
+* linux-lqx linux-lqx-headers linux-ck-skylake linux-ck-skylake-headers linux-tkg-muqss linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers linux-pf-skylake linux-pf-headers-skylake
     - Building a kernel from source, e.g. linux-ck on my laptop with i5-6300U, took approximately 3 hours.
     - BEFORE BUILDING A KERNEL, REMOUNT THE `BOOT` PARTITION AS WRITABLE (if it's not already)
     - https://wiki.archlinux.org/index.php/Kernel
@@ -134,6 +134,10 @@
         
 * obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
         
+* mpv libva youtube-dl - multimedia player
+    - `libva` package helps to enable accelerated video playback through GPU by for VAAPI enabled drivers and GPU.
+    - `youtube-dl` enables playing online videos and streams.
+    
 * vlc - multimedia player
     - Youtube network streaming fix
         
@@ -198,9 +202,27 @@
         
         Sources:
         - https://www.quora.com/How-do-I-select-the-video-quality-in-VLC-while-playing-a-YouTube-stream
+        
+* streamlink - utility to watch streams - wrapper around other players - online video forwarder
+
+    Usage example:
+    
+    1. List formats for video (example)
+        
+            streamlink https://www.youtube.com/watch?v=LXb3EKWsInQ
+                
+    1. Play video with an player in selected quality
+            
+            streamlink --verbose-player --player-no-close --player="mpv --hwdec=auto" https://www.youtube.com/watch?v=LXb3EKWsInQ 1080p60
+            
+    Sometimes the stream crashes during playback pass add to the Streamlink's arguments `--player-no-close`. This will prevent premature closing of the player wiht error
+    
+            [mkv] EOF reached
+            [cplayer] EOF code: 5
 
 * chromium / (https://aur.archlinux.org/packages/ungoogled-chromium/)[ungoogled-chromium]: see (https://github.com/Eloston/ungoogled-chromium#enhancing-features)[ungoogled-chromium GitHub]
-    - (https://uc.droidware.info/)[ungoogled-chromium for Android]
+    - Maybe in the future I will try out [Chromium-VAAPI](https://aur.archlinux.org/packages/chromium-vaapi/) and see if it makes any difference when playing videos, e. g. lower CPU usage, hardware acceleration of videos through GPU, smoother - no stutter and tear-free - video playback.
+    - [ungoogled-chromium for Android](https://uc.droidware.info/)
     - [Pinterest without log-in prompting](https://www.lifehacker.com.au/2015/05/this-tweak-lets-you-browse-pinterest-without-signing-up/)
         1. Install plugin `Tampermonkey` from https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo/related
         1. Install script `Pinterest without registration` from https://greasyfork.org/en/scripts/6325-pinterest-without-registration
@@ -210,7 +232,7 @@
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
     - Enabling Hardware Acceleration for Chromium - offloading strain from CPU to GPU for video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
-        - The way that uses least CPU is to forward video playback to external multimedia player. In a dedicated multimedia player the CPU usage is lower and GPU usage higher, which is what I wanted. Videos play smooth, without stutter or tearing with GPU hardware acceleration.
+        - The way that uses least CPU of the various ways I tried out is to forward video playback to external multimedia player. In a dedicated multimedia player the CPU usage is lower and GPU usage higher, which is what I wanted. Videos play smooth, without stutter or tearing with GPU hardware acceleration.
         
             I tested VLC and MPV player. Both support GPU hardware acceleration for videos thourh VAAPI or VDPAU, according to what's enabled or preferred by the player.
             
@@ -220,27 +242,19 @@
             
             **Streamlink + MPV/VLC**: combination that combines GPU hardware acceleration of MPV/VLC with the ability to choose the video or stream quality. It provides an alternative way of playing web streams outside of (usually) poorly and less efficient multimedia player in browsers. [Streamlink - Arch Wiki](https://wiki.archlinux.org/index.php/Streamlink), [Streamlink - Homepage](https://streamlink.github.io/index.html) [List of multimedia plugins and utilities](https://github.com/ahjolinna/mpv-conf), [streamlink usage](https://github.com/ahjolinna/mpv-conf#basic-features), [another streamlink usage](https://stackoverflow.com/questions/13439442/command-line-youtube-in-vlc-player-quality-control/55110722#55110722), [Streamlink - Usage examples](https://streamlink.github.io/cli.html#tutorial)
             
-            1. List formats for video (example)
-                
-                    streamlink https://www.youtube.com/watch?v=LXb3EKWsInQ
-                    
-            1. Play video with an player in selected quality
-            
-                    streamlink --player="mpv --hwdec=auto" https://www.youtube.com/watch?v=LXb3EKWsInQ 1080p60
+            For `streamlink` usage example, see the `streamlink` package description in this file.
                     
             ---
             
             To set up all of this, frst install extensions [Send to VLC (VideoLAN) media player](https://chrome.google.com/webstore/detail/send-to-vlc-videolan-medi/hfckgfbhdacemicpjljhfbjmkiggeche) and [Watch with MPV](https://chrome.google.com/webstore/detail/watch-with-mpv/gbgfakmgjoejbcffelendicfedkegllf) to Chromium browser.
             
-            Then install needed packages:
-            
-                    pikaur -Syy mpv vlc streamlink
-                    
             The extensions _Send to VLC (VideoLAN) media player_ and _Watch with MPV_ forward the requests from browser to the media player on the system through their native clients installed in the system. `watch-with-mpv` is a native client 
             
-            Install the native client for _Watch with MPV_ extension
+            **Forwarding videos from browser to MPV player**
             
-                pikaur -Syy watch-with-mpv
+            Install the `mpv` package with all dependencies, if any.
+            
+            ~~Install the native client for _Watch with MPV_ extension: `pikaur -Syy watch-with-mpv`~~ Not necessary but if the installation from repository doesn't work, installing and uninstalling it right away, or just installing it and leaving the package there this *before* installing from ther repository may make it work.
                 
             Download the forked repository which has MPV with hardware acceleration enabled and install it on top of the already installed native client. (Example for Linux)
             
@@ -251,25 +265,75 @@
                 npm run build
                 sudo make install
             
-            This replaces ... The video forwarding to MPV is immediately usable without restarting Chromium or reloading the site.
+            ~~This replaces the files installed by the package `watch-with-mpv` the native client for the extension.~~
             
-            Test it (example)
+            The video forwarding to MPV is immediately usable without restarting Chromium or reloading the site.
+            
+            Test it (example). Go to e.g. [this page with a 1080p 60fps video](https://www.youtube.com/watch?v=LXb3EKWsInQ) pause the video and click the MPV icon in the top right corner. If the icon is not visible, pin it from the extension menu. The video will start to play in the MPV player. As a consequence, this solution provides less CPU and more GPU utilization, smooth and tear-free video playback. Overall, it's more efficient.
             
             ---
             
-            !!!!!!!!!!!! TODO FINISH DESCRIPTION !!!!!!!!!!!!!!!!
+            **Forwarding videos on RTVS.sk from browser to a multimedia player (or Forwarding _anything copied_ from browser to _anything else_)**
             
-            Install the native client for _Send to VLC_ extension
+            Use Clipman to launch a script to launch a multimedia player with hardware acceleration.
             
-            Download
+            Install
+            
+                sudo pacman -Syy xfce4-clipman-plugin 
+            
+            Create Bash script
+            
+                cd
+                vim external_browser_player.sh
+                
+            Contents of the script:
+            
+                #!/bin/sh
+
+                VIDEO_URL=$1
+                VIDEO_ID=$(echo $VIDEO_URL | rev | cut -d '/' -f1 | rev)
+                mpv --hwdec=auto $(curl -s https://www.rtvs.sk/json/archive5f.json?id=$VIDEO_ID | grep -m 1 src | cut -d'"' -f4)
+                
+            
+            Save and exit by pressing `:wq`
+            
+            Setup Clipman
+            
+            
+            
+            Test on any RTVS video. Repeatedly click !!!!!!!!!!!!!!!!!!!! TODO FINISH DESCRIPTION !!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            ---
+            
+            **Forwarding videos from browser to VLC player**
+            
+            Install the  `vlc` package and all its dependencies, if any.
+            
+            Install the native client for _Send to VLC (VideoLAN) media player_ extension
+            
+            Download the native client from:
             
                 https://github.com/belaviyo/native-client/releases
                 
-            Install
+            example for Linux-based operating systems:
             
-            Test
+                mkdir ~/Downloads
+                cd Downloads
+                curl -L https://github.com/belaviyo/native-client/releases/download/0.4.6/linux.zip -oSend_to_VLC-native_client.zip
                 
-                https://www.rtvs.sk/televizia/archiv/16350/251893
+            You can also clone the git repo with `mkdir -p ~/git && cd ~/git && git clone https://github.com/belaviyo/native-client.git && cd native-client`, but it's approximately two times bigger, because it's not compressed and it's so big because it contains `node` binaries, which the installation script relies on.
+                
+            Install the native client
+            
+                unzip Send_to_VLC-native_client.zip -d "Send_to_VLC-native_client"
+                cd Send_to_VLC-native_client
+                ./install.sh
+                
+            The native client is ready for use immediately after installation.
+            
+            Test the plugin by navigating to any video on [RTVS](https://www.rtvs.sk/televizia/archiv/16350/251893) or [YouTube](https://www.youtube.com/watch?v=LXb3EKWsInQ), mute the video (for convenience later), start the video, pause the video. This initializes the plugin when it's forwarding video from the RTVS site - numbers may to appear at the extension's icon in the top right corner. If the icon is not diplayed there, pin it from the extensions menu. Click on the extension's icon. The video begins to play in VLC player.
+                
+            The limitation of this method is that the VLC can only play online youtube streams at 720p resolution. Here is a [description of the bug](https://trac.videolan.org/vlc/ticket/10237#no1) and a [possible patch](https://trac.videolan.org/vlc/attachment/ticket/10237/dash.patch) for that.
             
         - Check if the changes make effect at:
             - chrome://gpu/ - checking the status of `Graphics Feature Status`
@@ -304,6 +368,7 @@
     - Tab `General`
         - check `Restore previous session`
         - uncheck `Ctrl+Tab cycles through tabs in recently used order`
+        
 * redshift-minimal -> color temperature changer (spares eyes) -> run on background in tray with "redshift&"
     - Create environment for the config file
     
@@ -353,14 +418,15 @@
     - reboot
             
             reboot
-            
+          
+* intel-gpu-tools - provides `intel-gpu-top` Intel GPU utilization monitor - run as sudo
 * virtualbox-ext-oracle
 * virtualbox-guest-iso
 
 ---
 
-* dcfldd
-* p7zip/peazip-qt-bin - archive creation and extraction utility
+* dcfldd - safe `dd`
+* **p7zip**/peazip-qt-bin - 7z archive creation and extraction utility / 7z GUI wrapper
     - use `peazip` for maximum compression rate: https://peazip.github.io/maximum-compression-benchmark.html
 * evince/**okular**
     - PDF readers
