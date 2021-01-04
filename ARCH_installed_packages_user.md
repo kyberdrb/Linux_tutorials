@@ -256,14 +256,7 @@
             
             ~~Install the native client for _Watch with MPV_ extension: `pikaur -Syy watch-with-mpv`~~ Not necessary but if the installation from repository doesn't work, installing and uninstalling it right away, or just installing it and leaving the package there this *before* installing from ther repository may make it work.
                 
-            Download the forked repository which has MPV with hardware acceleration enabled and install it on top of the already installed native client. (Example for Linux)
-            
-                mkdir -p ~/git/forks
-                cd ~/git/forks
-                git clone https://github.com/kyberdrb/watch-with-mpv.git
-                cd watch-with-mpv/native/build/linux/
-                npm run build
-                sudo make install
+            Download the forked repository which has MPV with hardware acceleration enabled and install it on top of the already installed native client. [Follow these steps](https://github.com/kyberdrb/watch-with-mpv#arch-linux-diy-way--other-linux) to compile the native client by yourself on Linux.
             
             ~~This replaces the files installed by the package `watch-with-mpv` the native client for the extension.~~
             
