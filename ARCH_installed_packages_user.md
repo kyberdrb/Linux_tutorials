@@ -267,45 +267,90 @@
             
             ~~This replaces the files installed by the package `watch-with-mpv` the native client for the extension.~~
             
-            The video forwarding to MPV is immediately usable without restarting Chromium or reloading the site.
+            The video forwarding to MPV via native client is immediately usable without reloading the site, restarting Chromium or restarting the computer.
             
-            Test it (example). Go to e.g. [this page with a 1080p 60fps video](https://www.youtube.com/watch?v=LXb3EKWsInQ) pause the video and click the MPV icon in the top right corner. If the icon is not visible, pin it from the extension menu. The video will start to play in the MPV player. As a consequence, this solution provides less CPU and more GPU utilization, smooth and tear-free video playback. Overall, it's more efficient.
+            Test it (example). Go to e.g. [this page with a 1080p 60fps video](https://www.youtube.com/watch?v=LXb3EKWsInQ) pause the video and click the MPV icon in the top right corner. If the icon is not visible, pin it from the extension menu. The video will start to play in the MPV player. As a consequence, this solution provides less CPU and more GPU utilization, smooth and tear-free video playback. Overall, it's more efficient. Maybo not battery wise, but certainly utilization wise.
             
             ---
             
-            **Forwarding videos on RTVS.sk from browser to a multimedia player (or Forwarding _anything copied_ from browser to _anything else_)**
+            **Forwarding videos on RTVS.sk from browser to a multimedia player (or Forwarding _anything copied_ from browser to _anything else_)** - best quality with hardware acceleration, one-mark or multiple-clicks-on-the-same-spot method , universal, (little annoying during testign)
             
-            Use Clipman to launch a script to launch a multimedia player with hardware acceleration.
+            [Use Clipman to launch a script to launch a multimedia player with hardware acceleration](https://www.maketecheasier.com/open-youtube-video-vlc-clipman-linux/)
             
-            Install
+            Install Clipman
             
                 sudo pacman -Syy xfce4-clipman-plugin 
             
-            Create Bash script
+            Create Bash script...
             
                 cd
                 vim external_browser_player.sh
                 
-            Contents of the script:
+            ... that will work with JSON data similar to this example...
+            
+                {
+                   "request" : "Vmv8w47d",
+                   "clip" : {
+                      "mediaid" : 74456,
+                      "sources" : [
+                         {
+                            "type" : "application/x-mpegurl",
+                            "src" : "https://n2.stv.livebox.sk/stv-tv-arch/_definst_/smil:a510/00/0007/000744/00074456.smil/playlist.m3u8?auth=b64%3AYTUxMC8wMC8wMDA3LzAwMDc0NC8wMDA3NDQ1NnwxNjA5NzkyNTE4fDdkNWMwNDMyNTVjOWY5YjZlNzM0NTEyODM3NDI5NzJlZTRiODg4ZDU%3D"
+                         },
+                         {
+                            "type" : "application/dash+xml",
+                            "src" : "https://e8.stv.livebox.sk/stv-tv-arch/_definst_/smil:a510/00/0007/000744/00074456.smil/manifest.mpd?auth=b64%3AYTUxMC8wMC8wMDA3LzAwMDc0NC8wMDA3NDQ1NnwxNjA5NzkyNTE4fDdkNWMwNDMyNTVjOWY5YjZlNzM0NTEyODM3NDI5NzJlZTRiODg4ZDU%3D"
+                         }
+                      ],
+                      "title" : "Pumpa",
+                      "image" : "https://www.rtvs.sk/media/a501/image/file/2/0709/92fe.pumpa_jpg.jpg",
+                      "backend" : "e1",
+                      "description" : "Komediálny seriál reaguje na aktuálne udalosti predošlého týždňa cez trojicu svojských postáv. Mickey pracuje na benzínovej pumpe, kde za ním pravidelne chodí jeho bývalý spolužiak, taxikár Dano a málovravný štamgast Jari. Doma aj vo svete sa stále niečo deje a táto trojica má na to svoj vlastný názor.",
+                      "datetime_create" : "2020-12-05 23:58",
+                      "length" : "00:27:08"
+                   }
+                }
+                
+            ...so according to this input data, I came up with this content of the script:
             
                 #!/bin/sh
 
                 VIDEO_URL=$1
-                VIDEO_ID=$(echo $VIDEO_URL | rev | cut -d '/' -f1 | rev)
-                mpv --hwdec=auto $(curl -s https://www.rtvs.sk/json/archive5f.json?id=$VIDEO_ID | grep -m 1 src | cut -d'"' -f4)
+                VIDEO_ID_WITH_SECONDS=$(echo $VIDEO_URL | rev | cut -d '/' -f1)
+                VIDEO_ID_WITHOUT_SECONDS=$(echo $VIDEO_ID_WITH_SECONDS | cut -d'#' -f2 | rev)
+
+                echo "Playing video with ID: $VIDEO_ID_WITHOUT_SECONDS"
+
+                STREAM_URL=$(curl --silent https://www.rtvs.sk/json/archive5f.json?id=$VIDEO_ID_WITHOUT_SECONDS | grep -m 1 src | cut -d'"' -f4)
+
+                echo "Stream URL: $STREAM_URL"
+
+                mpv --hwdec=auto $STREAM_URL
+
                 
+            This script will extract only the video ID from the URL from the browser and open in a multimedia player with enabled hardware acceleration.
             
             Save and exit by pressing `:wq`
             
-            Setup Clipman
+            Setup Clipman: click on the status icon in the panel and select `Clipman settings...`. Go to `Actions` tab, turn on `Enable automatic actions`, select `Skip actions by holding Control`, i. e. actions will pop up when we **select** (not copy) text that matches the pattern, and click the `+` sign to create a new action. This action will handle the RTVS URLs.
             
+                Action
+                Name: RTVS
+                Pattern: .*rtvs.*
+                
+                Commands
+                Name: RTVS Player
+                Command: /home/laptop/git/kyberdrb/Linux_utils_and_gists/external_browser_player.sh \0
+                
+            Click OK to save the action. Close the settings window.
             
+            Test the functionality on any [RTVS video](https://www.rtvs.sk/televizia/archiv/16350/251046). Mark the URL in the address bar or repeatedly click on the URL until it's marked entirely. The pop up menu should appear. Choose the `RTVS Player`. The multimedia player opens with the video.
             
-            Test on any RTVS video. Repeatedly click !!!!!!!!!!!!!!!!!!!! TODO FINISH DESCRIPTION !!!!!!!!!!!!!!!!!!!!!!!!!
+            Clipman start automatically at startup by itself, so we have this comfort right after the installation.
             
             ---
             
-            **Forwarding videos from browser to VLC player**
+            **Forwarding videos from browser to VLC player** - one-click option
             
             Install the  `vlc` package and all its dependencies, if any.
             
