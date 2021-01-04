@@ -138,6 +138,8 @@
     - `libva` package helps to enable accelerated video playback through GPU by for VAAPI enabled drivers and GPU.
     - `youtube-dl` enables playing online videos and streams.
     
+    !!!!!!!!!!!!!!!!!! TODO ADD CONFIGURATION !!!!!!!!!!!!!!!!!!!!!!!
+    
 * vlc - multimedia player
     - Youtube network streaming fix
         
