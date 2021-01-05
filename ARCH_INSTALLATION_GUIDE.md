@@ -583,6 +583,25 @@ Basic packages for Intel graphics
 
     pacman -S xf86-video-intel vulkan-intel
     
+    ...
+	(1/2) installing libxvmc                                                  [#########################################] 100%
+	(2/2) installing xf86-video-intel                                         [#########################################] 100%
+	>>> This driver now uses DRI3 as the default Direct Rendering
+		Infrastructure. You can try falling back to DRI2 if you run
+		into trouble. To do so, save a file with the following 
+		content as /etc/X11/xorg.conf.d/20-intel.conf :
+		  Section "Device"
+			Identifier  "Intel Graphics"
+			Driver      "intel"
+			Option      "DRI" "2"             # DRI3 is now default 
+			#Option      "AccelMethod"  "sna" # default
+			#Option      "AccelMethod"  "uxa" # fallback
+		  EndSection
+    ...
+	
+- The `/etc/X11/xorg.conf.d/20-intel.conf` is only optional if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093).
+    
+- TODO maybe try to [skip installation of the `xf86-video-intel`](https://wiki.archlinux.org/index.php/Intel_graphics#Installation) in favor of the [modesetting driver](https://wiki.archlinux.org/index.php/Kernel_mode_setting)?
 - TODO describe what the packages do and why I chose them
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
     
@@ -793,19 +812,35 @@ Create `pikaur` config file
 
 ## Enable hardware acceleration for graphics
 
-Smoother video playback, less strain on CPU, more strain on GPU. Instead of the CPU doing the rendering, the rendering is offloaded to the GPU
+Smoother video playback, less strain on CPU, more strain on GPU. Instead of the CPU doing the rendering, the rendering is offloaded to the GPU.
 
-Hardware acceleration for Intel graphics for my new laptop. I preffer `intel-media-driver` before `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often.
+	sudo pacman -S libva lib32-libva
+	
+---
+
+**For Intel GPUs**
+
+Hardware acceleration for Intel graphics for my new laptop. I preffer `intel-media-driver` before `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often. Intel uses VAAPI to offload rendering and decoding to the graphics processor.
 
     sudo pacman -S intel-media-driver
     
-Maybe, in the future I will experiment with the alternative drivers [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) in order to enable hardware acceleration for [VP8 and VP9 acceleration](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel).
+Package `intel-media-driver` doesn't have its 32-bit `lib32-intel-media-driver` alternative.
+	
+Maybe, in the future I will experiment with the alternative drivers like the older [`libva-intel-driver`](https://archlinux.org/packages/extra/x86_64/libva-intel-driver/)/[`lib32-libva-intel-driver`](https://archlinux.org/packages/multilib/x86_64/lib32-libva-intel-driver/) without VP8 and VP9 acceleration and relying only on MP4 format encoded with AVC/H264 codecs for hardware acceleration  
+or  
+to extend hardware acceleration support for VP8 and VP9 codecs install [`libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/libva-intel-driver-hybrid/) which installs as a dependency the [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) [referenced in the Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel), but [in the comment section of `intel-hybrid-codec-driver` _randomgeek78_ recommend to use the `libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/#comment-765336) package instead, as it also wraps up the `intel-hybrid-codec-driver` as a dependency.
+`libva-intel-driver-hybrid` conflicts with the vanilla `libva-intel-driver`
+Both of these packages doesn't have their 32-bit `lib32-libva-intel-driver-hybrid` / `lib32-intel-hybrid-codec-driver` alternative.
+
+---
     
-For AMD/ATI GPUs or AMD APUs:
+**For AMD/ATI GPUs or AMD APUs:**
 
     libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 
-This activates VAAPI hardware acceleration for Intel GPU.
+This activates VAAPI and VDPAU hardware acceleration for AMD/API GPU.
+
+---
 
 According to [VA-API drivers supported formats table](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers) we can see that the MPEG4 format is not supported for hardware acceleration. But we can still try to force it. Open the file with environment variables
 
