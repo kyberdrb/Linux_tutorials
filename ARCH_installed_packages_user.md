@@ -470,10 +470,10 @@
 
 ---
 
-* virtualbox
+* virtualbox virtualbox-ext-oracle virtualbox-guest-iso
     - choose the option 
-        - `virtualbox-host-modules-arch`, if you have the default arch kernel,
-        - but if you have any custom kernel installed, like `linux-pf` use the package `virtualbox-host-dkms` see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
+        - `virtualbox-host-modules-arch`, if you have the default arch kernel, ...  
+            ... but if you have any custom kernel installed, like `linux-pf` use the package `virtualbox-host-dkms` see https://wiki.archlinux.org/index.php/VirtualBox#Install_the_core_packages
         - if you install, or forget to install, the compatible package matching the kernel type, the virtualbox virtual machine will fail to start with an error message. [https://bbs.archlinux.org/viewtopic.php?id=258955](The VirtualBox Linux kernel driver is either not loaded or not set up correctly.)
     - after installation add the user to the VirtualBox group. This allows for USB mounting for the virtual machine
     
@@ -485,19 +485,16 @@
             
             reboot
           
-* intel-gpu-tools - provides `intel-gpu-top` Intel GPU utilization monitor - run as sudo
-* virtualbox-ext-oracle
-* virtualbox-guest-iso
+* intel-gpu-tools - provides `intel-gpu-top` Intel GPU utilization monitor - run as `sudo intel-gpu-top`
 
 ---
 
-* dcfldd - safe `dd`
 * **p7zip**/peazip-qt-bin - 7z archive creation and extraction utility / 7z GUI wrapper
     - use `peazip` for maximum compression rate: https://peazip.github.io/maximum-compression-benchmark.html
 * evince/**okular**
     - PDF readers
     - Evince (GTK)
-    - Okular (Qt)
+    - Okular (Qt) (my preferred option - more features)
         - backend: **phonon-qt5-gstreamer**/phonon-qt5-vlc
             - https://www.reddit.com/r/kde/comments/5w9wty/gstreamer_or_vlc_as_phonon_backend/
             - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
@@ -508,7 +505,7 @@
             
 * **ebook-tools** - support for ebooks in EPUB format for **okular**
             
-* ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan tesseract-data-ces - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
+* ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan tesseract-data-ces tesseract-data-deu - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
     - trained datasets are stored in firectory `/usr/share/tessdata/`
     - A document is unsearchable, if it's composed of images, or the text cannot be searched, e.g. by `Ctrl + F`, or text cannot by selected
     - The command to make a PDF document searchable
@@ -535,9 +532,19 @@
 - jbig2enc-git - optional dependency for `ocrmypdf` utility - takes advantage of the lossy compression to JPEG image format in order to reduce the size of the final document to the minimum
 * pocketsphinx - audio transcription
     - Usage
-    
-            ffmpeg -i file.mp3 -ar 16000 -ac 1 file.wav
             pocketsphinx_continuous -time yes -infile file.wav 2> pocketsphinx.log > subtitle_file.txt
+
+        1. convert the file to the compatible format: audio rate 16kHz [-ar], mono (1 audio channel [-ac])
+
+                ffmpeg -i audio.mp3 -ar 16000 -ac 1 audio.wav
+            
+        - Generate Speech to Text for audio files without timestamps
+
+                pocketsphinx_continuous -infile audio.wav 2> pocketsphinx.log > audio.txt
+            
+        - Generate Speech to Text for audio files with timestamps (for better orientation in original/source media)
+
+                pocketsphinx_continuous -time yes -infile audio.wav 2> pocketsphinx.log > audio-with_timestamps.txt
         
         The english language model is installed by default. More language models can be found in https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/. Then move the model to `/usr/share/pocketsphinx/model/`
         
@@ -590,13 +597,9 @@
 
 ---
 
-* dmidecode - RAM info
-* lxqt - LXQt desktop environment: REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
-mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 * parallel - parallelize shell commands
 * thunar - favorite file manager
 * transmission-gtk / transmission-qt -> torrent klient
-* filezilla -> FTP client
 * gparted -> disk and partition manager
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 * audacity pulseaudio-alsa -> audio editing software
@@ -605,6 +608,13 @@ mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colo
     * [https://forum.audacityteam.org/viewtopic.php?t=98318#p344598](remove vocal from a song - No "Mono" option for each track - Audacity Forum)
 
 ---
+
+* dmidecode - RAM info
+* dcfldd - safe `dd`
+* lxqt - LXQt desktop environment
+    - REMOVE `pcmanfm-qt` and replace it by `thunar` as a file manager
+* filezilla -> FTP client
+* mousepad -> po instalacii otvorit mousepad, ist do Edit->Preferences->View->Colour scheme->Cobalt (biele pismena na ciernom pozadi)
 
 openvswitch -> virtual switch for bridging VMs and containers
 
