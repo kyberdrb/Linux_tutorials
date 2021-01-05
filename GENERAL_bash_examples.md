@@ -5,20 +5,6 @@ Recursively rename all files, directories etc. that contain spaces in their file
 * https://unix.stackexchange.com/questions/172186/find-xargs-and-mv-renaming-files-with-double-quotes-expansion-and-bash-preced/172196#172196
 * https://unix.stackexchange.com/questions/389705/understanding-the-exec-option-of-find/389706#389706
 
-Generate Speech to Text for audio files:
-
-1. convert the file to the compatible format
-  
-        ffmpeg -i audio.mp3 -ar 16000 -ac 1 audio.wav
-
-1. without timestamps
-    
-        pocketsphinx_continuous -infile audio.wav 2> pocketsphinx.log > audio.txt
-    
-1. with timestamps
-
-        pocketsphinx_continuous -time yes -infile audio.wav 2> pocketsphinx.log > audio-with_timestamps.txt
-
 ---
 
 List all files in a directory recursively sorted by size with largest first
