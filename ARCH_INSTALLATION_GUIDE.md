@@ -579,15 +579,17 @@ If the `localectl` command wouldn't be issued, we would see in the desktop envir
       
 ## Install graphics drivers
 
-Common graphics drivers
+Common graphics drivers and Vulkan support
 
-    pacman -S mesa lib32-mesa
+    pacman -S mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools
+    
+`vulkantools` provides the `vulkaninfo` utility to verify whether Vulkan API is enabled.
 
-I have integrated graphics on Intel Skylake platform.
+---
 
-Basic packages for Intel graphics
+**For Intel GPUs:** I have currently integrated graphics on Intel Skylake platform - Intel HD Graphics 520.
 
-    pacman -S xf86-video-intel vulkan-intel
+    pacman -S xf86-video-intel vulkan-intel lib32-vulkan-intel
     
     ...
 	(1/2) installing libxvmc                                                  [#########################################] 100%
@@ -605,19 +607,20 @@ Basic packages for Intel graphics
 		  EndSection
     ...
 	
-- The `/etc/X11/xorg.conf.d/20-intel.conf` is only optional if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093).
+- The `/etc/X11/xorg.conf.d/20-intel.conf` is **only optional** if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093) [just for curiosity].
     
-- TODO maybe try to [skip installation of the `xf86-video-intel`](https://wiki.archlinux.org/index.php/Intel_graphics#Installation) in favor of the [modesetting driver](https://wiki.archlinux.org/index.php/Kernel_mode_setting)?
-- TODO describe what the packages do and why I chose them
-- https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
-    
-For AMD/ATI graphics and AMD APUs, e.g. Kabini, I'm using the opensource drivers for better compatibility
+- TODO maybe try to [skip installation of the `xf86-video-intel`](https://wiki.archlinux.org/index.php/Intel_graphics#Installation) in favor of the [modesetting driver](https://wiki.archlinux.org/index.php/Kernel_mode_setting)? The [Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel) recommends to use the modesetting drivers when there are no issues.
 
-    pacman -S xf86-video-amdgpu vulkan-radeon
+---
+
+**For AMD/ATI graphics and AMD APUs**, e.g. Kabini, I'm using the opensource drivers for better compatibility
+
+    pacman -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon
 
 - TODO describe what the packages do and why I chose them
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD
 - https://wiki.archlinux.org/index.php/AMDGPU
+- https://wiki.archlinux.org/index.php/Vulkan
 
 ## Install desktop environment
 
