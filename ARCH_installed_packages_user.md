@@ -138,8 +138,34 @@
     - `libva` package helps to enable accelerated video playback through GPU by for VAAPI enabled drivers and GPU.
     - `youtube-dl` enables playing online videos and streams.
     
-    !!!!!!!!!!!!!!!!!! TODO ADD CONFIGURATION !!!!!!!!!!!!!!!!!!!!!!!
+    **Configuration**
     
+    MPV configuration file is designed specificly for at most 1080p videos encoded in H264/AVC codec with best audio available.  
+    Create the MPV configuration file...
+    
+        vim ~/.config/mpv/mpv.conf
+        
+    ... with this content
+    
+        ytdl-format=bestvideo[vcodec*=avc][height<=1080]+bestaudio/best
+        
+        
+    [Is it possible to set only a specific codec to play YouTube videos, for example, only H264?](https://hydrogenaud.io/index.php?topic=119836.msg989403#msg989403)
+    
+    [ytdl options](https://github.com/mpv-player/mpv/issues/2619)
+    
+    [mpv.conf - Argon-](https://github.com/Argon-/mpv-config/blob/master/mpv.conf)
+    
+    [mpv.conf - Ahjolinna](https://github.com/ahjolinna/mpv-conf/blob/master/mpv/etc/mpv.conf)
+    
+    ---
+    
+    **Playing media**
+    
+    I experimented with many options, e. g. rendering Vulkan, OpenGL, X11, different kinds of hardware acceleration and video output, fixing error messages in verbose output, but most benefitial of them was the option `--hwdec=auto`. With this option the media playback used the least CPU, was most stable and smooth, no tearing or stuttering. Therefore I run the MPV player with the command:
+    
+        mpv --hwdec=auto <multimedia_file_or_stream_URL>
+
 * vlc - multimedia player
     - Youtube network streaming fix
         
