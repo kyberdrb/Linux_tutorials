@@ -16,6 +16,12 @@
 	1. Clone the Arch ISO on it
 	
             sudo dd if=arch.iso of=/dev/sdb
+	    sync
+	    
+	    # or
+	  
+	    sudo dcfldd if=arch.iso of=/dev/sdb
+	    sync
     
     - Windows
     
@@ -24,7 +30,7 @@
 ## Boot from the USB
 
 1. Plug the USB drive into a PC and boot from it. Keep pressing F8 / F9 / F12 to get boot device selection menu or go straight to BIOS and change boot settings there. I recommend booting the USB and installing Arch Linux in UEFI mode. The booting mode can be set in the BIOS.
-    1. If your computer (like mine laptop HP 4530s) doesn't offer you a UEFI boot option for your USB, only the _Legacy_ one, boot from `EFI/boot/loader.efi` these steps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
+    1. If your computer (like laptop HP 4530s) doesn't offer you a UEFI boot option for your USB, only the _Legacy_ one, boot from `EFI/boot/loader.efi` these steps to boot the USB in UEFI mode (make sure UEFI booting is enabled in the BIOS):
         1. Rapidly press F9
         1. Choose `Boot From EFI File`
         1. Choose option `ARCHISO_EFI_...`
@@ -824,12 +830,13 @@ Hardware acceleration for Intel graphics for my new laptop. I preffer `intel-med
 
     sudo pacman -S intel-media-driver
     
-Package `intel-media-driver` doesn't have its 32-bit `lib32-intel-media-driver` alternative.
+Package `intel-media-driver` doesn't have its 32-bit `lib32-intel-media-driver` alternative.  
+But it has some [issues with Firefox under Xorg](https://www.linuxquestions.org/questions/debian-26/intel-10th-gen-comet-lake-graphics-driver-issues-4175683860/#post6178511), unless you want to disable sandboxing for web media content, which might me a serious security issue. [1](https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration), [2](https://mastransky.wordpress.com/2020/06/03/firefox-on-fedora-finally-gets-va-api-on-wayland/)
 	
-Maybe, in the future I will experiment with the alternative drivers like the older [`libva-intel-driver`](https://archlinux.org/packages/extra/x86_64/libva-intel-driver/)/[`lib32-libva-intel-driver`](https://archlinux.org/packages/multilib/x86_64/lib32-libva-intel-driver/) without VP8 and VP9 acceleration and relying only on MP4 format encoded with AVC/H264 codecs for hardware acceleration  
+Maybe, in the future I will experiment with the alternative drivers like the older [`libva-intel-driver`](https://archlinux.org/packages/extra/x86_64/libva-intel-driver/)/[`lib32-libva-intel-driver`](https://archlinux.org/packages/multilib/x86_64/lib32-libva-intel-driver/) **without** VP8 and VP9 acceleration and relying only on MP4 format encoded with AVC/H264 codecs for hardware acceleration. Intel Skylake iGPUs are able to decode VP8 with hardwre, but not VP9.
 or  
-to extend hardware acceleration support for VP8 and VP9 codecs install [`libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/libva-intel-driver-hybrid/) which installs as a dependency the [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) [referenced in the Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel), but [in the comment section of `intel-hybrid-codec-driver` _randomgeek78_ recommend to use the `libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/#comment-765336) package instead, as it also wraps up the `intel-hybrid-codec-driver` as a dependency.
-`libva-intel-driver-hybrid` conflicts with the vanilla `libva-intel-driver`
+to extend hardware acceleration support to VP8 and VP9 codecs install [`libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/libva-intel-driver-hybrid/) which installs as a dependency the [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) [referenced in the Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel), but [in the comment section of `intel-hybrid-codec-driver` _randomgeek78_ recommend to use the `libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/#comment-765336) package instead of directly using the `intel-hybrid-codec-driver`, as it also wraps up the `intel-hybrid-codec-driver` as a dependency.  
+`libva-intel-driver-hybrid` conflicts with the vanilla `libva-intel-driver`  
 Both of these packages doesn't have their 32-bit `lib32-libva-intel-driver-hybrid` / `lib32-intel-hybrid-codec-driver` alternative.
 
 ---
