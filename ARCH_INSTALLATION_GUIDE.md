@@ -581,15 +581,18 @@ If the `localectl` command wouldn't be issued, we would see in the desktop envir
 
 Common graphics drivers and Vulkan support
 
-    pacman -S mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools
+    pacman -S mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools mesa-demos lib32-mesa-demos
     
 `vulkantools` provides the `vulkaninfo` utility to verify whether Vulkan API is enabled.
+`mesa-demos` and `lib32-mesa-demos` provide the `glxgears` utility for benchmarking [1](https://bbs.archlinux.org/viewtopic.php?pid=838572#p838572)
+
+	pikaur -Syy vkmark-git
 
 ---
 
-**For Intel GPUs:** I have currently integrated graphics on Intel Skylake platform - Intel HD Graphics 520.
+**For Intel GPUs - Xorg `nomodeset` driver:** I have currently integrated graphics on Intel Skylake platform - Intel HD Graphics 520 with this driver. (But can't wait to try out the modesetting drivers)
 
-    pacman -S xf86-video-intel vulkan-intel lib32-vulkan-intel
+    pacman -S xf86-video-intel vulkan-intel lib32-vulkan-intel intel-gpu-tools
     
     ...
 	(1/2) installing libxvmc                                                  [#########################################] 100%
@@ -606,9 +609,27 @@ Common graphics drivers and Vulkan support
 			#Option      "AccelMethod"  "uxa" # fallback
 		  EndSection
     ...
-	
+
+The package `intel-gpu-tools` provides the utility `intel_gpu_top` which monitors the utilization of the Intel GPU. Run as `sudo intel_gpu_top`
+
 - The `/etc/X11/xorg.conf.d/20-intel.conf` is **only optional** if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093) [just for curiosity].
-    
+
+---
+
+**For Intel GPUs - Xorg `modesetting` driver:**
+
+Remove all `xf86-video-*` packages. In my case it were `xf86-video-intel` and `xf86-video-vesa`.
+
+	sudo pacman -Runs xf86-video-intel xf86-video-vesa
+	
+Close all programms and reboot
+
+	reboot
+	
+[The modesetting driver should initialize by default](https://wiki.archlinux.org/index.php/Xorg#Driver_installation) because its the only graphics driver available for that GPU, i. e. there are no specialized drivers for that GPU, nor there is the generic `vesa` driver available, so `modesetting` driver in the kernel is the fallback option.
+
+I'm curious what the performance and smoothness of the video playback will be like in comparison to the nomodeset Intel driver `xf86-video-intel` ...
+
 - TODO maybe try to [skip installation of the `xf86-video-intel`](https://wiki.archlinux.org/index.php/Intel_graphics#Installation) in favor of the [modesetting driver](https://wiki.archlinux.org/index.php/Kernel_mode_setting)? The [Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel) recommends to use the modesetting drivers when there are no issues.
 
 ---
@@ -626,7 +647,7 @@ Common graphics drivers and Vulkan support
 
 XFCE4
 
-    sudo pacman -S xfce4 xfce4-goodies
+    sudo pacman -S xfce4 xfce4-goodies xorg-apps
 
 ## Login
 
@@ -858,6 +879,7 @@ According to [VA-API drivers supported formats table](https://wiki.archlinux.org
     
 Try to enable hardware acceleration for this format explicitely by defining a new environment variable. Adding to the file this line:
 
+	LIBVA_DRIVER_NAME=iHD
     VAAPI_MPEG4_ENABLED=true
     
 This should be enough for the Intel graphics. We don't need to explicitely define the `LIBVA_DRIVER_NAME` when the output of `vainfo` shows acceleration of media formats for the GPU.
