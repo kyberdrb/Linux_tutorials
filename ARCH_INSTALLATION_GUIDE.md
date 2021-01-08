@@ -662,11 +662,21 @@ Edit this file...
 	
 	options i915 enable_guc=2
 	
-Then regenerate the initramfs
+Then regenerate the initramfs:
 
     ./remount_boot_part_as_writable.sh
     KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
     sudo mkinitcpio -p $KERNEL_NAME
+    
+Reboot
+
+Verify if GuC and HuC are enabled
+
+	sudo cat /sys/kernel/debug/dri/0/gt/uc/guc_info
+	sudo cat /sys/kernel/debug/dri/0/gt/uc/huc_info
+	dmesg | grep i915
+	modprobe -c | grep i915 | less
+	
 
 ---
 
