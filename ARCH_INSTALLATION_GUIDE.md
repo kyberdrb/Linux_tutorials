@@ -581,14 +581,20 @@ If the `localectl` command wouldn't be issued, we would see in the desktop envir
 
 Common graphics drivers and Vulkan support
 
-    pacman -S mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools mesa-demos lib32-mesa-demos
+    pacman -S mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader vulkan-headers vulkan-tools mesa-demos lib32-mesa-demos
+    pikaur -Syy vkmark-git assimp
     
-`vulkantools` provides the `vulkaninfo` utility to verify whether Vulkan API is enabled.
-`mesa-demos` and `lib32-mesa-demos` provide the `glxgears` utility for benchmarking [1](https://bbs.archlinux.org/viewtopic.php?pid=838572#p838572)
-
-	pikaur -Syy vkmark-git
+- `vulkantools` provides the `vulkaninfo` utility to verify whether Vulkan API is enabled.
+- `mesa-demos` and `lib32-mesa-demos` provide the `glxgears` utility for benchmarking [1](https://bbs.archlinux.org/viewtopic.php?pid=838572#p838572)
+    - run `glxgears` utility as `vblank_mode=0 glxgears -fullscreen`
+- `vkmark-git` contains the utility `vkmark` which benchmarks GPU performance in Vulkan environment.
+    - `assimp` package is required, because without it I got an error `vkmark: error while loading shared libraries: libassimp.so.5: cannot open shared object file: No such file or directory`
+    
+https://wiki.archlinux.org/index.php/Benchmarking#Graphics
 
 ---
+
+For an advice which graphics driver to choose, see [this table](https://wiki.archlinux.org/index.php/Xorg#Driver_installation).
 
 **For Intel GPUs - Xorg `nomodeset` driver:** I have currently integrated graphics on Intel Skylake platform - Intel HD Graphics 520 with this driver. (But can't wait to try out the modesetting drivers)
 
@@ -616,15 +622,60 @@ The package `intel-gpu-tools` provides the utility `intel_gpu_top` which monitor
 
 ---
 
-**For Intel GPUs - Xorg `modesetting` driver:**
+**For Intel GPUs - Xorg `modesetting` driver - Early KMS (Kernel Mode Setting):**
 
-Remove all `xf86-video-*` packages. In my case it were `xf86-video-intel` and `xf86-video-vesa`.
+[Remove all `xf86-video-*` packages.](https://bbs.archlinux.org/viewtopic.php?id=229242) In my case it were `xf86-video-intel` and `xf86-video-vesa`. [Reason for removal](https://wiki.archlinux.org/index.php/Xorg#Driver_installation)
 
 	sudo pacman -Runs xf86-video-intel xf86-video-vesa
+	
+Start Intel graphics module during initramfs stage - [Early KMS start](https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start) by editing the file... [Source](https://gist.github.com/lbrame/1678c00213c2bd069c0a59f8733e0ee6#using-the-modesetting-driver)
+
+	sudo vim /etc/mkinitcpio.conf
+
+... with content
+
+	MODULES=(i915)
+    
+Save and exit by pressing `ESC + :wq`
+
+Regenerate `initramfs` image
+
+    KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
+    mkinitcpio -p $KERNEL_NAME
 	
 Close all programms and reboot
 
 	reboot
+    
+If everything goes well, you will see the destop environment as if nothing changed.
+
+[Verify modesetting driver](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options)
+
+    modinfo -p i915
+    systool -m i915 -av
+
+You can tweak the GPU properties to obtain higher GPU performance, better smoothness or enhanced power-saving features.
+
+https://wiki.archlinux.org/index.php/Kernel_mode_setting
+
+https://wiki.archlinux.org/index.php/Kernel_module#Setting_module_options
+
+https://gist.github.com/lbrame/1678c00213c2bd069c0a59f8733e0ee6#using-the-modesetting-driver
+
+https://wiki.gentoo.org/wiki/Intel
+
+https://wiki.archlinux.org/index.php/Intel_graphics#Enable_GuC_/_HuC_firmware_loading
+
+[What does GuC and HuC mean?](https://01.org/linuxgraphics/downloads/firmware)
+
+Enable framebuffer compression. Benchmark before and after enabling this property to see to what extent affects this property the GPU performance.
+https://wiki.archlinux.org/index.php/Intel_graphics#Framebuffer_compression_(enable_fbc)
+
+https://kernelnewbies.org/Linux_4.11
+
+https://archlinux.org/news/xorg-server-116-is-now-available/
+
+https://jlk.fjfi.cvut.cz/arch/manpages/man/modesetting.4
 	
 [The modesetting driver should initialize by default](https://wiki.archlinux.org/index.php/Xorg#Driver_installation) because its the only graphics driver available for that GPU, i. e. there are no specialized drivers for that GPU, nor there is the generic `vesa` driver available, so `modesetting` driver in the kernel is the fallback option.
 
@@ -763,6 +814,25 @@ Sample `~/.bash_profile`
     You will be greeted with a command line login prompt.
 
     Enter your username and password. The desktop environment will start immediately.
+    
+## Verifying graphics driver installation
+
+    LIBGL_DEBUG=1 glxinfo -B
+    xdriinfo
+    less ~/.local/share/xorg/Xorg.0.log
+    less /var/log/Xorg.0.log
+    
+Run benchmark utilities for testing GPU performance and HW acceleration
+
+Temportarily disable warning `MESA-INTEL: warning: Performance support disabled, consider sysctl dev.i915.perf_stream_paranoid=0`  
+[[for permanent deactivation for development purposes see step with `dev.i915.perf_stream_paranoid` - at the time of writing it's step 7.]](https://software.intel.com/content/www/us/en/develop/articles/enabling-vulkan-vk-intel-performance-query-extension-in-ubuntu.html)
+
+    sudo sysctl -w dev.i915.perf_stream_paranoid=0
+    
+Benchmark GPU performance
+
+    vblank_mode=0 glxgears -fullscreen
+    vkmark
 
 ## AUR helper utility
 
