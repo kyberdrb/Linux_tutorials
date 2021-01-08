@@ -642,13 +642,17 @@ Save and exit by pressing `ESC + :wq`
 Regenerate `initramfs` image
 
     KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
-    mkinitcpio -p $KERNEL_NAME
+    sudo mkinitcpio -p $KERNEL_NAME
 	
 Close all programms and reboot
 
 	reboot
     
 If everything goes well, you will see the destop environment as if nothing changed.
+
+Now we can proceed to the modesetting driver configuration.
+
+**Configure GuC and HuC**
 
 ---
 
