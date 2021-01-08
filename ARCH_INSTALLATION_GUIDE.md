@@ -332,12 +332,15 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
     #kernel: linux-ck-skylake linux-ck-skylake-headers
     [repo-ck]
-    Server = https://mirror.lesviallon.fr/$repo/os/$arch
+    #SigLevel = Optional
+    #SigLevel = TrustAll
+    #SigLevel = Optional TrustAll
     Server = http://repo-ck.com/$arch
+    Server = https://mirror.lesviallon.fr/$repo/os/$arch
 
     #kernel: linux-pf-skylake linux-pf-headers-skylake
     [home_post-factum_kernels_Arch]
-    SigLevel = Optional
+    SigLevel = Optional TrustAll
     Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
 
 
