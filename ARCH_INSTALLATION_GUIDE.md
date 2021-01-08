@@ -286,69 +286,60 @@ Set up pacman repositories [Some of them are here: https://wiki.archlinux.org/in
 
 	nano /etc/pacman.conf
 	
-	[options]
-	HoldPkg     = pacman glibc
-	Architecture = auto
+    [options]
+    HoldPkg     = pacman glibc
+    Architecture = auto
 
-	CheckSpace
+    CheckSpace
 
-	SigLevel    = Required DatabaseOptional TrustedOnly
-	LocalFileSigLevel = Optional
+    SigLevel    = Required DatabaseOptional TrustedOnly
+    LocalFileSigLevel = Optional
 
-	[core]
-	Include = /etc/pacman.d/mirrorlist
+    [core]
+    Include = /etc/pacman.d/mirrorlist
 
-	[extra]
-	Include = /etc/pacman.d/mirrorlist
+    [extra]
+    Include = /etc/pacman.d/mirrorlist
 
-	[community]
-	Include = /etc/pacman.d/mirrorlist
+    [community]
+    Include = /etc/pacman.d/mirrorlist
 
-	[multilib]
-	Include = /etc/pacman.d/mirrorlist
+    [multilib]
+    Include = /etc/pacman.d/mirrorlist
 
-	#AUR - Arch User Repository
-	[archlinuxfr]
-	Server = http://repo.archlinux.fr/$arch
+    #AUR - Arch User Repository
+    [archlinuxfr]
+    Server = http://repo.archlinux.fr/$arch
 
-	#virtualbox_extension_pack
-	[seblu]
-	Server = http://al.seblu.net/$repo/$arch
+    #virtualbox_extension_pack
+    [seblu]
+    Server = http://al.seblu.net/$repo/$arch
 
-	#pocketsphinx, vscodium
-	[ownstuff]
-	Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
-	Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
+    #pocketsphinx, vscodium
+    [ownstuff]
+    Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
+    Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
 
-	#chaotic-keyring
-	#kernel: linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers
-	#kernel: linux-lqx linux-lqx-headers
-	#for using, see: https://lonewolf.pedrohlc.com/chaotic-aur/
-	[chaotic-aur]
-	# Germany
-	Server = http://chaotic.bangl.de/$repo/$arch
-	# Netherlands
-	Server = https://chaotic.tn.dedyn.io/$arch
-	# Spain
-	Server = https://repo.jkanetwork.com/repo/$repo/$arch
-	# USA
-	Server = https://builds.garudalinux.org/repos/$repo/$arch
-	Server = https://repo.kitsuna.net/$arch
-	# Brazil
-	Server = https://lonewolf.pedrohlc.com/$repo/$arch
-	# Korea
-	Server = https://mirror.maakpain.kro.kr/garuda/$repo/$arch
+    #kernel: linux-lqx linux-lqx-headers
+    [liquorix]
+    Server = https://liquorix.net/archlinux/$repo/$arch
 
-	#kernel: linux-ck-skylake linux-ck-skylake-headers
-	[repo-ck]
-	Server = https://mirror.lesviallon.fr/$repo/os/$arch
-	Server = http://repo-ck.com/$arch
+    #chaotic-keyring
+    #kernel: linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers
+    #for using, see: https://lonewolf.pedrohlc.com/chaotic-aur/
+    [chaotic-aur]
+    Include = /etc/pacman.d/chaotic-mirrorlist
 
-	#kernel: linux-pf-skylake linux-pf-headers-skylake
-	[home_post-factum_kernels_Arch]
-	SigLevel = Optional
-	Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
-	
+    #kernel: linux-ck-skylake linux-ck-skylake-headers
+    [repo-ck]
+    Server = https://mirror.lesviallon.fr/$repo/os/$arch
+    Server = http://repo-ck.com/$arch
+
+    #kernel: linux-pf-skylake linux-pf-headers-skylake
+    [home_post-factum_kernels_Arch]
+    SigLevel = Optional
+    Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
+
 
 Save file (Ctrl + O) and exit (Ctrl + X).
 
