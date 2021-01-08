@@ -628,6 +628,16 @@ The package `intel-gpu-tools` provides the utility `intel_gpu_top` which monitor
 
 	sudo pacman -Runs xf86-video-intel xf86-video-vesa
 	
+Close all programms and reboot
+
+	reboot
+	
+If everything goes well, you will see the destop environment as if nothing changed.
+
+---
+
+But if doesn't we know that some configuration is missing and it isn't automatically detected.
+	
 Start Intel graphics module during initramfs stage - [Early KMS start](https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start) by editing the file... [Source](https://gist.github.com/lbrame/1678c00213c2bd069c0a59f8733e0ee6#using-the-modesetting-driver)
 
 	sudo vim /etc/mkinitcpio.conf
@@ -663,7 +673,7 @@ If something breaks (blank screen, system not booting, X or desktop environment 
         
 1. Revert the changes, i .e. delete the files or changes in configurations from previous guide, e. g. modifications to `/etc/mkinitcpio.conf` and then regenerating the `initramfs` image for the kernel again.
         
-1. Tell Xorg to load the modesetting driver by editing a configuration file...
+1. Tell Xorg to [load the modesetting driver](https://wiki.gentoo.org/wiki/Intel#Modesetting_DDX) by editing a configuration file...
 
         sudo vim /etc/X11/xorg.conf.d/20-modesetting.conf
         
@@ -678,7 +688,7 @@ If something breaks (blank screen, system not booting, X or desktop environment 
         
 Save and exit by pressing `Esc :wq`
 
-1. Finalize Xorg configuration for Intel modesetting driver by editing file...
+1. Finalize [Xorg configuration for Intel modesetting driver [see the bullet point 'Alternate Driver for Gen 4+ -- Modesetting']](https://wiki.gentoo.org/wiki/Intel#xorg.conf_3) by editing file...
 
         sudo vim /etc/X11/xorg.conf.d/modesetting.conf
         
