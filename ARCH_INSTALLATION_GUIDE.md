@@ -649,6 +649,55 @@ Close all programms and reboot
     
 If everything goes well, you will see the destop environment as if nothing changed.
 
+---
+
+If something breaks (blank screen, system not booting, X or desktop environment [DE] not starting etc.) try out [this method](https://www.youtube.com/watch?v=zEhAJMQYSws).
+
+1. Boot from the Arch Linux USB
+
+1. `chroot` into the system
+
+        mount /dev/sda2 /mnt
+        mount /dev/sda1 /mnt/boot
+        arch-chroot /mnt
+        
+1. Revert the changes, i .e. delete the files or changes in configurations from previous guide, e. g. modifications to `/etc/mkinitcpio.conf` and then regenerating the `initramfs` image for the kernel again.
+        
+1. Tell Xorg to load the modesetting driver by editing a configuration file...
+
+        sudo vim /etc/X11/xorg.conf.d/20-modesetting.conf
+        
+    ... with this content:
+        
+        Section "Device"
+            Identifier  "Intel Graphics"
+            Driver      "modesetting"
+            Option      "AccelMethod"    "glamor"
+            Option      "DRI"            "3"
+        EndSection
+        
+Save and exit by pressing `Esc :wq`
+
+1. Finalize Xorg configuration for Intel modesetting driver by editing file...
+
+        sudo vim /etc/X11/xorg.conf.d/modesetting.conf
+        
+    ... with this content:
+    
+        Section "Device"
+           Identifier  "modesetting"
+           Driver      "modesetting"
+        EndSection
+
+1. Exit from the `chroot` environment and reboot the system.
+
+        exit
+        reboot
+        
+The desktop environment will appear.
+
+---
+
 [Verify modesetting driver](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options)
 
     modinfo -p i915
