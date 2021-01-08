@@ -686,6 +686,8 @@ teamviewer -> na ovladanie vzdialenych ploch - aj pre android :D (https://crazyt
 
 -DEVELOPMENT
 
+intel-compute-runtime ocl-icd lib32-ocl-icd opencl-headers - OpenCL runtime, loader, library and headers for GPGPU development and usage (Specific for Intel GPU). To set up OpenCL for other GPU vendors, see the [Arch Wiki -GPGPU](https://wiki.archlinux.org/index.php/GPGPU)
+
 pycharm-professional -> Python/HTML/CSS/JS IDE from JetBrains; the community edition is good, but is lacking the "code coverage" functionality; needs to be activated - use one of the "jetbrains activation servers" << google that ;) or http://xidea.online/servers.html
 
 mono - c# support for linux - see "https://wiki.archlinux.org/index.php/mono" for compilation and run instructions
