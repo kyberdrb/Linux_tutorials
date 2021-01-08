@@ -979,7 +979,9 @@ Smoother video playback, less strain on CPU, more strain on GPU. Instead of the 
 
 **For Intel GPUs**
 
-Hardware acceleration for Intel graphics for my new laptop. I preffer `intel-media-driver` before `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often. Intel uses VAAPI to offload rendering and decoding to the graphics processor.
+Intel uses VAAPI to offload rendering and decoding to the graphics processor.
+
+I'm currently using with the Intel HD 520 GPU the `intel-media-driver` instead of `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often. But I'll switch to the latter to see what difference it makes.
 
     sudo pacman -S intel-media-driver
     
