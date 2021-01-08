@@ -611,7 +611,7 @@ The package `intel-gpu-tools` provides the utility `intel_gpu_top` which monitor
 
 ---
 
-**For Intel GPUs - Xorg `modesetting` driver - Early KMS (Kernel Mode Setting):**
+**For Intel GPUs - Xorg `modesetting` driver - Late KMS (Kernel Mode Setting):**
 
 [Remove all `xf86-video-*` packages.](https://bbs.archlinux.org/viewtopic.php?id=229242) In my case it were `xf86-video-intel` and `xf86-video-vesa`. [Reason for removal](https://wiki.archlinux.org/index.php/Xorg#Driver_installation)
 
@@ -624,6 +624,8 @@ Close all programms and reboot
 If everything goes well, you will see the destop environment as if nothing changed.
 
 ---
+
+**For Intel GPUs - Xorg `modesetting` driver - Early KMS (Kernel Mode Setting):**
 
 But if doesn't we know that some configuration is missing and it isn't automatically detected.
 	
@@ -696,11 +698,6 @@ Save and exit by pressing `Esc :wq`
 The desktop environment will appear.
 
 ---
-
-[Verify modesetting driver](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options)
-
-    modinfo -p i915
-    systool -m i915 -av
 
 You can tweak the GPU properties to obtain higher GPU performance, better smoothness or enhanced power-saving features.
 
@@ -865,10 +862,17 @@ Sample `~/.bash_profile`
     
 ## Verifying graphics driver installation
 
+Verify what graphics driver got activated
+
     LIBGL_DEBUG=1 glxinfo -B
     xdriinfo
     less ~/.local/share/xorg/Xorg.0.log
     less /var/log/Xorg.0.log
+    
+[Verify modesetting driver](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options)
+
+    modinfo -p i915
+    systool -m i915 -av
     
 Run benchmark utilities for testing GPU performance and HW acceleration
 
