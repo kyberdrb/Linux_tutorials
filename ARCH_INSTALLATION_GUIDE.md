@@ -13,14 +13,9 @@
     
             lsblk
 	    
-	1. Clone the Arch ISO on it
+	1. [Clone the Arch ISO on the USB stick](https://wiki.archlinux.org/index.php/USB_flash_installation_medium#Using_basic_command_line_utilities)
 	
-            sudo dd if=arch.iso of=/dev/sdb
-	    sync
-	    
-	    # or
-	  
-	    sudo dcfldd if=arch.iso of=/dev/sdb
+            sudo dd bs=4M if=path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync
 	    sync
     
     - Windows
