@@ -652,7 +652,21 @@ If everything goes well, you will see the destop environment as if nothing chang
 
 Now we can proceed to the modesetting driver configuration.
 
-**Configure GuC and HuC**
+**Enable GuC and HuC**
+
+Edit this file...
+	
+	sudo vim /etc/modprobe.d/i915.conf
+	
+... with this content:
+	
+	options i915 enable_guc=2
+	
+Then regenerate the initramfs
+
+    ./remount_boot_part_as_writable.sh
+    KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
+    sudo mkinitcpio -p $KERNEL_NAME
 
 ---
 
