@@ -583,32 +583,18 @@ https://wiki.archlinux.org/index.php/Benchmarking#Graphics
 
 ---
 
-For an advice which graphics driver to choose, see [this table](https://wiki.archlinux.org/index.php/Xorg#Driver_installation).
+Continue with the installation of the driver which is specific to your GPU vendor.
 
-**For Intel GPUs - Xorg `nomodeset` driver:** I have currently integrated graphics on Intel Skylake platform - Intel HD Graphics 520 with this driver. (But can't wait to try out the modesetting drivers)
+---
 
-    pacman -S xf86-video-intel vulkan-intel lib32-vulkan-intel intel-gpu-tools
-    
-    ...
-	(1/2) installing libxvmc                                                  [#########################################] 100%
-	(2/2) installing xf86-video-intel                                         [#########################################] 100%
-	>>> This driver now uses DRI3 as the default Direct Rendering
-		Infrastructure. You can try falling back to DRI2 if you run
-		into trouble. To do so, save a file with the following 
-		content as /etc/X11/xorg.conf.d/20-intel.conf :
-		  Section "Device"
-			Identifier  "Intel Graphics"
-			Driver      "intel"
-			Option      "DRI" "2"             # DRI3 is now default 
-			#Option      "AccelMethod"  "sna" # default
-			#Option      "AccelMethod"  "uxa" # fallback
-		  EndSection
-    ...
+Current GPU - Intel HD Graphics 520
 
+**General packages for Intel GPUs**
+
+    sudo pacman -Syy vulkan-intel lib32-vulkan-intel intel-gpu-tools
+	
 The package `intel-gpu-tools` provides the utility `intel_gpu_top` which monitors the utilization of the Intel GPU. Run as `sudo intel_gpu_top`
-
-- The `/etc/X11/xorg.conf.d/20-intel.conf` is **only optional** if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093) [just for curiosity].
-
+	
 ---
 
 **For Intel GPUs - Xorg `modesetting` driver - Late KMS (Kernel Mode Setting):**
@@ -627,7 +613,7 @@ If everything goes well, you will see the destop environment as if nothing chang
 
 **For Intel GPUs - Xorg `modesetting` driver - Early KMS (Kernel Mode Setting):**
 
-But if doesn't we know that some configuration is missing and it isn't automatically detected.
+If the system rebooted and after you've logged in you see the desktop environment, continue with the setup to [enable early modesetting driver](https://wiki.archlinux.org/index.php/Intel_graphics#Enable_early_KMS) which may increase performance and give access to more power-saving features.
 	
 Start Intel graphics module during initramfs stage - [Early KMS start](https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start) by editing the file... [Source](https://gist.github.com/lbrame/1678c00213c2bd069c0a59f8733e0ee6#using-the-modesetting-driver)
 
@@ -749,16 +735,40 @@ https://kernelnewbies.org/Linux_4.11
 https://archlinux.org/news/xorg-server-116-is-now-available/
 
 https://jlk.fjfi.cvut.cz/arch/manpages/man/modesetting.4
-	
-[The modesetting driver should initialize by default](https://wiki.archlinux.org/index.php/Xorg#Driver_installation) because its the only graphics driver available for that GPU, i. e. there are no specialized drivers for that GPU, nor there is the generic `vesa` driver available, so `modesetting` driver in the kernel is the fallback option.
 
-I'm curious what the performance and smoothness of the video playback will be like in comparison to the nomodeset Intel driver `xf86-video-intel` ...
+https://gist.github.com/Brainiarc7/aa43570f512906e882ad6cdd835efe57
 
-- TODO maybe try to [skip installation of the `xf86-video-intel`](https://wiki.archlinux.org/index.php/Intel_graphics#Installation) in favor of the [modesetting driver](https://wiki.archlinux.org/index.php/Kernel_mode_setting)? The [Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel) recommends to use the modesetting drivers when there are no issues.
+---
+
+**For Intel GPUs - Xorg nomodeset driver:**
+
+If everything else failed, use the nomodeset Intel driver
+
+    pacman -S xf86-video-intel
+    
+    ...
+	(1/2) installing libxvmc                                                  [#########################################] 100%
+	(2/2) installing xf86-video-intel                                         [#########################################] 100%
+	>>> This driver now uses DRI3 as the default Direct Rendering
+		Infrastructure. You can try falling back to DRI2 if you run
+		into trouble. To do so, save a file with the following 
+		content as /etc/X11/xorg.conf.d/20-intel.conf :
+		  Section "Device"
+			Identifier  "Intel Graphics"
+			Driver      "intel"
+			Option      "DRI" "2"             # DRI3 is now default 
+			#Option      "AccelMethod"  "sna" # default
+			#Option      "AccelMethod"  "uxa" # fallback
+		  EndSection
+    ...
+
+- The `/etc/X11/xorg.conf.d/20-intel.conf` is **only optional** if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093) [just for curiosity].
 
 ---
 
 **For AMD/ATI graphics and AMD APUs**, e.g. Kabini, I'm using the opensource drivers for better compatibility
+
+For an advice which graphics driver to choose, see [this table](https://wiki.archlinux.org/index.php/Xorg#Driver_installation).
 
     pacman -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon
 
