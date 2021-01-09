@@ -132,8 +132,8 @@
         - Duplicate Line: Ctrl + Shift + D
         
 * obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
-        
-* mpv libva youtube-dl - multimedia player
+* parole - my preferred audio player
+* mpv libva youtube-dl - my favorite multimedia player for playing online streaming content e. g. YouTube videos with HW acceleration
     - `libva` package helps to enable accelerated video playback through GPU by for VAAPI enabled drivers and GPU.
     - `youtube-dl` enables playing online videos and streams.
     
@@ -189,7 +189,7 @@
     
         mpv --hwdec=auto <multimedia_file_or_stream_URL>
 
-* vlc - multimedia player
+* vlc - my preferred multimedia player for local files
     - Youtube network streaming fix
         
             # Go to the VLC directory
@@ -254,7 +254,9 @@
         Sources:
         - https://www.quora.com/How-do-I-select-the-video-quality-in-VLC-while-playing-a-YouTube-stream
         
-* streamlink - utility to watch streams - wrapper around other players - online video forwarder
+* streamlink - wrapper around other multimedia players - utility that forwards online streams of given quality to the chosen multimedia player
+    - a way how to play online streams outsite the web browser
+    - The main purpose of [Streamlink](https://streamlink.github.io/index.html#) is to avoid resource-heavy and unoptimized websites, while still allowing the user to enjoy various streamed content.
 
     Usage example:
     
@@ -270,6 +272,9 @@
     
             [mkv] EOF reached
             [cplayer] EOF code: 5
+            
+* minitube - my favorite player for playing videos in 1440p/2K/4K with lower GPU power consumption than hardware accelerated MPV `mpv --hwdec=auto` and with hardware acceleration just like VNC.
+    - it combines the advantages of MPV and VNC for smooth Youtube playback: seeking function from MPV and hardware acceleration from VNC
 
 * chromium / (https://aur.archlinux.org/packages/ungoogled-chromium/)[ungoogled-chromium]: see (https://github.com/Eloston/ungoogled-chromium#enhancing-features)[ungoogled-chromium GitHub]
     - Maybe in the future I will try out [Chromium-VAAPI](https://aur.archlinux.org/packages/chromium-vaapi/) and see if it makes any difference when playing videos, e. g. lower CPU usage, hardware acceleration of videos through GPU, smoother - no stutter and tear-free - video playback.
@@ -282,7 +287,7 @@
         - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
         
-    - Enabling Hardware Acceleration for Chromium - offloading strain from CPU to GPU for video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
+    - **Enabling Hardware Acceleration for Chromium** - offloading strain from CPU to GPU for video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
         - The way that uses least CPU of the various ways I tried out is to forward video playback to external multimedia player. In a dedicated multimedia player the CPU usage is lower and GPU usage higher, which is what I wanted. Videos play smooth, without stutter or tearing with GPU hardware acceleration.
         
             I tested VLC and MPV player. Both support GPU hardware acceleration for videos thourh VAAPI or VDPAU, according to what's enabled or preferred by the player.
@@ -355,26 +360,9 @@
                    }
                 }
                 
-            ...so according to this input data, I came up with this content of the script:
+            ...so according to this input data, I came up with [this script](https://github.com/kyberdrb/Linux_utils_and_gists/blob/master/external_browser_player.sh).
             
-                #!/bin/sh
-
-                VIDEO_URL=$1
-                VIDEO_ID_WITH_SECONDS=$(echo $VIDEO_URL | rev | cut -d '/' -f1)
-                VIDEO_ID_WITHOUT_SECONDS=$(echo $VIDEO_ID_WITH_SECONDS | cut -d'#' -f2 | rev)
-
-                echo "Playing video with ID: $VIDEO_ID_WITHOUT_SECONDS"
-
-                STREAM_URL=$(curl --silent https://www.rtvs.sk/json/archive5f.json?id=$VIDEO_ID_WITHOUT_SECONDS | grep -m 1 src | cut -d'"' -f4)
-
-                echo "Stream URL: $STREAM_URL"
-
-                mpv --hwdec=auto $STREAM_URL
-
-                
-            This script will extract only the video ID from the URL from the browser and open in a multimedia player with enabled hardware acceleration.
-            
-            Save and exit by pressing `:wq`
+            The script will extract only the video ID from the URL from the browser and open in a multimedia player with enabled hardware acceleration.
             
             Setup Clipman: click on the status icon in the panel and select `Clipman settings...`. Go to `Actions` tab, turn on `Enable automatic actions`, select `Skip actions by holding Control`, i. e. actions will pop up when we **select** (not copy) text that matches the pattern, and click the `+` sign to create a new action. This action will handle the RTVS URLs.
             
