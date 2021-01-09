@@ -1012,24 +1012,61 @@ Smoother video playback, less strain on CPU, more strain on GPU. Instead of the 
 
 Intel uses VAAPI to offload rendering and decoding to the graphics processor.
 
-I'm currently using with the Intel HD 520 GPU the `intel-media-driver` instead of `libva-intel-driver` because `intel-media-driver` supports newer platforms and is updated more often. But I'll switch to the latter to see what difference it makes.
+[laptop@laptop ~]$ # hm after installing the hybrid drivers the chromium can play 1440p 60fps videos even smoother than mpv - mpv needs extra configuration to make it smooth - but they are comparable
 
-    sudo pacman -S intel-media-driver
-    
-Package `intel-media-driver` doesn't have its 32-bit `lib32-intel-media-driver` alternative.  
-But it has some [issues with Firefox under Xorg](https://www.linuxquestions.org/questions/debian-26/intel-10th-gen-comet-lake-graphics-driver-issues-4175683860/#post6178511), unless you want to disable sandboxing for web media content, which might me a serious security issue. [1](https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration), [2](https://mastransky.wordpress.com/2020/06/03/firefox-on-fedora-finally-gets-va-api-on-wayland/)
-	
+[laptop@laptop ~]$ #  and make the new mpv config optional ;) only for those who have 1440p monitors. for both versions of the mpv config explain how to change the ytdl options for different resolutions i. e. optimally to match the screen resolution with the best video resolution option
+
+[laptop@laptop ~]$ # update /etc/environment - LIBVA variable to i965 - libva-intel-driver-hybrid together with intel-hybrid-codec-driver didn't produce the errors opengl errors in mpv player with vaapi hw acceleration enabled '--hwdec=auto' like with the intel-media-driver did
+
 Maybe, in the future I will experiment with the alternative drivers like the older [`libva-intel-driver`](https://archlinux.org/packages/extra/x86_64/libva-intel-driver/)/[`lib32-libva-intel-driver`](https://archlinux.org/packages/multilib/x86_64/lib32-libva-intel-driver/) **without** VP8 and VP9 acceleration and relying only on MP4 format encoded with AVC/H264 codecs for hardware acceleration. Intel Skylake iGPUs are able to decode VP8 with hardwre, but not VP9.
 or  
 to extend hardware acceleration support to VP8 and VP9 codecs install [`libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/libva-intel-driver-hybrid/) which installs as a dependency the [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) [referenced in the Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel), but [in the comment section of `intel-hybrid-codec-driver` _randomgeek78_ recommend to use the `libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/#comment-765336) package instead of directly using the `intel-hybrid-codec-driver`, as it also wraps up the `intel-hybrid-codec-driver` as a dependency.  
 `libva-intel-driver-hybrid` conflicts with the vanilla `libva-intel-driver`  
 Both of these packages doesn't have their 32-bit `lib32-libva-intel-driver-hybrid` / `lib32-intel-hybrid-codec-driver` alternative.
 
+    pikaur -Syy libva-intel-driver-hybrid intel-hybrid-codec-driver-gcc10
+
+https://aur.archlinux.org/packages/libva-intel-driver-hybrid/
+
+https://aur.archlinux.org/packages/intel-hybrid-codec-driver-gcc10/
+
+[`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) failed at compilation and at the time of writing it was last updated at 21.12.2019, therefore I'm using the `gcc10` version.
+    
+    ls /usr/lib/dri/hybrid_drv_video.so
+    
+    sudo vim /etc/environment
+
+Explicitly define the VAAPI driver name and try to enable hardware acceleration for MPEG4 format explicitely by defining a new [environment variable](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Configuring_VA-API):
+
+    LIBVA_DRIVER_NAME=i965
+    VAAPI_MPEG4_ENABLED=true
+    
+This should be enough for the Intel graphics. We don't need to explicitely define the `LIBVA_DRIVER_NAME` when the output of `vainfo` shows acceleration of media formats for the GPU.
+
+Verify
+
+    LIBVA_DRIVER_NAME=i965 vainfo
+    
+    vainfo: VA-API version: 1.10 (libva 2.10.0)
+    vainfo: Driver version: Intel i965 driver for Intel(R) Skylake - 2.4.1
+    vainfo: Supported profile and entrypoints
+          VAProfileMPEG2Simple            :	VAEntrypointVLD
+          VAProfileMPEG2Simple            :	VAEntrypointEncSlice
+    ...
+
+Reboot
+
+Verify VAAPI status
+
+    vainfo
+    
+Package `intel-media-driver` has allegedly some [issues with Firefox under Xorg](https://www.linuxquestions.org/questions/debian-26/intel-10th-gen-comet-lake-graphics-driver-issues-4175683860/#post6178511), unless you want to disable sandboxing for web media content, which might me a serious security issue. [1](https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration), [2](https://mastransky.wordpress.com/2020/06/03/firefox-on-fedora-finally-gets-va-api-on-wayland/)
+
 ---
     
 **For AMD/ATI GPUs or AMD APUs:**
 
-    libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
+    sudo pacman -Syy libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 
 This activates VAAPI and VDPAU hardware acceleration for AMD/API GPU.
 
@@ -1038,18 +1075,12 @@ This activates VAAPI and VDPAU hardware acceleration for AMD/API GPU.
 According to [VA-API drivers supported formats table](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers) we can see that the MPEG4 format is not supported for hardware acceleration. But we can still try to force it. Open the file with environment variables
 
     sudo vim /etc/environment
-    
-Try to enable hardware acceleration for this format explicitely by defining a new environment variable. Adding to the file this line:
 
-	LIBVA_DRIVER_NAME=iHD
-    VAAPI_MPEG4_ENABLED=true
-    
-This should be enough for the Intel graphics. We don't need to explicitely define the `LIBVA_DRIVER_NAME` when the output of `vainfo` shows acceleration of media formats for the GPU.
+AMDGPU supports hardware acceleration through VAAPI and VDPAU drivers. Therefore we need to define another [enviroment variable `VDPAU_DRIVER`](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Configuring_VDPAU)  and set it to the value given by command `grep -iE 'vdpau | dri driver' /var/log/Xorg.0.log`  Int he case of my AMD Kabini APU build, the output signalized a `radeonsi` name of the GPU type. Therefore we set the variable `VDPAU_DRIVER` to `radeonsi`. The resulting `/etc/environment` looks like this for AND Kabini APU build:
 
-But AMDGPU also supports hardware acceleration through VDPAU drivers. Therefore we need to define another enviroment variable `VDPAU_DRIVER`  and set it to the value given by command `grep -iE 'vdpau | dri driver' /var/log/Xorg.0.log`  Int he case of my AMD Kabini APU build, the output signalized a `radeonsi` name of the GPU type. Therefore we set the variable `VDPAU_DRIVER` to `radeonsi`. The resulting `/etc/environment` looks like this for AND Kabini APU build:
-
-    VAAPI_MPEG4_ENABLED=true
+    LIBVA_DRIVER_NAME=radeonsi
     VDPAU_DRIVER=radeonsi
+    VAAPI_MPEG4_ENABLED=true
     
 Reboot to activate hardware acceleration.
 
@@ -1063,21 +1094,52 @@ https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers 
     
 ### Verify hardware acceleration for graphics
 
-Install verification utilities
-
-    sudo pacman -S libva-utils
+Check `VAAPI` [Intel, AMD] configuration...
     
-Check `VAAPI` [Intel, AMD] and `VDPAU` [AMD, NVIDIA] configuration
-
+    $ sudo pacman -S libva-utils
     $ vainfo
     
-    vainfo: VA-API version: 1.5 (libva 2.5.0)
-    vainfo: Driver version: Intel iHD driver - 1.0.0
+    vainfo: VA-API version: 1.10 (libva 2.10.0)
+    vainfo: Driver version: Intel i965 driver for Intel(R) Skylake - 2.4.1
     vainfo: Supported profile and entrypoints
-          VAProfileNone                   :	VAEntrypointVideoProc
-          VAProfileNone                   :	VAEntrypointStats
           VAProfileMPEG2Simple            :	VAEntrypointVLD
-          
+          VAProfileMPEG2Simple            :	VAEntrypointEncSlice
+          VAProfileMPEG2Main              :	VAEntrypointVLD
+          VAProfileMPEG2Main              :	VAEntrypointEncSlice
+          VAProfileH264ConstrainedBaseline:	VAEntrypointVLD
+          VAProfileH264ConstrainedBaseline:	VAEntrypointEncSlice
+          VAProfileH264ConstrainedBaseline:	VAEntrypointEncSliceLP
+          VAProfileH264ConstrainedBaseline:	VAEntrypointFEI
+          VAProfileH264ConstrainedBaseline:	VAEntrypointStats
+          VAProfileH264Main               :	VAEntrypointVLD
+          VAProfileH264Main               :	VAEntrypointEncSlice
+          VAProfileH264Main               :	VAEntrypointEncSliceLP
+          VAProfileH264Main               :	VAEntrypointFEI
+          VAProfileH264Main               :	VAEntrypointStats
+          VAProfileH264High               :	VAEntrypointVLD
+          VAProfileH264High               :	VAEntrypointEncSlice
+          VAProfileH264High               :	VAEntrypointEncSliceLP
+          VAProfileH264High               :	VAEntrypointFEI
+          VAProfileH264High               :	VAEntrypointStats
+          VAProfileH264MultiviewHigh      :	VAEntrypointVLD
+          VAProfileH264MultiviewHigh      :	VAEntrypointEncSlice
+          VAProfileH264StereoHigh         :	VAEntrypointVLD
+          VAProfileH264StereoHigh         :	VAEntrypointEncSlice
+          VAProfileVC1Simple              :	VAEntrypointVLD
+          VAProfileVC1Main                :	VAEntrypointVLD
+          VAProfileVC1Advanced            :	VAEntrypointVLD
+          VAProfileNone                   :	VAEntrypointVideoProc
+          VAProfileJPEGBaseline           :	VAEntrypointVLD
+          VAProfileJPEGBaseline           :	VAEntrypointEncPicture
+          VAProfileVP8Version0_3          :	VAEntrypointVLD
+          VAProfileVP8Version0_3          :	VAEntrypointEncSlice
+          VAProfileHEVCMain               :	VAEntrypointVLD
+          VAProfileHEVCMain               :	VAEntrypointEncSlice
+          VAProfileVP9Profile0            :	VAEntrypointVLD             <<< yay :D
+        
+...and `VDPAU` [AMD, NVIDIA] configuration
+
+    $ sudo pacman -Syy vdpauinfo
     $ vdpauinfo
     [outputs some video codec acceleration info]
     
