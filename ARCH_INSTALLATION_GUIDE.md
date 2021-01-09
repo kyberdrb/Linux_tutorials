@@ -1012,17 +1012,30 @@ Smoother video playback, less strain on CPU, more strain on GPU. Instead of the 
 
 Intel uses VAAPI to offload rendering and decoding to the graphics processor.
 
-[laptop@laptop ~]$ # hm after installing the hybrid drivers the chromium can play 1440p 60fps videos even smoother than mpv - mpv needs extra configuration to make it smooth - but they are comparable
+There are multiple ways how to enable VAAPI hardware acceleration on the Linux platform.
 
-[laptop@laptop ~]$ #  and make the new mpv config optional ;) only for those who have 1440p monitors. for both versions of the mpv config explain how to change the ytdl options for different resolutions i. e. optimally to match the screen resolution with the best video resolution option
+For Intel HD 520 there are at least three VAAPI drivers I know of that enable hardware accelerated video playback:
+1. `intel-media-sdk` `intel-media-driver` `intel-compute-runtime` `ocl-icd` `lib32-ocl-icd` `opencl-headers`
+1. `libva-intel-driver` `lib32-libva-intel-driver`
+1. `libva-intel-driver-hybrid` `intel-hybrid-codec-driver`
 
-[laptop@laptop ~]$ # update /etc/environment - LIBVA variable to i965 - libva-intel-driver-hybrid together with intel-hybrid-codec-driver didn't produce the errors opengl errors in mpv player with vaapi hw acceleration enabled '--hwdec=auto' like with the intel-media-driver did
+Package `intel-media-sdk` add support for Intel Quick Sync hardware acceleration for videos. Package `intel-media-driver` has, at the time of writing, reported some [issues with Firefox under Xorg](https://www.linuxquestions.org/questions/debian-26/intel-10th-gen-comet-lake-graphics-driver-issues-4175683860/#post6178511). There is workaround - to disable sandboxing for web media content - which might me a serious security issue. [1](https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration), [2](https://mastransky.wordpress.com/2020/06/03/firefox-on-fedora-finally-gets-va-api-on-wayland/). OpenCL headers are not necessary, but what if I'll develop something with it? Who knows...
 
-Maybe, in the future I will experiment with the alternative drivers like the older [`libva-intel-driver`](https://archlinux.org/packages/extra/x86_64/libva-intel-driver/)/[`lib32-libva-intel-driver`](https://archlinux.org/packages/multilib/x86_64/lib32-libva-intel-driver/) **without** VP8 and VP9 acceleration and relying only on MP4 format encoded with AVC/H264 codecs for hardware acceleration. Intel Skylake iGPUs are able to decode VP8 with hardwre, but not VP9.
-or  
-to extend hardware acceleration support to VP8 and VP9 codecs install [`libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/libva-intel-driver-hybrid/) which installs as a dependency the [`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) [referenced in the Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel), but [in the comment section of `intel-hybrid-codec-driver` _randomgeek78_ recommend to use the `libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/#comment-765336) package instead of directly using the `intel-hybrid-codec-driver`, as it also wraps up the `intel-hybrid-codec-driver` as a dependency.  
+[`libva-intel-driver`](https://archlinux.org/packages/extra/x86_64/libva-intel-driver/)/[`lib32-libva-intel-driver`](https://archlinux.org/packages/multilib/x86_64/lib32-libva-intel-driver/) are Intel VAAPI drivers **without** VP8 and VP9 acceleration and relying only on MP4 format encoded with AVC/H264 codecs (usually distributed as MP4 container) for hardware acceleration. With the `libva-intel-driver` VAAPI driver, `vaapi` output and [chromium://gpu](chromium://gpu) on my laptop's Intel HD 520 had showed me that the system and browser is able to decode VP8 with hardwre, but not VP9.
+
+Because I really wanted to have the new VP9 format decoded mainly by my GPU (which is in my daily workload underutilized), not CPU (which is in my workload overutilized) I decided to install the hybrid driver to extend hardware acceleration support to VP8 and VP9 codecs install  
+[`libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/libva-intel-driver-hybrid/) which installs as a dependency the  
+[`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) which is [referenced in the Arch Wiki](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel),  
+but in the comment section of `intel-hybrid-codec-driver` [_randomgeek78_ recommends to use the `libva-intel-driver-hybrid`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/#comment-765336) via the environment variable `LIBVA_DRIVER_NAME=i965` which points to the `libva-intel-driver`,  
+instead of directly using the `intel-hybrid-codec-driver` via e. g. `LIBVA_DRIVER_NAME=hybrid vainfo`,  
+because the codec driver enhances the functionality of the `libva-intel-driver` under `ls /usr/lib/dri/i965_drv_video.so`  
+and also `libva-intel-driver-hybrid` contains `intel-hybrid-codec-driver` as an optional dependency.  
 `libva-intel-driver-hybrid` conflicts with the vanilla `libva-intel-driver`  
-Both of these packages doesn't have their 32-bit `lib32-libva-intel-driver-hybrid` / `lib32-intel-hybrid-codec-driver` alternative.
+Both of these packages doesn't have their 32-bit alternatives, i. e. `lib32-libva-intel-driver-hybrid` / `lib32-intel-hybrid-codec-driver`
+
+[`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) failed at compilation and at the time of writing it was last updated at 21.12.2019, therefore I'm using the `intel-hybrid-codec-driver-gcc10` version.
+
+As the final decision I chose the third option - the hybrid drivers:
 
     pikaur -Syy libva-intel-driver-hybrid intel-hybrid-codec-driver-gcc10
 
@@ -1030,21 +1043,16 @@ https://aur.archlinux.org/packages/libva-intel-driver-hybrid/
 
 https://aur.archlinux.org/packages/intel-hybrid-codec-driver-gcc10/
 
-[`intel-hybrid-codec-driver`](https://aur.archlinux.org/packages/intel-hybrid-codec-driver/) failed at compilation and at the time of writing it was last updated at 21.12.2019, therefore I'm using the `gcc10` version.
-    
-    ls /usr/lib/dri/hybrid_drv_video.so
-    
-    sudo vim /etc/environment
 
-Explicitly define the VAAPI driver name and try to enable hardware acceleration for MPEG4 format explicitely by defining a new [environment variable](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Configuring_VA-API):
-
-    LIBVA_DRIVER_NAME=i965
+    
+    
     VAAPI_MPEG4_ENABLED=true
     
-This should be enough for the Intel graphics. We don't need to explicitely define the `LIBVA_DRIVER_NAME` when the output of `vainfo` shows acceleration of media formats for the GPU.
+ acceleration of media formats for the GPU.
 
-Verify
+Verify if the VAAPI driver is present and the formats that are accelerated through VAAPI.
 
+    ls /usr/lib/dri/hybrid_drv_video.so
     LIBVA_DRIVER_NAME=i965 vainfo
     
     vainfo: VA-API version: 1.10 (libva 2.10.0)
@@ -1054,13 +1062,24 @@ Verify
           VAProfileMPEG2Simple            :	VAEntrypointEncSlice
     ...
 
+Although I used the `intel-hybrid-codec-driver-gcc10` instead of the `intel-hybrid-codec-driver`, the `vaapi` output shows a 
+
+sudo vim /etc/environment
+
+Explicitly define the VAAPI driver name and try to enable hardware acceleration for MPEG4 format explicitely by defining a new [environment variable](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Configuring_VA-API):
+
+    LIBVA_DRIVER_NAME=i965
+    VAAPI_MPEG4_ENABLED=true
+
 Reboot
 
 Verify VAAPI status
 
     vainfo
-    
-Package `intel-media-driver` has allegedly some [issues with Firefox under Xorg](https://www.linuxquestions.org/questions/debian-26/intel-10th-gen-comet-lake-graphics-driver-issues-4175683860/#post6178511), unless you want to disable sandboxing for web media content, which might me a serious security issue. [1](https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration), [2](https://mastransky.wordpress.com/2020/06/03/firefox-on-fedora-finally-gets-va-api-on-wayland/)
+
+After installing the hybrid drivers, Chromium can play 1440p 60fps videos without additional configuration even smoother than mpv. mpv needs extra configuration to make it smooth [(see `mpv` package in the package list)](https://github.com/kyberdrb/Linux_tutorials/edit/master/ARCH_installed_packages_user.md) - but the smoothness is quite similar.
+
+`libva-intel-driver-hybrid` together with `intel-hybrid-codec-driver` didn't produce the errors about missing OpenGL file in mpv player with VAAPI hw acceleration enabled '--hwdec=auto' compared to the `intel-media-driver`. I'm satisfied with the performance of the `hybrid` drivers. I'll keep them for now.
 
 ---
     
@@ -1068,29 +1087,18 @@ Package `intel-media-driver` has allegedly some [issues with Firefox under Xorg]
 
     sudo pacman -Syy libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 
-This activates VAAPI and VDPAU hardware acceleration for AMD/API GPU.
+This add support for VAAPI and VDPAU [hardware acceleration for AMD/API GPU](- https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD).
 
----
-
-According to [VA-API drivers supported formats table](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers) we can see that the MPEG4 format is not supported for hardware acceleration. But we can still try to force it. Open the file with environment variables
+According to [VA-API drivers supported formats table](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers) we can see that the MPEG4 format is not supported for hardware acceleration. But we can still try to force it via the variable `VAAPI_MPEG4_ENABLED`.  
+AMDGPU supports hardware acceleration through VAAPI and VDPAU drivers. Therefore we need to define another [enviroment variable `VDPAU_DRIVER`](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Configuring_VDPAU)  and set it to the value given by command `grep -iE 'vdpau | dri driver' /var/log/Xorg.0.log`  Int he case of my AMD Kabini APU build, the output signalized a `radeonsi` name of the GPU type. Therefore we set the variable `VDPAU_DRIVER` to `radeonsi`. The resulting `/etc/environment` looks like this for AND Kabini APU build:
 
     sudo vim /etc/environment
-
-AMDGPU supports hardware acceleration through VAAPI and VDPAU drivers. Therefore we need to define another [enviroment variable `VDPAU_DRIVER`](https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Configuring_VDPAU)  and set it to the value given by command `grep -iE 'vdpau | dri driver' /var/log/Xorg.0.log`  Int he case of my AMD Kabini APU build, the output signalized a `radeonsi` name of the GPU type. Therefore we set the variable `VDPAU_DRIVER` to `radeonsi`. The resulting `/etc/environment` looks like this for AND Kabini APU build:
 
     LIBVA_DRIVER_NAME=radeonsi
     VDPAU_DRIVER=radeonsi
     VAAPI_MPEG4_ENABLED=true
     
-Reboot to activate hardware acceleration.
-
-Sources
-
-https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
-
-https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers - Note #4
-
-[[SOLVED] So, which is better; VDPAU or VAAPI?](https://bbs.archlinux.org/viewtopic.php?pid=1343287#p1343287)
+Continue with the verification of the VAAPI and VDPAU drivers
     
 ### Verify hardware acceleration for graphics
 
@@ -1145,7 +1153,13 @@ Check `VAAPI` [Intel, AMD] configuration...
     
 If you get any kind of error in the outpu, or a `Segmentation fault` at the end of the `vdpauinfo` output, the value of the `VDPAU_DRIVER` variable is set to a value which doesn't match with the GPU type in the output. Check the output of the command `` again. Make sure the driver is available under ``. If not, reinstall VDPAU drivers with `sudo pacman -Syy mesa-vdpau lib32-mesa-vdpau`, reboot the computer and run the `vdpauinfo` utility again.
 
+Reboot to activate hardware acceleration, if you haven't already.
+
 Sources:
+
+https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers - Note #4 - force MPEG4 VAAPI support
+
+[[SOLVED] So, which is better; VDPAU or VAAPI?](https://bbs.archlinux.org/viewtopic.php?pid=1343287#p1343287)
 
 https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Verifying_VA-API
 
@@ -1650,8 +1664,6 @@ Alternative:
 - https://wiki.archlinux.org/index.php/pacman#Cleaning_the_package_cache
 - https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages_.28orphans.29
 - https://apple.stackexchange.com/questions/10139/how-do-i-increase-sudo-password-remember-timeout/51763#51763
-- https://wiki.archlinux.org/index.php/Hardware_video_acceleration#VA-API_drivers
-- https://wiki.archlinux.org/index.php/Intel_graphics#Installation
 - https://wiki.archlinux.org/index.php/Environment_variables#Defining_variables
 - https://wiki.archlinux.org/index.php/Xinit#xinitrc
 
