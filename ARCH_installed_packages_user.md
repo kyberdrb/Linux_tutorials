@@ -22,9 +22,8 @@
     
 * unixbench interbench - benchmarking kernel and system performance
 
-        sudo ls && clear && date && sleep 5 && ubench && date && sleep 10 && sudo interbench && date
+    See documentation in https://github.com/kyberdrb/benchmarking-linux-kernels
     
-    - https://github.com/kyberdrb/benchmarking-linux-kernels
     - https://wiki.archlinux.org/index.php/Benchmarking
     - https://github.com/kdlucas/byte-unixbench
     - https://github.com/ckolivas/interbench
@@ -149,6 +148,30 @@
     
         ytdl-format=bestvideo[vcodec*=avc][height<=1080]+bestaudio/best
         
+    For optimal performance and experience I recommend to also change the `1080` video height set according your display resolution, e. g. for 1440p / 2K displays it would be `[height<=1080]`
+        
+    [OPTIONAL] For playing 1440p 60fps on Intel HD 520 or equivalent GPU, you may use [this config](https://github.com/mpv-player/mpv/issues/2885#issuecomment-447684543) to avoid stuttering (tested on `libva-intel-driver-hybrid` with `intel-hybrid-codec-driver`, `LIBVA_DRIVER_NAME=i965`, early modesetting Intel driver `i915` with Guc/HuC enabled):
+    
+        ytdl-format=bestvideo[height<=1440]+bestaudio/best
+        video-sync=display-resample
+        interpolation=yes
+        tscale=mitchell
+
+    ... and then tested with a 60 fps video with this command:
+    
+        streamlink --verbose-player --player-no-close --player="mpv --hwdec=auto" https://www.youtube.com/watch?v=LXb3EKWsInQ 1440p60
+
+    because playing the video with only...
+    
+        mpv --hwdec=auto https://www.youtube.com/watch?v=LXb3EKWsInQ
+    
+    ... didn't enable HW acceleration through VAAPI and used SW decoding which was stuttery. [Vulkan GPU API](https://mpv.io/manual/master/#options-gpu-api) didn't solve this issue either.
+    
+    Playing in `VLC` through `streamlink` was much smoother without additional configuration. VLC immediately used HW accelerated LIBVA driver. But unfortunately, VLC doesn't support seeking Youtube videos - as soon as I try to seek in Youtube videos in VLC, the player stops playing the video and it doesn't resume the playback even after pressing the 'Play' button.
+    
+        streamlink --verbose-player --player-no-close --player="vlc" https://www.youtube.com/watch?v=LXb3EKWsInQ 1440p60
+
+    Sources:
         
     [Is it possible to set only a specific codec to play YouTube videos, for example, only H264?](https://hydrogenaud.io/index.php?topic=119836.msg989403#msg989403)
     
