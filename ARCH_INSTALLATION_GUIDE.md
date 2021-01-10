@@ -599,7 +599,7 @@ The package `intel-gpu-tools` provides the utility `intel_gpu_top` which monitor
 
 **For Intel GPUs - Xorg `modesetting` driver - Late KMS (Kernel Mode Setting):**
 
-[Remove all `xf86-video-*` packages.](https://bbs.archlinux.org/viewtopic.php?id=229242) In my case it were `xf86-video-intel` and `xf86-video-vesa`. [Reason for removal](https://wiki.archlinux.org/index.php/Xorg#Driver_installation)
+[Remove all `xf86-video-*` packages.](https://bbs.archlinux.org/viewtopic.php?id=229242) In my case it were `xf86-video-intel` and `xf86-video-vesa`. [Reason for removal (look for 'Xorg searches for installed drivers automatically:' for the order in which Xorg searches for graphics drivers)](https://wiki.archlinux.org/index.php/Xorg#Driver_installation)
 
 	sudo pacman -Runs xf86-video-intel xf86-video-vesa
 	
@@ -770,9 +770,60 @@ If everything else failed, use the nomodeset Intel driver
 
 For an advice which graphics driver to choose, see [this table](https://wiki.archlinux.org/index.php/Xorg#Driver_installation).
 
-    pacman -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon
+**General packages**
 
-- TODO describe what the packages do and why I chose them
+    pacman -S vulkan-radeon lib32-vulkan-radeon
+    
+**Late modesetting**
+
+Remove all `xf86-video-*` packages.
+
+    sudo pacman -Runs xf86-video-amdgpu
+    
+Close all programs ans reboot
+
+**Early modesetting**
+
+Edit your `mkinitcpio` configuration file
+
+    sudo vim /etc/mkinitcpio.conf
+    
+...with contents:
+    
+    MODULES=(amdgpu radeon)
+    
+Modules need to be in that order: first `amdgpu`, then `radeon`.
+
+Set module parameters in `modprobe.d`.
+
+Edit file...
+
+    sudo vim /etc/modprobe.d/amdgpu.conf
+    
+...with contents:
+
+    options amdgpu si_support=1
+    options amdgpu cik_support=1
+    
+Edit file...
+
+    sudo vim /etc/modprobe.d/radeon.conf
+
+...with contents:
+
+    options radeon si_support=0
+    options radeon cik_support=0
+    
+Regenerate the initramfs:
+
+    ./remount_boot_part_as_writable.sh
+    KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
+    sudo mkinitcpio -p $KERNEL_NAME
+
+**`nomodeset` driver - when modesetting fails**
+
+**Verification**
+
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD
 - https://wiki.archlinux.org/index.php/AMDGPU
 - https://wiki.archlinux.org/index.php/Vulkan
