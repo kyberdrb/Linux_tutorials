@@ -1,5 +1,8 @@
 # Arch Linux Installation
 
+# TODO move this guide in a separate repo
+# TODO for all files mentioned in this guide create separate files under directories corresponding to their place in the system
+
 ## Create a bootable Arch Linux USB
 
 1. Download Arch Linux ISO
