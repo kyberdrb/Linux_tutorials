@@ -312,13 +312,17 @@
             
             ~~Install the native client for _Watch with MPV_ extension: `pikaur -Syy watch-with-mpv`~~ Not necessary but if the installation from repository doesn't work, installing and uninstalling it right away, or just installing it and leaving the package there this *before* installing from ther repository may make it work.
                 
-            Download the forked repository which has MPV with hardware acceleration enabled and install it on top of the already installed native client. [Follow these steps](https://github.com/kyberdrb/watch-with-mpv#arch-linux-diy-way--other-linux) to compile the native client by yourself on Linux.
+            Download the [forked repository](https://github.com/kyberdrb/watch-with-mpv) which has MPV with hardware acceleration enabled and install it on top of the already installed native client. [Follow these steps](https://github.com/kyberdrb/watch-with-mpv/blob/master/README.md#installing-from-source) to compile the native client by yourself on Linux.
             
             ~~This replaces the files installed by the package `watch-with-mpv` the native client for the extension.~~
             
-            The video forwarding to MPV via native client is immediately usable without reloading the site, restarting Chromium or restarting the computer.
+            Make sure that you configured the `mpv` player according to your system abilities. For more information about configuration, see the description of the `mpv` package in this file.
+            
+            The video forwarding to the MPV player via native client is immediately functional and usable without reloading the site, restarting Chromium or restarting the computer.
             
             Test it (example). Go to e.g. [this page with a 1080p 60fps video](https://www.youtube.com/watch?v=LXb3EKWsInQ) pause the video and click the MPV icon in the top right corner. If the icon is not visible, pin it from the extension menu. The video will start to play in the MPV player. As a consequence, this solution provides less CPU and more GPU utilization, smooth and tear-free video playback. Overall, it's more efficient. Maybo not battery wise, but certainly utilization wise.
+            
+            To see how much the CPU is used use the `htop` utility. I've seen decreased CPU utilization from about 50 up to 80%. That way I know, that the hardware acceleration through GPU for videos works.
             
             ---
             
