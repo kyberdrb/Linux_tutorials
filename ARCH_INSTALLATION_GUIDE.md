@@ -745,28 +745,30 @@ https://gist.github.com/Brainiarc7/aa43570f512906e882ad6cdd835efe57
 If everything else failed, use the nomodeset Intel driver
 
     pacman -S xf86-video-intel
-    
+
     ...
-	(1/2) installing libxvmc                                                  [#########################################] 100%
-	(2/2) installing xf86-video-intel                                         [#########################################] 100%
-	>>> This driver now uses DRI3 as the default Direct Rendering
-		Infrastructure. You can try falling back to DRI2 if you run
-		into trouble. To do so, save a file with the following 
-		content as /etc/X11/xorg.conf.d/20-intel.conf :
-		  Section "Device"
-			Identifier  "Intel Graphics"
-			Driver      "intel"
-			Option      "DRI" "2"             # DRI3 is now default 
-			#Option      "AccelMethod"  "sna" # default
-			#Option      "AccelMethod"  "uxa" # fallback
-		  EndSection
+    (1/2) installing libxvmc                                                  [#########################################] 100%
+    (2/2) installing xf86-video-intel                                         [#########################################] 100%
+    >>> This driver now uses DRI3 as the default Direct Rendering
+        Infrastructure. You can try falling back to DRI2 if you run
+        into trouble. To do so, save a file with the following 
+        content as /etc/X11/xorg.conf.d/20-intel.conf :
+          Section "Device"
+            Identifier  "Intel Graphics"
+            Driver      "intel"
+            Option      "DRI" "2"             # DRI3 is now default 
+            #Option      "AccelMethod"  "sna" # default
+            #Option      "AccelMethod"  "uxa" # fallback
+          EndSection
     ...
 
 - The `/etc/X11/xorg.conf.d/20-intel.conf` is **only optional** if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093) [just for curiosity].
 
 ---
 
-**For AMD/ATI graphics and AMD APUs**, e.g. Kabini, I'm using the opensource drivers for better compatibility
+**For AMD/ATI graphics and AMD APUs**
+
+Currently I have a Kabini build.
 
 For an advice which graphics driver to choose, see [this table](https://wiki.archlinux.org/index.php/Xorg#Driver_installation).
 
@@ -781,6 +783,13 @@ Remove all `xf86-video-*` packages.
     sudo pacman -Runs xf86-video-amdgpu
     
 Close all programs ans reboot
+
+Verify
+
+    dmesg | grep -E "(amd|radeon)" | less
+    less ~/.local/share/xorg/Xorg.0.log
+    modprobe -c | grep -E "(amd|radeon)" | less
+    less /var/log/Xorg.0.log
 
 **Early modesetting**
 
@@ -816,13 +825,44 @@ Edit file...
     
 Regenerate the initramfs:
 
+**TODO this series of commands repeats here multiple times - abstract this into one file which will only be referenced from here multiple times as a link**
+
     ./remount_boot_part_as_writable.sh
     KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
     sudo mkinitcpio -p $KERNEL_NAME
+    
+Close all programs ans reboot
+
+Verify
+
+    dmesg | grep -E "(amd|radeon)" | less
+    less ~/.local/share/xorg/Xorg.0.log
+    modprobe -c | grep -E "(amd|radeon)" | less
+    less /var/log/Xorg.0.log
 
 **`nomodeset` driver - when modesetting fails**
 
-**Verification**
+Install the [Xorg DDX driver] for AMD. To decide which one to install, decide according to the GCN version or by hardware model [here (Radeon)](https://wiki.gentoo.org/wiki/Radeon) and [here (AMD)](https://wiki.gentoo.org/wiki/AMDGPU) or by trial-and-error. Then it might be useful to have a bootable Arch Linux USB installation media nearby to boot from it and fix things when they go wrong.
+
+If you decided to follow the trial-and-error method, first try the driver for AMD:
+
+    sudo pacman -Syy xf86-video-amdgpu
+
+Close all programs and reboot.
+
+If you see the graphical desktop environment, then everything was set up correctly.
+
+Otherwise uninstall the AMD GPU and install the ATI GPU driver
+
+    sudo pacman -Runs xf86-video-amdgpu
+    sudo pacman -Syy xf86-video-ati
+    
+Close all programs and reboot.
+
+Verify
+
+    less ~/.local/share/xorg/Xorg.0.log
+    less /var/log/Xorg.0.log
 
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD
 - https://wiki.archlinux.org/index.php/AMDGPU
