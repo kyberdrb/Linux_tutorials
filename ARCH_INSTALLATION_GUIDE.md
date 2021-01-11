@@ -883,6 +883,8 @@ XFCE4
 Now we have to decide, if we want to log in to our computer from
 GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast and secure)
 
+If you use a graphical login manager and you're switching from some other graphical environment, don't forget to switch desktop enviroment in your login manager, e.g. sddm. See [how to swap desktop environments](https://github.com/kyberdrb/Linux_tutorials/blob/master/ARCH_How_to_change_desktop_enviroments.txt)
+
 ### TERMINAL LOGIN
 
 #### Edit file `~/.xinitrc`
@@ -1513,6 +1515,7 @@ Next time it will be enough to type `wifi`. The command pops-up below the comman
 Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run-command-in-same-window/983865#983865
 
 ---
+
 - Terminal
     1. Open Terminal (Ctrl + Alt + T)
     1. In the menu bar click on `Terminal` item
@@ -1613,6 +1616,29 @@ Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run
     - Margins tab
         - Left margin: `1`
         - Right margin: `1`
+	
+- [Change panel popup and popdown delay when autohide is enabled](https://forum.xfce.org/viewtopic.php?pid=60337#p60337)
+    1. vim ~/.config/gtk-3.0/gtk.css
+    1. Insert this contents [by pressing `i Ctrl+Shit+V`]:
+    
+            * {
+            -XfcePanelWindow-popup-delay: 300;
+            -XfcePanelWindow-popdown-delay: 1;
+            -XfcePanelWindow-autohide-size: 0;
+            } 
+
+        When `autohide-size` property is set to `0` pixels, the panel will be hidden into a dot in the corner instead of a bar at 1px+.
+    
+    1. Then adjust panel properties by your preferences to your satisfaction.
+    1. Close all programms and logout/reboot. Settings will update after XFCE restart.
+	
+---
+
+Additional settings can be found in:
+- https://github.com/kyberdrb/Linux_tutorials/blob/master/XFCE_ARCH_Installation_and_configuration.txt
+- https://github.com/kyberdrb/Linux_tutorials/blob/master/XFCE_ARCH_Tearing_fix.txt
+- https://github.com/kyberdrb/Linux_tutorials/blob/master/XFCE_repair_icons_in_application_menu.txt
+- and other `XFCE` files...
 
 ## Additional programs
 
