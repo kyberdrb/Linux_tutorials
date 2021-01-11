@@ -1,6 +1,8 @@
 Installation
 
     sudo pacman -S xorg xfce4 xfce4-goodies
+    
+---
 
 If you have a multimedia keyboard, go to terminal and enter command to activate multimedia keys:
 
