@@ -144,7 +144,7 @@
     
         vim ~/.config/mpv/mpv.conf
         
-    ... with this content
+    ... with this content [1](https://github.com/mpv-player/mpv/issues/2619#issuecomment-166200727), [2](https://hydrogenaud.io/index.php?topic=119836.msg989403#msg989403)
     
         ytdl-format=bestvideo[vcodec*=avc][height<=1080]+bestaudio/best
         
@@ -273,7 +273,7 @@
             [mkv] EOF reached
             [cplayer] EOF code: 5
             
-* minitube - my favorite player for playing videos in 1440p/2K/4K with lower GPU power consumption than hardware accelerated MPV `mpv --hwdec=auto` and with hardware acceleration just like VNC.
+* minitube - my favorite player for playing videos in 1440p/2K/4K with lower GPU power consumption than hardware accelerated MPV `mpv --hwdec=auto`, but only at those higher video resolutions, i. e. 1440p+, and with hardware acceleration just like VNC.
     - it combines the advantages of MPV and VNC for smooth Youtube playback: seeking function from MPV and hardware acceleration from VNC
 
 * chromium / (https://aur.archlinux.org/packages/ungoogled-chromium/)[ungoogled-chromium]: see (https://github.com/Eloston/ungoogled-chromium#enhancing-features)[ungoogled-chromium GitHub]
@@ -501,12 +501,29 @@
             reboot
           
 * intel-gpu-tools - provides `intel-gpu-top` Intel GPU utilization monitor - run as `sudo intel-gpu-top`
+    - only useful if you have an Intel GPU
 
 ---
 
+* whonix - not an utiity, but an entire operating system for anonymous internet browsing
+    - I [downloaded](https://www.whonix.org/wiki/Download) and set up the VirtualBox images of [CLI](https://www.whonix.org/wiki/VirtualBox/CLI) version for the Gateway and [XFCE](https://www.whonix.org/wiki/VirtualBox/XFCE) version for the workstation, imported images into VirtualBox, and deleted the rest, i. e. CLI Workstation and XFCE Gateway
+    - inspired by [Qubes OS](https://www.qubes-os.org/intro/) and [Tor vs VPN](https://blokt.com/guides/tor-vs-vpn)
+    
+* gnaural gnaural-presets - binaural beats generator; check the research how and in what circumstances binaural therapy works
+    - To add more presets:
+        1. Download all presets from https://sourceforge.net/projects/gnaural/files/Presets/Mindstates/android/
+        1. Move downloaded presets to gnaural directory for presets:
+        
+                sudo mv ~/Downloads/*.gnaural /usr/share/gnaural/presets/
+                
+        1. Open `gnaural`
+        1. To open a preset, go to File - Open From Preset Library
+        1. Select desired preset.
+        1. Listen to it by pressing `Play` (as if it wouldn't be obvious :P )
+        
 * **p7zip**/peazip-qt-bin - 7z archive creation and extraction utility / 7z GUI wrapper
     - use `peazip` for maximum compression rate: https://peazip.github.io/maximum-compression-benchmark.html
-* evince/**okular**
+* evince/**okular ebook-tools**
     - PDF readers
     - Evince (GTK)
     - Okular (Qt) (my preferred option - more features)
@@ -515,10 +532,8 @@
             - https://wiki.archlinux.org/index.php/KDE#Which_backend_should_I_choose.3F
         - Text-to-Speech packages: `espeak-ng 1.49.2-6 speech-dispatcher 0.9.1-1`
             - TTS: https://bugs.archlinux.org/task/62629
-        - For `epub` support install package `ebook-tools`
+        - `ebook-tools` adds support to okular for ebooks in `epub` format
             - https://bbs.archlinux.org/viewtopic.php?pid=1418697#p1418697
-            
-* **ebook-tools** - support for ebooks in EPUB format for **okular**
             
 * ocrmypdf tesseract-data-eng tesseract-data-slk tesseract-data-dan tesseract-data-ces tesseract-data-deu - utility to make a PDF document searchable with trained datasets for the `tesseract` utility; 
     - trained datasets are stored in firectory `/usr/share/tessdata/`
@@ -635,7 +650,7 @@ openvswitch -> virtual switch for bridging VMs and containers
 
 dnsmasq -> internet connectivity support tool for LXC NAT bridge interface
 
-pepper-flash -> podpora adobe flash - security risk; often used by TV streaming
+wireguard - open-source VPN platform
 
 pulseaudio-bluetooth -> umozni prehravat hudbu od inych zariadeni cez bluetooth
 
