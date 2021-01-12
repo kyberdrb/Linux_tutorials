@@ -589,9 +589,29 @@ https://wiki.archlinux.org/index.php/Benchmarking#Graphics
 
 Continue with the installation of the driver which is specific to your GPU vendor.
 
+Note: `xorg.conf` in
+
+https://wiki.archlinux.org/index.php/Xorg#Configuration
+
+https://wiki.archlinux.org/index.php/Intel_graphics#Xorg_configuration
+
+https://wiki.archlinux.org/index.php/AMDGPU#Xorg_configuration
+
+**work only with `xf86-video-*` driver of the particular GPU vendor, e. g. `xf86-video-intel`, `xf86-video-amdgpu`, `xf86-video-ati` etc.**
+
+**TO modify a modesetting driver, use module options.** Module options are set in a text file with the same name as the module, e. g. `<module_name>.conf` and are located in the directory `/etc/modprobe.d/`. Modify the setting of the module by inserting the options to the configuration file for the modesetted driver. To query which options current module supports execute command
+
+    modinfo -p <module_name> | less
+    
+Sources:
+
+https://www.mankier.com/4/modesetting
+
+https://wiki.archlinux.org/index.php/Kernel_module#Obtaining_information
+
 ---
 
-Current GPU - Intel HD Graphics 520
+GPU on my laptop - Intel HD Graphics 520
 
 **General packages for Intel GPUs**
 
@@ -658,7 +678,7 @@ Then regenerate the initramfs:
     KERNEL_NAME=$(cat /boot/loader/entries/arch.conf | grep vmlinuz | cut -d'/' -f2 | cut -d'-' -f1 --complement)
     sudo mkinitcpio -p $KERNEL_NAME
     
-Reboot
+Close all open programs and reboot
 
 Verify if GuC and HuC are enabled
 
@@ -666,7 +686,11 @@ Verify if GuC and HuC are enabled
 	sudo cat /sys/kernel/debug/dri/0/gt/uc/huc_info
 	dmesg | grep i915
 	modprobe -c | grep i915 | less
-	
+
+
+You can experiment other module settings described [on Arch Wiki](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options) or by executing the command `modinfo -p i915 | less` and adding it into the `/etc/modprobe.d/i915.conf` file.
+
+Intel `fastboot` option is enabled by default [1](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options), [2](https://wiki.gentoo.org/wiki/Intel#Feature_support), [drm/i915: Enable fastboot by default on Skylake and newer](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3d6535cbed4a4b029602ff83efb2adec7cb8d28b)
 
 ---
 
@@ -841,8 +865,14 @@ Verify
 
     dmesg | grep -E "(amd|radeon)" | less
     less ~/.local/share/xorg/Xorg.0.log
+    modinfo -p amdgpu | less
+    systool -m amdgpu -av | less
+    modinfo -p radeon | less
+    systool -m radeon -av | less
     modprobe -c | grep -E "(amd|radeon)" | less
     less /var/log/Xorg.0.log
+    
+[Performance of the modesetting drivers](https://www.phoronix.com/scan.php?page=news_item&px=AMDGPU-DDX-Modesetting)
 
 **`nomodeset` driver - when modesetting fails**
 
@@ -867,10 +897,27 @@ Verify
 
     less ~/.local/share/xorg/Xorg.0.log
     less /var/log/Xorg.0.log
+    
+[Monitor GPU features and frequencies](https://wiki.archlinux.org/index.php/AMDGPU#Monitoring)
+
+    watch -n 1 "sudo cat /sys/kernel/debug/dri/0/amdgpu_pm_info | tail -n 5"
+    
+Check if you have enough VRAM allocated. If the values are close to the VRAM capacity, increase it in the BIOS settings
+
+    sudo cat /sys/class/drm/card0/device/mem_info_vram_used
 
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD
 - https://wiki.archlinux.org/index.php/AMDGPU
 - https://wiki.archlinux.org/index.php/Vulkan
+
+
+With modesetting drivers only module options will work. The Xorg server cannot use the `amdgpu.conf` or `radeon.conf` configuration file in `modeprobe.d` directory, beacuse the modesetting driver is called `modesetting`, not `amdgpu` or `radeon` [AMDGPU - Set module parameters in modprobe.d](https://wiki.archlinux.org/index.php/AMDGPU#Set_module_parameters_in_modprobe.d), [Intel Modesetting DDX](https://wiki.gentoo.org/wiki/Intel#Modesetting_DDX).
+
+---
+
+If even that doesn't work, use the [`xf86-video-amdgpu`](https://wiki.gentoo.org/wiki/AMDGPU#Hardware_detection) or [`xf86-video-ati`](https://wiki.gentoo.org/wiki/Radeon#Hardware_detection) according to your GPU support. 
+
+With these nomodeset Xorg drivers you can use the [Xorg options in `modprobe.d`](https://wiki.archlinux.org/index.php/AMDGPU#Xorg_configuration) [1](https://jlk.fjfi.cvut.cz/arch/manpages/man/amdgpu.4), [2](https://wiki.archlinux.org/index.php/Xorg#Driver_installation), [3](https://wiki.archlinux.org/index.php/Xorg#AMD).
 
 ## Install desktop environment
 
@@ -1006,8 +1053,8 @@ Verify what graphics driver got activated
     
 [Verify modesetting driver](https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options)
 
-    modinfo -p i915
-    systool -m i915 -av
+    modinfo -p i915 | less
+    systool -m i915 -av | less
     
 Run benchmark utilities for testing GPU performance and HW acceleration
 
