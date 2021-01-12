@@ -1472,6 +1472,19 @@ Configure screen locking
             The checked option _Lock Screen with System Sleep_ in Screensaver is taking care of it.
 
     https://wiki.archlinux.org/index.php/Xfce#Suspend
+    
+---
+
+Sometimes when I press `Fn + Insert`, i. e. `Fn + SleepButton` (Insert is my functional Fn-Sleep button) and **close the lid**, then when I open the lid after some time (don't know how long, because immediately after sleep and closing the lid the computer wakes up alright) instead of waking up and displaying the xscreenserver password prompt, **it reboots**.
+
+Fix:
+
+1. Go to Application Menu - Settings - Keyboard - (tab) Application Shortcuts
+1. Click `Add` to add a new keyboard shortcut. Enter these parameters
+    - Command: `xfce4-session-logout --suspend`
+    - Map this command to keyboard shortcut `Ctrl + Alt + Insert` (or more generally `Ctrl + Alt + SleepButton` whatever key your sleep function button is located at)
+
+Close the Keyboard settings window and test the new sleep-keyboard shortcut. Close the lid. Open the lid. The computer will resume to the xscreensaver password prompt after any amount of time. I don't know what causes it.
 
 ****************************************
 PROXY
