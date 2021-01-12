@@ -10,9 +10,6 @@ LXQt
     - Time
         - Format: Custom
         - untick everything
-- _Panel_
-    - right click on _Panel_ -- _Configure Panel_
-        - Size: 35px - increase Panel size beacuse of proper displaying _World Clock_ widget
 
 - _Fonts_
     - sudo pacman -S ttf-freefont
