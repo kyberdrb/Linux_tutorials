@@ -632,6 +632,9 @@
 * transmission-gtk / transmission-qt -> torrent klient
 * gparted -> disk and partition manager
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
+* picom - compositor with hardware acceleration through OpenGL
+    - to set it up for LXDE (or maybe other environments), follow the guide [for fixing the tearing and stuttering](https://github.com/kyberdrb/Linux_tutorials/blob/master/LXDE-Fix_tearing_with_compositor.md)
+    - lighter than compiz, newer and easier to setup than compton
 * audacity pulseaudio-alsa -> audio editing software
     * [https://bbs.archlinux.org/viewtopic.php?pid=1639294#p1639294](SOLVED]No sound in Audacity)
     * [https://www.archlinux.org/packages/extra/x86_64/pulseaudio-alsa/](pulseaudio-alsa - archlinux)
