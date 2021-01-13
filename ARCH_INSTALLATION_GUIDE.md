@@ -367,8 +367,9 @@ Update packages:
 
 Install updates
 
-        pacman -Syyuu
-	# If it will prompt you to install packages, press 'y' and then <Enter>
+    pacman -Syyuu
+    
+If it will prompt you to install packages, press 'y' and then <Enter>
 
 ## Set up root password:
 
@@ -603,6 +604,13 @@ https://wiki.archlinux.org/index.php/AMDGPU#Xorg_configuration
 
     modinfo -p <module_name> | less
     
+All configuration in the configuration files in `/etc/modprobe.d/`, i. e. all parameters for modesetting drivers, can be defined as a kernel parameter in `/boot/loader/entries/arch.conf` (see sections about `bootctl` bootloader) [example of kernel parameters](https://wiki.archlinux.org/index.php/AMDGPU#Set_module_parameters_in_kernel_command_line) and [example of equivalent modeprobe parameters](https://wiki.archlinux.org/index.php/AMDGPU#Set_module_parameters_in_modprobe.d)
+    
+Keep in mind that With modesetting drivers only module options will work. The Xorg server cannot use the `intel.conf`. `amdgpu.conf` or `radeon.conf` configuration file in `modeprobe.d` directory, beacuse the modesetting driver is called `modesetting`, not `amdgpu` or `radeon` [AMDGPU - Set module parameters in modprobe.d](https://wiki.archlinux.org/index.php/AMDGPU#Set_module_parameters_in_modprobe.d), [Intel Modesetting DDX](https://wiki.gentoo.org/wiki/Intel#Modesetting_DDX). Creating these files resulted in my experiments in getting stuck in the boot messages output and inability to enter the login screen. Instead it either generates configuration by itself (recommended), or uses `modesetting.conf` and `20-modesetting.conf` when specified manually (only when automatic settings deduction is failing in some way - not tested or recommended).
+
+Therefore "The modesetting driver doesn't support TearFree." ... "Because of that the modesetting driver is basically useless unless you use a compositor. You'll have to use xf86-video-intel driver and try to work around the bugs." [Gentoo Forum](https://forums.gentoo.org/viewtopic-t-1086534-start-0.html)  
+You don't have to **always** install use a dedicated compositor, like `picom`. On my Intel HD 520 GPU I'm using vanilla XFCE4 with composing through `xfwm4` and it works without additional configuration for smooth windows movement under X-server, i. e. Xorg server. But on my Kabini build with integrated R3 8400 GPU with LXDE and `openbox-lxde` window manager, the `picom` composing manager/compositor helped to make the graphical experience under X smooth [LXDE - Using a composite manager](https://wiki.archlinux.org/index.php/LXDE#Using_a_composite_manager), [Picom (see Installation and Configuration chapters)](https://wiki.archlinux.org/index.php/Picom). So, maybe it depends on, whether the window manager is also able to compose the screen smoothly, e. g. through hardware acceleration via OpenGL.
+
 Sources:
 
 https://www.mankier.com/4/modesetting
@@ -872,6 +880,20 @@ Verify
     modprobe -c | grep -E "(amd|radeon)" | less
     less /var/log/Xorg.0.log
     
+Test powersaving settings
+
+In my case, for the Kabini APU, the [powersaving parameter calls `dpm`](https://wiki.archlinux.org/index.php/ATI#Powersaving) and is listed as a supported module parameter in the output of the command
+
+    modinfo -p amdgpu | grep dpm
+    
+Check the [powersaving mode](https://wiki.archlinux.org/index.php/ATI#Dynamic_power_management)
+
+    sudo cat /sys/class/drm/card0/device/power_dpm_state
+    
+Check the current performance level
+
+    sudo cat /sys/class/drm/card0/device/power_dpm_force_performance_level
+    
 [Performance of the modesetting drivers](https://www.phoronix.com/scan.php?page=news_item&px=AMDGPU-DDX-Modesetting)
 
 **`nomodeset` driver - when modesetting fails**
@@ -889,6 +911,9 @@ If you see the graphical desktop environment, then everything was set up correct
 Otherwise uninstall the AMD GPU and install the ATI GPU driver
 
     sudo pacman -Runs xf86-video-amdgpu
+    
+    # or
+    
     sudo pacman -Syy xf86-video-ati
     
 Close all programs and reboot.
@@ -909,9 +934,6 @@ Check if you have enough VRAM allocated. If the values are close to the VRAM cap
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#ATI/AMD
 - https://wiki.archlinux.org/index.php/AMDGPU
 - https://wiki.archlinux.org/index.php/Vulkan
-
-
-With modesetting drivers only module options will work. The Xorg server cannot use the `amdgpu.conf` or `radeon.conf` configuration file in `modeprobe.d` directory, beacuse the modesetting driver is called `modesetting`, not `amdgpu` or `radeon` [AMDGPU - Set module parameters in modprobe.d](https://wiki.archlinux.org/index.php/AMDGPU#Set_module_parameters_in_modprobe.d), [Intel Modesetting DDX](https://wiki.gentoo.org/wiki/Intel#Modesetting_DDX).
 
 ---
 
