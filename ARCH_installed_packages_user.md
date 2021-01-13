@@ -1,14 +1,14 @@
 * git - version control system
     - `~/.gitconfig` [[1]](https://stackoverflow.com/questions/5519007/how-do-i-make-git-merges-default-be-no-ff-no-commit/9252042#9252042)
     
-    [user]
-        email = your@email.address
-        name = your_name
-    [merge]
-        commit = no
-        ff = no
-    [pull]
-        ff = yes
+            [user]
+                email = your@email.address
+                name = your_name
+            [merge]
+                commit = no
+                ff = no
+            [pull]
+                ff = yes
         
 * linux-lqx linux-lqx-headers linux-ck-skylake linux-ck-skylake-headers linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers linux-pf-skylake linux-pf-headers-skylake linux-clear-bin linux-clear-headers-bin
     - Building a kernel from source, e.g. linux-ck on my laptop with i5-6300U, took approximately 3 hours.
