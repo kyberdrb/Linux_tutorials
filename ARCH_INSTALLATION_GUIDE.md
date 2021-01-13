@@ -1166,7 +1166,7 @@ Create `pikaur` config file
     
 **From now on, I only use `pikaur` to manage all my packages instead of `pacman`.**
 
-## Enable hardware acceleration for graphics
+## Enable hardware acceleration for GPU
 
 Smoother video playback, less strain on CPU, more strain on GPU. Instead of the CPU doing the rendering, the rendering is offloaded to the GPU.
 
@@ -1176,7 +1176,9 @@ Smoother video playback, less strain on CPU, more strain on GPU. Instead of the 
 
 **For Intel GPUs**
 
-Intel uses VAAPI to offload rendering and decoding to the graphics processor.
+Intel uses VAAPI to offload video decoding to the graphics processor.
+
+Intel GPUs don't yet support VDPAU API, and there is no need to install translation layer packages to map VDPAU calls to VAAPI because it always be less efficient and slower than VAAPI optimized application. [1](https://bbs.archlinux.org/viewtopic.php?pid=1578000#p1578000), [2](https://bbs.archlinux.org/viewtopic.php?pid=1578078#p1578078)
 
 There are multiple ways how to enable VAAPI hardware acceleration on the Linux platform.
 
@@ -1263,6 +1265,8 @@ AMDGPU supports hardware acceleration through VAAPI and VDPAU drivers. Therefore
     LIBVA_DRIVER_NAME=radeonsi
     VDPAU_DRIVER=radeonsi
     VAAPI_MPEG4_ENABLED=true
+    
+Although ATI and AMD GPUs support VDPAU acceleration, the VAAPI backend is in my experience always faster than VDPAU. [1](https://bbs.archlinux.org/viewtopic.php?pid=1578000#p1578000), [2](https://bbs.archlinux.org/viewtopic.php?pid=1578078#p1578078)
     
 Continue with the verification of the VAAPI and VDPAU drivers
     
