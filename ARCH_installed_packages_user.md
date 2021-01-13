@@ -1,3 +1,15 @@
+̣* git - version control system
+    - `~/.gitconfig`
+    
+    [user]
+        email = your@email.address
+        name = your_name
+    [merge]
+        commit = no
+        ff = no
+    [pull]
+        ff = yes
+
 * linux-lqx linux-lqx-headers linux-ck-skylake linux-ck-skylake-headers linux-tkg-muqss-skylake linux-tkg-muqss-skylake-headers linux-pf-skylake linux-pf-headers-skylake linux-clear-bin linux-clear-headers-bin
     - Building a kernel from source, e.g. linux-ck on my laptop with i5-6300U, took approximately 3 hours.
     - BEFORE BUILDING A KERNEL, REMOUNT THE `BOOT` PARTITION AS WRITABLE (if it's not already)
