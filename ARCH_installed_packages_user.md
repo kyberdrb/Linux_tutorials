@@ -1,5 +1,5 @@
 ̣* git - version control system
-    - `~/.gitconfig`
+    - `~/.gitconfig` [1](https://stackoverflow.com/questions/5519007/how-do-i-make-git-merges-default-be-no-ff-no-commit/9252042#9252042)
     
     [user]
         email = your@email.address
