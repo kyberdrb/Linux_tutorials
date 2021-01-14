@@ -1,6 +1,14 @@
 * git - version control system
     - `~/.gitconfig` [[1]](https://stackoverflow.com/questions/5519007/how-do-i-make-git-merges-default-be-no-ff-no-commit/9252042#9252042)
     
+        Commands:
+    
+            git config --global merge.commit no
+            git config --global merge.ff no
+            git config --global pull.ff yes
+    
+        ...produce this output with `cat ~/.gitconfig`
+    
             [user]
                 email = your@email.address
                 name = your_name
