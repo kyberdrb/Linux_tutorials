@@ -909,7 +909,7 @@ Later you can try to simplify the configuration and
 
 This simplification came from the message from `vkmark` when is said in the output
 
-    radv
+    WARNING: radv is not a conformant vulkan implementation, testing use only.
     
 After some searching I decided to make a simpler modules configuration according to [this post](https://forums.lutris.net/t/solved-lutris-says-radeon-hd-8670-not-vulkan-compatible/10307/3)
 
