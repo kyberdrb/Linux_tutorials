@@ -903,11 +903,15 @@ Check the current performance level
 
     sudo cat /sys/class/drm/card0/device/power_dpm_force_performance_level
     
-[Performance of the modesetting drivers](https://www.phoronix.com/scan.php?page=news_item&px=AMDGPU-DDX-Modesetting)
+Later you can try to simplify the configuration and 
+- remove `radeon` from `MODULES` in `/etc/mkinitcpio.conf` and 
+- move `radeon.conf` from `/etc/modeprobe.d` into e. g. home directory.
+
+And when somethong goes wrong, the Arch Linux boot USB will help you to restore the previous state manually.
 
 **`nomodeset` driver - when modesetting fails**
 
-Install the [Xorg DDX driver] for AMD. To decide which one to install, decide according to the GCN version or by hardware model [here (Radeon)](https://wiki.gentoo.org/wiki/Radeon) and [here (AMD)](https://wiki.gentoo.org/wiki/AMDGPU) or by trial-and-error. Then it might be useful to have a bootable Arch Linux USB installation media nearby to boot from it and fix things when they go wrong.
+Install the [Xorg nomodeset driver] for AMD. To decide which one to install, decide according to the GCN version or by hardware model [here (Radeon)](https://wiki.gentoo.org/wiki/Radeon) and [here (AMD)](https://wiki.gentoo.org/wiki/AMDGPU) or by trial-and-error. Then it might be useful to have a bootable Arch Linux USB installation media nearby to boot from it and fix things when they go wrong.
 
 If you decided to follow the trial-and-error method, first try the driver for AMD:
 
