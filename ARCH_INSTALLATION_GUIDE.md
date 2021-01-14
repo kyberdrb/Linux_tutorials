@@ -907,6 +907,12 @@ Later you can try to simplify the configuration and
 - remove `radeon` from `MODULES` in `/etc/mkinitcpio.conf` and 
 - move `radeon.conf` from `/etc/modeprobe.d` into e. g. home directory.
 
+This simplification came from the message from `vkmark` when is said in the output
+
+    radv
+    
+After some searching I decided to make a simpler modules configuration according to [this post](https://forums.lutris.net/t/solved-lutris-says-radeon-hd-8670-not-vulkan-compatible/10307/3)
+
 And when somethong goes wrong, the Arch Linux boot USB will help you to restore the previous state manually.
 
 **`nomodeset` driver - when modesetting fails**
