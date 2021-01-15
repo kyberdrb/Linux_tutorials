@@ -469,6 +469,9 @@
     - Tab `General`
         - check `Restore previous session`
         - uncheck `Ctrl+Tab cycles through tabs in recently used order`
+    - Extensions TODO
+    - Enable hardware acceleration TODO
+        - OpenGL/WebGL and VAAPI
         
 * redshift-minimal -> color temperature changer (spares eyes) -> run on background in tray with "redshift&"
     - Create environment for the config file
