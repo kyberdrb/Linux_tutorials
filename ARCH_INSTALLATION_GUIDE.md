@@ -1716,11 +1716,17 @@ Source: https://askubuntu.com/questions/980720/open-xfce-terminal-window-and-run
     - `Lockscreen` tab
     	- disable `Lock Screen with Screensaver`. I will lock the screen manually with the keyboard shortcut `Ctrl + Alt + L`
     Source: https://askubuntu.com/questions/259717/power-manager-gui-settings-not-to-shut-down-the-display-are-not-followed/259723#259723
+    
+- Window Manager
+    - Advanced tab
+        - Windows snapping: Enable `To other windows`
 
 - Window Manager Tweaks
     - Cycling tab
-        - Enable `Cycle through windows on all workspaces`
         - Enable `Cycle through windows in a list`
+    - Compositor tab
+        - Disable all shadow effects
+        - Set all opacity to maximum, i. e. `Opaque`
 
 - Workspaces
     - General tab
