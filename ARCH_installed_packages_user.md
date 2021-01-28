@@ -157,6 +157,8 @@
     - `libva` package helps to enable accelerated video playback through GPU by for VAAPI enabled drivers and GPU.
     - `youtube-dl` enables playing online videos and streams.
     
+    - [MPV player - mouse and keyboard shortcuts](https://defkey.com/mpv-media-player-shortcuts)
+    
     **Configuration**
     
     MPV configuration file is designed specificly for at most 1080p videos encoded in H264/AVC codec with best audio available.  
@@ -306,6 +308,8 @@
         - by default black, but text is also by default black so I don't see usually any text
         - Configuraion for white background: background color: 255, 254, 254; main color: 255, 255, 255; size = 1
         - background color 255, 255, 255 or even 255, 255, 254 in Chromium reverts back the default black color for transparent background images
+    - uBlock Origin
+        - [adfilter](https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt) - use for annoyances
         
     - **Enabling Hardware Acceleration for Chromium** - offloading strain from CPU to GPU for video decoding. [How can I make sure what capabilities my Intel GPU has?](https://bbs.archlinux.org/viewtopic.php?id=257178), https://www.reddit.com/r/linux/comments/k5s4n5/google_chrome_v88_got_hardwareaccelerated/
         - The way that uses least CPU of the various ways I tried out is to forward video playback to external multimedia player. In a dedicated multimedia player the CPU usage is lower and GPU usage higher, which is what I wanted. Videos play smooth, without stutter or tearing with GPU hardware acceleration.
@@ -469,7 +473,8 @@
     - Tab `General`
         - check `Restore previous session`
         - uncheck `Ctrl+Tab cycles through tabs in recently used order`
-    - Extensions TODO
+    - Extensions
+        - uBlock Origin - see `uBlock Origin` setup somewhere here
     - Enable hardware acceleration TODO
         - OpenGL/WebGL and VAAPI
         
