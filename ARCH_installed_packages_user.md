@@ -658,7 +658,7 @@
 * parallel - parallelize shell commands
 * thunar - favorite file manager
 * transmission-gtk / transmission-qt -> torrent klient
-* gparted -> disk and partition manager
+* gparted  exfatprogs - disk and partition manager
 * xorg-apps - additional utilities for easier Xorg management e.g. brightness adjustment etc.
 * picom - compositor with hardware acceleration through OpenGL
     - to set it up for LXDE (or maybe other environments), follow the guide [for fixing the tearing and stuttering](https://github.com/kyberdrb/Linux_tutorials/blob/master/LXDE-Fix_tearing_with_compositor.md)
