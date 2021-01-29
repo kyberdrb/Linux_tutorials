@@ -96,6 +96,9 @@ Firstly, we need to wipe the disk:
 	
 The target disk is now clean. We can proceed to the disk partitioning.
 
+**TODO use `parted` in noninteractive mode instead of belowmentioned utilities to partition disks**  
+**See [[1]](https://linuxconfig.org/how-to-manage-partitions-with-gnu-parted-on-linux), [[2]](https://askubuntu.com/questions/706608/exfat-external-drive-not-recognized-on-windows/812761#812761)**
+
 ### UEFI partitioning
 
 For UEFI install it will be partitioned like this:
