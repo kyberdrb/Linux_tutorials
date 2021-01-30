@@ -151,6 +151,10 @@
         - AsciiDoc Preview: Ctrl-Shift-A
         - Duplicate Line: Ctrl + Shift + D
         
+* vscodium-bin-marketplace - debranded Visual Studio Code with Visual Studio Code's marketplace feature
+    - Extensions:
+        - AsciiDoc - `.adoc` files preview
+        
 * obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
 * parole - my preferred audio player
 * mpv libva youtube-dl - my favorite multimedia player for playing online streaming content e. g. YouTube videos with HW acceleration
