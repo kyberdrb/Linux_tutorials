@@ -219,7 +219,7 @@
     - Youtube network streaming fix
         
             # Go to the VLC directory
-            cd /usr/lib/vlc/intf/playlist/
+            cd /usr/lib/vlc/lua/playlist/
             
             # Backup the original script for youtube streaming
             sudo mv youtube.luac youtube.luac.bak
