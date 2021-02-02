@@ -120,7 +120,15 @@
         
             Source: https://discuss.atom.io/t/atom-doesnt-open-file-on-single-click-in-tree-view/27902/9
         - Edit -- Preferences -- Themes -- UI Theme: Atom Light; Syntax Theme: Atom Light
-        - Edit -- Preferences -- Editor -- disable _Atomic Soft Tabs_, Font Family: **Source Code Pro** (because of the clear distinction among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2), Menlo, Consolas, DejaVu Sans Mono, monospace, Tab Length: 4, Tab Type: soft
+        - Edit -- Preferences -- Editor -- disable _Atomic Soft Tabs_
+            - Font Family: `Source Code Pro, Menlo, Consolas, DejaVu Sans Mono, monospace`
+                - because these monospace fonts have clearly distinguishable among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2
+            - Tab Length: 4  
+            - Tab Type: soft
+        
+            For the list of all avaliable fonts, execue this command in terminal
+                
+                fc-list | cut -d ':' -f2 | cut -d' ' -f1 --complement | less
         
             Source: https://discuss.atom.io/t/how-do-you-use-spaces-instead-of-tabs/64730/2
         - Disable spell-cheking (it disturbs me when almost everything is red-squiggly-underlined)
@@ -154,6 +162,9 @@
 * vscodium-bin-marketplace - debranded Visual Studio Code with Visual Studio Code's marketplace feature
     - Extensions:
         - AsciiDoc - `.adoc` files preview
+    - Preferences
+        - Text Editor -- Font -- Font Family: `'Source Code Pro', 'Menlo', 'Consolas', 'DejaVu Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'`
+            - because these monospace fonts have clearly distinguishable among the characters 'iI1l' 'oO0 - especially the zero :)' 'sS5' 'A4' 'g9' 'B8' ''Z2
         
 * obs - Open Broadcast Software - a tool to streaming and recording audio and video including desktop and system audio
 * parole - my preferred audio player
