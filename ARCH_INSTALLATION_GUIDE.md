@@ -284,104 +284,18 @@ The hostname will be set after next reboot.
 
 ****************************************
 
-Configure pacman and its repositories ([some of them are here](https://wiki.archlinux.org/index.php/Unofficial_user_repositories)):
+Configure pacman and its repositories by cloning my repository for Arch Linux updating
 
-	nano /etc/pacman.conf
-	
-...with this content:
+    sudo pacman -S git
+    cd /tmp
+    git clone https://github.com/kyberdrb/update_arch.git
+    cd update_arch
     
-    [options]
-    HoldPkg     = pacman glibc
-    Architecture = auto
-
-    CheckSpace
-
-    SigLevel    = Required DatabaseOptional TrustedOnly
-    LocalFileSigLevel = Optional
-
-    [core]
-    Include = /etc/pacman.d/mirrorlist
-
-    [extra]
-    Include = /etc/pacman.d/mirrorlist
-
-    [community]
-    Include = /etc/pacman.d/mirrorlist
-
-    [multilib]
-    Include = /etc/pacman.d/mirrorlist
-
-    #AUR - Arch User Repository
-    [archlinuxfr]
-    Server = http://repo.archlinux.fr/$arch
-
-    #virtualbox_extension_pack
-    [seblu]
-    Server = http://al.seblu.net/$repo/$arch
-
-    #pocketsphinx, vscodium
-    [ownstuff]
-    Server = https://ftp.f3l.de/~martchus/$repo/os/$arch
-    Server = https://martchus.no-ip.biz/repo/arch/$repo/os/$arch
-
-    #kernel: linux-lqx linux-lqx-headers
-    [liquorix]
-    Server = https://liquorix.net/archlinux/$repo/$arch
-
-    #chaotic-keyring
-    #kernel: linux-tkg-muqss-skylake, linux-tkg-muqss-skylake-headers
-    #for using, see: https://lonewolf.pedrohlc.com/chaotic-aur/
-    [chaotic-aur]
-    Include = /etc/pacman.d/chaotic-mirrorlist
-
-    #kernel: linux-ck-skylake, linux-ck-skylake-headers
-    [repo-ck]
-    #SigLevel = Optional
-    #SigLevel = TrustAll
-    #SigLevel = Optional TrustAll
-    Server = http://repo-ck.com/$arch
-    Server = https://mirror.lesviallon.fr/$repo/os/$arch
-
-    #kernel: linux-pf-skylake linux-pf-headers-skylake
-    [home_post-factum_kernels_Arch]
-    SigLevel = Optional TrustAll
-    Server = https://download.opensuse.org/repositories/home:/post-factum:/kernels/Arch/$arch
-
-- `post-factum` repository has the `SigLevel` set to `Optional` in order to prevent error after package downloading at package verification:
-
-        error: linux-pf-generic: missing required signature
-        error: linux-pf-headers-generic: missing required signature
-        error: failed to commit transaction (invalid or corrupted package)
-
-- `post-factum` repository has the `SigLevel` set to `TrustAll` in order to prevent error at database syncing: `signature is unknown trust`
-
-Save file (Ctrl + O) and exit (Ctrl + X).
-
-Source: https://jlk.fjfi.cvut.cz/arch/manpages/man/pacman.conf.5#PACKAGE_AND_DATABASE_SIGNATURE_CHECKING
-
-P.S.: The final `pacman.conf` achieved by commands
-
-    # Make backup of current pacman.conf file
-    sudo cp /etc/pacman.conf /etc/pacman.conf.bak
-
-    # Iterate first 100 lines and remove only commented lines
-    sudo sed -i '1,100{/^#/d}' /etc/pacman.conf
-
-    # Replace multiple emtpy lines with single empty line
-    cat -s /etc/pacman.conf | sudo tee /etc/pacman.conf
-
-    # Remove the first line if the line is empty
-    sudo sed -i '1{/^$/d}' /etc/pacman.conf
-
-Update packages:
-
-	pacman -Syy
-
-Install updates
-
-    pacman -Syyuu
+Launch the script to update the system
     
-If it will prompt you to install packages, press 'y' and then <Enter>
+    ./update_arch.sh
+
+Wait until the updating completes.
 
 ## Set up root password:
 
@@ -522,9 +436,7 @@ If the system doesn't boot AND you have a NVidia graphics card, boot from the US
 	exit
 	reboot
 
-# Arch Linux Configuration - move to a separate file
-
-FIRST CONSOLE LOGIN
+## First console login
 
 Login as regular user i.e. under `laptop` user account.
 
@@ -541,7 +453,7 @@ Set time:
     sudo ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
     sudo hwclock --systohc
     
-## Configure `vim`
+### Configure `vim`
 
 See the `vim` entry in the [installed packages file](https://github.com/kyberdrb/Linux_tutorials/blob/master/ARCH_installed_packages_user.md)
     
@@ -564,7 +476,7 @@ Sources:
 - https://askubuntu.com/questions/466198/how-do-i-change-the-color-for-directories-with-ls-in-the-console/466203#466203
 - https://linuxhint.com/ls_colors_bash/
 
-## Select language
+### Select language
 
 Edit locale setting (system and application language):
 	
@@ -579,11 +491,22 @@ Generate new locale settings
 	
 If the `localectl` command wouldn't be issued, we would see in the desktop environment meaningless characters
 
-## Install X server
+Set up automated system updating
+
+    git clone https://github.com/kyberdrb/update_arch.git
+    cd update_arch
+    
+Launch the script to update the system
+    
+    ./update_arch.sh
+    
+Wait until the updating completes. The script will automatically configure and update the system.
+
+### Install X server
     
     sudo pacman -S xorg
       
-## Install graphics drivers
+### Install graphics drivers
 
 Common graphics drivers and Vulkan support
 
@@ -602,7 +525,9 @@ https://wiki.archlinux.org/index.php/Benchmarking#Graphics
 
 Continue with the installation of the driver which is specific to your GPU vendor.
 
-Note: `xorg.conf` in
+**Note**
+
+`xorg.conf` attributes in
 
 https://wiki.archlinux.org/index.php/Xorg#Configuration
 
@@ -629,11 +554,9 @@ https://www.mankier.com/4/modesetting
 
 https://wiki.archlinux.org/index.php/Kernel_module#Obtaining_information
 
----
+#### General packages for Intel GPUs
 
 GPU on my laptop - Intel HD Graphics 520
-
-**General packages for Intel GPUs**
 
     sudo pacman -Syy vulkan-intel lib32-vulkan-intel intel-gpu-tools
 	
@@ -812,9 +735,7 @@ If everything else failed, use the nomodeset Intel driver
 
 - The `/etc/X11/xorg.conf.d/20-intel.conf` is **only optional** if you're experiencing issues like tearing, stuttering, black screen, etc. Here's [another one](https://gist.github.com/radupotop/8597093) [just for curiosity].
 
----
-
-**For AMD/ATI graphics and AMD APUs**
+#### For AMD/ATI graphics and AMD APUs
 
 Currently I have a Kabini build.
 
@@ -963,13 +884,13 @@ If even that doesn't work, use the [`xf86-video-amdgpu`](https://wiki.gentoo.org
 
 With these nomodeset Xorg drivers you can use the [Xorg options in `modprobe.d`](https://wiki.archlinux.org/index.php/AMDGPU#Xorg_configuration) [1](https://jlk.fjfi.cvut.cz/arch/manpages/man/amdgpu.4), [2](https://wiki.archlinux.org/index.php/Xorg#Driver_installation), [3](https://wiki.archlinux.org/index.php/Xorg#AMD).
 
-## Install desktop environment
+### Install desktop environment
 
 XFCE4
 
     sudo pacman -S xfce4 xfce4-goodies xorg-apps
 
-## Login
+### Login
 
 Now we have to decide, if we want to log in to our computer from
 GUI (desktop/login manager - little unstable, but pretty) or from terminal (fast and secure)
@@ -1055,7 +976,7 @@ Sample `~/.xinitrc`
 
     exec startxfce4
 
-#### Edit file `~/.bash_profile`
+Edit file `~/.bash_profile`
 
 `TODO nano...`
 
@@ -1112,11 +1033,11 @@ Benchmark GPU performance
     vblank_mode=0 glxgears -fullscreen
     vkmark
 
-## AUR helper utility
+### AUR helper utility
 
-I'll install `pikaur` beacuse It's convenient for me to use.
+I'll install `pikaur` beacuse it's the most convenient and reliable package helper I've ever used.
 
-### Installation
+#### Installation
 
 Prepare packages for `pikaur`
 
@@ -1135,75 +1056,21 @@ Prepare packages for `pikaur`
         
     Source: https://github.com/actionless/pikaur#installation
       
-### Configuration
+#### Configuration
 
 Create `pikaur` config file...
 
     $ vim ~/.config/pikaur.conf
     
-...with this content:
-    
-    [sync]
-    alwaysshowpkgorigin = no
-    develpkgsexpiration = -1
-    upgradesorting = versiondiff
-    showdownloadsize = no
-    ignoreoutofdateaurupgrades = no
+The rest will be handled with the Arch Linux updating script.
 
-    [build]
-    keepbuilddir = no
-    keepdevbuilddir = yes
-    skipfailedbuild = no
-    alwaysusedynamicusers = no
-    keepbuilddeps = no
-
-    [colors]
-    version = 10
-    versiondiffold = 11
-    versiondiffnew = 9
-
-    [ui]
-    requireenterconfirm = yes
-    printcommands = no
-    reversesearchsorting = no
-    aursearchsorting = hottest
-    displaylastupdated = no
-    groupbyrepository = yes
-
-    [misc]
-    sudoloopinterval = 999
-    pacmanpath = pacman
-    privilegeescalationtool = sudo
-
-    [network]
-    socks5proxy = 
-    aururl = https://aur.archlinux.org
-    newsurl = https://www.archlinux.org/feeds/news/
-    aurhttpproxy = 
-    aurhttpsproxy = 
-
-    [review]
-    noedit = no
-    donteditbydefault = yes
-    nodiff = no
-    gitdiffargs = --ignore-space-change,--ignore-all-space
-    diffpager = auto
-    hidedifffiles = .SRCINFO
-
-            
-Source: https://github.com/actionless/pikaur#configuration
-    
-**From now on, I only use `pikaur` to manage all my packages instead of `pacman`.**
-
-## Enable hardware acceleration for GPU
+### Enable hardware acceleration for GPU
 
 Smoother video playback, less strain on CPU, more strain on GPU. Instead of the CPU doing the rendering, the rendering is offloaded to the GPU.
 
 	sudo pacman -S libva lib32-libva
-	
----
 
-**For Intel GPUs**
+#### For Intel GPUs
 
 Intel uses VAAPI to offload video decoding to the graphics processor.
 
@@ -1239,13 +1106,6 @@ As the final decision I chose the third option - the hybrid drivers:
 https://aur.archlinux.org/packages/libva-intel-driver-hybrid/
 
 https://aur.archlinux.org/packages/intel-hybrid-codec-driver-gcc10/
-
-
-    
-    
-    VAAPI_MPEG4_ENABLED=true
-    
- acceleration of media formats for the GPU.
 
 Verify if the VAAPI driver is present and the formats that are accelerated through VAAPI.
 
@@ -1299,7 +1159,7 @@ Although ATI and AMD GPUs support VDPAU acceleration, the VAAPI backend is in my
     
 Continue with the verification of the VAAPI and VDPAU drivers
     
-### Verify hardware acceleration for graphics
+#### Verify hardware acceleration for graphics
 
 Check `VAAPI` [Intel, AMD] configuration...
     
