@@ -21,6 +21,14 @@
         
 `--write-auto-sub` option can be used only for Youtube videos, according to the man page.
 
+To convert subtitles to a plain text file from YouTube and copy it to clipboard, you can use command:
+
+    cat <youtube_subtitle_file> | sed '1,4d' |  sed '/-->/d' | sed '/^$/d' | tr -s "\n" " " | xclip -selection clipboard
+    
+or for auto-generated YouTube subtitles use:
+
+    cat <youtube_subtitle_file> | sed '1,4d' |  sed '/-->/d' | sed -e '/<c>/d' | sed '/^\s*$/d' | uniq | tr -s '\n' ' ' | xclip -selection clipboard
+
 ## Merge
 
 Merge audio and video file to a single file
