@@ -13,17 +13,23 @@ Enabling ECN does not much good unless both hosts on the path have it enabled, a
 Many servers do support ECN negotiation already, but few clients do.
 
 Enabling ECN on OSX
-sudo sysctl -w net.inet.tcp.ecn_initiate_out=1  
-sudo sysctl -w net.inet.tcp.ecn_negotiate_in=1  
+
+    sudo sysctl -w net.inet.tcp.ecn_initiate_out=1  
+    sudo sysctl -w net.inet.tcp.ecn_negotiate_in=1
+
 To make the settings persistent, put the following lines in /etc/sysctl.conf:
 
-net.inet.tcp.ecn_initiate_out=1
-net.inet.tcp.ecn_negotiate_in=1
+    net.inet.tcp.ecn_initiate_out=1
+    net.inet.tcp.ecn_negotiate_in=1
+
 Enabling ECN on Windows
-netsh interface tcp set global ecncapability=enabled
+
+    netsh interface tcp set global ecncapability=enabled
 
 Enabling ECN on Linux
-sudo sysctl -w net.ipv4.tcp_ecn=1   
+
+    sudo sysctl -w net.ipv4.tcp_ecn=1   
+
 Like Mac OS X, to make setting persistent, add line in /etc/sysctl.conf
 
 Using ECN in CeroWrt
