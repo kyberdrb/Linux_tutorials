@@ -1,3 +1,9 @@
+Show the upstream URL for a git repository
+
+    cat .git/config | grep url | tr -d '\t' | tr -d ' ' | cut -d'=' -f2 | xclip -se c
+
+---
+
 Rename all files in a directory - add a prefix to their filename
 
     find . -name '*.log' -exec bash -c 'mv "$1" "$(dirname $1)/interbench-$(basename $1)"' bash "{}" \;
