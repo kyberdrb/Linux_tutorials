@@ -1,13 +1,24 @@
 ## Download
 
         MEDIA_URL=youtube/soundcloud/vimeo/etc.
+        
+        # List formats for audio/video
         youtube-dl --verbose --list-formats $MEDIA_URL
         
+        # Download specified audio/video format
         youtube-dl --verbose --format <format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        youtube-dl --verbose --format <format> $MEDIA_URL
         
+        # Download private YouTube video
+        # install 'cookies.txt' extension (Chromium); log in to the Google Account when the access to the video is allowed only for specified users; open the link to the private YouTube video; click the 'cookies.txt' extension icon and in the top part of the output click on 'To download cookies for this tab click here'.
+        
+        youtube-dl --cookies ~/Downloads/cookies-youtube-private_videos.txt --verbose --format 248+251 --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" https://www.youtube.com/watch?v=ghHe1bN3mi0
+        
+        https://daveparrish.net/posts/2018-06-22-How-to-download-private-YouTube-videos-with-youtube-dl.html
+        
+        # List subtitiles
         youtube-dl --verbose --list-sub $MEDIA_URL
         
+        # Download subtitles
         youtube-dl --verbose --write-auto-sub --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --write-auto-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --write-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
