@@ -1,3 +1,19 @@
+Convert PDF to text
+
+    pdftotext Resisting_Illegitimate_Authority_-_Bruce_E_Levine.pdf
+    
+https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-to-editable-text-using-the-command-line-in-linux/
+
+---
+
+Remove known password from a PDF file
+
+    qpdf --password=ENTER_YOUR_PASSWORD_HERE --decrypt ENCRYPTED_FILE.pdf DECRYPTED_FILE.pdf
+
+https://www.cyberciti.biz/faq/removing-password-from-pdf-on-linux/
+
+---
+
 Show the upstream URL for a git repository
 
     cat .git/config | grep url | tr -d '\t' | tr -d ' ' | cut -d'=' -f2 | xclip -se c
