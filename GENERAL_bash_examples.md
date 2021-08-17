@@ -1,6 +1,14 @@
+Convert image with text to a text file
+
+    tesseract -l slk image_with_text.jpeg file_with_extracted_text
+    
+The `file_with_extracted_text` will be in the same directory and prepended with `.txt` extension by default, i.e. `file_with_extracted_text.txt`
+
+---
+
 Convert PDF to text
 
-    pdftotext Resisting_Illegitimate_Authority_-_Bruce_E_Levine.pdf
+    pdftotext DOCUMENT.pdf
     
 https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-to-editable-text-using-the-command-line-in-linux/
 
