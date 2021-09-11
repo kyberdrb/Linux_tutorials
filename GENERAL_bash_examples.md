@@ -1,3 +1,18 @@
+Doing date arithmetics
+
+- adding to current date
+
+        date +%d.%m.%Y -d "4 weeks"
+    
+- subtracting from current date
+
+        date +%d.%m.%Y -d "4 weeks ago"
+   
+- https://stackoverflow.com/questions/6417233/how-to-do-date-calculations-in-shell-scripting/6417313#6417313
+- https://man7.org/linux/man-pages/man1/date.1.html
+
+---
+
 Convert image with text to a text file
 
     tesseract -l slk image_with_text.jpeg file_with_extracted_text
