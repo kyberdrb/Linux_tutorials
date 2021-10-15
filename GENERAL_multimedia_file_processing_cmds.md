@@ -57,6 +57,22 @@ Merge audio and video file to a single file
         
 * https://stackoverflow.com/questions/42947957/how-convert-high-bitrate-mp3-to-lower-rate-using-ffmpeg-in-android/49433551#49433551
 * https://trac.ffmpeg.org/wiki/AudioChannelManipulation
+        
+**Decode and convert AAX or other Amazon Audible audio file**
+
+... for personal use, of course
+
+        pikaur -Syy audible-activator-git
+        audible-activator
+        [enter username/email and password]
+        # Copy the text after the 'activation_bytes:'
+        # Convert audio file with given activation bytes. I preffer to use 'libvorbis' encoder, as it's open-source.
+        #  You can choose different encoders. List of supported encoders can be obtained with the command 'ffmpeg -encoders'
+        ffmpeg -activation_bytes ACTIVATION_BYTES -i AudioFile.aax -vn -c:a libvorbis AudioFile.ogg
+        
+* https://unix.stackexchange.com/questions/105821/audible-drm-removal-for-personal-use/408053#408053
+* 
+* https://ffmpeg.org/ffmpeg-codecs.html#toc-Encoders
 
 ## Cut
 
