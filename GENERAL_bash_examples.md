@@ -1,3 +1,22 @@
+Extract link to PDF file for researchgate.net articles
+
+        $ # Link copied from the 'Dowload' button of an article when available
+        $ url="https://www.researchgate.net/profile/K-Jayasankara-Reddy/publication/324126634_Academic_Stress_and_its_Sources_Among_University_Students/links/5facd3e545851507810d3bf6/Academic-Stress-and-its-Sources-Among-University-Students.pdf?_sg%5B0%5D=-Teztkijrz63m0E3rNX-WAY_URChls-jlcA7DePD0HOjlABb7oy4CGhmP4cLRcifOA5sXtvC9MHlf53xvDqqig.jIRqPnUdTcUD_Bt5Mxy0R1H6-XXbyZMcR-rParExA2LwN-x0OcXoDeecXUtPnfHyNsImULHXWv2ry8rekin5aQ.MMKJw6HskFi9gdLOGGMALB_DfUqbGExSUH7LE9KN0YHewdeNac3WCcLUUibMMb7NoSJf-gnE8jUZ3Bma5_7iqw&_sg%5B1%5D=i-XBO2eZ1Z9GsusjvW36V8Z-VW4P9oEwkgYao2S8Sg7GTbHph3MhU9GHVdjUyzrB65qic36vYiX5rdB0rS7ps0HeQFXzVidEWQG4gQlGg0NW.jIRqPnUdTcUD_Bt5Mxy0R1H6-XXbyZMcR-rParExA2LwN-x0OcXoDeecXUtPnfHyNsImULHXWv2ry8rekin5aQ.MMKJw6HskFi9gdLOGGMALB_DfUqbGExSUH7LE9KN0YHewdeNac3WCcLUUibMMb7NoSJf-gnE8jUZ3Bma5_7iqw&_iepl%5BgeneralViewId%5D=N6cg1WuANscvFS9JqCPW4wR16uNn4H4oX2NK&_iepl%5Bcontexts%5D%5B0%5D=searchReact&_iepl%5BviewId%5D=ULHui0NiYoBzfcW83F5iR1yeBiRIWNusROyo&_iepl%5BsearchType%5D=publication&_iepl%5Bdata%5D%5BcountLessEqual20%5D=1&_iepl%5Bdata%5D%5BinteractedWithPosition1%5D=1&_iepl%5Bdata%5D%5BwithoutEnrichment%5D=1&_iepl%5Bposition%5D=1&_iepl%5BrgKey%5D=PB%3A324126634&_iepl%5BtargetEntityId%5D=PB%3A324126634&_iepl%5BinteractionType%5D=publicationDownload"
+        
+        $ # Trimmed link is easier to read and is enough to access the PDF file of an article
+        $ echo ${url%%\?*}
+        https://www.researchgate.net/profile/K-Jayasankara-Reddy/publication/324126634_Academic_Stress_and_its_Sources_Among_University_Students/links/5facd3e545851507810d3bf6/Academic-Stress-and-its-Sources-Among-University-Students.pdf
+
+---
+
+Removing special characters from text or filenames
+
+        echo -n 'Keeping Up Appearances: Perfectionism and Perfectionistic Self-Presentation on Social Media' | tr -d '<>:"/\|?*(),""!' | sed 's/ /_/g' | xclip -selection clipboard
+
+- https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names/31976060#31976060
+
+---
+
 Doing date arithmetics
 
 - adding to current date
