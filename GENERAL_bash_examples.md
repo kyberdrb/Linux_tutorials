@@ -1,3 +1,27 @@
+'Burn' ISO to USB
+
+Replace `sdx` with your USB drive by using e.g. `lsblk` command
+
+        sudo dd bs=4M if=path/to/archlinux-version-x86_64.iso of=/dev/sdx conv=fsync oflag=direct status=progress
+        
+Source: https://wiki.archlinux.org/title/USB_flash_installation_medium
+
+---
+
+Extract 7z archive
+
+Extract into directory with archive's name
+
+        7z x -y clonezilla-live-2.7.3-19-amd64.zip -o/run/media/laptop/8071-0AE6
+        
+Extract directly into current directory
+
+        7z e -y clonezilla-live-2.7.3-19-amd64.zip -o/run/media/laptop/8071-0AE6
+        
+Source: https://superuser.com/questions/1366616/extract-folder-content-from-7z-archive-to-specific-folder/1366619#1366619
+
+---
+
 Extract link to PDF file for researchgate.net articles
 
         $ # Link copied from the 'Dowload' button of an article when available
