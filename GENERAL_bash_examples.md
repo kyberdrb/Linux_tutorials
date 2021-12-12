@@ -35,7 +35,7 @@ Extract link to PDF file for researchgate.net articles
 
 Removing special characters from text or filenames
 
-        echo -n 'Keeping Up Appearances: Perfectionism and Perfectionistic Self-Presentation on Social Media' | tr -d '<>:"/\|?*(),""!' | tr -d "'" | sed 's/ /_/g' | xclip -selection clipboard
+        echo 'Long-term follow-up of Helicobacter pylori reinfection and its risk factors after initial eradication: a large-scale multicentre, prospective open cohort, observational study--TEMI_9_1737579.pdf' | sed 's/:/_-_/g' | tr -d '<>"/\|?*(),""“”!' | tr -d "'" | sed 's/ /_/g' | sed 's/__/_/g' | tr -d '\r\n' | xclip -selection clipboard
 
 - https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names/31976060#31976060
 
