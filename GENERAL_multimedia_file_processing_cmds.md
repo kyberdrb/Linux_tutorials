@@ -51,12 +51,24 @@ Merge audio and video file to a single file
 
 ## Convert
 
-        ffmpeg -i file_name.webm -vn -y -b:a 128k -ar 44100 converted_file_name.ogg
-        ffmpeg -i file_name.webm -vn -y -b:a 128k -ac <channels: 1 - mono, 2 - stereo> -ar 44100 converted_file_name.ogg
-        ffmpeg -i file_name.webm -vn -y converted_file_name.ogg
-        
+    ffmpeg -i file_name.webm -vn -y -b:a 128k -ar 44100 converted_file_name.ogg
+    ffmpeg -i file_name.webm -vn -y -b:a 128k -ac <channels: 1 - mono, 2 - stereo> -ar 44100 converted_file_name.ogg
+    ffmpeg -i file_name.webm -vn -y converted_file_name.ogg
+
 * https://stackoverflow.com/questions/42947957/how-convert-high-bitrate-mp3-to-lower-rate-using-ffmpeg-in-android/49433551#49433551
 * https://trac.ffmpeg.org/wiki/AudioChannelManipulation
+
+**Convert from higher resolution to lower resolution to save space on the storage**
+
+From Full HD (1080p) to HD (720p)
+
+    ffmpeg -i large_full_hd_video.mkv -s hd720 -c:v libx264 -preset slow -crf 23 -c:a aac -strict -2 smaller_hd_video.mkv
+    
+The resulting file will be approximately 3-4x smaller than the original file with negligible quality difference.
+
+* https://askubuntu.com/questions/99643/how-can-i-convert-a-1080p-wmv-video-to-a-720p-video/99648#99648
+* https://superuser.com/questions/1556953/why-does-preset-veryfast-in-ffmpeg-generate-the-most-compressed-file-compared#1557090
+* `-crf` meaning - https://trac.ffmpeg.org/wiki/Encode/H.264
         
 **Decode and convert AAX or other Amazon Audible audio file**
 
@@ -71,7 +83,6 @@ Merge audio and video file to a single file
         ffmpeg -activation_bytes ACTIVATION_BYTES -i AudioFile.aax -vn -c:a libvorbis AudioFile.ogg
         
 * https://unix.stackexchange.com/questions/105821/audible-drm-removal-for-personal-use/408053#408053
-* 
 * https://ffmpeg.org/ffmpeg-codecs.html#toc-Encoders
 
 ## Cut
