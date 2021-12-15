@@ -1,3 +1,15 @@
+Copy file between the phone and the computer
+
+phone `->` PC
+
+    adb pull /storage/extSdCard/buffer.txt /tmp/buffer.txt
+    
+PC `->` phone
+    
+    adb push /tmp/buffer.txt /storage/extSdCard/buffer.txt
+    
+---
+
 'Burn' ISO to USB
 
 Replace `sdx` with your USB drive by using e.g. `lsblk` command
