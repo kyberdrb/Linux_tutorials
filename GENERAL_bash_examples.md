@@ -1,3 +1,13 @@
+Show `origin` URL of a git repository
+
+    git remote get-url origin 
+
+Change `origin` URL of a git repository
+
+    git remote set-url origin <new_git_upstream_url>
+
+---
+
 Copy file between the phone and the computer
 
 phone `->` PC
