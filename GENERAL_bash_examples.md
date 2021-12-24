@@ -14,6 +14,18 @@ phone `->` PC
 
     adb pull /storage/extSdCard/buffer.txt /tmp/buffer.txt
     
+  copying multiple files using a wildcard from phone to PC
+  
+    adb shell "ls /storage/extSdCard/DCIM/Camera/20211224_0*" | tr -d '\r' | xargs -n1 adb pull
+  
+  or
+  
+    adb shell "ls /storage/extSdCard/DCIM/Camera/20211224_0*" | tr '\r' ' ' | xargs -n1 adb pull
+    
+  Sources:
+  - https://stackoverflow.com/questions/11074671/adb-pull-multiple-files/11250068#11250068
+  - https://stackoverflow.com/questions/11074671/adb-pull-multiple-files/37122195#37122195
+    
 PC `->` phone
     
     adb push /tmp/buffer.txt /storage/extSdCard/buffer.txt
