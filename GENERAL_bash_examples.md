@@ -8,27 +8,36 @@ Change `origin` URL of a git repository
 
 ---
 
-Copy file between the phone and the computer
+- Copy file between the phone and the computer
 
-phone `->` PC
+    - phone `->` PC
 
-    adb pull /storage/extSdCard/buffer.txt /tmp/buffer.txt
+        - copy file
+
+                adb pull /storage/extSdCard/buffer.txt /tmp/buffer.txt
     
-  copying multiple files using a wildcard from phone to PC
+        - copy multiple files using a wildcard from phone to PC
   
-    adb shell "ls /storage/extSdCard/DCIM/Camera/20211224_0*" | tr -d '\r' | xargs -n1 adb pull
+                adb shell "ls /storage/extSdCard/DCIM/Camera/20211224_0*" | tr -d '\r' | xargs -n1 adb pull
+
+            or
   
-  or
-  
-    adb shell "ls /storage/extSdCard/DCIM/Camera/20211224_0*" | tr '\r' ' ' | xargs -n1 adb pull
+                adb shell "ls /storage/extSdCard/DCIM/Camera/20211224_0*" | tr '\r' ' ' | xargs -n1 adb pull
+                
+            - Sources:
+                - https://stackoverflow.com/questions/11074671/adb-pull-multiple-files/11250068#11250068
+                - https://stackoverflow.com/questions/11074671/adb-pull-multiple-files/37122195#37122195
+                
+        - copy a directory recursively, i.e. with all files in the subdirectories
+
+                adb pull /storage/sdcard0/Locus/mapsVector/europe/. .
+
+            Source: https://android.stackexchange.com/questions/87326/recursive-adb-pull/87327#87327
     
-  Sources:
-  - https://stackoverflow.com/questions/11074671/adb-pull-multiple-files/11250068#11250068
-  - https://stackoverflow.com/questions/11074671/adb-pull-multiple-files/37122195#37122195
+    -PC `->` phone
     
-PC `->` phone
-    
-    adb push /tmp/buffer.txt /storage/extSdCard/buffer.txt
+        adb push /tmp/buffer.txt /storage/extSdCard/buffer.txt
+        adb push Locus/. /storage/sdcard0/
     
 ---
 
