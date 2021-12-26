@@ -1,3 +1,11 @@
+Unmount all partitions of a device
+
+    cat /proc/partitions | grep /dev/sdX | rev | cut -d' ' -f1 | rev | grep -v "/dev/sdX$" | xargs -I % sh -c 'sudo umount /dev/%'
+
+Source: Use of xargs commands in Linux - https://www.programmerall.com/article/54662124051/
+
+---
+
 Show `origin` URL of a git repository
 
     git remote get-url origin 
