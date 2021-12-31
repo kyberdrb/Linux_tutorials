@@ -100,7 +100,6 @@ The resulting file will be approximately 3-4x smaller than the original file wit
 
 ## Cut
 
-        ffmpeg -ss "11:23:16.000" -to "11:53:28.000" -i /full/path/to/file.ogg /full/path/to/cut_file.ogg
         ffmpeg -i media_file.mkv -ss "00:05:18.000" -c copy -avoid_negative_ts 1 -to "01:03:40.000" -async 1 media_file-cut.mkv
         
 - `-avoid_negative_ts 1` argument is there to prevent error when working with Matroska `mkv` files.
