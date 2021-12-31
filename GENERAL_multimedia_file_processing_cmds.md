@@ -2,43 +2,56 @@
 
         MEDIA_URL=youtube/soundcloud/vimeo/etc.
         
-        # List formats for audio/video
+### Download audio/video
+        
+List formats for audio/video
+
         youtube-dl --verbose --list-formats $MEDIA_URL
         
-        # Download specified audio/video format
+Download specified audio/video format
+
         youtube-dl --verbose --format <format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        
-        # Download private YouTube video
-        # install 'cookies.txt' extension (Chromium); log in to the Google Account when the access to the video is allowed only for specified users; open the link to the private YouTube video; click the 'cookies.txt' extension icon and in the top part of the output click on 'To download cookies for this tab click here'.
-        
-        youtube-dl --cookies ~/Downloads/cookies-youtube-private_videos.txt --verbose --format 248+251 --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" https://www.youtube.com/watch?v=ghHe1bN3mi0
-        
-        https://daveparrish.net/posts/2018-06-22-How-to-download-private-YouTube-videos-with-youtube-dl.html
-        
-        # List subtitiles
+
+### Download subtitles
+
+... when available.
+
+List subtitiles
+
         youtube-dl --verbose --list-sub $MEDIA_URL
         
-        # Download subtitles
+Download auto-generated subtitles (YouTube)
+
         youtube-dl --verbose --write-auto-sub --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
         youtube-dl --verbose --write-auto-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --write-auto-sub --sub-lang en-US --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        
+`--write-auto-sub` option can be used only for Youtube videos, according to the man page of `youtube-dl`.
+        
+Download explicitely written subtitles
+
         youtube-dl --verbose --write-sub --sub-lang <language> --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        youtube-dl --verbose --write-sub --sub-lang <language> --skip-download $MEDIA_URL
-        
-        youtube-dl --verbose --write-auto-sub --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        youtube-dl --verbose --write-auto-sub --sub-lang en --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
-        
+        youtube-dl --verbose --write-sub --sub-lang en --skip-download --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --write-sub --sub-lang <language> --skip-download $MEDIA_URL        
+
 * https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl
 * https://askubuntu.com/questions/948516/how-do-i-download-with-youtube-dl-to-get-video-title-as-filename/948531#948531
         
-`--write-auto-sub` option can be used only for Youtube videos, according to the man page.
-
-To convert subtitles to a plain text file from YouTube and copy it to clipboard, you can use command:
+To convert explicitely written subtitles to a plain text file from YouTube and copy it to clipboard, you can use command:
 
     cat <youtube_subtitle_file> | sed '1,4d' |  sed '/-->/d' | sed '/^$/d' | tr -s "\n" " " | xclip -selection clipboard
     
 or for auto-generated YouTube subtitles use:
 
     cat <youtube_subtitle_file> | sed '1,4d' |  sed '/-->/d' | sed -e '/<c>/d' | sed '/^\s*$/d' | uniq | tr -s '\n' ' ' | xclip -selection clipboard
+    
+### Download private YouTube video
+
+Install 'cookies.txt' extension (Chrome/Chromium); log in to the Google Account when the access to the video is allowed only for specified users; open the link to the private YouTube video; click the 'cookies.txt' extension icon and in the top part of the output click on 'To download cookies for this tab click here'.
+        
+        youtube-dl --cookies ~/Downloads/cookies-youtube-private_videos.txt --verbose --format 248+251 --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" https://www.youtube.com/watch?v=ghHe1bN3mi0
+        
+        https://daveparrish.net/posts/2018-06-22-How-to-download-private-YouTube-videos-with-youtube-dl.html
 
 ## Merge
 
@@ -88,6 +101,17 @@ The resulting file will be approximately 3-4x smaller than the original file wit
 ## Cut
 
         ffmpeg -ss "11:23:16.000" -to "11:53:28.000" -i /full/path/to/file.ogg /full/path/to/cut_file.ogg
+        ffmpeg -i media_file.mkv -ss "00:05:18.000" -c copy -avoid_negative_ts 1 -to "01:03:40.000" -async 1 media_file-cut.mkv
+        
+- `-avoid_negative_ts 1` argument is there to prevent error when working with Matroska `mkv` files.
+- The order of the commands matters. When the commands are not in this exact order/placement (in between the input and output file?), the trimming might end up inaccurate.
+
+- Sources
+    - https://duckduckgo.com/?q=ffmpeg+cut+trim+video+by+time&ia=web
+    - https://www.joyoshare.com/video-cutting/ffmpeg-trim-cut-video.html
+    - "Fix some first seconds freeze, **the order of command parameter is matter**." [emphasis mine] - https://cheatortrick.blogspot.com/2019/05/ffmpeg-4-crop-flac.html
+    - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/58059148#58059148
+    - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/18449609#18449609
 
 ## Batch convert
 
