@@ -1,3 +1,11 @@
+Convert PDF to PNG image
+
+    pdftoppm -png -rx 300 -ry 300 screenshot.pdf screenshot-image
+
+Source: https://hands-on.cloud/how-to-convert-pdf-to-png-images-and-back-in-linux/
+
+---
+
 Unmount all partitions of a device
 
     cat /proc/partitions | grep /dev/sdX | rev | cut -d' ' -f1 | rev | grep -v "/dev/sdX$" | xargs -I % sh -c 'sudo umount /dev/%'
