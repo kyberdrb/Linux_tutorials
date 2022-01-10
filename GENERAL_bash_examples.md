@@ -21,6 +21,8 @@ Show `origin` URL of a git repository
 Change `origin` URL of a git repository
 
     git remote set-url origin <new_git_upstream_url>
+    
+Source: https://duckduckgo.com/?q=git+set+remote+origin+url&ia=web
 
 ---
 
