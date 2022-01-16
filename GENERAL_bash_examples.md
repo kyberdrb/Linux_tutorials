@@ -1,3 +1,15 @@
+Check file checksum
+
+... and compare the expected checksum with the actual one.
+
+    test "1cd27bb6560855427bc92260a3313c84" = "$(md5sum /run/media/laptop/DELL_BIOS/Latitude_E5x70_Precision_3510_1.29.4.exe | tr -s '[:blank:]' ' ' | cut -d ' ' -f1)" || echo $? && echo $?
+
+    test "5aca1e59e194adfbf446a2b4daf247667204b861" = "$(sha1sum /run/media/laptop/DELL_BIOS/Latitude_E5x70_Precision_3510_1.29.4.exe | tr -s '[:blank:]' ' ' | cut -d ' ' -f1)" || echo $? && echo $?
+
+    test "bcee0cf466f41414aea19c08e96a2ff9659b0cb9223fcbecd30336e0e2a726da" = "$(sha256sum /run/media/laptop/DELL_BIOS/Latitude_E5x70_Precision_3510_1.29.4.exe | tr -s '[:blank:]' ' ' | cut -d ' ' -f1)" || echo $? && echo $?
+
+---
+
 Convert PDF to PNG image
 
     pdftoppm -png -rx 300 -ry 300 screenshot.pdf screenshot-image
