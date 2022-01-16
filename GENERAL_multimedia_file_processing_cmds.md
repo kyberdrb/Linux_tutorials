@@ -49,18 +49,40 @@ or for auto-generated YouTube subtitles use:
 
 Install 'cookies.txt' extension (Chrome/Chromium); log in to the Google Account when the access to the video is allowed only for specified users; open the link to the private YouTube video; click the 'cookies.txt' extension icon and in the top part of the output click on 'To download cookies for this tab click here'.
         
-        youtube-dl --cookies ~/Downloads/cookies-youtube-private_videos.txt --verbose --format 248+251 --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" https://www.youtube.com/watch?v=ghHe1bN3mi0
+    youtube-dl --cookies ~/Downloads/cookies-youtube-private_videos.txt --verbose --format 248+251 --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" https://www.youtube.com/watch?v=ghHe1bN3mi0
         
-        https://daveparrish.net/posts/2018-06-22-How-to-download-private-YouTube-videos-with-youtube-dl.html
+- https://daveparrish.net/posts/2018-06-22-How-to-download-private-YouTube-videos-with-youtube-dl.html
 
 ## Merge
 
+### Merge audio and video file
+
 Merge audio and video file to a single file
 
-        ffmpeg -i video_without_audio.mp4 -i audio_without_video.m4a -c copy video_with_audio-merged.mp4
+    ffmpeg -i video_without_audio.mp4 -i audio_without_video.m4a -c copy video_with_audio-merged.mp4
 
 * https://gist.github.com/aik099/69f221d100b87cb29f4fb6c29d72838e#file-vimeo-downloader-js-L40
 * https://stackoverflow.com/questions/38379412/what-does-copy-do-in-a-ffmpeg-command-line/38381173#38381173
+
+### Merge multiple video files already containing audio
+
+1. Sort downloaded videos by download time from oldest to newest
+  
+        ls -1 -t sarah_cokova900_* | tac | sed 's/^/file /g' > sarah_cokova_playlist.txt
+
+1. Concatenate videos together. If one command doesn't produce a video that you're satisfied with, try different ones.
+
+        ffmpeg -f concat -i sarah_cokova_playlist.txt -c copy sarah_cokova_profile_story-2021_01_16.mp4
+
+        ffmpeg -f concat -safe 0 -i sarah_cokova_playlist.txt -c copy sarah_cokova_profile_story-2021_01_16.mp4
+
+        ffmpeg -safe 0 -f concat -segment_time_metadata 1 -i sarah_cokova_playlist.txt -vf select=concatdec_select -af aselect=concatdec_select,aresample=async=1 sarah_cokova_profile_story-2021_01_16.mp4
+        
+- https://filme.imyfone.com/video-editing-tips/how-to-merge-or-combine-videos-using-ffmpeg/
+- https://blog.feurious.com/concatenate-videos-together-using-ffmpeg
+- https://duckduckgo.com/?q=ffmpeg+this+may+result+in+incorrect+timestamps+in+the+output+file&ia=web
+- https://stackoverflow.com/questions/53021266/non-monotonous-dts-in-output-stream-previous-current-changing-to-this-may-result#53021506
+- https://duckduckgo.com/?q=ffmpeg+safe+0&ia=web
 
 ## Convert
 
