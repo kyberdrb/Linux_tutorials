@@ -1,3 +1,20 @@
+Split PDF by pages
+
+    pdfseparate -f 1 -l 5 input.pdf output-page%d.pdf
+
+- `-f number` - Specifies the first page to extract. If -f is omitted, extraction starts with page 1.
+- `-l number` - Specifies the last page to extract. If -l is omitted, extraction ends with the last page.
+
+If the separated PDF files have the same size as the original PDF file, preprocess the original PDF with command
+
+    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=doc-compressed.pdf doc.pdf 
+
+Sources:
+- https://superuser.com/questions/345086/split-pdf-document-from-command-line-in-linux/1034450#1034450
+- https://superuser.com/questions/1321515/splitting-pdf-files-using-pdfseparate-poppler#comment2160189_1321515
+
+---
+
 Check file checksum
 
 ... and compare the expected checksum with the actual one.
