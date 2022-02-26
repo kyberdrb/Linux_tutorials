@@ -15,6 +15,15 @@ Sources:
 
 ---
 
+Unite PDF files
+
+    pdfunite output-page1.pdf output-page2.pdf output-page3.pdf final-pages1-3.pdf
+
+Sources:
+- https://superuser.com/questions/345086/split-pdf-document-from-command-line-in-linux/1034450#1034450
+
+---
+
 Check file checksum
 
 ... and compare the expected checksum with the actual one.
