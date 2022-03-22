@@ -148,11 +148,50 @@ or it ignores them altogether
 
 ## Integrate chapters for a video
 
-Extract Metadata From Video
+Extract base metadata from the video
 
         ffmpeg -i INPUT.mp4 -f ffmetadata FFMETADATAFILE.txt
+        
+        # Exmple of a metadata file without chapters
+        $ cat FFMETADATAFILE.txt
+        
+        ;FFMETADATA1
+        major_brand=isom
+        minor_version=512
+        compatible_brands=isomiso2avc1mp41
+        encoder=Lavf59.16.100
 
 Create chapter file. Example of a chapter file:
+
+        $ cat chapters.metadata
+
+        [CHAPTER]
+        TIMEBASE=1/1000
+        START=1
+        END=448000
+        title=The Pledge
+
+        [CHAPTER]
+        TIMEBASE=1/1000
+        START=448001
+        END= 3883999
+        title=The Turn
+
+        [CHAPTER]
+        TIMEBASE=1/1000
+        START=3884000
+        END=4418000
+        title= The Prestige
+        
+Create complete metadata file by concatenating the base metadata with the chapter metadata
+
+        cat FFMETADATAFILE.txt chapters.metadata | head --lines=-1 > FFMETADATAFILE.metadata_with_chapters
+        
+        ;FFMETADATA1
+        major_brand=isom
+        minor_version=512
+        compatible_brands=isomiso2avc1mp41
+        encoder=Lavf59.16.100
 
         [CHAPTER]
         TIMEBASE=1/1000
@@ -174,6 +213,11 @@ Create chapter file. Example of a chapter file:
 
 Write Metadata To Video
 
-        ffmpeg -i INPUT.mp4 -i FFMETADATAFILE.txt -map_metadata 1 -codec copy OUTPUT.mp4
+        ffmpeg -i INPUT.mp4 -i FFMETADATAFILE.metadata_with_chapters -map_metadata 1 -map_chapters 1 -codec copy OUTPUT.mp4
+        
+Verify chapter integration
+        
+        vlc OUTPUT.mp4 &
+        mpv OUTPUT.mp4 &
 
 * https://ikyle.me/blog/2020/add-mp4-chapters-ffmpeg
