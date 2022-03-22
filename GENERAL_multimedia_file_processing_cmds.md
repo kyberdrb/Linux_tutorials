@@ -210,6 +210,8 @@ Create complete metadata file by concatenating the base metadata with the chapte
         START=3884000
         END=4418000
         title= The Prestige
+        
+See https://github.com/kyberdrb/Linux_tutorials/blob/master/GENERAL_add_chapters_into_mp4_video_file/chapters_metadata.txt for another example file with complete metadata with chapters.
 
 Write Metadata To Video
 
