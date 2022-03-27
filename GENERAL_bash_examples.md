@@ -1,3 +1,19 @@
+Find biggest files and directories
+
+recursively in the entire filesystem
+
+    find / -exec sh -c 'du -s "{}"' \; 2>/dev/null | sort --numeric-sort --reverse > ~/files_sorted_by_size_from_biggest.txt
+    
+non-recursively/shallowly/specifically only files (and directories as a summary size) in a given directory
+
+    find /home/laptop/.cache -maxdepth 1 -exec sh -c 'du -s "{}"' \; | sort --numeric-sort --reverse
+    
+Find number of files in a directory
+
+    find /home/laptop/backup-sony_xa1/Phone -maxdepth 1 -exec sh -c 'printf "%s;;;;;;;;;;;; " "{}" && find "{}" | wc -l' \; | sort
+
+---
+
 Split PDF by pages
 
     pdfseparate -f 1 -l 5 input.pdf output-page%d.pdf
