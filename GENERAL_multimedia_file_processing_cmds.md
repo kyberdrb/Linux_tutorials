@@ -10,7 +10,15 @@ List formats for audio/video
         
 Download specified audio/video format
 
-        youtube-dl --verbose --format <format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --format <audio_video_format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        
+        youtube-dl --verbose --format <audio_only_format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        youtube-dl --verbose --format <video_only_format> --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" $MEDIA_URL
+        
+or download multiple formats - useful for separated audio and video streams
+
+        youtube-dl --verbose --format FORMAT_CODE_FOR_AUDIO,FORMAT_CODE_FOR_VIDEO --output "%(title)s-%(extractor)s-%(id)s.%(ext)s"
+        youtube-dl --verbose --format FORMAT_CODE_1,FORMAT_CODE_2,...,FORMAT_CODE_N --output "%(title)s-%(extractor)s-%(id)s.%(ext)s"
 
 ### Download subtitles
 
