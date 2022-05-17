@@ -128,11 +128,29 @@ The resulting file will be approximately 3-4x smaller than the original file wit
 * https://unix.stackexchange.com/questions/105821/audible-drm-removal-for-personal-use/408053#408053
 * https://ffmpeg.org/ffmpeg-codecs.html#toc-Encoders
 
-## Cut
+## Cut/Trim
 
-        ffmpeg -i media_file.mkv -ss "00:05:18.000" -c copy -avoid_negative_ts 1 -to "01:03:40.000" -async 1 media_file-cut.mkv
+### Fast Cut (faster, but sometimes inaccurate)
+
+        $ ffmpeg -ss 00:23:23.000 -to 00:25:41.000 -i input_video.mp4 -codec copy -avoid_negative_ts 1 -async 1 output_video-COARSE.mp4
+        $ mv output_video-COARSE.mp4 output_video.mp4
+
+Previously I used:
+
+        $ ffmpeg -i media_file.mkv -ss "00:05:18.000" -c copy -avoid_negative_ts 1 -to "01:03:40.000" -async 1 media_file-cut.mkv
         
+but now I found out that specifying the `-ss` option enables output seeking, which might be less accurate and cause freezing at start for approximately 1 second.
+
+### Accurate Cut (slower, but more accurate)
+
+        $ ffmpeg -ss 00:23:23.000 -to 00:25:41.000 -i input_video.mp4 -c copy -avoid_negative_ts 1 -async 1 output_video-COARSE.mp4
+        $ ffmpeg -ss 00:00:02.080 -i output_video-COARSE.mp4 -codec:v h264 -codec:a aac -avoid_negative_ts 1 -async 1 output_video-ACCURATE.mp4
+        $ mv output_video-ACCURATE.mp4 output_video.mp4
+
+### Notes
+
 - `-avoid_negative_ts 1` argument is there to prevent error when working with Matroska `mkv` files.
+- `-async 1` argument synchronizes audio with video
 - The order of the commands matters. When the commands are not in this exact order/placement (in between the input and output file?), the trimming might end up inaccurate.
 
 - Sources
@@ -141,6 +159,20 @@ The resulting file will be approximately 3-4x smaller than the original file wit
     - "Fix some first seconds freeze, **the order of command parameter is matter**." [emphasis mine] - https://cheatortrick.blogspot.com/2019/05/ffmpeg-4-crop-flac.html
     - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/58059148#58059148
     - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/18449609#18449609
+    - https://video.stackexchange.com/questions/16516/ffmpeg-first-second-of-cut-video-part-freezed
+    - https://video.stackexchange.com/questions/16516/ffmpeg-first-second-of-cut-video-part-freezed/16640#16640
+    - https://trac.ffmpeg.org/wiki/Seeking
+    - https://duckduckgo.com/?q=ffmpeg+async+1&ia=web
+    - https://ffmpeg.org/ffmpeg.html#toc-Advanced-options
+    - https://duckduckgo.com/?q=ffmpeg+order+of+parameters&ia=web&iax=qa
+    - https://superuser.com/questions/1370461/what-are-ffmpeg-video-audio-stream-parameters-in-order#1370484
+    - https://duckduckgo.com/?q=ffmpeg+ss+not+accurate+copy&ia=web
+    - https://superuser.com/questions/1129396/ffmpeg-ss-t-seeking-output-is-not-accurate-any-workarounds#1131129
+    - https://duckduckgo.com/?q=ffmpeg+list+codect&ia=web
+    - https://stackoverflow.com/questions/3377300/what-are-all-codecs-and-formats-supported-by-ffmpeg#3377312
+    - https://duckduckgo.com/?q=specify+codec+ffmpeg&ia=web
+    - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg
+    - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/42827058#42827058
 
 ## Batch convert
 
