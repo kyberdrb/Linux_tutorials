@@ -144,6 +144,11 @@ but now I found out that specifying the `-ss` option enables output seeking, whi
 ### Accurate Cut (slower, but more accurate)
 
         $ ffmpeg -ss 00:23:23.000 -to 00:25:41.000 -i input_video.mp4 -c copy -avoid_negative_ts 1 -async 1 output_video-COARSE.mp4
+
+maybe add one second to the `-ss` option in the command for 'ACCURATE' video output to trim the coarsely trimmed video exactly?
+
+calculate the time difference between 'COARSE' and desired start time for `-ss` option  with formula `1/25 * number_of_frames_to_desired_start_time` where `1` is one second, `25` is number of frames per second that the video had been encoded, `1/25` is duration of one frame, and the entire result is the total duration of all frames between current and desired beginning frame. You can count the frames manually by opening the 'COARSE' video in `mpv` player and pressing the dot key `.` to go forward by one frme - or comma key `,` for going backwards by one frame - and counting number of frames in your head until you reach the frame that you want the final video to start with.
+
         $ ffmpeg -ss 00:00:02.080 -i output_video-COARSE.mp4 -codec:v h264 -codec:a aac -avoid_negative_ts 1 -async 1 output_video-ACCURATE.mp4
         $ mv output_video-ACCURATE.mp4 output_video.mp4
 
