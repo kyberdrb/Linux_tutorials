@@ -1,3 +1,11 @@
+Delete an entry from history
+
+    history -d 616
+   
+Source: `history --help`
+
+---
+
 Find biggest files and directories
 
 recursively in the entire filesystem
