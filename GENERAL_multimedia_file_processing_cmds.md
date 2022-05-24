@@ -67,7 +67,7 @@ Install 'cookies.txt' extension (Chrome/Chromium); log in to the Google Account 
 
 Merge audio and video file to a single file
 
-    ffmpeg -i video_without_audio.mp4 -i audio_without_video.m4a -c copy video_with_audio-merged.mp4
+    ffmpeg -i video_without_audio.mp4 -i audio_without_video.m4a -codec copy -avoid_negative_ts 1 -async 1 video_with_audio-merged.mp4
 
 * https://gist.github.com/aik099/69f221d100b87cb29f4fb6c29d72838e#file-vimeo-downloader-js-L40
 * https://stackoverflow.com/questions/38379412/what-does-copy-do-in-a-ffmpeg-command-line/38381173#38381173
