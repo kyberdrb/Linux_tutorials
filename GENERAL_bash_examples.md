@@ -76,18 +76,6 @@ Source: Use of xargs commands in Linux - https://www.programmerall.com/article/5
 
 ---
 
-Show `origin` URL of a git repository
-
-    git remote get-url origin 
-
-Change `origin` URL of a git repository
-
-    git remote set-url origin <new_git_upstream_url>
-    
-Source: https://duckduckgo.com/?q=git+set+remote+origin+url&ia=web
-
----
-
 - Copy file between the phone and the computer
 
     - phone `->` PC
@@ -200,12 +188,6 @@ Remove known password from a PDF file
     qpdf --password=ENTER_YOUR_PASSWORD_HERE --decrypt ENCRYPTED_FILE.pdf DECRYPTED_FILE.pdf
 
 https://www.cyberciti.biz/faq/removing-password-from-pdf-on-linux/
-
----
-
-Show the upstream URL for a git repository
-
-    cat .git/config | grep url | tr -d '\t' | tr -d ' ' | cut -d'=' -f2 | xclip -se c
 
 ---
 
