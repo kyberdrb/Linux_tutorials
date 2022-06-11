@@ -161,7 +161,7 @@ calculate the time difference between 'COARSE' and desired start time for `-ss` 
 - Sources
     - https://duckduckgo.com/?q=ffmpeg+cut+trim+video+by+time&ia=web
     - https://www.joyoshare.com/video-cutting/ffmpeg-trim-cut-video.html
-    - "Fix some first seconds freeze, **the order of command parameter is matter**." [emphasis mine] - https://cheatortrick.blogspot.com/2019/05/ffmpeg-4-crop-flac.html
+    - "Fix some first seconds freeze, **the order of command parameter does matter**." [emphasis mine] - https://cheatortrick.blogspot.com/2019/05/ffmpeg-4-crop-flac.html
     - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/58059148#58059148
     - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/18449609#18449609
     - https://video.stackexchange.com/questions/16516/ffmpeg-first-second-of-cut-video-part-freezed
