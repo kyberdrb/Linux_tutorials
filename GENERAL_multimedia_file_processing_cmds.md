@@ -132,16 +132,18 @@ The resulting file will be approximately 3-4x smaller than the original file wit
 
 ### Fast Cut (faster, but sometimes inaccurate)
 
-        $ ffmpeg -ss 00:23:23.000 -to 00:25:41.000 -i input_video.mp4 -codec copy -avoid_negative_ts 1 -async 1 output_video-COARSE.mp4
-        $ mv output_video-COARSE.mp4 output_video.mp4
+        $ ffmpeg -ss 00:23:23.000 -to 00:25:41.000 -i input_video.mp4 -codec copy -avoid_negative_ts 1 -async 1 -map_metadata -1 output_video-from_HH_MM_SS_to_HH_MM_SS-COARSE.mp4
+        $ mv output_video-from_HH_MM_SS_to_HH_MM_SS-COARSE.mp4 output_video-from_HH_MM_SS_to_HH_MM_SS.mp4
 
 Previously I used:
 
         $ ffmpeg -i media_file.mkv -ss "00:05:18.000" -c copy -avoid_negative_ts 1 -to "01:03:40.000" -async 1 media_file-cut.mkv
         
-but now I found out that specifying the `-ss` option enables output seeking, which might be less accurate and cause freezing at start for approximately 1 second.
+but now I found out that specifying the `-ss` option enables output seeking, which might be less accurate and cause freezing at start for approximately 1 second. Therefore I use the 'Input Seeking' with `-ss` to fix the freezing at the start.
 
 ### Accurate Cut (slower, but more accurate)
+
+... bit still bearable when first doing coarse cut, and then accurate cut on the coarsely cut media file.
 
         $ ffmpeg -ss 00:23:23.000 -to 00:25:41.000 -i input_video.mp4 -c copy -avoid_negative_ts 1 -async 1 output_video-COARSE.mp4
 
@@ -149,14 +151,19 @@ maybe add one second to the `-ss` option in the command for 'ACCURATE' video out
 
 calculate the time difference between 'COARSE' and desired start time for `-ss` option  with formula `1/25 * number_of_frames_to_desired_start_time` where `1` is one second, `25` is number of frames per second that the video had been encoded, `1/25` is duration of one frame, and the entire result is the total duration of all frames between current and desired beginning frame. You can count the frames manually by opening the 'COARSE' video in `mpv` player and pressing the dot key `.` to go forward by one frme - or comma key `,` for going backwards by one frame - and counting number of frames in your head until you reach the frame that you want the final video to start with.
 
-        $ ffmpeg -ss 00:00:02.080 -i output_video-COARSE.mp4 -codec:v h264 -codec:a aac -avoid_negative_ts 1 -async 1 output_video-ACCURATE.mp4
-        $ mv output_video-ACCURATE.mp4 output_video.mp4
+        $ ffmpeg -ss 00:00:02.080 -i output_video-COARSE.mp4 -codec:video h264 -codec:audio aac -avoid_negative_ts 1 -async 1 -map_metadata -1 output_video-from_HH_MM_SS_to_HH_MM_SS-ACCURATE.mp4
+        $ output_video-from_HH_MM_SS_to_HH_MM_SS-ACCURATE.mp4 output_video-from_HH_MM_SS_to_HH_MM_SS.mp4
 
 ### Notes
 
-- `-avoid_negative_ts 1` argument is there to prevent error when working with Matroska `mkv` files.
+- `-ss` argument right after `ffmpeg` command fixes the one-second-freeze when starting playing the media file
+- `-avoid_negative_ts 1` argument is there to prevent error when working with Matroska `mkv` files
 - `-async 1` argument synchronizes audio with video
-- The order of the commands matters. When the commands are not in this exact order/placement (in between the input and output file?), the trimming might end up inaccurate.
+- `-map_metadata -1` argument strips the metadata to fix buggy seeking and media file length
+
+Manually specifying codecs with `-codec` flag will reencode the entire input media file with specified codecs, which is slower but assures that the output file will be cut more accurately.
+
+The order of the commands matters. When the commands are not in this exact order/placement (in between the input and output file?), the trimming might end up inaccurate.
 
 - Sources
     - https://duckduckgo.com/?q=ffmpeg+cut+trim+video+by+time&ia=web
@@ -167,6 +174,7 @@ calculate the time difference between 'COARSE' and desired start time for `-ss` 
     - https://video.stackexchange.com/questions/16516/ffmpeg-first-second-of-cut-video-part-freezed
     - https://video.stackexchange.com/questions/16516/ffmpeg-first-second-of-cut-video-part-freezed/16640#16640
     - https://trac.ffmpeg.org/wiki/Seeking
+        - **using 'Input seeking' - `-ss` flag right after `ffmpeg` command**
     - https://duckduckgo.com/?q=ffmpeg+async+1&ia=web
     - https://ffmpeg.org/ffmpeg.html#toc-Advanced-options
     - https://duckduckgo.com/?q=ffmpeg+order+of+parameters&ia=web&iax=qa
@@ -178,6 +186,11 @@ calculate the time difference between 'COARSE' and desired start time for `-ss` 
     - https://duckduckgo.com/?q=specify+codec+ffmpeg&ia=web
     - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg
     - https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg/42827058#42827058
+    - https://duckduckgo.com/?q=ffmpeg+remove+metadata&ia=web
+        - stripping metadata fixes buggy seeking and total media file length in the output file
+    - https://superuser.com/questions/441361/strip-metadata-from-all-formats-with-ffmpeg
+    - https://superuser.com/questions/441361/strip-metadata-from-all-formats-with-ffmpeg/979186#979186
+    - https://superuser.com/questions/441361/strip-metadata-from-all-formats-with-ffmpeg/428039#428039
 
 ## Batch convert
 
