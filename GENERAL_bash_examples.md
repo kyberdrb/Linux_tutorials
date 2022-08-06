@@ -19,6 +19,18 @@ non-recursively/shallowly/specifically only files (and directories as a summary 
 Find number of files in a directory
 
     find /home/laptop/backup-sony_xa1/Phone -maxdepth 1 -exec sh -c 'printf "%s;;;;;;;;;;;; " "{}" && find "{}" | wc -l' \; | sort
+    
+Show all files in a directory, similar to `--group-directories-first` in `ls`...:
+    
+    find "/var/cache/pacman/pkg/" -mindepth 1 -maxdepth 1 -printf "%y: %p\n" | sort | less
+    
+or for script usage...
+    
+    find "/var/cache/pacman/pkg/" -mindepth 1 -maxdepth 1 -printf "%y:%p\n" | sort | cut --delimiter=':' --fields=1 --complement | less
+    
+... and `ls` equivalent
+
+    ls --color=auto --group-directories-first -1 "/var/cache/pacman/pkg/" | less
 
 ---
 
