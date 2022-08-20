@@ -1,3 +1,10 @@
+Quick arithmetics in terminal without `bc`
+
+    python -c "print(0.77 / 0.125)"
+    perl -e "print 0.77 / 0.125"
+
+---
+
 Delete an entry from history
 
     history -d 616
