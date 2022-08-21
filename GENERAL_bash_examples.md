@@ -1,3 +1,12 @@
+Check OS version of Linux-based operating system
+
+    cat /etc/os-release
+
+Source:
+- https://duckduckgo.com/?q=show+os+version+name+linux&ia=web
+
+---
+
 Quick arithmetics in terminal without `bc`
 
     python -c "print(0.77 / 0.125)"
