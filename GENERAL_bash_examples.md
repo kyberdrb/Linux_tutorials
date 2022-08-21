@@ -2,6 +2,10 @@ Quick arithmetics in terminal without `bc`
 
     python -c "print(0.77 / 0.125)"
     perl -e "print 0.77 / 0.125"
+    
+Sources:
+- https://duckduckgo.com/?q=python+one+liner+terminal+execute+command&ia=web
+- https://stackoverflow.com/questions/58730698/how-to-run-one-line-python-command-in-terminal#58730761
 
 ---
 
