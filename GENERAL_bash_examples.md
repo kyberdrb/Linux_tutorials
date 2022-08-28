@@ -1,3 +1,9 @@
+Make a soft/symbolic link - equivalent to a 'shortcut' in Windows
+
+    ln --symbolic --force /path/to/source_file_or_directory link_name_or_/path/to/destination
+
+---
+
 Check OS version of Linux-based operating system
 
     cat /etc/os-release
