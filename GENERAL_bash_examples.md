@@ -1,3 +1,15 @@
+Replace character in line number range in vim
+
+    49,59s/#/ /g
+
+Replace character in line number range in sed
+
+    sed --in-place '1,38s/[0-9]/#/g' <FILE>
+
+Both line number boundaries in both cases are inclusive
+
+---
+
 Make a soft/symbolic link - equivalent to a 'shortcut' in Windows
 
     ln --symbolic --force /path/to/source_file_or_directory link_name_or_/path/to/destination
