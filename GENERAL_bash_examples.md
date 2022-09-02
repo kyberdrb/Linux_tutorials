@@ -1,4 +1,8 @@
-Compress a directory into an archive
+Compress a directory into a single archive
+
+    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on ARCHIVE_NAME.7z /path/to/directory/ && date
+
+Compress a directory into an multi-part archive with each part at most 4GB large
 
     date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on -v4g ARCHIVE_NAME.7z /path/to/directory/ && date
     
