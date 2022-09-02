@@ -1,3 +1,11 @@
+Compress a directory into an archive
+
+    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on -v4g ARCHIVE_NAME.7z /path/to/directory/ && date
+    
+Compression command `7z` is wrapped around with `date` and `time` utilities to measure compression duration.
+
+---
+
 Extract a multi-part archive
 
     find . -mindepth 1 -maxdepth 1 -type f -name "Lehrmaterialien-20220902T063833Z-00*" | sort | xargs -I {} 7z x "{}"
