@@ -1,3 +1,9 @@
+Extract a multi-part archive
+
+    find . -mindepth 1 -maxdepth 1 -type f -name "Lehrmaterialien-20220902T063833Z-00*" | sort | xargs -I {} 7z x "{}"
+
+---
+
 Replace character in line number range in vim
 
     49,59s/#/ /g
