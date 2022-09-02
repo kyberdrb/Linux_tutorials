@@ -26,6 +26,8 @@ Replace character in line number range in sed
 
 Both line number boundaries in both cases are inclusive
 
+Source: https://stackoverflow.com/questions/36149036/find-and-replace-text-in-a-file-between-range-of-lines-using-sed/59265882#59265882
+
 ---
 
 Make a soft/symbolic link - equivalent to a 'shortcut' in Windows
