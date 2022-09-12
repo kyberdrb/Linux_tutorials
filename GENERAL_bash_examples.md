@@ -1,3 +1,21 @@
+Complete information about disks and partitions
+
+    lsblk --output KNAME,PATH,TYPE,TRAN,FSTYPE,FSVER,UUID,SIZE,FSUSED,FSAVAIL,MOUNTPOINT,MODEL,SERIAL,STATE,ROTA
+
+---
+
+Show disk model
+
+    lsblk --output NAME,KNAME,PKNAME,TYPE,MOUNTPOINT,MODEL,SERIAL
+
+---
+
+Pass output of terminal to VSCodium
+
+    lsblk --output-all | vscodium -
+
+---
+
 Compress a directory into a single archive
 
     date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on ARCHIVE_NAME.7z /path/to/directory/ && date
