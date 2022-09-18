@@ -2,6 +2,9 @@ Complete information about disks and partitions
 
     lsblk --output KNAME,PATH,TYPE,TRAN,FSTYPE,FSVER,UUID,SIZE,FSUSED,FSAVAIL,MOUNTPOINT,MODEL,SERIAL,STATE,ROTA
 
+- https://duckduckgo.com/?q=linux+terminal+detailed+ssd+info&ia=web
+- https://www.golinuxcloud.com/check-disk-type-linux/
+
 ---
 
 Show disk model
