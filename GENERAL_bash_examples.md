@@ -1,6 +1,8 @@
 Complete information about disks and partitions
 
-    lsblk --output KNAME,PATH,TYPE,TRAN,FSTYPE,FSVER,UUID,SIZE,FSUSED,FSAVAIL,MOUNTPOINT,MODEL,SERIAL,STATE,ROTA
+    lsblk --output KNAME,PATH,TYPE,TRAN,FSTYPE,FSVER,UUID,SIZE,FSUSED,FSAVAIL,MOUNTPOINT,MODEL,SERIAL,STATE,ROTA,DISC-GRAN,DISC-MAX
+    
+The two columns `DISC-GRAN` and `DISC-MAX` come from `lsblk --discard` command and are used to check whether an SSD drive supports TRIM, for which the TRIM trimer service is recommended to be enabled to prolong the longevity of the SSD drive and to preserve the speeds for as long as possible.
 
 - https://duckduckgo.com/?q=linux+terminal+detailed+ssd+info&ia=web
 - https://www.golinuxcloud.com/check-disk-type-linux/
