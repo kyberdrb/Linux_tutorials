@@ -9,7 +9,7 @@ Case-sensitive replace in `vim`
     - `!` enables Shell command execution
     - `sed --in-place` edits the file directly
     - `'s/gparted/shredos/` replaces all occurences of `gparted` with `shredos` in a case-sensitive fashion...
-    - `/g` ... in entire file
+    - `/g'` ... in entire file
     - `"%"` passes the currently opened file for editing with `sed`
 
 ---
