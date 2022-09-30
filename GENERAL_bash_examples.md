@@ -1,3 +1,19 @@
+Case-sensitive replace in `vim`
+
+1. Go to the `cmdline` by pressing `:` when in normal mode or `Esc` and then `:` when in edit mode.
+1. Enter command
+
+        !sed --in-place 's/gparted/shredos/g' "%"
+        
+    where
+    - `!` enables Shell command execution
+    - `sed --in-place` edits the file directly
+    - `'s/gparted/shredos/` replaces all occurences of `gparted` with `shredos` in a case-sensitive fashion...
+    - `/g` ... in entire file
+    - `"%"` passes the currently opened file for editing with `sed`
+
+---
+
 Complete information about disks and partitions
 
     lsblk --output KNAME,PATH,TYPE,TRAN,FSTYPE,FSVER,UUID,SIZE,FSUSED,FSAVAIL,MOUNTPOINT,MODEL,SERIAL,STATE,ROTA,DISC-GRAN,DISC-MAX
