@@ -1,6 +1,6 @@
 Case-sensitive replace in `vim`
 
-1. Go to the `cmdline` by pressing `:` when in normal mode or `Esc` and then `:` when in edit mode.
+1. Go to the `cmdline` by pressing `:` when in normal mode or `Esc` (sometimes 2x `Esc`) and then `:` when in edit mode.
 1. Enter command
 
         !sed --in-place 's/gparted/shredos/g' "%"
