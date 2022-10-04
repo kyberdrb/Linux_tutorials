@@ -1,3 +1,50 @@
+Check disk for bad blocks / bad sectors
+
+    sudo badblocks /dev/sda -v > "${HOME}/badblocks.txt"
+    
+Instruct filesystem to avoid these blocks
+
+- for ext2/3/4
+
+        sudo e2fsck -l badsectors.txt /dev/sda10
+        
+- for other filesystems
+
+        sudo fsck -l badsectors.txt /dev/sda10
+    
+- https://duckduckgo.com/?q=disk+with+bad+blocks+linux&ia=web
+- https://www.tecmint.com/check-linux-hard-disk-bad-sectors-bad-blocks/
+- https://duckduckgo.com/?q=check+drive+for+bad+sectors+linux&ia=web
+- https://askubuntu.com/questions/241944/how-to-fix-the-hard-drive-bad-sector
+
+---
+
+Check filesystem for errors
+
+works best when run from live distro for all partitions on the disk
+
+    sudo fsck -As
+    
+- `-A` checks all filesystems
+- `-s` moves to the next filesystem noninteractively
+
+- https://duckduckgo.com/?q=fsck+examples&ia=web
+- https://www.thegeekstuff.com/2012/08/fsck-command-examples/
+- https://duckduckgo.com/?q=fsck+entire+drive&ia=web
+
+---
+
+Check HDD/SSD S.M.A.R.T. status
+
+    sudo smartctl --smart=on /dev/sda
+
+- https://duckduckgo.com/?q=linux+smart+status+hdd&ia=web
+- https://www.osradar.com/check-hdd-health-on-linux/
+- https://blog.doenselmann.com/festplatten-unter-linux-mit-smart-pruefen/
+- https://linuxconfig.org/how-to-check-an-hard-drive-health-from-the-command-line-using-smartctl
+
+---
+
 TRIM SSD
 
     fstrim --fstab
@@ -10,6 +57,7 @@ or
 - https://github.com/kyberdrb/arch_linux_installation_guide/blob/master/README.md
 - https://duckduckgo.com/?q=linux+run+trim+fstrim+manually&ia=web
 - https://kb.plugable.com/data-storage/trim-an-ssd-in-linux
+- https://askubuntu.com/questions/1242796/how-to-run-fstrim-a-regularly-automatically
 
 ---
 
