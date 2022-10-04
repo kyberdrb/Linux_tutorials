@@ -1,3 +1,18 @@
+TRIM SSD
+
+    fstrim --fstab
+
+or
+
+    /usr/bin/fstrim --listed-in /etc/fstab:/proc/self/mountinfo --verbose --quiet-unsupported
+    
+- `systemctl cat fstrim.service`
+- https://github.com/kyberdrb/arch_linux_installation_guide/blob/master/README.md
+- https://duckduckgo.com/?q=linux+run+trim+fstrim+manually&ia=web
+- https://kb.plugable.com/data-storage/trim-an-ssd-in-linux
+
+---
+
 Case-sensitive replace in `vim`
 
 1. Go to the `cmdline` by pressing `:` when in normal mode or `Esc` and then `:` when in edit mode, or 2x `Esc` and then `:` when in Visual Line mode
