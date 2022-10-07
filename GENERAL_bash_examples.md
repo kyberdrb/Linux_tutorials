@@ -1,3 +1,18 @@
+Export XML for QEMU VM
+
+    virsh --connect qemu:///system dumpxml Windows_10_Pro_2004.546_x64_LITE > Windows_10_Pro_2004.546_x64_LITE.xml
+
+Import XML for QEMU VM
+
+    virsh --connect qemu:///system define Windows_10_Pro_2004.546_x64_LITE.xml
+
+The contents of the included directories `qemu/nvram` and `images/` need to be copied to the directory `/var/lib/libvirt/`
+
+- https://duckduckgo.com/?q=export+xml+from+qemu+vm&ia=web
+- https://unixlikeresearch.blogspot.com/2012/08/how-to-export-virtual-machine.html
+
+---
+
 Check disk for bad blocks / bad sectors
 
     sudo badblocks /dev/sda -v > "${HOME}/badblocks.txt"
