@@ -76,15 +76,19 @@ Merge audio and video file to a single file
 
 1. Sort downloaded videos by download time from oldest to newest
   
-        ls -1 -t sarah_cokova900_* | tac | sed 's/^/file /g' > sarah_cokova_playlist.txt
+        find . -name "*.m4v" | sed 's/^/file /g' > video_list.txt
+  
+    or
+  
+        ls -1 -t file_common_prefix_* | tac | sed 's/^/file /g' > video_list.txt
 
 1. Concatenate videos together. If one command doesn't produce a video that you're satisfied with, try different ones.
 
-        ffmpeg -f concat -i sarah_cokova_playlist.txt -c copy sarah_cokova_profile_story-2021_01_16.mp4
+        ffmpeg -f concat -i video_list.txt -c copy resulting_output_video.mp4
 
-        ffmpeg -f concat -safe 0 -i sarah_cokova_playlist.txt -c copy sarah_cokova_profile_story-2021_01_16.mp4
+        ffmpeg -f concat -safe 0 -i video_list.txt -c copy resulting_output_video.mp4
 
-        ffmpeg -safe 0 -f concat -segment_time_metadata 1 -i sarah_cokova_playlist.txt -vf select=concatdec_select -af aselect=concatdec_select,aresample=async=1 sarah_cokova_profile_story-2021_01_16.mp4
+        ffmpeg -safe 0 -f concat -segment_time_metadata 1 -i video_list.txt -vf select=concatdec_select -af aselect=concatdec_select,aresample=async=1 resulting_output_video.mp4
         
 - https://filme.imyfone.com/video-editing-tips/how-to-merge-or-combine-videos-using-ffmpeg/
 - https://blog.feurious.com/concatenate-videos-together-using-ffmpeg
