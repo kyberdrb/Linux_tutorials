@@ -389,7 +389,7 @@ Verify chapter integration
 
         find . -maxdepth 1 -name "*.m4v" | sed 's/^/file /g' | sort > stuzkova_video_list.txt
 
-    Example contents
+    [Example contents:](res/stuzkova_video_list.txt)
 
         cat stuzkova_video_list.txt
 
@@ -442,6 +442,8 @@ Verify chapter integration
         ffmpeg -i stuzkova_dvd_1.m4v -f ffmetadata stuzkova_dvd_1.m4v.metadata.txt
         ffmpeg -i stuzkova_dvd_2.m4v -f ffmetadata stuzkova_dvd_2.m4v.metadata.txt
 
+    Example files for [metadata for DVD 1](res/stuzkova_dvd_1.m4v.metadata.txt) and [DVD2](res/stuzkova_dvd_2.m4v.metadata.txt)
+
 1. Create a spreadsheet file. We will use it to recalculate chapter time for the second DVD video.
 
 1. Find out the length of the first video in milliseconds
@@ -459,18 +461,17 @@ Verify chapter integration
 
 1. Open the metadata text file for the second DVD video `stuzkova_dvd_2.m4v.metadata.txt`, select everything `Ctrl + A`, copy it and paste it to the spreadsheet.
 
-1. In the spreadsheet file, shift chapter metadata from the second video forward for the length of the first video, i.e. add to all start and end chapter times the length of the second video, to make timestamps valid and accurate after the merge of the video. See the example spreadsheet file for illustration.
+1. In the spreadsheet file, shift chapter metadata from the second video forward for the length of the first video, i.e. add to all start and end chapter times the length of the second video, to make timestamps valid and accurate after the merge of the video. See the [example spreadsheet](res/chapter_times_recalculation_for_second_video.ods) file for illustration.
+
+    - https://duckduckgo.com/?q=concatenate+cells+string+calc&ia=web
+    - https://www.ablebits.com/office-addins-blog/excel-concatenate-strings-cells-columns/
 
 1. Duplicate the metadata file for the first video and rename the file `stuzkova.m4v.metadata.txt`
 
 1. Add the metadata for second DVD video with recalculated chapter times to the metadata file `stuzkova.m4v.metadata.txt` for completeness.
 
+    [Example file](res/stuzkova.m4v.metadata.txt) of merged original metadata from DVD 1 and shifted metadata for DVD2
+
 1. Integrate final metadata into the concatenated video
 
         ffmpeg -i stuzkova.mkv -i stuzkova.m4v.metadata.txt -map_metadata 1 -map_chapters 1 -codec copy stuzkova-WITH_CHAPTERS.mkv
-
-- Unassigned Sources
-    - https://duckduckgo.com/?q=grep+multiple+strings&ia=web
-    - https://phoenixnap.com/kb/grep-multiple-strings
-    - https://duckduckgo.com/?q=concatenate+cells+string+calc&ia=web
-    - https://www.ablebits.com/office-addins-blog/excel-concatenate-strings-cells-columns/
