@@ -286,11 +286,13 @@ Verify chapter integration
 
 * https://ikyle.me/blog/2020/add-mp4-chapters-ffmpeg
 
+---
+
 ## How convert 2 DVDs to one multimedia file with chapter marks and metadata
 
-## Windows part - ISO maker: `dd`, DVD ripper: `Handbrake`
+### **Video extraction part** a.k.a. **The Windows part** - ISO maker: `dd`, DVD ripper: `Handbrake`
 
-### [OPTIONAL - RECOMMENDED] The cloning part
+#### [OPTIONAL - RECOMMENDED] The cloning part
 
 1. Make an ISO from the DVDs. When something goes wrong, ripping from local ISO files is much faster than from the DVD itself. Install `Git` in order to get `Git Bash`.
 
@@ -306,7 +308,7 @@ Verify chapter integration
 1. [Optional] Upload both images to cloud as a backup
 1. Mount both ISO images. Now we will proceed to the ripping part.
 
-### The ripping part
+#### The ripping part
 
 1. Install `Handbrake`.
 
@@ -381,7 +383,7 @@ Verify chapter integration
 1. Test the rips by playing them in some media player, e.g. `VLC`. Check
 1. Copy the rips to a shared storage, e.g. USB drive, copy it to a Linux machine and continue with metadata extraction, video concatenation, chapter times processing and metadata integration.
 
-## Linux part - multimedia utility: `ffmpeg`, spreadsheet editor: `Calc`, text editor: `VSCodium`
+### **Video postprocessing part** a.k.a. **The Linux part** - multimedia utility: `ffmpeg`, spreadsheet editor: `Calc`, text editor: `VSCodium`
 
 1. Concatenate the two video multimedia files together. I assume that they are in the same directory.
 
