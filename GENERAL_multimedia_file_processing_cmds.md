@@ -288,7 +288,7 @@ Verify chapter integration
 
 ## How convert 2 DVDs to one multimedia file with chapter marks and metadata
 
-## Windows part
+## Windows part - ISO maker: `dd`, DVD ripper: `Handbrake`
 
 ### [OPTIONAL - RECOMMENDED] The cloning part
 
