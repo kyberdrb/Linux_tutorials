@@ -285,3 +285,192 @@ Verify chapter integration
         mpv OUTPUT.mp4 &
 
 * https://ikyle.me/blog/2020/add-mp4-chapters-ffmpeg
+
+## How convert 2 DVDs to one multimedia file with chapter marks and metadata
+
+## Windows part
+
+### [OPTIONAL - RECOMMENDED] The cloning part
+
+1. Make an ISO from the DVDs. When something goes wrong, ripping from local ISO files is much faster than from the DVD itself. Install `Git` in order to get `Git Bash`.
+
+1. Open `Git Bash` and enter command
+
+        dd if=/dev/sr0 of=/c/Users/${USER}/Downloads/stuzkova_dvd_1.iso
+
+    to make an ISO image from the DVD. For the second DVD, use different name to avoid overwriting e.g. `stuzkova_dvd_2.iso`
+
+    - https://duckduckgo.com/?q=linux+cd+to+iso&ia=web
+    - https://www.addictivetips.com/ubuntu-linux-tips/cd-rom-to-iso-linux/
+
+1. [Optional] Upload both images to cloud as a backup
+1. Mount both ISO images. Now we will proceed to the ripping part.
+
+### The ripping part
+
+1. Install `Handbrake`.
+
+    - https://duckduckgo.com/?q=convert+dvd+iso+to+mp4+linux&ia=web
+
+1. Before running Hanbrake, install its dependency .NET CORE **DESKTOP** Runtime from
+
+    > https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
+    Look for section `.NET Desktop Runtime 6.0.9` `>` row `Windows` `>` column `Installers` `>` `x64` link
+
+    Verify installation in PowerShell/Command Prompt with command
+
+        dotnet --info
+
+    Example output
+
+    ```
+    machine@DESKTOP-VD391FO MINGW64 ~
+    $ dotnet --info
+
+    global.json file:
+    Not found
+
+    Host:
+    Version:      6.0.9
+    Architecture: x64
+    Commit:       163a63591c
+
+    .NET SDKs installed:
+    No SDKs were found.
+
+    .NET runtimes installed:
+    Microsoft.NETCore.App 6.0.9 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+    Microsoft.WindowsDesktop.App 6.0.9 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+
+    Download .NET:
+    https://aka.ms/dotnet-download
+
+    Learn about .NET Runtimes and SDKs:
+    https://aka.ms/dotnet/runtimes-sdk-info
+    ```
+
+    - https://duckduckgo.com/?q=handbrake+to+run+this+application+you+must+install&ia=web
+    - https://github.com/HandBrake/HandBrake/issues/4145#issuecomment-1055770896
+
+1. Open `Handbrake` and select the mounted DVD 1 as a source.
+1. Rip the DVD 1 with following settings. If you're not sure, which settings to use, open `VLC` media player, click on `Media > Open Disc`, select the mounted disk, and press `Play`, then `Pause` the video, right click on the displazed video, and from the context menu choose `Tools > Codec information`
+    - Preset: Fast 576p25
+    - Audio:
+        - AAC (avcodec)
+        - Bitrate: 320kbps
+        - Mixdown: Stereo
+        - Samplerate: Auto
+    - Video:
+        - Video Encoder:
+            - **MPEG-2** - **PREFERRED** - the original video format on the DVD, in order to preserve as much information as possible and minimize conversions and transcoding; bigger output file size, shorter conversion
+                - Constant Quality: `30` set by the slider
+            - H.264 - smaller output file size, longer conversion
+        - Cropping: Custom: `0` from all sides
+    - Chapters: all checked
+    - Summary
+        - Align A/V start
+        - Passthru common metadata
+
+    In the `Save As` line edit the path to, e.g. `C:\Users\<USERNAME>\Downloads\stuzkova_dvd_1.m4v`
+
+    Press `Start Encoding` button in the top menu bar.
+
+    Then Rip of DVD 2 with the same preset and settings. Mount the ISO for the second DVD, open it by clicking on `Open Source` in the top menu bar, edit the output file name to `stuzkova_dvd_2.m4v`, and then **either** click on `Add to Queue`, when the first DVD is still being converted, **or** on `Start Encoding` when there are no active encoding tasks.
+
+1. Test the rips by playing them in some media player, e.g. `VLC`. Check
+1. Copy the rips to a shared storage, e.g. USB drive, copy it to a Linux machine and continue with metadata extraction, video concatenation, chapter times processing and metadata integration.
+
+## Linux part - multimedia utility: `ffmpeg`, spreadsheet editor: `Calc`, text editor: `VSCodium`
+
+1. Concatenate the two video multimedia files together. I assume that they are in the same directory.
+
+    First create the list of the multimedia files
+
+        find . -maxdepth 1 -name "*.m4v" | sed 's/^/file /g' | sort > stuzkova_video_list.txt
+
+    Example contents
+
+        cat stuzkova_video_list.txt
+
+    ```
+    file ./stuzkova_dvd_1.m4v
+    file ./stuzkova_dvd_2.m4v
+    ```
+
+    Then pass the video list to the ffmpeg
+
+        ffmpeg -f concat -safe 0 -i stuzkova_video_list.txt -codec copy stuzkova.mkv
+
+    - https://duckduckgo.com/?q=ffmpeg+concat+Unsupported+audio+codec+aac&ia=web
+    - https://stackoverflow.com/questions/61740522/ffmpeg-he-aac-unsupported-codec-despite-being-compiled-with-support
+
+    When you choose the `mkv` format for compatibility reasons, because when I named the output file with the extension `m4v` as originally, I got an error
+    
+    ```
+    [ipod @ 0x555ea5db7ec0] Tag mp4v incompatible with output codec id '2' ([0][0][0][0])
+    Could not write header for output file #0 (incorrect codec parameters ?): Invalid data found when processing input
+    Error initializing output stream 0:1 --
+    ```
+    
+    and when I changed the extension to `mpg` I got another error
+
+    ```
+    [mpeg @ 0x55b5edcd9ec0] Unsupported audio codec. Must be one of mp1, mp2, mp3, 16-bit pcm_dvd, pcm_s16be, ac3 or dts.
+    Could not write header for output file #0 (incorrect codec parameters ?): Invalid argument
+    Error initializing output stream 0:1 --
+    ```
+
+    _or you can try other options that produce less quality output files... but why bother - left here only for reference_
+
+        ffmpeg -f concat -safe 0 -i stuzkova_video_list.txt -codec copy -f mpegts stuzkova.mpg
+
+        ffmpeg -f concat -safe 0 -segment_time_metadata 1 -i stuzkova_video_list.txt -vf select=concatdec_select -af aselect=concatdec_select,aresample=async=1 -codec:a aac -f mpegts stuzkova.mpg
+
+        # fixing A/V desync and split second freeze at start, therefore ommiting '-codec copy' and adding time sync because
+        Filtergraph 'select=concatdec_select' was defined for video output stream 0:0 but codec copy was selected.
+        Filtering and streamcopy cannot be used together.
+
+    `-codec copy` copies all the streams without reencoding which makes the concatenation faster.
+
+    - https://stackoverflow.com/questions/61740522/ffmpeg-he-aac-unsupported-codec-despite-being-compiled-with-support#comment109270643_61742550
+        - explicitly defining the output format with option `-f mpegts`
+    - `man ffmpeg` - then search for `-codec copy`
+
+1. Extract metadata from videos for both DVDs
+
+        ffmpeg -i stuzkova_dvd_1.m4v -f ffmetadata stuzkova_dvd_1.m4v.metadata.txt
+        ffmpeg -i stuzkova_dvd_2.m4v -f ffmetadata stuzkova_dvd_2.m4v.metadata.txt
+
+1. Create a spreadsheet file. We will use it to recalculate chapter time for the second DVD video.
+
+1. Find out the length of the first video in milliseconds
+
+    ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 stuzkova_dvd_1.m4v | tr --delete '.' | cut --characters=1-7
+
+    - https://duckduckgo.com/?q=ffmpeg+get+video+length&ia=web&iax=qa
+    - https://superuser.com/questions/650291/how-to-get-video-duration-in-seconds#945604
+
+    Then paste the length of the first video to the spreadsheet.
+
+1. Open the metadata text file for the first DVD video `stuzkova_dvd_1.m4v.metadata.txt` and check the number of the last chapter - assuming the chapters are numbered and numbers go consecutively.
+
+    Then paste the number of the last chapter from the first video to the spreadsheet.
+
+1. Open the metadata text file for the second DVD video `stuzkova_dvd_2.m4v.metadata.txt`, select everything `Ctrl + A`, copy it and paste it to the spreadsheet.
+
+1. In the spreadsheet file, shift chapter metadata from the second video forward for the length of the first video, i.e. add to all start and end chapter times the length of the second video, to make timestamps valid and accurate after the merge of the video. See the example spreadsheet file for illustration.
+
+1. Duplicate the metadata file for the first video and rename the file `stuzkova.m4v.metadata.txt`
+
+1. Add the metadata for second DVD video with recalculated chapter times to the metadata file `stuzkova.m4v.metadata.txt` for completeness.
+
+1. Integrate final metadata into the concatenated video
+
+    ffmpeg -i stuzkova.mkv -i stuzkova.m4v.metadata.txt -map_metadata 1 -map_chapters 1 -codec copy stuzkova-WITH_CHAPTERS.mkv
+
+- Unassigned Sources
+    - https://duckduckgo.com/?q=grep+multiple+strings&ia=web
+    - https://phoenixnap.com/kb/grep-multiple-strings
+    - https://duckduckgo.com/?q=concatenate+cells+string+calc&ia=web
+    - https://www.ablebits.com/office-addins-blog/excel-concatenate-strings-cells-columns/
