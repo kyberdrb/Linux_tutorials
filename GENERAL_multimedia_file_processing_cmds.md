@@ -446,7 +446,7 @@ Verify chapter integration
 
 1. Find out the length of the first video in milliseconds
 
-    ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 stuzkova_dvd_1.m4v | tr --delete '.' | cut --characters=1-7
+        ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 stuzkova_dvd_1.m4v | tr --delete '.' | cut --characters=1-7
 
     - https://duckduckgo.com/?q=ffmpeg+get+video+length&ia=web&iax=qa
     - https://superuser.com/questions/650291/how-to-get-video-duration-in-seconds#945604
@@ -467,7 +467,7 @@ Verify chapter integration
 
 1. Integrate final metadata into the concatenated video
 
-    ffmpeg -i stuzkova.mkv -i stuzkova.m4v.metadata.txt -map_metadata 1 -map_chapters 1 -codec copy stuzkova-WITH_CHAPTERS.mkv
+        ffmpeg -i stuzkova.mkv -i stuzkova.m4v.metadata.txt -map_metadata 1 -map_chapters 1 -codec copy stuzkova-WITH_CHAPTERS.mkv
 
 - Unassigned Sources
     - https://duckduckgo.com/?q=grep+multiple+strings&ia=web
