@@ -1,3 +1,9 @@
+Touch screen on Android phone from Terminal
+
+    adb shell input touchscreen tap 620 100
+
+---
+
 Check checksum match of a file.  
 Assuming that the original file and the checksum file are downloaded, and the name of the downloaded file matches the name of the entry in contained in the checksum file.  
 Compatible with any checksum `*sum` utility
