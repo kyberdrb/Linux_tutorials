@@ -1,3 +1,11 @@
+Check checksum match of a file.  
+Assuming that the original file and the checksum file are downloaded, and the name of the downloaded file matches the name of the entry in contained in the checksum file.  
+Compatible with any checksum `*sum` utility
+
+    md5sum --check ArchLinuxARM-rpi-aarch64-latest.tar.gz.md5
+
+---
+
 Export XML for QEMU VM
 
     virsh --connect qemu:///system dumpxml Windows_10_Pro_2004.546_x64_LITE > Windows_10_Pro_2004.546_x64_LITE.xml
