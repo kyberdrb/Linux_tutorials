@@ -199,7 +199,7 @@ Find biggest files and directories
 
 recursively in the entire filesystem
 
-    find / -exec sh -c 'du -s "{}"' \; 2>/dev/null | sort --numeric-sort --reverse > ~/files_sorted_by_size_from_biggest.txt
+    date && time find / -mindepth 1 -exec sh -c 'du -s "{}"' \; 2>/dev/null | sort --numeric-sort --reverse > ~/files_sorted_by_size_from_biggest-20221026-3.txt && date
     
 non-recursively/shallowly/specifically only files (and directories as a summary size) in a given directory
 
