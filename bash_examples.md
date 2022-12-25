@@ -1,8 +1,13 @@
+Clean up log files to free up space on the disk. The following command reduces the overall size of log entries for `journalctl` to `10 MB`:
 
+    sudo journalctl --vacuum-size=10M
+    
+- https://duckduckgo.com/?q=systemd+journal+log+cleanup&ia=web
+- https://ma.ttias.be/clear-systemd-journal/
 
 ---
 
-Touch screen on Android phone from Terminal
+Touch screen on Android phone from Terminal:
 
     adb shell input touchscreen tap 620 100
 
