@@ -1,3 +1,7 @@
+
+
+---
+
 Touch screen on Android phone from Terminal
 
     adb shell input touchscreen tap 620 100
@@ -126,6 +130,12 @@ Show disk model
 Pass output of terminal to VSCodium
 
     lsblk --output-all | vscodium -
+
+---
+
+Protect 7z archive with password
+
+    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on "-pMY CUSTOM P@SSW0RD" /path/to/archive.7z /path/to/one/or/more/files/or/directories/ && date
 
 ---
 
