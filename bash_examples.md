@@ -164,8 +164,9 @@ Protect 7z archive with password
 - https://stackoverflow.com/questions/56266563/7z-cli-how-to-pass-a-password-with-whitespaces
 - Windows: 7z with password: https://www.technewstoday.com/password-protect-a-zip-file/
 - https://duckduckgo.com/?q=linux+create+password+rar+archive&ia=web
+- https://www.linux.com/training-tutorials/handling-rar-and-7-zip-archives-linux/
 - https://www.dzhang.com/blog/2018/03/11/using-7-zip-create-aes-256-encrypted-zip-files-command-line
-    - "The default encryption method used by 7-Zip for Zip files, and the only method supported by InfoZip, is ZipCrypto, which is generally pretty terrible." **But it works at least with the built-in archiver on Windows.
+    - "The default encryption method used by 7-Zip for Zip files, and the only method supported by InfoZip, is ZipCrypto, which is generally pretty terrible." **But it's compatible with the built-in archiver on Windows (and maybe Macs).
 - https://www.putorius.net/how-to-create-enrcypted-password.html
     - `7za a -tzip "-pPASSPHRASE" -mem=AES256 secure.zip file1.txt file2.pdf file3.jpg`
         - using `-mem=AES256` instead of the default _ZipCrypto_ algorithm for stronger encryption
@@ -191,7 +192,15 @@ Compression command `7z` is wrapped around with `date` and `time` utilities to m
 
 Extract a multi-part archive
 
+extract directly - saves space; more complicated redistribution:
+
     find . -mindepth 1 -maxdepth 1 -type f -name "Lehrmaterialien-20220902T063833Z-00*" | sort | xargs -I {} 7z x "{}"
+    
+reconstruct (merge/concatenate) one archive from multiple archives - needs as much free space on the disk than the size of the archive; easier redistribution
+
+    cat myfile.7z.001 myfile.7z.002 myfile.7z.003 > myfile.7z
+    
+- https://www.linux.com/training-tutorials/handling-rar-and-7-zip-archives-linux/
 
 ---
 
