@@ -151,7 +151,29 @@ Pass output of terminal to VSCodium
 
 Protect 7z archive with password
 
-    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on "-pMY CUSTOM P@SSW0RD" /path/to/archive.7z /path/to/one/or/more/files/or/directories/ && date
+    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on "-pMY CUSTOM PASSWORD P@SSW0RD" /path/to/archive.7z /path/to/one/or/more/files/or/directories/ && date
+    
+- https://duckduckgo.com/?q=7z+create+archive&ia=web
+- https://duckduckgo.com/?q=terminal+7z+rar+password&ia=web
+- https://stackoverflow.com/questions/28160254/7-zip-command-to-create-and-extract-a-password-protected-zip-file-on-windows/28160425#28160425
+- https://stackoverflow.com/questions/28160254/7-zip-command-to-create-and-extract-a-password-protected-zip-file-on-windows/28160425#28160425
+- https://duckduckgo.com/?q=7z+password+space+whitespace&ia=web
+- https://sourceforge.net/p/sevenzip/discussion/45797/thread/6be2fe8210/
+- https://duckduckgo.com/?q=7z+rar+arch&ia=web
+- https://duckduckgo.com/?q=7z+rar+support+arch+linux&ia=web
+- https://stackoverflow.com/questions/56266563/7z-cli-how-to-pass-a-password-with-whitespaces
+- Windows: 7z with password: https://www.technewstoday.com/password-protect-a-zip-file/
+- https://duckduckgo.com/?q=linux+create+password+rar+archive&ia=web
+- https://www.dzhang.com/blog/2018/03/11/using-7-zip-create-aes-256-encrypted-zip-files-command-line
+    - "The default encryption method used by 7-Zip for Zip files, and the only method supported by InfoZip, is ZipCrypto, which is generally pretty terrible." **But it works at least with the built-in archiver on Windows.
+- https://www.putorius.net/how-to-create-enrcypted-password.html
+    - `7za a -tzip "-pPASSPHRASE" -mem=AES256 secure.zip file1.txt file2.pdf file3.jpg`
+        - using `-mem=AES256` instead of the default _ZipCrypto_ algorithm for stronger encryption
+- https://duckduckgo.com/?q=arch+linux+zip+terminal+password&ia=web
+- https://superuser.com/questions/542837/7-zip-files-on-linux-with-aes-256-encryption#542882
+    - `7za a myfile.zip test.txt -tzip -mem=AES256 -mx9 "-pmypassword"`
+- https://duckduckgo.com/?q=zipcrypto+vs+aes-256&ia=web
+- https://www.putorius.net/how-to-create-enrcypted-password.html
 
 ---
 
