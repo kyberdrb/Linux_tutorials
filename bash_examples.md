@@ -1,3 +1,14 @@
+Copy directory from remote to local computer via SSH/SCP
+
+    scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
+
+- https://duckduckgo.com/?q=scp+example&ia=web&iax=about
+- **https://github.com/tldr-pages/tldr/blob/master/pages/common/scp.md** - **Quick Reference for SCP Commands** - example commands for bidirectional file/directory transfer between SSH client and SSH server
+- https://duckduckgo.com/?q=scp+remote+open+permission+denied&ia=web
+- https://stackoverflow.com/questions/11304895/how-do-i-copy-a-folder-from-remote-to-local-using-scp/11304926#11304926
+
+---
+
 Clean up log files to free up space on the disk. The following command reduces the overall size of log entries for `journalctl` to `10 MB`:
 
     sudo journalctl --vacuum-size=10M
