@@ -244,11 +244,23 @@ Sources:
 
 ---
 
-Delete an entry from history
+Check history status - newest commands first
+
+    history | tac | less
+
+Delete an entry by ID from command `history`
 
     history -d 616
    
 Source: `history --help`
+
+Find entries from command history that match pattern
+
+    grep "node" "$HISTFILE"
+
+Delete multiple entries from command `history` that match pattern
+
+    sed --in-place '/node/d' "$HISTFILE"
 
 ---
 
