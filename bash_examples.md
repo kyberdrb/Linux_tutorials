@@ -151,7 +151,7 @@ Pass output of terminal to VSCodium
 
 Protect 7z archive with password
 
-    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on "-pMY CUSTOM PASSWORD P@SSW0RD" /path/to/archive.7z /path/to/one/or/more/files/or/directories/ && date
+    date && time 7z a -t7z -mx=1 -ms=off -mf=on -mhc=on -mhe=on -m0=lzma2 "-pMY CUSTOM PASSWORD P@SSW0RD" /path/to/archive.7z /path/to/one/or/more/files/or/directories/ && date
     
 - https://duckduckgo.com/?q=7z+create+archive&ia=web
 - https://duckduckgo.com/?q=terminal+7z+rar+password&ia=web
@@ -182,11 +182,21 @@ Compress a directory into a single archive
 
     date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on ARCHIVE_NAME.7z /path/to/directory/ && date
 
-Compress a directory into an multi-part archive with each part at most 4GB large
+Compress a directory into an multi-part/split archive with each part at most 4GB large (to be Terabox friendly for a free user) sorted from strongest compression to quick compression
 
-    date && time 7z a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=64m -ms=on -v4g ARCHIVE_NAME.7z /path/to/directory/ && date
+    date && time 7z a -t7z -mx=9 -ms=on -mf=on -mhc=on -mhe=on -m0=lzma2 -mfb=273 -md=64m -v4g ARCHIVE_NAME.7z /path/to/directory/ && date
+    date && time 7z a -t7z -mx=9 -ms=on -mf=on -mhc=on -mhe=on -m0=lzma2 -v4g ARCHIVE_NAME.7z /path/to/directory/ && date
+    date && time 7z a -t7z -mx=1 -ms=on -mf=on -mhc=on -mhe=on -m0=lzma2 -v4g ARCHIVE_NAME.7z /path/to/directory/ && date
+
+Create a password protected **updateable** archive by turning `solid mode` off
+
+    date && time 7z a -t7z -mx=1 -ms=off -mf=on -mhc=on -mhe=on -m0=lzma2 "-pMY CUSTOM PASSWORD P@SSW0RD" ARCHIVE_NAME.7z /path/to/directory/ && date
     
-Compression command `7z` is wrapped around with `date` and `time` utilities to measure compression duration.
+Update a file in an archive
+
+    7z a ARCHIVE_NAME.7z file.ext
+
+Compression command `7z` is wrapped around with `date` and `time` utilities to measure compression duration to make further planing easier and duration estimates more accurate.
 
 ---
 
