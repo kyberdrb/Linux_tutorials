@@ -1,3 +1,11 @@
+Estimate password strength
+
+    npm install zxcvbn
+
+    node --eval "var zxcvbn = require('zxcvbn'); console.log(zxcvbn('Tr0ub4dour&3'));"
+
+---
+
 Copy directory from remote to local computer via SSH/SCP
 
     scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
