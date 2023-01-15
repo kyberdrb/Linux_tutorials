@@ -1,8 +1,34 @@
+Concatenate all text files in a directory sorted by creation time into one text file
+
+    find . -mindepth 1 -maxdepth 1 -name "*.txt" -printf "%Ts:%p\n" | sort | cut --delimiter=':' --fields=1 --complement | xargs -I % sh -c 'echo "%" && cat "%" >> DNA_ERA_COMPLETE_REPORT_RAW.txt'
+
+- https://duckduckgo.com/?q=find+sort+terminal&ia=web
+- https://www.tecmint.com/find-and-sort-files-modification-date-and-time-in-linux/
+- https://duckduckgo.com/?q=terminal+linux+sort+by+ctime+find+sort&ia=web
+- https://www.tecmint.com/find-and-sort-files-modification-date-and-time-in-linux/
+- https://duckduckgo.com/?q=find+printf+format&ia=web
+- https://unix.stackexchange.com/questions/215234/explanation-of-directives-in-find-printf
+- `man find` - section `-printf format` for explanation of the characters meaning in the formatting string
+    - `%Ts` - creation time as seconds elapsed from epoch
+    - `%p` - filename
+
+---
+
 Estimate password strength
 
     npm install zxcvbn
 
     node --eval "var zxcvbn = require('zxcvbn'); console.log(zxcvbn('Tr0ub4dour&3'));"
+    
+- https://www.strongpasswordgenerator.org/
+- https://onlinetexttools.com/escape-text
+    - test strong password by appending one character at a time to make the password easier debuggable when it consists of special characters like `\`, `$`, `"` or `'`
+- https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash
+- https://duckduckgo.com/?q=password+strength+test&ia=web
+- https://www.security.org/how-secure-is-my-password/
+- https://bitwarden.com/password-strength/
+- https://dropbox.tech/security/zxcvbn-realistic-password-strength-estimation
+- https://github.com/dropbox/zxcvbn#node--npm--meteorjs
 
 ---
 
@@ -159,8 +185,11 @@ Pass output of terminal to VSCodium
 
 Protect 7z archive with password
 
+- **Test the validity of the strong password of the archive, i.e. create a password-protected archive and then verify the password by listing the contents or extracting the archive, by appending one character at a time to make the password easier debuggable when it consists of special characters like `\`, `$`, `"` or `'`, to see which characters need to be escaped.**
+
     date && time 7z a -t7z -mx=1 -ms=off -mf=on -mhc=on -mhe=on -m0=lzma2 "-pMY CUSTOM PASSWORD P@SSW0RD" /path/to/archive.7z /path/to/one/or/more/files/or/directories/ && date
     
+- https://www.strongpasswordgenerator.org/
 - https://duckduckgo.com/?q=7z+create+archive&ia=web
 - https://duckduckgo.com/?q=terminal+7z+rar+password&ia=web
 - https://stackoverflow.com/questions/28160254/7-zip-command-to-create-and-extract-a-password-protected-zip-file-on-windows/28160425#28160425
@@ -183,6 +212,11 @@ Protect 7z archive with password
     - `7za a myfile.zip test.txt -tzip -mem=AES256 -mx9 "-pmypassword"`
 - https://duckduckgo.com/?q=zipcrypto+vs+aes-256&ia=web
 - https://www.putorius.net/how-to-create-enrcypted-password.html
+- https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash
+- https://onlinetexttools.com/escape-text
+- https://duckduckgo.com/?q=7z+zipcrypto&ia=web
+- https://duckduckgo.com/?q=7zaes&ia=web
+- https://askubuntu.com/questions/928275/7z-command-line-with-highest-encryption-aes-256-encrypting-the-filenames/928301#928301
 
 ---
 
@@ -205,6 +239,9 @@ Update a file in an archive
     7z a ARCHIVE_NAME.7z file.ext
 
 Compression command `7z` is wrapped around with `date` and `time` utilities to measure compression duration to make further planing easier and duration estimates more accurate.
+
+- https://duckduckgo.com/?q=7z+multithreading+mode&ia=web
+- https://documentation.help/7-Zip/method.htm
 
 ---
 
@@ -262,6 +299,15 @@ Sources:
 
 ---
 
+Clear node command history
+
+    echo "" > ~/.node_repl_history
+
+- https://duckduckgo.com/?q=clear+node+command+history&ia=web
+- https://stackoverflow.com/questions/33134959/clear-command-history-of-nodejs-repl-console/35016953#35016953
+
+---
+
 Check history status - newest commands first
 
     history | tac | less
@@ -278,7 +324,13 @@ Find entries from command history that match pattern
 
 Delete multiple entries from command `history` that match pattern
 
-    sed --in-place '/node/d' "$HISTFILE"
+    sed --in-place '/node/d' "${HISTFILE}"
+  
+- https://duckduckgo.com/?q=xargs+no+such+file+or+directory&ia=web
+- https://stackoverflow.com/questions/64225337/xargs-i-ls-cannot-access-no-such-file-or-directory
+- https://duckduckgo.com/?q=xargs+%22history%22+no+such+file&ia=web
+- https://www.programmersought.com/article/684610123214/
+- https://stackoverflow.com/questions/32760843/delete-lines-by-pattern-in-specific-range-of-lines/32760970#32760970
 
 ---
 
