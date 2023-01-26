@@ -183,6 +183,18 @@ Pass output of terminal to VSCodium
 
 ---
 
+Verify file integrity by checking checksums of multiple files, standalone archives or split archives (example for `SHA256` algorithm)
+
+    sha256sum --check file_with_checksums_and_filenames.sha256sums
+    
+Example of file `file_with_checksums_and_filenames.sha256sums` - SHA256 checksum and related filename separated by one or more whitespace
+
+    1234abcd file1.txt
+    2468deff file2.ogg
+    3690acea file3.md
+
+---
+
 Protect 7z archive with password
 
 - **Test the validity of the strong password of the archive, i.e. create a password-protected archive and then verify the password by listing the contents or extracting the archive, by appending one character at a time to make the password easier debuggable when it consists of special characters like `\`, `$`, `"` or `'`, to see which characters need to be escaped.**
