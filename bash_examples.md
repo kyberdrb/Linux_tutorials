@@ -1,3 +1,12 @@
+Make white background in an image transparent
+
+    convert picture.png -transparent white picture-transparent_background.png
+    
+- https://duckduckgo.com/?q=linux+set+color+as+transparent+png&ia=web
+- https://stackoverflow.com/questions/9155377/set-transparent-background-using-imagemagick-and-commandline-prompt#11115408
+
+---
+
 Concatenate all text files in a directory sorted by creation time into one text file
 
     find . -mindepth 1 -maxdepth 1 -name "*.txt" -printf "%Ts:%p\n" | sort | cut --delimiter=':' --fields=1 --complement | xargs -I % sh -c 'echo "%" && cat "%" >> DNA_ERA_COMPLETE_REPORT_RAW.txt'
