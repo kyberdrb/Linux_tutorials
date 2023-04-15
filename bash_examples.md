@@ -1,3 +1,13 @@
+Sort files by modification time - recently modified first
+
+    find . -mindepth 1 -maxdepth 1 -type f | xargs stat --format '%Y %y %n' 2>/dev/null | sort --reverse | cut --delimiter=' ' --fields=1 --complement
+
+- https://duckduckgo.com/?q=find+file+latest+modified+terminal&ia=web
+- https://askubuntu.com/questions/411462/show-recent-modified-created-files-using-terminal
+- https://askubuntu.com/questions/411462/show-recent-modified-created-files-using-terminal/411468#411468
+
+---
+
 Make white background in an image transparent
 
     convert picture.png -transparent white picture-transparent_background.png
