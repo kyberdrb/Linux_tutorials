@@ -1,3 +1,20 @@
+debuging upgrading of AUR packages: prettify json query for upgrading AUR package - investigating hints when upgrade fails due to conflicting dependencies or other stuff
+
+```
+curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=audible-activator-git&arg[]=disig-web-signer&arg[]=eclipse-cpp&arg[]=eidklient&arg[]=electron6-bin&arg[]=gnaural&arg[]=gnaural-presets&arg[]=interbench&arg[]=libglade&arg[]=linux-firmware-iwlwifi-git&arg[]=networkmanager-dispatcher-ntpd&arg[]=python-conda&arg[]=python-conda-package-handling&arg[]=python-croniter&arg[]=python-selenium&arg[]=python-trio-websocket&arg[]=python2-bin&arg[]=samsung-unified-driver&arg[]=samsung-unified-driver-common&arg[]=samsung-unified-driver-printer&arg[]=samsung-unified-driver-scanner&arg[]=scalpel-git&arg[]=ttf-vlgothic&arg[]=unixbench&arg[]=vkmark-git" | jq .
+```
+
+or
+
+```
+curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=audible-activator-git&arg[]=disig-web-signer&arg[]=eclipse-cpp&arg[]=eidklient&arg[]=electron6-bin&arg[]=gnaural&arg[]=gnaural-presets&arg[]=interbench&arg[]=libglade&arg[]=linux-firmware-iwlwifi-git&arg[]=networkmanager-dispatcher-ntpd&arg[]=python-conda&arg[]=python-conda-package-handling&arg[]=python-croniter&arg[]=python-selenium&arg[]=python-trio-websocket&arg[]=python2-bin&arg[]=samsung-unified-driver&arg[]=samsung-unified-driver-common&arg[]=samsung-unified-driver-printer&arg[]=samsung-unified-driver-scanner&arg[]=scalpel-git&arg[]=ttf-vlgothic&arg[]=unixbench&arg[]=vkmark-git" | python3 -m json.tool
+```
+
+- https://duckduckgo.com/?q=linux+terminal+prettify+json&ia=web
+- https://itsfoss.com/pretty-print-json-linux/
+
+---
+
 Sort files by modification time - recently modified first
 
     find . -mindepth 1 -maxdepth 1 -type f | xargs stat --format '%Y %y %n' 2>/dev/null | sort --reverse | cut --delimiter=' ' --fields=1 --complement
