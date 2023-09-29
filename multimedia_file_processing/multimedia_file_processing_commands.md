@@ -20,6 +20,9 @@ or download multiple formats - useful for separated audio and video streams
         youtube-dl --verbose --format FORMAT_CODE_FOR_AUDIO,FORMAT_CODE_FOR_VIDEO --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" ${MEDIA_URL}
         youtube-dl --verbose --format FORMAT_CODE_1,FORMAT_CODE_2,...,FORMAT_CODE_N --output "%(title)s-%(extractor)s-%(id)s.%(ext)s" ${MEDIA_URL}
 
+* https://stackoverflow.com/questions/31846530/given-a-mpeg-dash-mpd-url-is-that-possible-to-down-all-media-segments-through
+* https://stackoverflow.com/questions/62447887/how-to-download-mpeg-dash-mpd-file-using-youtube-dl-when-headers-are-requested#62554037
+
 ### Download subtitles
 
 ... when available.
@@ -44,6 +47,7 @@ Download explicitely written subtitles
 
 * https://superuser.com/questions/927523/how-to-download-only-subtitles-of-videos-using-youtube-dl
 * https://askubuntu.com/questions/948516/how-do-i-download-with-youtube-dl-to-get-video-title-as-filename/948531#948531
+* https://duckduckgo.com/?q=youtube-dl+download+mpd+stream&ia=web
         
 To convert explicitely written subtitles to a plain text file from YouTube and copy it to clipboard, you can use command:
 
