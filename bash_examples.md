@@ -1,3 +1,11 @@
+Check disk sizes - for comparison of primary and backup/clone drive sizes
+
+```
+sudo fdisk --list | grep "Disk /" | sed -E 's/Disk (.*):.*, (.*) bytes,.*/\1\t\2/'
+```
+
+---
+
 debuging upgrading of AUR packages: prettify json query for upgrading AUR package - investigating hints when upgrade fails due to conflicting dependencies or other stuff
 
 ```
