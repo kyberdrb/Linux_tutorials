@@ -1,3 +1,13 @@
+Allow `xargs` to handle interactive input, e. g. from keyboard
+
+```
+sudo sst show -ssd | grep SerialNumber | rev | cut --delimiter=' ' --fields=1 | rev | tr -d '[[:space:]]' | xargs --open-tty -I "%" sudo sst load -ssd "%"
+```
+
+- https://www.perplexity.ai/search/here-s-the-command-sudo-sst-sh-liPNirk.S5e_uxLu3uxYrg
+
+---
+
 Check disk sizes - for comparison of primary and backup/clone drive sizes
 
 ```
