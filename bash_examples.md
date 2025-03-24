@@ -1,3 +1,35 @@
+Extract RAR archive
+
+```
+unrar x myfile.rar
+unrar x -p1234 myfile.rar
+```
+
+- https://www.perplexity.ai/search/4fef0bae-2dfd-4e93-b8f3-daf817f67f37
+- https://duckduckgo.com/?t=ffab&q=extract+rar+linux&ia=web&iax=qa
+- https://unix.stackexchange.com/questions/246535/how-to-open-rar-file-in-linux#246537
+- https://duckduckgo.com/?t=ffab&q=linux+rar+password&ia=web&iax=qa
+- https://wiki.archlinux.org/title/7-Zip
+
+---
+
+Make a (PNG) image smaller by scaling down its resolution
+
+```
+magick image.png -resize 1920x\> image_converted.png
+```
+
+Verify
+
+```
+magick identify -verbose image_converted.png
+magick identify -format "%wx%h\n" image_converted.png
+```
+
+https://www.perplexity.ai/search/how-would-you-convert-a-18mb-p-wlsi3pqBRmGj.iI5ngZyIA
+
+---
+
 Allow `xargs` to handle interactive input, e. g. from keyboard
 
 ```
@@ -5,6 +37,8 @@ sudo sst show -ssd | grep SerialNumber | rev | cut --delimiter=' ' --fields=1 | 
 ```
 
 - https://www.perplexity.ai/search/here-s-the-command-sudo-sst-sh-liPNirk.S5e_uxLu3uxYrg
+- https://www.perplexity.ai/search/how-would-you-upgrade-the-firm-95SL7AwRS2OkEVAouIxQVg
+- https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Intel/Solidigm
 
 ---
 
