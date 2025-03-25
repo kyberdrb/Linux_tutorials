@@ -1,3 +1,42 @@
+Process files by `find -exec`
+
+```
+find . -maxdepth 1 -regex ".*file_0.\.png" -exec sh -c 'FILENAME="$(basename "{}")"; FILENAME_WITHOUT_EXTENSION="${FILENAME%.*}"; echo "${FILENAME_WITHOUT_EXTENSION}"; echo "{}"; echo "${FILENAME_WITHOUT_EXTENSION}_fhd.png"; magick "{}" -resize 1080x "$(dirname "{}")/${FILENAME_WITHOUT_EXTENSION}_fhd.png"' \;
+```
+
+- https://github.com/ImageMagick/ImageMagick/discussions/7366
+- https://www.perplexity.ai/search/how-would-you-convert-a-18mb-p-wlsi3pqBRmGj.iI5ngZyIA
+- https://www.perplexity.ai/search/why-this-command-gives-me-bad-qp5Agf9mRtmVo1Bbuq_KMw
+
+Restore order by adjusting files' modification time to sync the filname alphabetic order. Command `touch` must be delayed by one second to generate proper order in file managers and `find mtime` - otherwise, when the files are sorted by modification time, the filenames order doesn't follow the alphabetic order.
+
+```
+find . -maxdepth 1 -regex ".*file_0._fhd\.png" | sort | xargs -I % sh -c 'touch "%"; sleep 1'
+```
+
+---
+
+Sort files by modification time and display it in a table output - 'ls' alternative
+
+```
+find . -printf "%T@\t%y\t%p\n" | awk -F'\t' '{
+    split($1, parts, /\./);
+    printf "%s.%s %s %s\n", strftime("%Y/%m/%d %H:%M:%S", parts[1]), parts[2], $2, $3
+}' | sort --reverse
+```
+
+Example output
+
+```
+2025/03/16 21:54:47.3792008710 f ./file_01.png
+2025/03/16 20:39:51.6774538330 d .
+2025/03/16 15:15:08.4831038960 f ./file_03.png
+```
+
+- https://www.perplexity.ai/search/why-this-command-gives-me-bad-qp5Agf9mRtmVo1Bbuq_KMw
+
+---
+
 Extract RAR archive
 
 ```
